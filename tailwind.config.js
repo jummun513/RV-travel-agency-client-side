@@ -1,20 +1,37 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
 /** @type {import('tailwindcss').Config} */
-
-module.exports = withMT({
+export default {
   content: [
     "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "path-to-your-node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
-    "path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#ffb700',
+        secondary: '#f2af04',
+        accent: '#DFE0DF',
+        highlight: '#402E32',
+        neutral: '#2F4858',
+        'base-100': '#ffffff',
+        'base-900': '#000000',
+        'bg-color': '#FFF8F0'
+      },
       screens: {
+        xxs: '384px',
+        xs: '512px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
         '3xl': '1792px',
+        '4xl': '2048px',
       }
     },
+    daisyui: {
+      themes: [],
+    },
   },
-  plugins: [],
-});
+  plugins: [require("daisyui")],
+}
 

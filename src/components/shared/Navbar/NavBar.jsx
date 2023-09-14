@@ -1,272 +1,200 @@
-import React from "react";
-import {
-    Navbar,
-    Collapse,
-    Typography,
-    Button,
-    Menu,
-    MenuHandler,
-    MenuList,
-    MenuItem,
-    Avatar,
-    Card,
-    IconButton,
-} from "@material-tailwind/react";
-import {
-    CubeTransparentIcon,
-    UserCircleIcon,
-    CodeBracketSquareIcon,
-    Square3Stack3DIcon,
-    ChevronDownIcon,
-    Cog6ToothIcon,
-    InboxArrowDownIcon,
-    LifebuoyIcon,
-    PowerIcon,
-    RocketLaunchIcon,
-    Bars2Icon,
-} from "@heroicons/react/24/outline";
-import logo from '../../../assets/full-logo-for-light.png'
+import logo from '../../../assets/Logo/full-logo-for-light.png';
+import { PiStudent } from 'react-icons/pi';
+import { BsNewspaper, BsPatchQuestion } from 'react-icons/bs';
+import { RiPassportLine, RiVipCrownLine } from 'react-icons/ri';
+import { AiOutlineLogin, AiOutlineMenuUnfold, AiOutlineMenuFold, AiOutlineHome } from 'react-icons/ai';
+import { BiHotel } from 'react-icons/bi';
+import { FcBusinessman } from 'react-icons/fc';
+import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage } from 'react-icons/md';
+import { GrGallery } from 'react-icons/gr';
+import { FaUserTie } from 'react-icons/fa';
+import { TbListDetails } from 'react-icons/tb';
 
-// profile menu component
-const profileMenuItems = [
-    {
-        label: "My Profile",
-        icon: UserCircleIcon,
-    },
-    {
-        label: "Edit Profile",
-        icon: Cog6ToothIcon,
-    },
-    {
-        label: "Inbox",
-        icon: InboxArrowDownIcon,
-    },
-    {
-        label: "Help",
-        icon: LifebuoyIcon,
-    },
-    {
-        label: "Sign Out",
-        icon: PowerIcon,
-    },
-];
-
-function ProfileMenu() {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const closeMenu = () => setIsMenuOpen(false);
-
-    return (
-        <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-            <MenuHandler>
-                <Button
-                    variant="text"
-                    color="blue-gray"
-                    className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-                >
-                    <Avatar
-                        variant="circular"
-                        size="sm"
-                        alt="tania andrew"
-                        className="border border-gray-900 p-0.5"
-                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                    />
-                    <ChevronDownIcon
-                        strokeWidth={2.5}
-                        className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                            }`}
-                    />
-                </Button>
-            </MenuHandler>
-            <MenuList className="p-1">
-                {profileMenuItems.map(({ label, icon }, key) => {
-                    const isLastItem = key === profileMenuItems.length - 1;
-                    return (
-                        <MenuItem
-                            key={label}
-                            onClick={closeMenu}
-                            className={`flex items-center gap-2 rounded ${isLastItem
-                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                                : ""
-                                }`}
-                        >
-                            {React.createElement(icon, {
-                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                                strokeWidth: 2,
-                            })}
-                            <Typography
-                                as="span"
-                                variant="small"
-                                className="font-normal"
-                                color={isLastItem ? "red" : "inherit"}
-                            >
-                                {label}
-                            </Typography>
-                        </MenuItem>
-                    );
-                })}
-            </MenuList>
-        </Menu>
-    );
-}
-
-// nav list menu
-const navListMenuItems = [
-    {
-        title: "@material-tailwind/html",
-        description:
-            "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
-    },
-    {
-        title: "@material-tailwind/react",
-        description:
-            "Learn how to use @material-tailwind/react, packed with rich components for React.",
-    },
-    {
-        title: "Material Tailwind PRO",
-        description:
-            "A complete set of UI Elements for building faster websites in less time.",
-    },
-];
-
-function NavListMenu() {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const renderItems = navListMenuItems.map(({ title, description }) => (
-        <a href="#" key={title}>
-            <MenuItem>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    {title}
-                </Typography>
-                <Typography variant="small" color="gray" className="font-normal">
-                    {description}
-                </Typography>
-            </MenuItem>
-        </a>
-    ));
-
-    return (
-        <React.Fragment>
-            <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
-                <MenuHandler>
-                    <Typography as="a" href="#" variant="small" className="font-normal">
-                        <MenuItem className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full">
-                            <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Pages{" "}
-                            <ChevronDownIcon
-                                strokeWidth={2}
-                                className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-                                    }`}
-                            />
-                        </MenuItem>
-                    </Typography>
-                </MenuHandler>
-                <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-                    <Card
-                        color="blue"
-                        shadow={false}
-                        variant="gradient"
-                        className="col-span-3 grid h-full w-full place-items-center rounded-md"
-                    >
-                        <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-                    </Card>
-                    <ul className="col-span-4 flex w-full flex-col gap-1">
-                        {renderItems}
-                    </ul>
-                </MenuList>
-            </Menu>
-            <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-                <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Pages{" "}
-            </MenuItem>
-            <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-                {renderItems}
-            </ul>
-        </React.Fragment>
-    );
-}
-
-// nav list component
-const navListItems = [
-    {
-        label: "Account",
-        icon: UserCircleIcon,
-    },
-    {
-        label: "Blocks",
-        icon: CubeTransparentIcon,
-    },
-    {
-        label: "Docs",
-        icon: CodeBracketSquareIcon,
-    },
-];
-
-function NavList() {
-    return (
-        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-            <NavListMenu />
-            {navListItems.map(({ label, icon }) => (
-                <Typography
-                    key={label}
-                    as="a"
-                    href="#"
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                >
-                    <MenuItem className="flex items-center gap-2 lg:rounded-full">
-                        {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-                        {label}
-                    </MenuItem>
-                </Typography>
-            ))}
-        </ul>
-    );
-}
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 
 const NavBar = () => {
-    const [isNavOpen, setIsNavOpen] = React.useState(false);
+    const [navToggle, setNavToggle] = useState(false);
+    const user = false;
+    return (
+        <div>
+            <div className={`relative flex items-center justify-between lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xxs xs:max-w-screen-xs sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl`}>
+                <div>
+                    <img className='h-12 lg:h-16 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
+                </div>
+                <div className='hidden xl:flex items-center'>
+                    <NavList></NavList>
+                    <div className='ms-1 xxs:ms-2 sm:ms-3 md:ms-5'>
+                        {
+                            user ? <UserProfile></UserProfile> : <button className="btn btn-xs sm:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold lg:font-bold hover:bg-secondary border-none">Sign In</button>
+                        }
+                    </div>
+                </div>
+                <div className='flex items-center xl:hidden'>
+                    {
+                        user ? <UserProfile></UserProfile> : <button className="btn btn-xs sm:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold lg:font-bold hover:bg-secondary border-none mr-3">Sign In</button>
+                    }
+                    {
+                        navToggle ? <span onClick={() => { setNavToggle(!navToggle) }} className='cursor-pointer me-3 ring-2 ring-gray-400 hover:ring-primary btn bg-transparent text-gray-700 border-none hover:bg-transparent'><AiOutlineMenuUnfold className='h-8 w-8' /></span> : <span onClick={() => { setNavToggle(!navToggle) }} className='cursor-pointer me-3 ring-2 ring-gray-400 hover:ring-primary btn bg-transparent text-gray-700 border-none hover:bg-transparent'><AiOutlineMenuFold className='h-8 w-8' /></span>
+                    }
+                </div>
+                <div className={`xl:hidden absolute top-[74px] right-0 ${navToggle ? 'opacity-100 visible translate-x-0 duration-500 ease-in' : 'hidden opacity-0 invisible translate-x-48 duration-500 ease-in'}`}><SmallNavList></SmallNavList></div>
+            </div>
+        </div>
+    );
+};
 
-    const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+export default NavBar;
 
-    React.useEffect(() => {
-        window.addEventListener(
-            "resize",
-            () => window.innerWidth >= 960 && setIsNavOpen(false),
-        );
-    }, []);
+const navItems = [
+    {
+        label: 'Home',
+        icon: <AiOutlineHome className='h-6 w-6 2xl:h-8 2xl:w-8' />
+    },
+    {
+        label: 'Privileged Guest',
+        icon: <RiVipCrownLine className='h-6 w-6 2xl:h-8 2xl:w-8' />,
+        children: [
+            { label: 'Login', icon: <AiOutlineLogin className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Hotel list', icon: <BiHotel className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'PG Photo Gallery', icon: <GrGallery className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'PG Reviews', icon: <MdRateReview className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+        ],
+    },
+    {
+        label: 'Student Service',
+        icon: <PiStudent className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-7 2xl:w-7' />
+    },
+    {
+        label: 'Immigration Service',
+        icon: <RiPassportLine className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-7 2xl:w-7' />
+    },
+    {
+        label: 'Blog & News',
+        icon: <BsNewspaper className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-7 2xl:w-7' />
+    },
+    {
+        label: 'About Us',
+        icon: <TbListDetails className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-7 2xl:w-7' />,
+        children: [
+            { label: 'Chairman Message', icon: <FcBusinessman className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'CEO Message', icon: <MdOutlineSpeakerNotes className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Who We Are?', icon: <BsPatchQuestion className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Company Profile', icon: <FaUserTie className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+        ],
+    },
+    {
+        label: 'Contact Us',
+        icon: <MdContactPage className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-7 2xl:w-7' />
+    }
+]
+
+
+// large device menu
+const NavList = () => {
+    const [showDropdown, setShowDropdown] = useState({});
+
+    const toggleDropdown = (index) => {
+        setShowDropdown((prevState) => ({
+            ...prevState,
+            [index]: !prevState[index],
+        }));
+    };
 
     return (
         <div>
-            <Navbar className="mx-auto lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl shadow-none">
-                <div className="relative mx-auto flex items-center text-blue-gray-900">
-                    <Typography
-                        as="a"
-                        href="/"
-                        className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-                    >
-                        <img className="h-24 w-auto" src={logo} alt="" />
-                    </Typography>
-                    <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-                        <NavList />
-                    </div>
-                    <IconButton
-                        size="sm"
-                        color="blue-gray"
-                        variant="text"
-                        onClick={toggleIsNavOpen}
-                        className="ml-auto mr-2 lg:hidden"
-                    >
-                        <Bars2Icon className="h-6 w-6" />
-                    </IconButton>
-                    <ProfileMenu />
-                </div>
-                <Collapse open={isNavOpen} className="overflow-scroll">
-                    <NavList />
-                </Collapse>
-            </Navbar>
+            <ul className='flex items-center'>
+                {navItems.map((item, index) => {
+                    if (item.children) {
+                        return (
+                            <div className='relative' key={index}>
+                                <div onClick={() => toggleDropdown(index)} className='flex items-center justify-between btn btn-link no-underline text-gray-950 hover:no-underline'>
+                                    <div className='flex flex-col 3xl:flex-row items-center'>
+                                        <span>{item.icon}</span>
+                                        <span className='xl:mt-2 3xl:ms-2'>{item.label}</span>
+                                    </div>
+                                    {showDropdown[index] ? '▲' : '▼'}
+                                </div>
+                                {showDropdown[index] && (
+                                    <ul className='absolute xl:top-[54px] 2xl:top-[60px] 3xl:top-[76px] -left-10 2xl:-left-0 w-[256px] bg-gray-50 shadow-sm rounded pt-2 pb-5 px-2'>
+                                        {item.children.map((child, childIndex) => (
+                                            <li className='mt-3 group/item' key={childIndex}><NavLink className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary'>{child.label}</span></NavLink></li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <li key={index}>
+                            <NavLink className='btn btn-link no-underline text-gray-950 hover:no-underline'>
+                                <span className='flex flex-col 3xl:flex-row items-center'>
+                                    <span>{item.icon}</span>
+                                    <span className='xl:mt-2 3xl:ms-2'>{item.label}</span>
+                                </span>
+                            </NavLink>
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
 
-export default NavBar;
+
+// small device menu
+const SmallNavList = () => {
+    const [showDropdown, setShowDropdown] = useState({});
+
+    const toggleDropdown = (index) => {
+        setShowDropdown((prevState) => ({
+            ...prevState,
+            [index]: !prevState[index],
+        }));
+    };
+
+    return (
+        <div>
+            <ul className='bg-slate-50 pr-5 rounded-l-sm'>
+                {navItems.map((item, index) => {
+                    if (item.children) {
+                        return (
+                            <div key={index}>
+                                <div onClick={() => toggleDropdown(index)} className='flex items-center justify-between btn btn-link no-underline text-gray-950 hover:no-underline'>
+                                    <div className='flex items-center'>
+                                        <span>{item.icon}</span>
+                                        <span className='ms-2'>{item.label}</span>
+                                    </div>
+                                    {showDropdown[index] ? '▲' : '▼'}
+                                </div>
+                                {showDropdown[index] && (
+                                    <ul className='ms-3'>
+                                        {item.children.map((child, childIndex) => (
+                                            <li className='group/item' key={childIndex}><NavLink className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary'>{child.label}</span></NavLink></li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <li key={index}>
+                            <NavLink className='btn btn-link no-underline text-gray-950 hover:no-underline'>
+                                <span className='flex items-center'>
+                                    <span>{item.icon}</span>
+                                    <span className='ms-2'>{item.label}</span>
+                                </span>
+                            </NavLink>
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    );
+}
+
+
+const UserProfile = () => { }
