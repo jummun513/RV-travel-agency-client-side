@@ -1,4 +1,4 @@
-import logo from '../../../assets/Logo/full-logo-for-light.png';
+import logo from '../../../assets/Logos/full-logo-for-light.png';
 import { PiStudent } from 'react-icons/pi';
 import { BsNewspaper, BsPatchQuestion } from 'react-icons/bs';
 import { RiPassportLine, RiVipCrownLine } from 'react-icons/ri';
@@ -13,7 +13,7 @@ import { ImSwitch } from 'react-icons/im';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
-import userImg from '../../../assets/user.jpg'
+import userImg from '../../../assets/images/user.jpg'
 
 
 const NavBar = () => {
@@ -34,7 +34,7 @@ const NavBar = () => {
     })
 
     return (
-        <div className='fixed xl:static w-full bg-slate-50'>
+        <div className='fixed z-20 w-full bg-slate-50'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <div>
                     <img className='h-10 xxs:h-14 lg:h-16 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
@@ -70,8 +70,8 @@ const NavBar = () => {
                         }
                     </div>
                 </div>
-                <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-200 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[100px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
-                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-200 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] 2xl:top-[90px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] 2xl:top-[80px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
+                <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-100 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[50px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
+                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] 2xl:top-[90px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] 2xl:top-[80px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
             </div>
         </div>
     );
@@ -278,8 +278,8 @@ const UserProfile = () => {
                 {userItems.map((item, index) => {
                     const isLastItem = index === userItems.length - 1;
                     return (
-                        <li id='sidebar' className={`mt-2 sm:mt-3 border-b ${isLastItem && 'bg-red-100 w-full text-red-500'}`} key={index}>
-                            <NavLink to={item.href} className={`btn btn-link no-underline hover:no-underline ${isLastItem ? 'text-red-500' : 'text-gray-700 group/nav'}`}>
+                        <li id='sidebar' className={`mt-2 sm:mt-3 border-b ${isLastItem && 'bg-red-50 w-full'}`} key={index}>
+                            <NavLink to={item.href} className={`btn btn-link no-underline hover:no-underline ${isLastItem ? 'text-red-400' : 'text-gray-700 group/nav'}`}>
                                 <span className='flex items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
