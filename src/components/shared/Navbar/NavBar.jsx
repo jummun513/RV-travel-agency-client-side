@@ -3,45 +3,63 @@ import { PiStudent } from 'react-icons/pi';
 import { BsNewspaper, BsPatchQuestion } from 'react-icons/bs';
 import { RiPassportLine, RiVipCrownLine } from 'react-icons/ri';
 import { AiOutlineLogin, AiOutlineMenuUnfold, AiOutlineMenuFold, AiOutlineHome } from 'react-icons/ai';
-import { BiHotel } from 'react-icons/bi';
+import { BiHotel, BiSolidUser } from 'react-icons/bi';
 import { FcBusinessman } from 'react-icons/fc';
-import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage } from 'react-icons/md';
+import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage, MdAdminPanelSettings } from 'react-icons/md';
 import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
-import { TbListDetails } from 'react-icons/tb';
+import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
+import { ImSwitch } from 'react-icons/im';
+
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import './NavBar.css';
+import userImg from '../../../assets/user.jpg'
 
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
-    const user = false;
+    const [profileToggle, setProfileToggle] = useState(false);
+    const user = true;
     return (
         <div className='fixed xl:static w-full bg-slate-50'>
-            <div className={`flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl`}>
+            <div className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <div>
                     <img className='h-10 xxs:h-14 lg:h-16 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </div>
                 <div className='hidden xl:flex items-center'>
                     <NavList></NavList>
-                    <div className='ms-1 xxs:ms-2 xl:ms-2 2xl:ms-5'>
+                    <div className='xl:ms-2 2xl:ms-5'>
                         {
-                            user ? <UserProfile></UserProfile> : <button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button>
+                            user ?
+                                <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
+                                    <div className="xl:w-16 rounded-full ring-2 ring-primary">
+                                        <img src={userImg} alt='User Image' />
+                                    </div>
+                                </div>
+                                :
+                                <button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button>
                         }
                     </div>
                 </div>
                 <div className='flex items-center xl:hidden'>
                     {
-                        user ? <UserProfile></UserProfile> : <button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button>
+                        user ?
+                            <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
+                                <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
+                                    <img src={userImg} alt='User Image' />
+                                </div>
+                            </div>
+                            : <button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button>
                     }
-                    <div onClick={() => { setNavToggle(!navToggle) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
+                    <div onClick={() => { setNavToggle(!navToggle); setProfileToggle(false) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
                         {
                             navToggle ? <AiOutlineMenuUnfold className='h-4 w-4 xxs:h-6 xxs:w-6 lg:h-8 lg:w-8' /> : <AiOutlineMenuFold className='h-4 w-4 xxs:h-6 xxs:w-6 lg:h-8 lg:w-8' />
                         }
                     </div>
                 </div>
-                <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-300 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[250px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
+                <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-200 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[100px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
+                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-200 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] 2xl:top-[90px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] 2xl:top-[80px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
             </div>
         </div>
     );
@@ -117,7 +135,7 @@ const NavList = () => {
                     if (item.children) {
                         return (
                             <div className='relative' key={index}>
-                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link no-underline text-gray-950 hover:no-underline'>
+                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex flex-col 3xl:flex-row items-center'>
                                         <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                         <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -127,7 +145,7 @@ const NavList = () => {
                                 {showDropdown[index] && (
                                     <ul className='absolute xl:top-[54px] 2xl:top-[60px] 3xl:top-[76px] -left-10 2xl:-left-5 w-[256px] bg-gray-50 shadow-sm rounded pt-2 pb-5 px-2'>
                                         {item.children.map((child, childIndex) => (
-                                            <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary'>{child.label}</span></NavLink></li>
+                                            <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                         ))}
                                     </ul>
                                 )}
@@ -137,7 +155,7 @@ const NavList = () => {
 
                     return (
                         <li id='sidebar' key={index}>
-                            <NavLink to={item.href} className='group/nav btn btn-link no-underline text-gray-950 hover:no-underline'>
+                            <NavLink to={item.href} className='group/nav btn btn-link no-underline text-gray-700 hover:no-underline'>
                                 <span className='flex flex-col 3xl:flex-row items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -170,7 +188,7 @@ const SmallNavList = () => {
                     if (item.children) {
                         return (
                             <div key={index}>
-                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between mt-3 btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'>
+                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between mt-3 btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex items-center'>
                                         <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                         <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -180,7 +198,7 @@ const SmallNavList = () => {
                                 {showDropdown[index] && (
                                     <ul className='ms-4'>
                                         {item.children.map((child, childIndex) => (
-                                            <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-500'>{child.label}</span></NavLink></li>
+                                            <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                         ))}
                                     </ul>
                                 )}
@@ -190,7 +208,7 @@ const SmallNavList = () => {
 
                     return (
                         <li id='sidebar' key={index}>
-                            <NavLink to={item.href} className='group/nav btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline mt-3'>
+                            <NavLink to={item.href} className='group/nav btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-700 hover:no-underline mt-3'>
                                 <span className='flex items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -205,5 +223,49 @@ const SmallNavList = () => {
 }
 
 
+// User controlled item
+const userItems = [
+    {
+        label: 'Admin Panel',
+        href: '/admin-panel',
+        icon: <MdAdminPanelSettings className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
+    },
+    {
+        label: 'My Profile',
+        href: '/my-profile',
+        icon: <BiSolidUser className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
+    },
+    {
+        label: 'DashBoard',
+        href: '/dashboard',
+        icon: <TbLayoutDashboard className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
+    },
+    {
+        label: 'Sign Out',
+        href: '/login',
+        icon: <ImSwitch className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
+    },
+]
+
 // if user login show user profile
-const UserProfile = () => { }
+const UserProfile = () => {
+    return (
+        <div>
+            <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
+                {userItems.map((item, index) => {
+                    const isLastItem = index === userItems.length - 1;
+                    return (
+                        <li id='sidebar' className={`mt-2 sm:mt-3 border-b ${isLastItem && 'bg-red-100 w-full text-red-500'}`} key={index}>
+                            <NavLink to={item.href} className={`btn btn-link no-underline hover:no-underline ${isLastItem ? 'text-red-500' : 'text-gray-700 group/nav'}`}>
+                                <span className='flex items-center'>
+                                    <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                    <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                </span>
+                            </NavLink>
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    );
+}
