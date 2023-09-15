@@ -278,8 +278,8 @@ const UserProfile = () => {
                 {userItems.map((item, index) => {
                     const isLastItem = index === userItems.length - 1;
                     return (
-                        <li id='sidebar' className={`mt-2 sm:mt-3 border-b ${isLastItem && 'bg-red-50 w-full'}`} key={index}>
-                            <NavLink to={item.href} className={`btn btn-link no-underline hover:no-underline ${isLastItem ? 'text-red-400' : 'text-gray-700 group/nav'}`}>
+                        <li id='sidebar' className={`mt-4 sm:mt-5 md:mt-3 border-b ${isLastItem && 'bg-red-50 w-full'}`} key={index}>
+                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline ${isLastItem ? 'text-red-400' : 'text-gray-700 group/nav'}`}>
                                 <span className='flex items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>

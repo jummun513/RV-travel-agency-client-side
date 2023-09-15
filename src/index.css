@@ -8,3 +8,30 @@ body {
   padding: 0;
   scroll-behavior: smooth;
 }
+
+a,
+p,
+button {
+  font-size: 1rem !important;
+  line-height: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+
+  a,
+  p,
+  button {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 512px) {
+
+  a,
+  p,
+  button {
+    font-size: 0.75rem !important;
+    line-height: 1rem;
+  }
+}
