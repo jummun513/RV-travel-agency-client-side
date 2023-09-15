@@ -35,11 +35,11 @@ const NavBar = () => {
 
     return (
         <div className='fixed z-20 w-full bg-slate-50'>
-            <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
+            <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <div>
-                    <img className='h-10 xxs:h-14 lg:h-16 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
+                    <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </div>
-                <div className='hidden xl:flex items-center'>
+                <div className='hidden xl:flex items-top'>
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
@@ -71,7 +71,7 @@ const NavBar = () => {
                     </div>
                 </div>
                 <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-100 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[50px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
-                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] 2xl:top-[90px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] 2xl:top-[80px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
+                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
             </div>
         </div>
     );
@@ -153,12 +153,12 @@ const NavList = () => {
 
     return (
         <div>
-            <ul ref={navbarRef} className='flex items-center'>
+            <ul ref={navbarRef} className='flex items-center xl:pt-3 2xl:pt-2'>
                 {navItems.map((item, index) => {
                     if (item.children) {
                         return (
                             <div className='relative' key={index}>
-                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link no-underline text-gray-700 hover:no-underline'>
+                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex flex-col 3xl:flex-row items-center'>
                                         <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                         <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -166,7 +166,7 @@ const NavList = () => {
                                     <span className='group-hover/nav:text-primary'>{showDropdown[index] ? '▲' : '▼'}</span>
                                 </div>
                                 {showDropdown[index] && (
-                                    <ul className='absolute xl:top-[54px] 2xl:top-[60px] 3xl:top-[76px] -left-10 2xl:-left-5 w-[256px] bg-gray-50 shadow-sm rounded pt-2 pb-5 px-2'>
+                                    <ul className='absolute xl:top-[75px] 3xl:top-[81px] -left-10 2xl:-left-5 w-[256px] bg-gray-50 shadow-sm rounded-b-md pt-2 pb-5 px-2'>
                                         {item.children.map((child, childIndex) => (
                                             <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                         ))}
@@ -178,7 +178,7 @@ const NavList = () => {
 
                     return (
                         <li id='sidebar' key={index}>
-                            <NavLink to={item.href} className='group/nav btn btn-link no-underline text-gray-700 hover:no-underline'>
+                            <NavLink to={item.href} className='group/nav btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                 <span className='flex flex-col 3xl:flex-row items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
@@ -279,7 +279,7 @@ const UserProfile = () => {
                     const isLastItem = index === userItems.length - 1;
                     return (
                         <li id='sidebar' className={`mt-4 sm:mt-5 md:mt-3 border-b ${isLastItem && 'bg-red-50 w-full'}`} key={index}>
-                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline ${isLastItem ? 'text-red-400' : 'text-gray-700 group/nav'}`}>
+                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-red-500' : 'text-gray-700 group/nav'}`}>
                                 <span className='flex items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>

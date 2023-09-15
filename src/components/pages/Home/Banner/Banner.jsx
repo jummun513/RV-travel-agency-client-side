@@ -4,8 +4,15 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FaHotel, FaCcVisa, FaPlaneDeparture } from 'react-icons/fa';
 import { MdHolidayVillage } from 'react-icons/md';
 import './Banner.css';
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css'
+import { useState } from 'react';
 
 const Banner = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
   return (
     <Container className='h-[50vh] xl:h-[60vh] 2xl:h-[70vh] top-[45px] xxs:top-[64px] lg:top-[74px] 2xl:top-[90px] 3xl:top-[106px]'>
       <Video autoPlay muted loop id="background-video">
@@ -23,16 +30,83 @@ const Banner = () => {
             </TabList>
 
             <TabPanel>
-              <form action="" className='p-5'>
-                <div className='border-2 border-gray-500 px-4 py-2 rounded-md'>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text text-gray-700">What is your name?</span>
-                    </label>
-                    <input type="text" placeholder="Search Hotel" className="input input-bordered input-info input-sm w-full max-w-[250px] bg-white" />
-                    <label className="label">
-                      <span className="label-text-alt text-gray-600">Select a Hotel</span>
-                    </label>
+              <form action="" className='px-5 py-10'>
+                <div className='grid grid-cols-3 gap-x-5'>
+                  <div className='border-2 border-gray-300 px-4 py-2 rounded-md'>
+                    <div className="form-control w-full max-w-xs">
+                      <label className="label">
+                        <span className="label-text text-gray-700">Enter city or property</span>
+                      </label>
+                      <input type="text" placeholder="Search Hotel" className="input input-bordered input-info input-sm w-full max-w-[250px] text-gray-950 bg-white" />
+                      <label className="label">
+                        <span className="label-text-alt text-gray-600">Select a Hotel</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className='relative grid grid-cols-2 border-2 border-gray-300 rounded-md'>
+                    <div className='px-4 py-2'>
+                      <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                          <span className="label-text text-gray-700">Check-In Date</span>
+                        </label>
+                        <DatePicker
+                          dateFormat="dd/MM/yy"
+                          closeOnScroll={true} isClearable
+                          placeholderText="Starts date"
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          selectsStart
+                          startDate={startDate}
+                          endDate={endDate}
+                          minDate={new Date()}
+                          shouldCloseOnSelect={false}
+                          fixedHeight
+                          className='input input-bordered input-info input-sm w-full max-w-36 text-gray-950 bg-white'
+                        >
+                          <div className='text-red-500 text-sm'>Do not forget to check the weather!</div>
+                        </DatePicker>
+                        <label className="label">
+                          <span className="label-text-alt text-gray-600">Day: {weekday[startDate?.getDay()]}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className='px-4 py-2'>
+                      <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                          <span className="label-text text-gray-700">Check-Out Date</span>
+                        </label>
+                        <DatePicker
+                          dateFormat="dd/MM/yy"
+                          closeOnScroll={true} isClearable
+                          placeholderText="Ends date"
+                          selected={endDate}
+                          onChange={(date) => setEndDate(date)}
+                          selectsEnd
+                          startDate={startDate}
+                          endDate={endDate}
+                          minDate={startDate}
+                          shouldCloseOnSelect={false}
+                          fixedHeight
+                          className='input input-bordered input-info input-sm w-full max-w-36 text-gray-950 bg-white'
+                        >
+                          <div className='text-red-500 text-sm'>Do not forget to check the weather!</div>
+                        </DatePicker>
+                        <label className="label">
+                          <span className="label-text-alt text-gray-600">Day: {weekday[endDate?.getDay()]}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='border-2 border-gray-300 px-4 py-2 rounded-md'>
+                    <div className="form-control w-full max-w-xs">
+                      <label className="label">
+                        <span className="label-text text-gray-700">Guests & Rooms</span>
+                      </label>
+                      <input type="text" placeholder="Search Hotel" className="input input-bordered input-info input-sm w-full max-w-[250px] text-gray-950 bg-white" />
+                      <label className="label">
+                        <span className="label-text-alt text-gray-600">Select a Hotel</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </form>
