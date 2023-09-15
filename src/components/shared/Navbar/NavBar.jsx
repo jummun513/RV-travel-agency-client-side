@@ -10,9 +10,8 @@ import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
 import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
 import { ImSwitch } from 'react-icons/im';
-
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
 import userImg from '../../../assets/user.jpg'
 
@@ -21,9 +20,22 @@ const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
     const user = true;
+
+    const navbarRef = useRef();
+
+    useEffect(() => {
+        const handler = (e) => {
+            if (!navbarRef.current?.contains(e.target)) {
+                setNavToggle(false);
+                setProfileToggle(false);
+            }
+        }
+        document.addEventListener('mousedown', handler);
+    })
+
     return (
         <div className='fixed xl:static w-full bg-slate-50'>
-            <div className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
+            <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] 2xl:h-[90px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <div>
                     <img className='h-10 xxs:h-14 lg:h-16 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </div>
@@ -45,14 +57,14 @@ const NavBar = () => {
                 <div className='flex items-center xl:hidden'>
                     {
                         user ?
-                            <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
+                            <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
                                     <img src={userImg} alt='User Image' />
                                 </div>
                             </div>
                             : <button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button>
                     }
-                    <div onClick={() => { setNavToggle(!navToggle); setProfileToggle(false) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
+                    <div onClick={() => { setNavToggle(!navToggle), setProfileToggle(false) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
                         {
                             navToggle ? <AiOutlineMenuUnfold className='h-4 w-4 xxs:h-6 xxs:w-6 lg:h-8 lg:w-8' /> : <AiOutlineMenuFold className='h-4 w-4 xxs:h-6 xxs:w-6 lg:h-8 lg:w-8' />
                         }
@@ -121,6 +133,8 @@ const navItems = [
 const NavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
 
+    const navbarRef = useRef();
+
     const toggleDropdown = (index) => {
         setShowDropdown((prevState) => ({
             ...prevState,
@@ -128,9 +142,18 @@ const NavList = () => {
         }));
     };
 
+    useEffect(() => {
+        const handler = (e) => {
+            if (!navbarRef.current.contains(e.target)) {
+                setShowDropdown(false);
+            }
+        }
+        document.addEventListener('mousedown', handler);
+    })
+
     return (
         <div>
-            <ul className='flex items-center'>
+            <ul ref={navbarRef} className='flex items-center'>
                 {navItems.map((item, index) => {
                     if (item.children) {
                         return (
