@@ -10,8 +10,9 @@ export default {
         primary: '#ffb700',
         secondary: '#f2af04',
         accent: '#DFE0DF',
+        disabled: '#ffb700',
         highlight: '#402E32',
-        neutral: '#2F4858',
+        neutral: '#006775',
         'base-100': '#ffffff',
         'base-900': '#000000',
         'bg-color': '#FFF8F0'
