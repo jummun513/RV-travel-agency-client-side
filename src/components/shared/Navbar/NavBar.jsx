@@ -19,7 +19,7 @@ import userImg from '../../../assets/images/user.jpg'
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
-    const user = true;
+    const user = false;
 
     const navbarRef = useRef();
 
