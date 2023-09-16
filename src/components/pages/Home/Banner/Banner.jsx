@@ -7,15 +7,16 @@ import './Banner.css';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import { useEffect, useRef, useState } from 'react';
-// import { useEffect, useState } from 'react';
+
 
 const Banner = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-
   const [openOption, setOpenOption] = useState(false);
+
+  // outside click of the option div close the option
   const optionRef = useRef();
   useEffect(() => {
     const handler = (e) => {
@@ -38,20 +39,23 @@ const Banner = () => {
         ...prev, [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
       }
     })
-    // if (((options.adult + options.children)) % 6 == 0) {
-    //   const newValue = Math.floor((options.adult + options.children) / 6) + 1;
-    //   console.log(newValue);
-    //   setOptions((prevState) => ({
-    //     ...prevState,
-    //     room: newValue,
-    //   }));
-    // }
   }
+
+  // confirm maximum 6 guest in 1 room
+  useEffect(() => {
+    const maxRooms = Math.ceil((options.adult + options.children) / 6);
+    if (options.room !== maxRooms) {
+      setOptions((prevState) => ({
+        ...prevState,
+        room: maxRooms,
+      }));
+    }
+  }, [options.adult, options.children]);
 
 
 
   return (
-    <Container className='h-[70rem] sm:h-[60rem] 3xl:h-[80rem] top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]'>
+    <Container className='h-[70rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[70rem] top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]'>
       <Video autoPlay muted loop id="background-video">
         <source src={backVideo} type="video/mp4" />
       </Video>
@@ -141,7 +145,7 @@ const Banner = () => {
                       </label>
                       <input type='button' onClick={() => setOpenOption(!openOption)} value={`${options.adult + options.children} guest(s) + ${options.room} room(s)`} className="input input-bordered input-info input-sm 2xl:input-md cursor-text text-start bg-white text-gray-900 w-full min-w-[100px]" />
                       <div className={`absolute duration-200 ease-in bg-slate-50 w-56 p-5 rounded-md ${openOption ? 'opacity-100 top-20 visible' : 'opacity-0 top-16 invisible'}`}>
-                        <p className='text-red-500 text-xs font-semibold mb-5 text-start'><sup>*</sup> Maximum 6 guests in 1 room.</p>
+                        <p className='text-red-500 text-xs font-bold mb-5 text-start'><sup>*</sup> Maximum 6 guests in 1 room.</p>
                         <div className="flex justify-between items-center border-b pb-3 mb-5">
                           <span className='font-semibold text-gray-700'>Adult</span>
                           <div className='flex items-center'>
@@ -150,7 +154,7 @@ const Banner = () => {
                             <button onClick={() => handleOption('adult', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary'>+</button>
                           </div>
                         </div>
-                        <p className='text-xs text-start text-sky-600 mb-2'>- Age under 10 year is considered as child.</p>
+                        <p className='text-xs text-start text-red-500 font-semibold mb-2'>- Age under 10 year only is considered as child.</p>
                         <div className="flex justify-between items-center border-b pb-3 mb-5">
                           <span className='font-semibold text-gray-700'>Child</span>
                           <div className='flex items-center'>
@@ -162,9 +166,9 @@ const Banner = () => {
                         <div className="flex justify-between items-center">
                           <span className='font-semibold text-gray-700'>Room</span>
                           <div className='flex items-center'>
-                            <button onClick={() => handleOption('room', 'd')} disabled={options.room < 2} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>-</button>
+                            <button onClick={() => handleOption('room', 'd')} disabled={(options.room - 1 < Math.ceil((options.adult + options.children) / 6))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>-</button>
                             <p className='w-14 p-2 mx-3 text-gray-700 border border-primary'>{options.room}</p>
-                            <button onClick={() => handleOption('room', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary'>+</button>
+                            <button onClick={() => handleOption('room', 'i')} disabled={(options.room + 1 > (options.adult + options.children))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>+</button>
                           </div>
                         </div>
                       </div>
@@ -174,6 +178,7 @@ const Banner = () => {
                     </div>
                   </div>
                 </div>
+                <input type="submit" value="Search" className='btn xxs:btn-wide mt-10 text-gray-700 btn-sm md:btn-md bg-primary border-none hover:bg-secondary' />
               </form>
             </TabPanel>
             <TabPanel>

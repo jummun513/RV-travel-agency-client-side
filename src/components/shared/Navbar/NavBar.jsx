@@ -144,7 +144,7 @@ const NavList = () => {
 
     useEffect(() => {
         const handler = (e) => {
-            if (!navbarRef.current.contains(e.target)) {
+            if (!navbarRef.current?.contains(e.target)) {
                 setShowDropdown(false);
             }
         }
