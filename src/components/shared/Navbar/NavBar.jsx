@@ -34,7 +34,7 @@ const NavBar = () => {
     })
 
     return (
-        <div className='fixed z-20 w-full bg-slate-50'>
+        <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <div>
                     <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
@@ -91,7 +91,7 @@ const navItems = [
         icon: <RiVipCrownLine className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />,
         children: [
             { label: 'Login', href: '/privileged-guest/login', icon: <AiOutlineLogin className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
-            { label: 'Hotel list', href: '/privileged-guest/hotel-list', icon: <BiHotel className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Hotel list', href: '/hotels-list', icon: <BiHotel className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'PG Photo Gallery', href: '/privileged-guest/pg-photo-gallery', icon: <GrGallery className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'PG Reviews', href: '/privileged-guest/pg-reviews', icon: <MdRateReview className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
         ],
@@ -153,7 +153,7 @@ const NavList = () => {
 
     return (
         <div>
-            <ul ref={navbarRef} className='flex items-center xl:pt-3 2xl:pt-2'>
+            <ul ref={navbarRef} className='flex items-center 3xl:mt-2'>
                 {navItems.map((item, index) => {
                     if (item.children) {
                         return (
@@ -161,7 +161,7 @@ const NavList = () => {
                                 <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex flex-col 3xl:flex-row items-center'>
                                         <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                        <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
+                                        <span className='xl:mt-2 3xl:ms-2 text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
                                     </div>
                                     <span className='group-hover/nav:text-primary'>{showDropdown[index] ? '▲' : '▼'}</span>
                                 </div>
@@ -181,7 +181,7 @@ const NavList = () => {
                             <NavLink to={item.href} className='group/nav btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                 <span className='flex flex-col 3xl:flex-row items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                    <span className='xl:mt-2 3xl:ms-2 group-hover/nav:text-primary'>{item.label}</span>
+                                    <span className='xl:mt-2 3xl:ms-2 xl:text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
                                 </span>
                             </NavLink>
                         </li>

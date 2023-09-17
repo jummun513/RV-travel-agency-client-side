@@ -10,6 +10,8 @@ const navigation = [
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+
+    // goes to search section on button click
     const scrollToSearchSection = () => {
         const demandSection = document.getElementById('search-section');
         if (demandSection) {
@@ -40,7 +42,7 @@ const Footer = () => {
                         <div className='xs:mb-14 md:mb-10 lg:mb-0 xs:mt-20 md:mt-0'>
                             <h4 className='text-xs xxs:text-sm lg:text-base text-slate-50 mb-2'>Get all news and offers via email.</h4>
                             <div className="join join-vertical xxs:join-horizontal">
-                                <input className="input input-xs xxs:input-sm lg:input-md input-primary input-bordered join-item" placeholder="Email" />
+                                <input className="input input-xs xxs:input-sm lg:input-md input-primary input-bordered join-item bg-slate-50 text-gray-900" placeholder="Email" />
                                 <button className="btn btn-xs xxs:btn-sm lg:btn-md join-item rounded-r bg-primary border-none hover:bg-secondary text-gray-900">Subscribe us</button>
                             </div>
                         </div>
