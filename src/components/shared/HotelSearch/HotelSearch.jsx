@@ -70,7 +70,7 @@ const HotelSearch = () => {
                                     dateFormat="dd/MM/yy"
                                     closeOnScroll={true} isClearable
                                     placeholderText="Starts date"
-                                    selected={startDate}
+                                    defaultValue={startDate}
                                     onChange={(date) => setStartDate(date)}
                                     selectsStart
                                     startDate={startDate}
@@ -96,7 +96,7 @@ const HotelSearch = () => {
                                     dateFormat="dd/MM/yy"
                                     closeOnScroll={true} isClearable
                                     placeholderText="Ends date"
-                                    selected={endDate}
+                                    defaultValue={endDate}
                                     onChange={(date) => setEndDate(date)}
                                     selectsEnd
                                     startDate={startDate}
