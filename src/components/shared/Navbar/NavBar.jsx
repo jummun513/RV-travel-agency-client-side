@@ -166,7 +166,7 @@ const NavList = () => {
                                     <span className='group-hover/nav:text-primary'>{showDropdown[index] ? '▲' : '▼'}</span>
                                 </div>
                                 {showDropdown[index] && (
-                                    <ul className='absolute xl:top-[75px] 3xl:top-[81px] -left-10 2xl:-left-5 w-[256px] bg-gray-50 shadow-sm rounded-b-md pt-2 pb-5 px-2'>
+                                    <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
                                         {item.children.map((child, childIndex) => (
                                             <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                         ))}

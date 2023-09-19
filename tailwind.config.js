@@ -17,6 +17,10 @@ export default {
         'base-900': '#000000',
         'bg-color': '#FFF8F0'
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '16/9': '16 / 9',
+      },
       screens: {
         xxs: '384px',
         xs: '512px',

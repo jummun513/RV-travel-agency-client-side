@@ -429,6 +429,11 @@ const Hotels = () => {
                         </form>
                     </dialog>
                 </div>
+                <div className='mt-10'>
+                    {
+                        data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                    }
+                </div>
             </div>
         </div>
     );
