@@ -125,26 +125,26 @@ const HotelSearch = () => {
                                 <div className="flex justify-between items-center border-b pb-3 mb-5">
                                     <span className='font-semibold text-gray-700'>Adult</span>
                                     <div className='flex items-center'>
-                                        <button onClick={() => handleOption('adult', 'd')} disabled={options.adult < 2} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>-</button>
+                                        <button onClick={() => handleOption('adult', 'd')} disabled={options.adult < 2} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
                                         <p className='w-14 p-2 mx-3 text-gray-700 border border-primary'>{options.adult}</p>
-                                        <button onClick={() => handleOption('adult', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary'>+</button>
+                                        <button onClick={() => handleOption('adult', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary text-gray-950'>+</button>
                                     </div>
                                 </div>
                                 <p className='text-xs text-start text-red-500 font-semibold mb-2'>- Age under 10 year only is considered as child.</p>
                                 <div className="flex justify-between items-center border-b pb-3 mb-5">
                                     <span className='font-semibold text-gray-700'>Child</span>
                                     <div className='flex items-center'>
-                                        <button onClick={() => handleOption('children', 'd')} disabled={options.children < 1} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>-</button>
+                                        <button onClick={() => handleOption('children', 'd')} disabled={options.children < 1} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
                                         <p className='w-14 p-2 mx-3 text-gray-700 border border-primary'>{options.children}</p>
-                                        <button onClick={() => handleOption('children', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary'>+</button>
+                                        <button onClick={() => handleOption('children', 'i')} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary text-gray-950'>+</button>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className='font-semibold text-gray-700'>Room</span>
                                     <div className='flex items-center'>
-                                        <button onClick={() => handleOption('room', 'd')} disabled={(options.room - 1 < Math.ceil((options.adult + options.children) / 6))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>-</button>
+                                        <button onClick={() => handleOption('room', 'd')} disabled={(options.room - 1 < Math.ceil((options.adult + options.children) / 6))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
                                         <p className='w-14 p-2 mx-3 text-gray-700 border border-primary'>{options.room}</p>
-                                        <button onClick={() => handleOption('room', 'i')} disabled={(options.room + 1 > (options.adult + options.children))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e]'>+</button>
+                                        <button onClick={() => handleOption('room', 'i')} disabled={(options.room + 1 > (options.adult + options.children))} type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>+</button>
                                     </div>
                                 </div>
                             </div>
