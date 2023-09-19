@@ -1,17 +1,25 @@
 import { BsMoonFill } from "react-icons/bs";
+import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { useState } from "react";
+
 
 const Hotel = (data) => {
+    const [isLoved, setIsLoved] = useState(false);
+
     const { id, heading, rating, desc, reviews, amenities, policies, about, safety, AtGlance, location, rooms, images, thumb
     } = data.data;
     console.log(id, heading, rating, desc, reviews, amenities, policies, about, safety, AtGlance, location, rooms, images, thumb);
     return (
-        <div className="rounded-md sm:rounded-lg bg-[#fbfbfb] shadow-md border">
+        <div className="rounded-md sm:rounded-lg bg-[#fbfbfb] shadow-lg sm:shadow-md border group/card cursor-pointer">
             <div className="flex flex-col sm:flex-row">
-                <div className="w-full sm:w-1/2 md:w-2/5 lg:w-1/2 2xl:w-2/5 p-2"><img src={thumb} className="rounded-md sm:rounded-lg w-full object-cover aspect-16/9 sm:aspect-4/3 lg:aspect-4/3 xl:aspect-16/9" /></div>
+                <div className="relative w-full sm:w-1/2 md:w-2/5 lg:w-1/2 2xl:w-2/5 p-2">
+                    <img src={thumb} className="rounded-md sm:rounded-lg w-full object-cover aspect-16/9 sm:aspect-4/3 lg:aspect-4/3 xl:aspect-16/9" />
+                    <div className="z-[11] absolute bg-[#fbfbfb] p-1 sm:p-2 top-3 left-3 rounded-md sm:rounded-lg">{isLoved ? <AiTwotoneHeart className="w-4 h-4 sm:h-6 sm:w-6 text-primary" onClick={() => setIsLoved(!isLoved)}></AiTwotoneHeart> : <AiOutlineHeart className="h-4 w-4 sm:h-6 sm:w-6 text-primary" onClick={() => setIsLoved(!isLoved)}></AiOutlineHeart>}</div>
+                </div>
                 <div className="w-full sm:w-1/2 md:w-3/5 lg:w-1/2 2xl:w-3/5 ps-2 xxs:ps-3 md:ps-5 lg:ps-3 xl:ps-5 pe-1 xxs:pe-2 sm:pe-3 py-1 xxs:py-2 sm:py-3 flex flex-col justify-between">
                     <div className="flex justify-between">
                         <div className="text-gray-950">
-                            <h2 className="text-sm xxs:text-base md:text-base 2xl:text-xl font-bold">{heading}</h2>
+                            <h2 className="text-sm xxs:text-base md:text-base 2xl:text-xl font-bold group-hover/card:underline text-blue-500">{heading}</h2>
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.country}</p>
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.city}</p>
                         </div>

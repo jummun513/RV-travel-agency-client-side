@@ -429,7 +429,7 @@ const Hotels = () => {
                         </form>
                     </dialog>
                 </div>
-                <div className='mt-10'>
+                <div className='mt-24'>
                     {
                         data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                     }
