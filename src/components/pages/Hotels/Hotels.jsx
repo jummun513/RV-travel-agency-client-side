@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import HotelSearch from '../../shared/HotelSearch/HotelSearch';
 import './Hotel.css';
 import { MdOutlineExpandMore } from 'react-icons/md';
 import { AiOutlineFilter } from 'react-icons/ai';
 import { FaMapMarked } from 'react-icons/fa';
 import Hotel from './Hotel/Hotel';
+import { AllContext } from '../../../layout/Main';
 
 const Hotels = () => {
+    const { hotel, setHotel } = useContext(AllContext);
     const [seeMore, setSeeMore] = useState(false);
-    const [data, setData] = useState([]);
     useEffect(() => {
         fetch('hotelData.json')
             .then(res => res.json())
-            .then(d => setData(d))
+            .then(d => setHotel(d))
     }, []);
 
     return (
         <div className='bg-[#fbfbfb] pt-20 xxs:pt-32 xs:pt-40 xl:pt-56'>
-            <div className='xs:bg-gray-50 rounded-md xs:border px-2 xxs:px-5 xs:px-0 mx-auto max-w-screen-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl'><HotelSearch></HotelSearch></div>
+            <div className='xs:bg-gray-50 rounded-md xs:border px-2 xxs:px-5 xs:px-0 mx-auto max-w-screen-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'><HotelSearch></HotelSearch></div>
 
             {/* For big device */}
             <div className='hidden lg:block sm:px-[32px] mx-auto max-w-screen-4xl mt-32'>
@@ -209,7 +210,7 @@ const Hotels = () => {
                         </div>
                         <div className='mt-10'>
                             {
-                                data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                hotel.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                             }
                         </div>
                     </div>
@@ -431,7 +432,7 @@ const Hotels = () => {
                 </div>
                 <div className='mt-24'>
                     {
-                        data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                        hotel.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                     }
                 </div>
             </div>
