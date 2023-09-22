@@ -12,16 +12,14 @@ import { CgGym } from 'react-icons/cg';
 import { MdLocationOn, MdOutlineFlight } from 'react-icons/md';
 import Room from "./Room/Room";
 import { AiOutlineClose, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { useQuery } from "react-query";
+import fetchData from "../../../fetchData";
 
 
 const HotelDetails = () => {
-    const { hotel, setLockBody } = useContext(AllContext);
+    const { setLockBody } = useContext(AllContext);
     const { hotelId } = useParams();
     const [activeSection, setActiveSection] = useState(null);
-
-    // filter the demand data of hotel via id
-    const singleHotel = (hotel?.filter(item => (item.id === hotelId)));
-
 
     // scroll spy effect on navbar
     useEffect(() => {
@@ -59,7 +57,6 @@ const HotelDetails = () => {
         }
     };
 
-
     // open slider to show full image
     const [slideNumber, setSlideNumber] = useState(0);
     const [openSlide, setOpenslide] = useState(false);
@@ -84,6 +81,14 @@ const HotelDetails = () => {
         setSlideNumber(newSlideNumber);
     }
 
+    // data fetch
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/31017727c2ee11663513dba19d405a8c2d24f934/public/hotelData.json'));
+    if (isLoading) {
+        return <div className='text-4xl text-gray-500'> Loading...</div>
+    }
+    // filter the demand data of hotel via id
+    const singleHotel = (data?.filter(item => (item.id === hotelId)));
+
     return (
         <div>
             {
@@ -96,7 +101,7 @@ const HotelDetails = () => {
                                     <AiOutlineClose onClick={handleSlideClose} className="absolute right-5 top-5 bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineClose>
                                     <AiOutlineArrowLeft onClick={() => handleMoveSlide('l')} className="bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineArrowLeft>
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <img className="w-[95%] h-[full] xl:w-[80vw] xl:h-[80vh] 2xl:w-[90vw] 2xl:h-[90vh] xl:mx-4 2xl:mx-5" loading="lazy" src={item.images[slideNumber]} alt="Slider Image" />
+                                        <img className="w-[95%] h-[full] xl:w-[85%] xl:h-[80vh] 2xl:w-[90%] 2xl:h-[90vh] xl:mx-4 2xl:mx-5" loading="lazy" src={item.images[slideNumber]} alt="Slider Image" />
                                     </div>
                                     <AiOutlineArrowRight onClick={() => handleMoveSlide('r')} className="bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineArrowRight>
                                 </div>

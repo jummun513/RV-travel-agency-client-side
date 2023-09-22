@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import HotelSearch from '../../shared/HotelSearch/HotelSearch';
 import './Hotel.css';
 import { MdOutlineExpandMore } from 'react-icons/md';
 import { AiOutlineFilter } from 'react-icons/ai';
 import { FaMapMarked } from 'react-icons/fa';
 import Hotel from './Hotel/Hotel';
-import { AllContext } from '../../../layout/Main';
+import { useQuery } from 'react-query';
+import fetchData from '../../../fetchData';
 
 const Hotels = () => {
-    const { hotel, setHotel } = useContext(AllContext);
     const [seeMore, setSeeMore] = useState(false);
-    useEffect(() => {
-        fetch('hotelData.json')
-            .then(res => res.json())
-            .then(d => setHotel(d))
-    }, []);
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/31017727c2ee11663513dba19d405a8c2d24f934/public/hotelData.json'))
+
+    if (isLoading) {
+        return <div className='text-4xl text-gray-500'> Loading...</div>
+    }
 
     return (
         <div className='bg-[#fbfbfb] pt-20 xxs:pt-32 xs:pt-40 xl:pt-56'>
@@ -210,7 +210,7 @@ const Hotels = () => {
                         </div>
                         <div className='mt-10'>
                             {
-                                hotel.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                             }
                         </div>
                     </div>
@@ -432,7 +432,7 @@ const Hotels = () => {
                 </div>
                 <div className='mt-24'>
                     {
-                        hotel.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                        data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                     }
                 </div>
             </div>
