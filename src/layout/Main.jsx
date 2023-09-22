@@ -18,7 +18,6 @@ function Main() {
 
     const client = new QueryClient();
 
-
     return (
         <QueryClientProvider client={client}>
             <AllContext.Provider value={{ lockBody, setLockBody }}>

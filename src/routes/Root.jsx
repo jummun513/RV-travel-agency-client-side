@@ -6,7 +6,7 @@ import About from "../components/pages/About/About";
 import Hotels from "../components/pages/Hotels/Hotels";
 import Blogs from "../components/pages/Blogs/Blogs";
 import Student from "../components/pages/Student/Student";
-import HotelDetails from "../components/pages/HotelDetails/HotelDetails";
+import HotelDetail from "../components/pages/HotelDetail/HotelDetail";
 
 
 export const router = createBrowserRouter([
@@ -27,8 +27,8 @@ export const router = createBrowserRouter([
                 element: <Hotels></Hotels>,
             },
             {
-                path: '/hotel-details/:hotelId',
-                element: <HotelDetails></HotelDetails>,
+                path: '/hotel-detail/:hotelId',
+                element: <HotelDetail></HotelDetail>,
             },
             {
                 path: '/student-service',
