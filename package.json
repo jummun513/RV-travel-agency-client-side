@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.10",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "firebase": "^10.4.0",
     "react": "^18.2.0",
     "react-datepicker": "^4.18.0",
@@ -20,7 +21,8 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0",
     "react-tabs": "^6.0.2",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "swiper": "^10.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
