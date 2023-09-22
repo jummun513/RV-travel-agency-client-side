@@ -1,0 +1,376 @@
+[
+    {
+        "id": "6509b7899225b9995812ae65",
+        "heading": "Radisson Blu Bay View",
+        "rating": 3.5,
+        "desc": "Luxury hotel in Chittagong with 3 restaurants and spa",
+        "reviews": [
+            {
+                "userName": "Karim",
+                "date": "12 May, 2023",
+                "message": "Thank you for taking the time to share your feedback from your visit to the Radisson Blu Chattogram Bay View . We are delighted to read from your review that you had enjoyed your recent stay with us and we also appreciate you pointing out the excellent service you received from our ambassadors.",
+                "userRating": "4/10 Fair",
+                "country": "Bangladesh",
+                "Cleanliness": "8.0/10",
+                "Staff&service": "7.0/10",
+                "propertyCondition": "6.0/10",
+                "Eco-friendliness": "6.0/10"
+            },
+            {
+                "userName": "Halim",
+                "date": "12 May, 2023",
+                "message": "Thank you for taking the time to share your feedback from your visit to the Radisson Blu Chattogram Bay View . We are delighted to read from your review that you had enjoyed your recent stay with us and we also appreciate you pointing out the excellent service you received from our ambassadors.",
+                "userRating": "4/10 Fair",
+                "country": "Bangladesh",
+                "Cleanliness": "8.0/10",
+                "Staff&service": "7.0/10",
+                "propertyCondition": "6.0/10",
+                "Eco-friendliness": "6.0/10"
+            }
+        ],
+        "amenities": {
+            "popular": [
+                "Pool",
+                "Spa",
+                "Free parking",
+                "Free WiFi",
+                "Restaurant",
+                "Air conditioning",
+                "Gym",
+                "Bar",
+                "Laundry facilities",
+                "24/7 front desk",
+                "Non-smoking"
+            ],
+            "property": {
+                "Food&drink": [
+                    "3 restaurants",
+                    "Bar/lounge",
+                    "Poolside bar",
+                    "24-hour room service",
+                    "Snack bar/deli"
+                ],
+                "traveling": "Children stay free",
+                "playGround": [
+                    "Indoor games",
+                    "Tennis",
+                    "Golfing"
+                ],
+                "Working-away": [
+                    "Business center",
+                    "Meeting room"
+                ],
+                "Services": [
+                    "24-hour front desk",
+                    "Concierge services",
+                    "Dry cleaning/laundry services",
+                    "Luggage storage",
+                    "Multilingual staff"
+                ],
+                "Facilities": [
+                    "Built in 2015",
+                    "ATM/banking",
+                    "Safe-deposit box at front desk",
+                    "Garden",
+                    "Terrace",
+                    "Fitness center",
+                    "An outdoor pool",
+                    "Full-service spa",
+                    "Spa tub",
+                    "Sauna",
+                    "Steam room",
+                    "Annual offsets purchased for at least 10%",
+                    "of carbon footprint",
+                    "At least 80% lighting from LEDs",
+                    "Banquet hall"
+                ],
+                "Accessibility": [
+                    "Elevator",
+                    "Accessible bathroom (select rooms)",
+                    "In-room accessibility (select rooms)",
+                    "Roll-in shower (select rooms)",
+                    "Wheelchair accessible",
+                    "Wheelchair-accessible path of travel",
+                    "Wheelchair-accessible parking",
+                    "Grab bar near toilet",
+                    "Thin carpet in room"
+                ]
+            },
+            "room": {
+                "Be entertained": [
+                    "40-inch LED TV",
+                    "Satellite TV channels"
+                ],
+                "Home comfort": [
+                    "Air conditioning",
+                    "Coffee/tea maker",
+                    "Slippers",
+                    "Iron/ironing board"
+                ],
+                "Sleep well": [
+                    "Soundproofed rooms",
+                    "Free crib/infant bed",
+                    "Rollaway/extra bed (surcharge)",
+                    "Bed sheets provided"
+                ],
+                "Freshen up": [
+                    "Private bathroom",
+                    "Separate bathtub and shower",
+                    "Hair dryer",
+                    "Towels"
+                ],
+                "Stay connected": [
+                    "Free WiFi",
+                    "Phone"
+                ],
+                "More": [
+                    "Daily housekeeping",
+                    "In-room safe"
+                ]
+            }
+        },
+        "policies": [
+            {
+                "heading": "Children & extra beds",
+                "info": "Rollaway beds are available for BDT 2500 per day"
+            },
+            {
+                "heading": "Hygiene & cleanliness",
+                "info": "This property advises that enhanced cleaning and guest safety measures are currently in place. Disinfectant is used to clean the property, and commonly-touched surfaces are cleaned with disinfectant between stays. Personal protective equipment, including masks and gloves, will be available to guests. Social distancing measures are in place; staff at the property wear personal protective equipment; a shield is in place between staff and guests in main contact areas; periodic temperature checks are conducted on staff; temperature checks are available to guests; guests are provided with hand sanitizer. Contactless check-in is available. This property affirms that it follows the cleaning and disinfection practices of Safety Protocol (Radisson). This property affirms that it adheres to the cleaning and disinfection practices of Safe Travels (WTTC - Global)."
+            },
+            {
+                "heading": "Policies",
+                "info": "This property accepts credit cards. Cash is not accepted."
+            }
+        ],
+        "about": [
+            {
+                "heading": "Radisson Blu Chattogram Bay View",
+                "desc": "Situated on the bay, Radisson Blu Chattogram Bay View is a great choice for a stay in Chittagong. Guests can grab a bite to eat at one of the 3 restaurants and visit the spa to be pampered with hot stone massages, aromatherapy, or reflexology. Other highlights at this luxurious hotel include an outdoor pool, a poolside bar, and a fitness center."
+            },
+            {
+                "heading": "Languages",
+                "desc": [
+                    "Dutch",
+                    "English",
+                    "French",
+                    "German"
+                ]
+            }
+        ],
+        "safety": [
+            {
+                "heading": "Enhanced cleanliness measures",
+                "data": [
+                    "Disinfectant is used to clean the property",
+                    "High-touch surfaces are cleaned and disinfected",
+                    "Follows standard cleaning and disinfection practices of Safety Protocol (Radisson)",
+                    "Follows industry cleaning and disinfection practices of Safe Travels (WTTC - Global)"
+                ]
+            },
+            {
+                "heading": "Social distancing",
+                "data": [
+                    "Contactless check-in",
+                    "Protective shields in place at main contact areas",
+                    "Social distancing measures in place"
+                ]
+            },
+            {
+                "heading": "Safety measures",
+                "data": [
+                    "Personal protective equipment worn by staff",
+                    "Temperature checks given to staff",
+                    "Temperature checks available for guests",
+                    "Masks and gloves available",
+                    "Hand sanitizer provided"
+                ]
+            }
+        ],
+        "AtGlance": [
+            {
+                "heading": "Hotel size",
+                "data": [
+                    "241 rooms",
+                    "Arranged over 20 floors"
+                ]
+            },
+            {
+                "heading": "Arriving/Leaving",
+                "data": [
+                    "Check-in time from 2 PM - midnight",
+                    "Check-out time is noon"
+                ]
+            },
+            {
+                "heading": "Restrictions related to your trip",
+                "data": [
+                    "Check COVID-19 restrictions"
+                ]
+            },
+            {
+                "heading": "Special check-in instructions",
+                "data": [
+                    "Front desk staff will greet guests on arrival",
+                    "This property doesn't offer after-hours check-in"
+                ]
+            },
+            {
+                "heading": "Required at check-in",
+                "data": [
+                    "Credit card, debit card, or cash deposit required for incidental charges",
+                    "Government-issued photo ID may be required"
+                ]
+            },
+            {
+                "heading": "Children",
+                "data": [
+                    "Up to 2 children (6 years old and younger) stay free when occupying the parent or guardian's room, using existing bedding"
+                ]
+            },
+            {
+                "heading": "Pets",
+                "data": [
+                    "No pets or service animals allowed"
+                ]
+            },
+            {
+                "heading": "Internet",
+                "data": [
+                    "Free WiFi in public areas",
+                    "Free WiFi in rooms"
+                ]
+            },
+            {
+                "heading": "Parking",
+                "data": [
+                    "Free onsite valet parking",
+                    "Wheelchair-accessible parking on site"
+                ]
+            },
+            {
+                "heading": "Other information",
+                "data": [
+                    "Smoke-free property"
+                ]
+            }
+        ],
+        "location": {
+            "country": "Bangladesh",
+            "state": "",
+            "province": "",
+            "city": "Chittagong",
+            "map": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14760.646552930377!2d91.8229809!3d22.3475248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a2a645ee07%3A0x2a94a4fa61c7b1a3!2sRadisson%20Blu%20Chattogram%20Bay%20View!5e0!3m2!1sen!2sbd!4v1694954254215!5m2!1sen!2sbd",
+            "nearby": "Heart of Chittagong",
+            "around": [
+                {
+                    "place": "Shishu Park",
+                    "distance": "1 min walkway"
+                },
+                {
+                    "place": "Zia Memorial Museum",
+                    "distance": "2 min walkway"
+                },
+                {
+                    "place": "Baitul Falah (Jamiatul Falah)",
+                    "distance": "8 min walkway"
+                },
+                {
+                    "place": "Chittagong (CGP-Shah Amanat Intl.)",
+                    "distance": "59 min drive"
+                },
+                {
+                    "restaurants": [
+                        {
+                            "name": "Eden Restaurant & Kids Zone",
+                            "distance": "20 min walkway"
+                        },
+                        {
+                            "name": "Handi Indian Bistro",
+                            "distance": "18 min walkway"
+                        },
+                        {
+                            "name": "The Exchange",
+                            "distance": "2 min walkway"
+                        },
+                        {
+                            "name": "Pizza Hut",
+                            "distance": "20 min walkway"
+                        },
+                        {
+                            "name": "BIR Chattala",
+                            "distance": "13 min walkway"
+                        }
+                    ]
+                }
+            ],
+            "airport": [
+                "Chittagong (CGP-Shah Amanat Intl.)",
+                "59 min drive"
+            ]
+        },
+        "rooms": [
+            {
+                "heading": "Superior Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "38 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/FzbyFsz/room1.jpg",
+                    "https://i.ibb.co/Pm7RrfZ/room2.png",
+                    "https://i.ibb.co/qYMHd0S/room3.jpg"
+                ]
+            },
+            {
+                "heading": "Business Room (Lounge Access)",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "38 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/Pm7RrfZ/room2.png",
+                    "https://i.ibb.co/FzbyFsz/room1.jpg",
+                    "https://i.ibb.co/qYMHd0S/room3.jpg"
+                ]
+            },
+            {
+                "heading": "Junior Suite (Lounge Access)",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "38 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/qYMHd0S/room3.jpg",
+                    "https://i.ibb.co/FzbyFsz/room1.jpg",
+                    "https://i.ibb.co/Pm7RrfZ/room2.png"
+                ]
+            }
+        ],
+        "images": [
+            "https://i.ibb.co/7gdTQpj/pic3.jpg",
+            "https://i.ibb.co/26gc4JG/pic4.jpg",
+            "https://i.ibb.co/7WpLN13/pic5.jpg",
+            "https://i.ibb.co/2ZPzxgg/pic7.jpg",
+            "https://i.ibb.co/2NN2QzC/pic8.jpg",
+            "https://i.ibb.co/L667YtX/pic1.jpg",
+            "https://i.ibb.co/k4tsTxJ/pic2.jpg"
+        ],
+        "thumb": "https://i.ibb.co/hgKvN7x/pic6.jpg"
+    }
+]
