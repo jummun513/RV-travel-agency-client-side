@@ -360,6 +360,23 @@
                     "https://i.ibb.co/FzbyFsz/room1.jpg",
                     "https://i.ibb.co/Pm7RrfZ/room2.png"
                 ]
+            },
+            {
+                "heading": "Junior Suite (Lounge Access)",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "38 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/qYMHd0S/room3.jpg",
+                    "https://i.ibb.co/FzbyFsz/room1.jpg",
+                    "https://i.ibb.co/Pm7RrfZ/room2.png"
+                ]
             }
         ],
         "images": [

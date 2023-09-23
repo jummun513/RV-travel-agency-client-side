@@ -176,7 +176,7 @@ const HotelDetail = () => {
                                         </ul>
                                         <button className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
                                     </nav>
-                                    <section id="Overview" className="section lg:flex mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-2 xxs:px-5 py-7 xxs:py-10">
+                                    <section id="Overview" className="section lg:flex mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                         <div className="lg:w-1/2 text-gray-800">
                                             <h2 className="text-lg font-bold xs:text-2xl">{item.heading}</h2>
                                             <Rating name="read-only" size="large" defaultValue={item.rating} precision={0.5} readOnly />
@@ -251,9 +251,9 @@ const HotelDetail = () => {
                                             </div>
                                         </div>
                                     </section>
-                                    <section id="Rooms" className="section hidden mt-20 bg-[#fff] px-5 py-10">
-                                        <h2 className="text-gray-800 text-2xl font-medium mb-5">Choose your room</h2>
-                                        <div className="grid grid-cols-3 place-items-center">
+                                    <section id="Rooms" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                        <h2 className="text-gray-800 text-2xl font-medium mb-8">Choose your room</h2>
+                                        <div className="grid gap-y-8 2xl:gap-y-0 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 place-items-center sm:place-items-start lg:place-items-center">
                                             {
                                                 item.rooms.map((r, i) => <Room key={i} data={r}></Room>)
                                             }
