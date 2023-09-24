@@ -12,9 +12,9 @@ import { AiFillCar } from 'react-icons/ai';
 const Room = (data) => {
     const { img, heading, rating, bed, sleep, size, wifi, food, parking, offer, price } = data.data;
     return (
-        <div className="w-[250px] xxs:w-80 xs:w-96 bg-base-100 border relative z-10 rounded-md">
+        <div id='room' className="w-[250px] xxs:w-80 xs:w-96 bg-base-100 border relative z-10 rounded-md">
             <div>
-                <Swiper cssMode={true} navigation={true} modules={[Navigation]} className="mySwiper rounded-t-md">
+                <Swiper cssMode={true} navigation={true} modules={[Navigation]} className="roomSwiper rounded-t-md">
                     {
                         img.map((x, i) => <SwiperSlide key={i}><img src={x} className='rounded-t-md' alt='' /></SwiperSlide>)
                     }

@@ -63,6 +63,13 @@ const HotelDetail = () => {
     const [openSlide, setOpenslide] = useState(false);
     const handleSlideOpen = (i) => {
         setSlideNumber(i);
+        const scrollToTop = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+        };
+        scrollToTop();
         setOpenslide(true);
         setLockBody(true);
     }
@@ -83,7 +90,7 @@ const HotelDetail = () => {
     }
 
     // data fetch
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/31017727c2ee11663513dba19d405a8c2d24f934/public/hotelData.json'));
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/main/public/hotelData.json'));
     if (isLoading) {
         return <div className='text-4xl text-gray-500'> Loading...</div>
     }
@@ -105,7 +112,7 @@ const HotelDetail = () => {
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 4 && 'relative'}`}>
                                                         <img src={image} alt="" />
-                                                        {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}</div>}
+                                                        {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
                                             )
@@ -120,7 +127,7 @@ const HotelDetail = () => {
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 2 && 'relative'}`}>
                                                         <img src={image} alt="" />
-                                                        {idx === 2 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 md:p-4 rounded-xl md:rounded-2xl text-2xl md:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-2 md:w-8 md:h-8 md:me-4"></BsImages>{item.images.length - (idx + 1)}</div>}
+                                                        {idx === 2 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 md:p-4 rounded-xl md:rounded-2xl text-2xl md:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-2 md:w-8 md:h-8 md:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
                                             )
@@ -135,7 +142,7 @@ const HotelDetail = () => {
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 0 && 'relative'}`}>
                                                         <img src={image} alt="" />
-                                                        {idx === 0 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 xxs:p-3 rounded-xl text-xl xxs:text-2xl text-gray-50"><BsImages className="xxs:w-7 xxs:h-7 xxs:me-3 w-6 h-6 me-2"></BsImages>{item.images.length - (idx + 1)}</div>}
+                                                        {idx === 0 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 xxs:p-3 rounded-xl text-xl xxs:text-2xl text-gray-50"><BsImages className="xxs:w-7 xxs:h-7 xxs:me-3 w-6 h-6 me-2"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
                                             )
@@ -158,9 +165,9 @@ const HotelDetail = () => {
                                                     Rooms
                                                 </button>
                                             </li>
-                                            <li className={`${activeSection === 'Location' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Location")}>
-                                                    Location
+                                            <li className={`${activeSection === 'About' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("About")}>
+                                                    About
                                                 </button>
                                             </li>
                                             <li className={`${activeSection === 'Amenities' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
@@ -178,7 +185,7 @@ const HotelDetail = () => {
                                     </nav>
                                     <section id="Overview" className="section lg:flex mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                         <div className="lg:w-1/2 text-gray-800">
-                                            <h2 className="text-lg font-bold xs:text-2xl">{item.heading}</h2>
+                                            <h2 className="text-lg font-bold xs:text-2xl 2xl:text-4xl">{item.heading}</h2>
                                             <Rating name="read-only" size="large" defaultValue={item.rating} precision={0.5} readOnly />
                                             <p className="text-xs xs:text-sm text-gray-600">{item.desc}</p>
                                             <p className="text-gray-800 font-semibold my-3 xs:my-5">8.8/10 Fabulous</p>
@@ -253,14 +260,57 @@ const HotelDetail = () => {
                                     </section>
                                     <section id="Rooms" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                         <h2 className="text-gray-800 text-2xl font-medium mb-8">Choose your room</h2>
-                                        <div className="grid gap-y-8 2xl:gap-y-0 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 place-items-center sm:place-items-start lg:place-items-center">
+                                        <div className="grid px-2 xxs:px-0 gap-y-8 3xl:gap-y-0 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 place-items-center sm:place-items-start lg:place-items-center">
                                             {
                                                 item.rooms.map((r, i) => <Room key={i} data={r}></Room>)
                                             }
                                         </div>
                                     </section>
-                                    <section id="Location" className="section">
-
+                                    <section id="About" className="hidden section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                        <div className='border-b border-gray-200 pb-10'>
+                                            <div className='flex text-gray-900 justify-between'>
+                                                <div className='w-1/3'>
+                                                    <h2 className='text-4xl'>About this property</h2>
+                                                </div>
+                                                <div className='w-2/3'>
+                                                    <div>
+                                                        <h3 className='text-xl font-medium'>Radisson Blu Chattogram Bay View</h3>
+                                                        <p className='text-gray-600'>Situated on the bay, Radisson Blu Chattogram Bay View is a great choice for a stay in Chittagong. Guests can grab a bite to eat at one of the 3 restaurants and visit the spa to be pampered with hot stone massages, aromatherapy, or reflexology. Other highlights at this luxurious hotel include an outdoor pool, a poolside bar, and a fitness center.</p>
+                                                    </div>
+                                                    <div className='mt-10'>
+                                                        <h3 className='text-xl font-medium'>Languages</h3>
+                                                        <p className='text-gray-600'>Dutch, English, French, German</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="border-b border-gray-200 mt-16">
+                                            <div className='flex text-gray-900 justify-between'>
+                                                <div className='w-1/3'>
+                                                    <h2 className='text-4xl'>Cleaning and safety practices</h2>
+                                                </div>
+                                                <div className='w-2/3'>
+                                                    {
+                                                        item.safety.map((x, i) => {
+                                                            return (
+                                                                <div key={i}>
+                                                                    <h3 className='text-xl font-medium'>{x.heading}</h3>
+                                                                    <div className='mt-2 mb-10'>
+                                                                        {
+                                                                            x.data.map((p, q) => {
+                                                                                return (
+                                                                                    <p key={q} className='text-gray-600'>{p}</p>
+                                                                                )
+                                                                            })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
                                     </section>
                                     <section id="Amenities" className="section">
 

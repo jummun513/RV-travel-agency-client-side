@@ -10,7 +10,7 @@ import fetchData from '../../../fetchData';
 
 const Hotels = () => {
     const [seeMore, setSeeMore] = useState(false);
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/31017727c2ee11663513dba19d405a8c2d24f934/public/hotelData.json'))
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/main/public/hotelData.json'))
 
     if (isLoading) {
         return <div className='text-4xl text-gray-500'> Loading...</div>

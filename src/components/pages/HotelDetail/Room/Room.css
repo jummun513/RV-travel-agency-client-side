@@ -1,9 +1,9 @@
-.swiper {
+#room .swiper {
     width: 100%;
     height: 100%;
 }
 
-.swiper-slide {
+#room .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -12,15 +12,15 @@
     align-items: center;
 }
 
-.swiper-slide img {
+#room .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.swiper-button-prev:after,
-.swiper-button-next:after {
+#room .swiper-button-prev:after,
+#room .swiper-button-next:after {
     font-family: swiper-icons;
     font-size: 20px;
     text-transform: none !important;
