@@ -28,6 +28,8 @@ const PopularDestination = () => {
                     <Swiper
                         effect={'coverflow'}
                         keyboard={true}
+                        lazy={true}
+                        rewind={true}
                         speed={1000}
                         navigation={true}
                         coverflowEffect={{
