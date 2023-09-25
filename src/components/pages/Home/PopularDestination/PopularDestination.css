@@ -1,7 +1,7 @@
 #popularDestination .swiper {
     width: 100%;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 6rem;
 }
 
 #popularDestination .swiper-slide {
@@ -32,4 +32,22 @@
 #popularDestination .swiper-button-next,
 #popularDestination .swiper-button-prev {
     color: #ffb700;
+}
+
+@media screen and (max-width: 512px) {
+    #popularDestination .swiper {
+        padding-bottom: 0rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #popularDestination .swiper {
+        padding-bottom: 4rem;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    #popularDestination .swiper-pagination {
+        padding: 2px 0;
+    }
 }
