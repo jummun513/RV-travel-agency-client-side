@@ -1,53 +1,53 @@
-#popularDestination .swiper {
+#explorebd .swiper {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 6rem;
 }
 
-#popularDestination .swiper-slide {
+#explorebd .swiper-slide {
     background-position: center;
     background-size: cover;
     width: auto;
     height: auto;
 }
 
-#popularDestination .swiper-slide img {
+#explorebd .swiper-slide img {
     display: block;
     width: 100%;
 }
 
-#popularDestination .swiper-slide-shadow-left,
-#popularDestination .swiper-slide-shadow-right {
+#explorebd .swiper-slide-shadow-left,
+#explorebd .swiper-slide-shadow-right {
     border-radius: 24px;
 }
 
-#popularDestination .swiper-wrapper {
+#explorebd .swiper-wrapper {
     margin-bottom: 20px;
 }
 
-#popularDestination .swiper-pagination-bullet {
+#explorebd .swiper-pagination-bullet {
     background: #ffb700;
 }
 
-#popularDestination .swiper-button-next,
-#popularDestination .swiper-button-prev {
+#explorebd .swiper-button-next,
+#explorebd .swiper-button-prev {
     color: #ffb700;
 }
 
 @media screen and (max-width: 512px) {
-    #popularDestination .swiper {
+    #explorebd .swiper {
         padding-bottom: 0rem;
     }
 }
 
 @media screen and (max-width: 768px) {
-    #popularDestination .swiper {
+    #explorebd .swiper {
         padding-bottom: 4rem;
     }
 }
 
 @media screen and (min-width: 1536px) {
-    #popularDestination .swiper-pagination {
+    #explorebd .swiper-pagination {
         padding: 2px 0;
     }
 }

@@ -1,0 +1,17 @@
+#reviews .swiper {
+    width: 100%;
+    height: 100%;
+}
+
+#reviews .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reviews .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
