@@ -20,7 +20,7 @@ const Footer = () => {
     };
 
     return (
-        <div className='bg-[#fbfbfb] pt-48'>
+        <div className='bg-[#fbfbfb]'>
             <div className='relative pt-12 xs:pt-20 lg:pt-32 bg-zinc-900'>
                 <nav className="px-2 xxs:px-[16px] sm:px-[32px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
                     <div className="md:hidden">

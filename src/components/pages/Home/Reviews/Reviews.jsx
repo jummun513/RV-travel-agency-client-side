@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './Reviews.css';
 import Review from './Review/Review';
+import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
 
 const data = [
     { id: 1 },
@@ -23,9 +24,14 @@ const Reviews = () => {
                         <h2 className="text-gray-950 font-extrabold text-base xxs:text-2xl xs:text-3xl md:text-5xl xl:text-5xl">Our Happy Clients</h2>
                     </div>
                     <Swiper
+                        keyboard={true}
+                        speed={700}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
                         slidesPerView={1}
                         spaceBetween={20}
-                        keyboard={true}
                         breakpoints={{
                             896: {
                                 slidesPerView: 1,
@@ -44,6 +50,14 @@ const Reviews = () => {
                                 spaceBetween: 30,
                             },
                         }}
+                        pagination={{
+                            dynamicBullets: true,
+                            clickable: true,
+                            renderBullet: function (index, className) {
+                                return '<span class="' + className + ' sm:ring-1 lg:ring-2 ring-slate-100 ring-offset-primary sm:ring-offset-1 lg:ring-offset-2 2xl:ring-offset-4">' + '</span>';
+                            },
+                        }}
+                        modules={[Autoplay, Pagination, Keyboard]}
                         className="mySwiper"
                     >
                         {

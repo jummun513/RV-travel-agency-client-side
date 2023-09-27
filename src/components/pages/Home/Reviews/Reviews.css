@@ -1,6 +1,7 @@
 #reviews .swiper {
     width: 100%;
     height: 100%;
+    padding-bottom: 6rem;
 }
 
 #reviews .swiper-slide {
@@ -14,4 +15,26 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+#reviews .swiper-pagination-bullet {
+    background: #ededed;
+}
+
+@media screen and (max-width: 512px) {
+    #reviews .swiper {
+        padding-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #reviews .swiper {
+        padding-bottom: 4rem;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    #reviews .swiper-pagination {
+        padding: 2px 0;
+    }
 }
