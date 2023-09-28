@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/Logos/short-logo.png';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
     return (
@@ -47,6 +48,8 @@ const Login = () => {
                     </button>
                     <p className='text-gray-700 mt-6 sm:mt-10'>Not have an account? <Link to='/registration' className='text-blue-600 cursor-pointer hover:underline'>Register here.</Link></p>
                 </form>
+                <div className="divider my-10 w-[90%] mx-auto">Or</div>
+                <div className='w-[90%]'><SocialLogin></SocialLogin></div>
             </div >
         </div >
     );

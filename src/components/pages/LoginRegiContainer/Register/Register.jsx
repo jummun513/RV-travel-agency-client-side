@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/Logos/short-logo.png';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
     return (
         <div className="bg-[#fbfbfb] rounded-lg md:rounded-none md:rounded-s-xl lg:rounded-s-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
             <div className="flex flex-col items-center py-10">
                 <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img className='w-full h-full' src={logo} alt="" /></div>
-                <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Sign In with Email and Password</h2>
+                <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Create New Account</h2>
                 <form className='w-[90%] 2xl:w-[80%]' action="">
+                    <div className="relative z-0 w-full mb-6 xs:mb-10 group">
+                        <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your Full Name</label>
+                    </div>
+
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
                         <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
@@ -17,6 +23,11 @@ const Register = () => {
                     <div className="relative z-0 w-full mb-6 xs:mb-8 group">
                         <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                    </div>
+
+                    <div className="relative z-0 w-full mb-6 xs:mb-8 group">
+                        <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password</label>
                     </div>
 
                     <div className="mb-8 min-h-[1.5rem] pl-[1.5rem] flex justify-between items-center">
@@ -29,11 +40,11 @@ const Register = () => {
                             <label
                                 className="inline-block pl-[0.15rem] text-gray-600 hover:cursor-pointer"
                                 htmlFor="checkboxDefault">
-                                Remember me
+                                Agree with terms & conditions
                             </label>
                         </div>
                         <div>
-                            <p className='cursor-pointer hover:underline text-blue-600 font-semibold'>Forget Password?</p>
+                            <p className='cursor-pointer hover:underline text-blue-600 font-semibold'>Read here.</p>
                         </div>
                     </div>
 
@@ -43,10 +54,12 @@ const Register = () => {
                         className="inline-block rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                         data-te-ripple-init
                         data-te-ripple-color="light">
-                        Sign In
+                        Register
                     </button>
-                    <p className='text-gray-700 mt-6 sm:mt-10'>Already have an account? <Link to='/login' className='text-blue-600 cursor-pointer hover:underline'>Login here.</Link></p>
+                    <p className='text-gray-700 mt-6 sm:mt-10'>Already registered? <Link to='/login' className='text-blue-600 cursor-pointer hover:underline'>Login here.</Link></p>
                 </form>
+                <div className="divider my-10 w-[90%] mx-auto">Or</div>
+                <div className='w-[90%]'><SocialLogin></SocialLogin></div>
             </div >
         </div >
     );
