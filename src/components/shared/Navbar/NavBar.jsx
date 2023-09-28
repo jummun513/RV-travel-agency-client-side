@@ -10,7 +10,7 @@ import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
 import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
 import { ImSwitch } from 'react-icons/im';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
 import userImg from '../../../assets/images/user.jpg'
@@ -19,7 +19,7 @@ import userImg from '../../../assets/images/user.jpg'
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
-    const user = true;
+    const user = false;
 
     const navbarRef = useRef();
 
@@ -33,12 +33,17 @@ const NavBar = () => {
         document.addEventListener('mousedown', handler);
     })
 
+    // location check for conditionally show sign in button
+    const location = useLocation();
+
     return (
         <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
-                <div>
+                <Link to='/'>
                     <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
-                </div>
+                </Link>
+
+                {/* for extra-large device */}
                 <div className='hidden xl:flex items-top'>
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
@@ -50,10 +55,11 @@ const NavBar = () => {
                                     </div>
                                 </div>
                                 :
-                                <button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button>
+                                ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button></Link>)
                         }
                     </div>
                 </div>
+                {/* for large device */}
                 <div className='flex items-center xl:hidden'>
                     {
                         user ?
@@ -62,7 +68,8 @@ const NavBar = () => {
                                     <img src={userImg} alt='User Image' />
                                 </div>
                             </div>
-                            : <button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button>
+                            :
+                            ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button></Link>)
                     }
                     <div onClick={() => { setNavToggle(!navToggle), setProfileToggle(false) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
                         {
@@ -70,7 +77,11 @@ const NavBar = () => {
                         }
                     </div>
                 </div>
+
+                {/* for small device show small small-nav-list */}
                 <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-100 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[50px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
+
+                {/* if user login true show user panel */}
                 <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
             </div>
         </div>
@@ -90,7 +101,7 @@ const navItems = [
         label: 'Privileged Guest',
         icon: <RiVipCrownLine className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />,
         children: [
-            { label: 'Login', href: '/privileged-guest/login', icon: <AiOutlineLogin className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Login', href: '/login', icon: <AiOutlineLogin className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'Hotel list', href: '/hotels-list', icon: <BiHotel className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'PG Photo Gallery', href: '/privileged-guest/pg-photo-gallery', icon: <GrGallery className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'PG Reviews', href: '/privileged-guest/pg-reviews', icon: <MdRateReview className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
@@ -129,7 +140,7 @@ const navItems = [
 ]
 
 
-// large device menu
+// Nav menu for large device
 const NavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
 
@@ -193,7 +204,7 @@ const NavList = () => {
 }
 
 
-// small device menu
+// Nav menu for small device
 const SmallNavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
 
@@ -246,7 +257,7 @@ const SmallNavList = () => {
 }
 
 
-// User controlled item
+// After user login nav item
 const userItems = [
     {
         label: 'Admin Panel',
@@ -270,7 +281,7 @@ const userItems = [
     },
 ]
 
-// if user login show user profile
+// After login User panel
 const UserProfile = () => {
     return (
         <div>

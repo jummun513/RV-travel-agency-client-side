@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'login-back': "url('./src/assets/images/login-background.jpg')",
+        'login-front': "url('./src/assets/images/login-foreground.jpg')",
+      },
       colors: {
         primary: '#ffb700',
         secondary: '#f2af04',
