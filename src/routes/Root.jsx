@@ -8,6 +8,7 @@ import Blogs from "../components/pages/Blogs/Blogs";
 import Student from "../components/pages/Student/Student";
 import HotelDetail from "../components/pages/HotelDetail/HotelDetail";
 import LoginRegiContainer from "../components/pages/LoginRegiContainer/LoginRegiContainer";
+import PrivilegeLogin from "../components/pages/PrivilegeLogin/PrivilegeLogin";
 
 
 export const router = createBrowserRouter([
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
             {
                 path: '/registration',
                 element: <LoginRegiContainer></LoginRegiContainer>,
+            },
+            {
+                path: '/privileged-guest/login',
+                element: <PrivilegeLogin></PrivilegeLogin>,
             },
         ]
     },
