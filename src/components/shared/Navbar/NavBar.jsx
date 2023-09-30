@@ -14,13 +14,17 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
 import userImg from '../../../assets/images/user.jpg'
+import { useContext } from 'react';
+import { AuthContext } from '../../../providers/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../Loading/Loading';
 
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
-    const user = false;
-
+    const { user } = useContext(AuthContext);
     const navbarRef = useRef();
 
     useEffect(() => {
@@ -43,14 +47,14 @@ const NavBar = () => {
                     <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </Link>
 
-                {/* for extra-large device */}
+                {/* navbar for extra-large device */}
                 <div className='hidden xl:flex items-top'>
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
                             user ?
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
-                                    <div className="xl:w-16 rounded-full ring-2 ring-primary">
+                                    <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
                                         <img src={userImg} alt='User Image' />
                                     </div>
                                 </div>
@@ -59,7 +63,8 @@ const NavBar = () => {
                         }
                     </div>
                 </div>
-                {/* for large device */}
+
+                {/* navbar for large device */}
                 <div className='flex items-center xl:hidden'>
                     {
                         user ?
@@ -78,12 +83,13 @@ const NavBar = () => {
                     </div>
                 </div>
 
-                {/* for small device show small small-nav-list */}
+                {/* for small device show small-nav-list */}
                 <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-100 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[50px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
 
                 {/* if user login true show user panel */}
-                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile></UserProfile></div>
+                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile setProfileToggle={setProfileToggle}></UserProfile></div>
             </div>
+            <ToastContainer autoClose={7000} />
         </div>
     );
 };
@@ -257,7 +263,7 @@ const SmallNavList = () => {
 }
 
 
-// After user login nav item
+// user nav item
 const userItems = [
     {
         label: 'Admin Panel',
@@ -282,15 +288,39 @@ const userItems = [
 ]
 
 // After login User panel
-const UserProfile = () => {
+const UserProfile = (data) => {
+    const { logOut, loading, setLoading } = useContext(AuthContext);
+    const { setProfileToggle } = data;
+    // toast from toastify
+    const notify = () => toast.success("Sign out successfully.", { theme: "light" });
+
+    // sing out clicked handle
+    const handleSignOut = () => {
+        logOut().then(() => {
+            // after successfully logged out
+            setLoading(false);
+            setProfileToggle(false);
+            notify();
+        })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+            });
+    }
+
+    // show loading if loading
+    if (loading) {
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
                 {userItems.map((item, index) => {
                     const isLastItem = index === userItems.length - 1;
                     return (
-                        <li id='sidebar' className={`mt-4 sm:mt-5 md:mt-3 border-b ${isLastItem && 'bg-red-50 w-full'}`} key={index}>
-                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-red-500' : 'text-gray-700 group/nav'}`}>
+                        <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
+                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
                                 <span className='flex items-center'>
                                     <span className='group-hover/nav:text-primary'>{item.icon}</span>
                                     <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
@@ -300,6 +330,6 @@ const UserProfile = () => {
                     );
                 })}
             </ul>
-        </div>
+        </div >
     );
 }

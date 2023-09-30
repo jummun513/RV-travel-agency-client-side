@@ -1,5 +1,5 @@
 
-const Test = () => {
+const Loading = () => {
     return (
         <div style={{ height: '100vh', width: '100%' }} className="relative z-[21]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-200 bg-opacity-50 transition-opacity"></div>
@@ -15,4 +15,4 @@ const Test = () => {
     );
 };
 
-export default Test;
+export default Loading;

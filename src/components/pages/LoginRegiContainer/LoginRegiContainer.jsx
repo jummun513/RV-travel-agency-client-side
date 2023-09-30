@@ -1,12 +1,23 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import './LoginRegiContainer.css';
 import bgImage from '../../../assets/images/login-background.jpg';
 import frontImage from '../../../assets/images/login-foreground.jpg';
+import { useContext } from "react";
+import { AllContext } from "../../../layout/Main";
+import Modal from "../../shared/Modal/Modal";
 
 const LoginRegiContainer = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { openModal, setOpenModal } = useContext(AllContext);
+
+    const regiOkAction = () => {
+        setOpenModal(false);
+        navigate('/');
+    }
+
     return (
         <div className="relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
             <div style={{ backgroundImage: `url(${bgImage})` }} className="w-full h-full bg-cover bg-no-repeat bg-center">
@@ -21,6 +32,9 @@ const LoginRegiContainer = () => {
                     </div>
                 </div>
             </div>
+            {
+                openModal && <Modal from='register_modal' okAction={regiOkAction} content='success' text='A verifying email is sent to your provided address. Please check your inbox/spam to verify your email.' heading='Verify Email'></Modal>
+            }
         </div>
     );
 };

@@ -4,11 +4,13 @@ import NavBar from '../components/shared/Navbar/Navbar';
 import { createContext, useEffect, useState } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { QueryClient, QueryClientProvider } from "react-query";
+import AuthProvider from '../providers/AuthProvider';
 
 export const AllContext = createContext("");
 
 function Main() {
     const [lockBody, setLockBody] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
     const targetElement = document.querySelector('#container');
 
     useEffect(() => {
@@ -20,12 +22,14 @@ function Main() {
 
     return (
         <QueryClientProvider client={client}>
-            <AllContext.Provider value={{ lockBody, setLockBody }}>
-                <div id='container'>
-                    <NavBar></NavBar>
-                    <Outlet></Outlet>
-                    <Footer></Footer>
-                </div>
+            <AllContext.Provider value={{ lockBody, setLockBody, setOpenModal, openModal }}>
+                <AuthProvider>
+                    <div id='container'>
+                        <NavBar></NavBar>
+                        <Outlet></Outlet>
+                        <Footer></Footer>
+                    </div>
+                </AuthProvider>
             </AllContext.Provider>
         </QueryClientProvider>
     )
