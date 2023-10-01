@@ -1,0 +1,8 @@
+#admin_panel_sidebar li a.active {
+    background-color: #ffb700;
+    color: #000;
+}
+
+.menu :where(li ul):before {
+    width: 0;
+}

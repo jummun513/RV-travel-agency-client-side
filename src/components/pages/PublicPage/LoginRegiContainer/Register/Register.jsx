@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import logo from '../../../../assets/Logos/short-logo.png';
+import logo from '../../../../../assets/Logos/short-logo.png';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi'
-import { AuthContext } from '../../../../providers/AuthProvider';
-import { AllContext } from '../../../../layout/Main';
+import { AuthContext } from '../../../../../providers/AuthProvider';
+import { AllContext } from '../../../../../layout/Main/Main';
 import { toast } from 'react-toastify';
 
 const Register = () => {

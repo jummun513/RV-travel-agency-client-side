@@ -1,5 +1,5 @@
-import logo from '../../../assets/Logos/short-logo.png';
-import img from '../../../assets/images/privilege-login.gif';
+import logo from '../../../../assets/Logos/short-logo.png';
+import img from '../../../../assets/images/privilege-login.gif';
 
 const PrivilegeLogin = () => {
     return (

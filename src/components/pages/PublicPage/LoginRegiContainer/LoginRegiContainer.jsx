@@ -2,11 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import './LoginRegiContainer.css';
-import bgImage from '../../../assets/images/login-background.jpg';
-import frontImage from '../../../assets/images/login-foreground.jpg';
+import bgImage from '../../../../assets/images/login-background.jpg';
+import frontImage from '../../../../assets/images/login-foreground.jpg';
 import { useContext } from "react";
-import { AllContext } from "../../../layout/Main";
-import Modal from "../../shared/Modal/Modal";
+import { AllContext } from "../../../../layout/Main/Main";
+import Modal from "../../../shared/Modal/Modal";
 
 const LoginRegiContainer = () => {
     const location = useLocation();

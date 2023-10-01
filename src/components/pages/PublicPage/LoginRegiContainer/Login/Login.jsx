@@ -1,9 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import logo from '../../../../assets/Logos/short-logo.png';
+import logo from '../../../../../assets/Logos/short-logo.png';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
-import { AuthContext } from '../../../../providers/AuthProvider';
+import { AuthContext } from '../../../../../providers/AuthProvider';
 
 const Login = () => {
     const email = useRef(null);
@@ -13,7 +13,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { loading, setLoading, signIn } = useContext(AuthContext);
     const navigate = useNavigate();
-    const location = useLocation().state?.from?.pathname || '/home'; // save the user location from where he or she come
+    const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
 
 
     // after submitted form handle

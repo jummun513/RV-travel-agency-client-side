@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import backVideo from '../../../../assets/videos/bannerVideo.mp4';
+import backVideo from '../../../../../assets/videos/bannerVideo.mp4';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FaHotel, FaCcVisa, FaPlaneDeparture } from 'react-icons/fa';
 import { MdHolidayVillage } from 'react-icons/md';
 import './Banner.css';
-import HotelSearch from '../../../shared/HotelSearch/HotelSearch';
+import HotelSearch from '../../../../shared/HotelSearch/HotelSearch';
 
 const Banner = () => {
   return (

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import HotelSearch from '../../shared/HotelSearch/HotelSearch';
+import HotelSearch from '../../../shared/HotelSearch/HotelSearch';
 import './Hotel.css';
 import { MdOutlineExpandMore } from 'react-icons/md';
 import { AiOutlineFilter } from 'react-icons/ai';
 import { FaMapMarked } from 'react-icons/fa';
 import Hotel from './Hotel/Hotel';
 import { useQuery } from 'react-query';
-import fetchData from '../../../fetchData';
+import fetchData from '../../../../functions/fetchData';
 
 const Hotels = () => {
     const [seeMore, setSeeMore] = useState(false);
