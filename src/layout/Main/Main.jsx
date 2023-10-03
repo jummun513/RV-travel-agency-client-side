@@ -11,6 +11,7 @@ export const AllContext = createContext("");
 function Main() {
     const [lockBody, setLockBody] = useState(null);
     const [openModal, setOpenModal] = useState(false);
+    const [pgUser, setPGuser] = useState(null);
     const targetElement = document.querySelector('#container');
 
     useEffect(() => {
@@ -22,7 +23,7 @@ function Main() {
 
     return (
         <QueryClientProvider client={client}>
-            <AllContext.Provider value={{ lockBody, setLockBody, setOpenModal, openModal }}>
+            <AllContext.Provider value={{ lockBody, setLockBody, setOpenModal, openModal, pgUser, setPGuser }}>
                 <AuthProvider>
                     <div id='container'>
                         <NavBar></NavBar>

@@ -15,26 +15,32 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
 
+    const handleEmailField = () => {
+        setError('')
+    }
+    const handlePassField = () => {
+        setError('')
+    }
 
     // after submitted form handle
     const formSubmit = (event) => {
         event.preventDefault();
-        setError('');
         const e = email.current.value;
         const p = password.current.value;
-        // console.log(e, p);
-        signIn(e, p)
-            .then(() => {
-                // after successfully create user
-                setLoading(false);
-                formRef.current.reset();
-                navigate(location, { replace: true }); //navigate to previous page
-            })
-            .catch((error) => {
-                // if any error catch
-                setLoading(false);
-                setError(error.message);
-            })
+        if (error === '') {
+            signIn(e, p)
+                .then(() => {
+                    // after successfully create user
+                    setLoading(false);
+                    formRef.current.reset();
+                    navigate(location, { replace: true }); //navigate to previous page
+                })
+                .catch((error) => {
+                    // if any error catch
+                    setLoading(false);
+                    setError(error.message);
+                })
+        }
     }
 
     return (
@@ -48,14 +54,14 @@ const Login = () => {
 
                     {/* Email field */}
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                        <input ref={email} type="email" name="login_floating_email" id="login_floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <input onKeyUp={() => handleEmailField()} ref={email} type="email" name="login_floating_email" id="login_floating_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label htmlFor="login_floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
                         <p className='text-xs xs:text-sm mt-1'>We&#39;ll never share your email with anyone else.</p>
                     </div>
 
                     {/* password field  */}
                     <div className="relative z-0 w-full mb-6 xs:mb-8 group">
-                        <input ref={password} type={showPassword ? 'text' : 'password'} title='Password must have contain one lowercase(a-z), one uppercase(A-Z), one number(0-9), one special character (!,@,#,$,%,^,&,*) and length must be 8 to 16' name="login_floating_password" id="login_floating_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <input onKeyUp={() => handlePassField()} ref={password} type={showPassword ? 'text' : 'password'} title='Password must have contain one lowercase(a-z), one uppercase(A-Z), one number(0-9), one special character (!,@,#,$,%,^,&,*) and length must be 8 to 16' name="login_floating_password" id="login_floating_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label htmlFor="login_floating_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                         <div className='flex items-center absolute top-3 right-1'>
                             {

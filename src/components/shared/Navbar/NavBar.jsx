@@ -10,7 +10,7 @@ import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
 import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
 import { ImSwitch } from 'react-icons/im';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
 import userImg from '../../../assets/images/user.jpg'
@@ -19,10 +19,12 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
+import { AllContext } from '../../../layout/Main/Main';
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
+    const { pgUser } = useContext(AllContext);
     const { user } = useContext(AuthContext);
     const navbarRef = useRef();
 
@@ -51,7 +53,7 @@ const NavBar = () => {
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
-                            user ?
+                            user || pgUser ?
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
                                     <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
                                         <img src={userImg} alt='User Image' />
@@ -66,7 +68,7 @@ const NavBar = () => {
                 {/* navbar for large device */}
                 <div className='flex items-center xl:hidden'>
                     {
-                        user ?
+                        user || pgUser ?
                             <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
                                     <img src={userImg} alt='User Image' />
@@ -88,7 +90,7 @@ const NavBar = () => {
                 {/* if user login true show user panel */}
                 <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile setProfileToggle={setProfileToggle}></UserProfile></div>
             </div>
-            <ToastContainer autoClose={7000} />
+            <ToastContainer autoClose={10000} />
         </div>
     );
 };
@@ -281,30 +283,37 @@ const userItems = [
     },
     {
         label: 'Sign Out',
-        href: '/login',
+        href: '',
         icon: <ImSwitch className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
     },
 ]
 
 // After login User panel
 const UserProfile = (data) => {
-    const { logOut, loading, setLoading } = useContext(AuthContext);
+    const { logOut, loading, setLoading, user } = useContext(AuthContext);
+    const { pgUser } = useContext(AllContext);
     const { setProfileToggle } = data;
+    const navigate = useNavigate();
     // toast from toastify
     const notify = () => toast.success("Sign out successfully.", { theme: "light" });
+    const errorNotify = () => toast.error("There was a problem. Try again!", { theme: "light" });
 
-    // sing out clicked handle
+    // sing out clicked handle    
     const handleSignOut = () => {
-        logOut().then(() => {
-            // after successfully logged out
-            setLoading(false);
-            setProfileToggle(false);
-            notify();
-        })
-            .catch((error) => {
+        if (pgUser === null && user !== null) {
+            logOut().then(() => {
+                // after successfully logged out
                 setLoading(false);
-                console.log(error);
-            });
+                setProfileToggle(false);
+                navigate('/login');
+                notify();
+            })
+                .catch((error) => {
+                    setLoading(false);
+                    errorNotify(error);
+                });
+        }
+
     }
 
     // show loading if loading

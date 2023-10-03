@@ -29,7 +29,6 @@ const AuthProvider = (data) => {
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
-
     }
 
     // email verification
