@@ -6,10 +6,12 @@ import { BiShow, BiHide } from 'react-icons/bi'
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { AllContext } from '../../../../../layout/Main/Main';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Register = () => {
     const { createNewUser, loading, setLoading, verificationEmailSend, sending, errorEmailVerification } = useContext(AuthContext);
     const [error, setError] = useState('');
+    const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
     const confirmPassword = useRef(null);
@@ -18,8 +20,15 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const { setOpenModal } = useContext(AllContext); // carry setOpenModal function from Main.jsx
+    const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
 
-
+    // Name field validation checkup and value set
+    const handleNameField = () => {
+        if (/^[a-zA-Z .',-_]{5,32}$/.test(name.current.value)) {
+            setError('');
+        }
+        else { setError('invalid_name'); }
+    }
 
     // Email field validation checkup and value set
     const handleEmailField = () => {
@@ -60,11 +69,25 @@ const Register = () => {
             setError('invalid_password');
         }
         else if (error === '') {
-            const e = email.current.value;
-            const p = password.current.value;
-            createNewUser(e, p)
+            const nam = name.current.value;
+            const eml = email.current.value;
+            const pass = password.current.value;
+
+            // create user on firebase
+            createNewUser(eml, pass)
                 .then(async () => {
-                    // after successfully create user
+                    // after successfully create user data save to database
+                    const postData = async () => {
+                        try {
+                            await axios.post('http://localhost:5000/general-users', { name: nam, email: eml });
+                        }
+                        catch (error) {
+                            setLoading(false);
+                            return notifyError();
+                        }
+                    }
+                    postData();
+
                     await verificationEmailSend();
                     setLoading(false);
                     formRef.current.reset();
@@ -79,8 +102,7 @@ const Register = () => {
     }
 
     if (errorEmailVerification) {
-        const notify = () => toast.error("Sorry! verify email not send. Try later.", { theme: "light" });
-        notify();
+        notifyError();
     }
 
 
@@ -93,10 +115,19 @@ const Register = () => {
                 {/* form start */}
                 <form ref={formRef} className='w-[90%] 2xl:w-[80%]' onSubmit={formSubmit}>
 
+                    {/* Name field */}
+                    <div className="relative z-0 w-full mb-6 xs:mb-10 group">
+                        <input onKeyUp={handleNameField} ref={name} type="text" name="floating_name" id="floating_name" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label htmlFor="floating_name" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full Name <sup className='text-red-500'>*</sup></label>
+                        {
+                            ((error.includes('invalid_name')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Name length should be 5 to 32</p>)
+                        }
+                    </div>
+
                     {/* Email field */}
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
                         <input onKeyUp={handleEmailField} ref={email} type="email" name="floating_register_email" id="floating_register_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        <label htmlFor="floating_register_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                        <label htmlFor="floating_register_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address <sup className='text-red-500'>*</sup></label>
                         <p className='text-xs xs:text-sm mt-1'>We&#39;ll never share your email with anyone else.</p>
                         {
                             ((error.includes('invalid_email')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Your email is invalid!</p>) ||
@@ -107,7 +138,7 @@ const Register = () => {
                     {/* password field  */}
                     <div className="relative z-0 w-full mb-6 xs:mb-8 group">
                         <input onKeyUp={() => { checkPasswordValidation(); passwordCompareWithConfirmPassword() }} ref={password} type={showPassword ? 'text' : 'password'} title='Password must have contain one lowercase(a-z), one uppercase(A-Z), one number(0-9), one special character (!,@,#,$,%,^,&,*) and length must be 8 to 16' name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                        <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password <sup className='text-red-500'>*</sup></label>
                         <div className='flex items-center absolute top-3 right-1'>
                             {
                                 ((passwordStrength.includes('strong_password')) && <p className='text-xs xs:text-sm xs:font-semibold text-green-600'>Strong</p>) ||
@@ -129,7 +160,7 @@ const Register = () => {
                             (confirmPassword.current?.value !== null) && (showConfirmPassword ? <BiShow onClick={() => { setShowConfirmPassword(!showConfirmPassword) }} className='cursor-pointer absolute text-gray-700 top-3 right-1 h-4 w-4 sm:h-6 sm:w-6'></BiShow> : <BiHide onClick={() => { setShowConfirmPassword(!showConfirmPassword) }} className='cursor-pointer absolute text-gray-700 top-3 right-1 h-4 w-4 sm:h-6 sm:w-6'></BiHide>)
                         }
                         <input onKeyUp={passwordCompareWithConfirmPassword} ref={confirmPassword} type={showConfirmPassword ? 'text' : 'password'} name="floating_confirm_password" id="floating_confirm_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        <label htmlFor="floating_confirm_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password</label>
+                        <label htmlFor="floating_confirm_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password <sup className='text-red-500'>*</sup></label>
                         {
                             error.includes('password_not_match') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Doesn&#39;t match the password!</p>
                         }

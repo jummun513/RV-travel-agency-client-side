@@ -14,6 +14,8 @@ import ManagePG from "../components/pages/AdminPanelPage/ManagePG/ManagePG";
 import AddPG from "../components/pages/AdminPanelPage/AddPG/AddPG";
 import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
 import NotFound from "../components/shared/NotFound/NotFound";
+import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
+import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
 
 
 export const router = createBrowserRouter([
@@ -78,6 +80,14 @@ export const router = createBrowserRouter([
             {
                 path: 'add-new-privileged-guest',
                 element: <AddPG></AddPG>,
+            },
+            {
+                path: 'general-users',
+                element: <GeneralUsers></GeneralUsers>,
+            },
+            {
+                path: 'manage-admin',
+                element: <AdminManage></AdminManage>,
             },
         ]
     },

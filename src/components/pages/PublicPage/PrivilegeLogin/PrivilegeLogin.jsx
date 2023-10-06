@@ -41,7 +41,6 @@ const PrivilegeLogin = () => {
                 try {
                     const response = await axios.post('http://localhost:5000/pg-users/login', { eml, pass });
                     setLoading(false);
-                    console.log(response);
                     if (String(response.data).includes('not_register_email')) {
                         setError('not_register_email');
                     }

@@ -1,6 +1,7 @@
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { RiVipCrownLine } from 'react-icons/ri';
-import { MdOutlineLocalOffer } from 'react-icons/md';
+import { RiAdminLine } from 'react-icons/ri';
+import { FaUsers } from 'react-icons/fa';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/Logos/full-logo-for-dark.png';
 import userImg from '../../../assets/images/user.jpg';
@@ -60,8 +61,8 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><Link to='' className='hover:bg-primary hover:text-gray-950'><MdOutlineLocalOffer></MdOutlineLocalOffer>Offer Manage</Link></li>
-                        <li className='text-gray-50 mt-3'><Link to='' className='hover:bg-primary hover:text-gray-950'><MdOutlineLocalOffer></MdOutlineLocalOffer>Offer Manage</Link></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-9'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
                                 <img className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
@@ -95,8 +96,8 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><Link to='' className='hover:bg-primary hover:text-gray-950'><MdOutlineLocalOffer></MdOutlineLocalOffer>Offer Manage</Link></li>
-                        <li className='text-gray-50 mt-3'><Link to='' className='hover:bg-primary hover:text-gray-950'><MdOutlineLocalOffer></MdOutlineLocalOffer>Offer Manage</Link></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-10'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
                                 <img className='w-8 xs:w-10 md:w-12 border p-1 rounded-full me-1 sm:me-2' src={userImg} alt='User Image' /> Sign Out

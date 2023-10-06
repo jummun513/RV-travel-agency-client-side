@@ -20,6 +20,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
 import { AllContext } from '../../../layout/Main/Main';
+import { useQuery } from 'react-query';
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
@@ -28,6 +29,8 @@ const NavBar = () => {
     const { user } = useContext(AuthContext);
     const navbarRef = useRef();
 
+
+    // off navbar to profile toggle, when click outside
     useEffect(() => {
         const handler = (e) => {
             if (!navbarRef.current?.contains(e.target)) {
@@ -88,13 +91,21 @@ const NavBar = () => {
                 <div className={`xl:hidden absolute top-[40px] xxs:top-[60px] lg:top-[74px] duration-100 ease-linear ${navToggle ? 'opacity-100 visible right-0' : 'opacity-0 invisible -right-[50px] overflow-hidden'}`}><SmallNavList></SmallNavList></div>
 
                 {/* if user login true show user panel */}
-                <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile setProfileToggle={setProfileToggle}></UserProfile></div>
+
+                {/* user panel control for general and privileged users */}
+                {
+                    user ?
+                        <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile setProfileToggle={setProfileToggle}></UserProfile></div>
+                        :
+                        <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile2 setProfileToggle={setProfileToggle}></UserProfile2></div>
+                }
             </div>
             <ToastContainer autoClose={10000} />
         </div>
     );
 };
 export default NavBar;
+
 
 
 // all navbar items
@@ -146,10 +157,10 @@ const navItems = [
     }
 ]
 
-
 // Nav menu for large device
 const NavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
+    const { pgUser } = useContext(AllContext);
 
     const navbarRef = useRef();
 
@@ -185,9 +196,16 @@ const NavList = () => {
                                 </div>
                                 {showDropdown[index] && (
                                     <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
-                                        {item.children.map((child, childIndex) => (
-                                            <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
-                                        ))}
+                                        {
+                                            pgUser ?
+                                                item.children.slice(1, 4).map((child, childIndex) => (
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                ))
+                                                :
+                                                item.children.map((child, childIndex) => (
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                ))
+                                        }
                                     </ul>
                                 )}
                             </div>
@@ -210,10 +228,10 @@ const NavList = () => {
     );
 }
 
-
 // Nav menu for small device
 const SmallNavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
+    const { pgUser } = useContext(AllContext);
 
     const toggleDropdown = (index) => {
         setShowDropdown((prevState) => ({
@@ -238,9 +256,16 @@ const SmallNavList = () => {
                                 </div>
                                 {showDropdown[index] && (
                                     <ul className='ms-4'>
-                                        {item.children.map((child, childIndex) => (
-                                            <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
-                                        ))}
+                                        {
+                                            pgUser ?
+                                                item.children.slice(1, 4).map((child, childIndex) => (
+                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                ))
+                                                :
+                                                item.children.map((child, childIndex) => (
+                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                ))
+                                        }
                                     </ul>
                                 )}
                             </div>
@@ -262,6 +287,9 @@ const SmallNavList = () => {
         </div>
     );
 }
+
+
+
 
 
 // user nav item
@@ -288,19 +316,23 @@ const userItems = [
     },
 ]
 
-// After login User panel
+// After login as general user show this User panel
 const UserProfile = (data) => {
     const { logOut, loading, setLoading, user } = useContext(AuthContext);
-    const { pgUser } = useContext(AllContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
+    const { data: g_user = {}, isLoading, isError } = useQuery(['g_user'], async () => {
+        const res = await fetch(`http://localhost:5000/general-users/${user?.email}`);
+        return res.json();
+    })
+
     // toast from toastify
     const notify = () => toast.success("Sign out successfully.", { theme: "light" });
     const errorNotify = () => toast.error("There was a problem. Try again!", { theme: "light" });
 
     // sing out clicked handle    
     const handleSignOut = () => {
-        if (pgUser === null && user !== null) {
+        if (user !== null) {
             logOut().then(() => {
                 // after successfully logged out
                 setLoading(false);
@@ -317,26 +349,85 @@ const UserProfile = (data) => {
     }
 
     // show loading if loading
-    if (loading) {
+    if (loading || isLoading) {
         return <Loading></Loading>
+    }
+
+    if (isError) {
+        return <p>There was a problem try later.</p>
+    }
+
+    return (
+        <div>
+            <ul className='relative flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{g_user.email}</p>
+                {
+                    (g_user.role === 'admin' || g_user.role === 'developer') ?
+                        userItems.slice(0, 4).map((item, index) => {
+                            const isLastItem = index === userItems.slice(0, 4).length - 1;
+                            return (
+                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
+                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                                        <span className='flex items-center'>
+                                            <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                            <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                        </span>
+                                    </NavLink>
+                                </li>
+                            );
+                        })
+                        :
+                        userItems.slice(1, 4).map((item, index) => {
+                            const isLastItem = index === userItems.slice(1, 4).length - 1;
+                            return (
+                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
+                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                                        <span className='flex items-center'>
+                                            <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                            <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                        </span>
+                                    </NavLink>
+                                </li>
+                            );
+                        })
+                }
+            </ul>
+        </div >
+    );
+}
+
+// After login as privileged guest User panel
+const UserProfile2 = () => {
+    const { pgUser } = useContext(AllContext);
+    // const { setProfileToggle } = data;
+    // const navigate = useNavigate();
+
+
+    // sing out clicked handle    
+    const handleSignOut = () => {
+        window.location.reload();
     }
 
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                {userItems.map((item, index) => {
-                    const isLastItem = index === userItems.length - 1;
-                    return (
-                        <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
-                            <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
-                                <span className='flex items-center'>
-                                    <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                    <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
-                                </span>
-                            </NavLink>
-                        </li>
-                    );
-                })}
+                <li>
+                    {pgUser?.email}
+                </li>
+                {
+                    userItems.slice(1, 4).map((item, index) => {
+                        const isLastItem = index === userItems.slice(1, 4).length - 1;
+                        return (
+                            <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
+                                <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                                    <span className='flex items-center'>
+                                        <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                        <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                    </span>
+                                </NavLink>
+                            </li>
+                        );
+                    })}
             </ul>
         </div >
     );
