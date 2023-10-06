@@ -2,13 +2,32 @@ import { useQuery } from 'react-query';
 import user from '../../../../assets/images/user.svg';
 import Loading from '../../../shared/Loading/Loading';
 import NotFound from '../../../shared/NotFound/NotFound';
+import { toast } from 'react-toastify';
 
 
 const AdminManage = () => {
-    const { data: admin = [], isLoading, isError, } = useQuery(['admin'], async () => {
+    const { data: admin = [], isLoading, isError, refetch } = useQuery(['admin'], async () => {
         const res = await fetch('http://localhost:5000/admin');
         return res.json();
     })
+    const successNotify = () => toast.success("Success fully removed from admin", { theme: "light" });
+    const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
+
+    const removeFromAdmin = (email) => {
+        fetch(`http://localhost:5000/admin-remove/${email}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    successNotify();
+                    refetch();
+                }
+                else {
+                    errorNotify();
+                }
+            })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -56,7 +75,7 @@ const AdminManage = () => {
                                                 </td>
                                                 <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
                                                     <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                    <button disabled={d.role === 'developer' && true} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete Admin</button>
+                                                    <button onClick={() => removeFromAdmin(d.email)} disabled={d.role === 'developer' && true} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete Admin</button>
                                                 </td>
                                             </tr>
                                         )

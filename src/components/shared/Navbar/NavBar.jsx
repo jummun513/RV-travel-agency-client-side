@@ -411,9 +411,7 @@ const UserProfile2 = () => {
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                <li>
-                    {pgUser?.email}
-                </li>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{pgUser?.email}</p>
                 {
                     userItems.slice(1, 4).map((item, index) => {
                         const isLastItem = index === userItems.slice(1, 4).length - 1;

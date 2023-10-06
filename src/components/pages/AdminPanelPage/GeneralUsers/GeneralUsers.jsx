@@ -2,13 +2,48 @@ import { useQuery } from "react-query";
 import Loading from "../../../shared/Loading/Loading";
 import NotFound from "../../../shared/NotFound/NotFound";
 import user from '../../../../assets/images/user.svg';
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 
 const GeneralUsers = () => {
-    const { data: g_users = [], isLoading, isError, } = useQuery(['g_users'], async () => {
+    const { data: g_users = [], isLoading, isError, refetch } = useQuery(['g_users'], async () => {
         const res = await fetch('http://localhost:5000/general-users');
         return res.json();
-    })
+    });
+    const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
+
+    const addToAdmin = (email) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Admin can do any change on your website",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Make admin!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/admin-add/${email}`, {
+                    method: 'PATCH'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount) {
+                            refetch();
+                        }
+                        else {
+                            errorNotify();
+                        }
+                    })
+                Swal.fire(
+                    'Added!',
+                    'Successfully! added as admin.',
+                    'success'
+                )
+            }
+        })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -71,11 +106,11 @@ const GeneralUsers = () => {
                                                     </div>
                                                 </td>
                                                 <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-gray-800">
-                                                    {(d.role === 'admin') ? 'Admin' : 'General User'}
+                                                    {(d.role === 'admin' && 'Admin') || (d.role === 'developer' ? 'Developer' : 'General User')}
                                                 </td>
                                                 <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
                                                     <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                    <button disabled={(d.role === 'admin') && true} className="btn btn-sm xl:btn-md text-gray-50 bg-green-700 border-none hover:bg-green-600">Make Admin</button>
+                                                    <button onClick={() => addToAdmin(d.email)} disabled={(d.role === 'admin' || d.role === 'developer') && true} className="btn btn-sm xl:btn-md text-gray-50 bg-green-700 border-none hover:bg-green-600">Make Admin</button>
                                                 </td>
                                             </tr>
                                         )

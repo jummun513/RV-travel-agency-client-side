@@ -2,12 +2,48 @@ import { useQuery } from "react-query";
 import user from '../../../../assets/images/user.svg';
 import Loading from '../../../shared/Loading/Loading';
 import NotFound from '../../../shared/NotFound/NotFound';
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ManagePG = () => {
-    const { data: pg_users = [], isLoading, isError, } = useQuery(['pg_users'], async () => {
+    const { data: pg_users = [], isLoading, isError, refetch } = useQuery(['pg_users'], async () => {
         const res = await fetch('http://localhost:5000/pg-users');
         return res.json();
     })
+    const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
+
+    const removePGuser = (email) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This user information will be permanently deleted from our database.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/pg-users/${email}`, {
+                    method: 'DELETE',
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount === 1) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                        else {
+                            errorNotify();
+                        }
+                    })
+            }
+        })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -74,7 +110,7 @@ const ManagePG = () => {
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
                                                 <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                <button className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button onClick={() => removePGuser(d.email)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )
