@@ -46,7 +46,6 @@ const AuthProvider = (data) => {
                     .then(data => {
                         localStorage.setItem('access_token', data.data.token);
                     })
-                    .catch(err => console.log(err))
             }
             else {
                 localStorage.removeItem('access_token');

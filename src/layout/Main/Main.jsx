@@ -21,8 +21,6 @@ function Main() {
 
     const client = new QueryClient();
 
-    // console.log(pgUser);
-
     return (
         <QueryClientProvider client={client}>
             <AllContext.Provider value={{ lockBody, setLockBody }}>

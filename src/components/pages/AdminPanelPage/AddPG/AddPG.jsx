@@ -80,11 +80,16 @@ const AddPG = () => {
             const phn = number.current.value;
             const notify = () => toast.success("Successfully, new privileged guest add.", { theme: "light" });
             const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
+            const token = localStorage.getItem('access_token');
 
             const postData = async () => {
                 setLoading(true);
                 try {
-                    const response = await axios.post('http://localhost:5000/pg-users/register', { nam, eml, pass, phn });
+                    const response = await axios.post('http://localhost:5000/pg-users/register', { nam, eml, pass, phn }, {
+                        headers: {
+                            authorization: `bearer ${token}`,
+                        }
+                    });
                     setLoading(false);
                     if (response?.data?.includes('email_already_register')) {
                         setError('email_already_register');
@@ -102,21 +107,6 @@ const AddPG = () => {
                 }
             }
             postData();
-
-            // post data using fetch
-            // fetch('http://localhost:5000/pg-users',
-            //     {
-            //         method: 'POST',
-            //         headers: {
-            //             'content-type': 'application/json'
-            //         },
-            //         body: JSON.stringify({ nam, eml, pass, phn })
-            //     })
-            //     .then(res => res.json())
-            //     .then(data => {
-            //         console.log(data);
-            //         notify();
-            //     })
         }
     }
 

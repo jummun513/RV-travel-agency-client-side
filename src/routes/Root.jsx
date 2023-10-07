@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
-// import Test from "../layout/Test/Test";
+import Test from "../layout/Test/Test";
 // import About from "../components/pages/PublicPage/About/About";
 // import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
 // import Blogs from "../components/pages/PublicPage/Blogs/Blogs";
@@ -16,6 +16,7 @@ import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
 import NotFound from "../components/shared/NotFound/NotFound";
 import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
 import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
+import Developing from "../components/shared/Developing/Developing";
 
 
 export const router = createBrowserRouter([
@@ -31,26 +32,66 @@ export const router = createBrowserRouter([
                 path: '/home',
                 element: <Home></Home>,
             },
-            // {
-            //     path: '/',
-            //     element: <About></About>,
-            // },
-            // {
-            //     path: '/hotels-list',
-            //     element: <Hotels></Hotels>,
-            // },
+            {
+                path: '/',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/hotels-list',
+                element: <Developing></Developing>,
+            },
             // {
             //     path: '/hotel-detail/:hotelId',
             //     element: <HotelDetail></HotelDetail>,
             // },
-            // {
-            //     path: '/student-service',
-            //     element: <Student></Student>,
-            // },
-            // {
-            //     path: '/blog&news',
-            //     element: <Blogs></Blogs>,
-            // },
+            {
+                path: '/student-service',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/blog&news',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/my-profile',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/dashboard',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/contact-us',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/privileged-guest/pg-photo-gallery',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/privileged-guest/pg-reviews',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/immigration-service',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/about-us/chairman-message',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/about-us/ceo-message',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/about-us/who-we-are',
+                element: <Developing></Developing>,
+            },
+            {
+                path: '/about-us/company-profile',
+                element: <Developing></Developing>,
+            },
             {
                 path: '/login',
                 element: <LoginRegiContainer></LoginRegiContainer>,
@@ -91,10 +132,10 @@ export const router = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: '/test',
-    //     element: <Test></Test>,
-    // },
+    {
+        path: '/test',
+        element: <Test></Test>,
+    },
     {
         path: '*',
         element: <NotFound></NotFound>,

@@ -29,8 +29,6 @@ const NavBar = () => {
     const { user } = useContext(AuthContext);
     const navbarRef = useRef();
 
-    console.log(user);
-
 
     // off navbar to profile toggle, when click outside
     useEffect(() => {
@@ -323,6 +321,7 @@ const UserProfile = (data) => {
     const { logOut, loading, setLoading, user } = useContext(AuthContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
+
     const { data: g_user = {}, isLoading, isError } = useQuery(['g_user'], async () => {
         const response = await fetch(`http://localhost:5000/general-users/${user?.email}`);
         return (response.json());
@@ -422,7 +421,7 @@ const UserProfile2 = (data) => {
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{PGuser?.available?.email}</p>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{PGuser?.email}</p>
                 {
                     userItems.slice(1, 4).map((item, index) => {
                         const isLastItem = index === userItems.slice(1, 4).length - 1;

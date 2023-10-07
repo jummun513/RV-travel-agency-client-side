@@ -41,7 +41,6 @@ const AuthProviderPG = (data) => {
 
 
     useEffect(() => {
-        console.log(state.user);
         localStorage.setItem('pg_user', JSON.stringify(state.user))
     }, [state.user])
 

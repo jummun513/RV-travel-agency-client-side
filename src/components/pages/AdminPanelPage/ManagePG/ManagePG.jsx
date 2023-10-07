@@ -6,8 +6,13 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const ManagePG = () => {
+    const token = localStorage.getItem('access_token');
     const { data: pg_users = [], isLoading, isError, refetch } = useQuery(['pg_users'], async () => {
-        const res = await fetch('http://localhost:5000/pg-users');
+        const res = await fetch('http://localhost:5000/pg-users', {
+            headers: {
+                authorization: `bearer ${token}`,
+            }
+        });
         return res.json();
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
@@ -18,17 +23,19 @@ const ManagePG = () => {
             text: "This user information will be permanently deleted from our database.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#15803D',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:5000/pg-users/${email}`, {
                     method: 'DELETE',
+                    headers: {
+                        authorization: `bearer ${token}`,
+                    }
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
                         if (data.deletedCount === 1) {
                             refetch();
                             Swal.fire(

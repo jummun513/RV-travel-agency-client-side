@@ -100,7 +100,6 @@ const Register = () => {
                     }).then(result => {
                         if (result.isConfirmed) {
                             navigate('/');
-                            // window.location.reload();
                         }
                     })
                 })

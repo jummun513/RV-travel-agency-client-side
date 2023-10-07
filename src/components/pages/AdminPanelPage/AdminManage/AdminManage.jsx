@@ -6,8 +6,13 @@ import { toast } from 'react-toastify';
 
 
 const AdminManage = () => {
+    const token = localStorage.getItem('access_token');
     const { data: admin = [], isLoading, isError, refetch } = useQuery(['admin'], async () => {
-        const res = await fetch('http://localhost:5000/admin');
+        const res = await fetch('http://localhost:5000/admin', {
+            headers: {
+                authorization: `bearer ${token}`,
+            }
+        });
         return res.json();
     })
     const successNotify = () => toast.success("Success fully removed from admin", { theme: "light" });
@@ -15,7 +20,10 @@ const AdminManage = () => {
 
     const removeFromAdmin = (email) => {
         fetch(`http://localhost:5000/admin-remove/${email}`, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: {
+                authorization: `bearer ${token}`,
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -60,7 +68,7 @@ const AdminManage = () => {
                             </thead>
                             <tbody>
                                 {
-                                    admin.map((d, i) => {
+                                    admin?.map((d, i) => {
                                         return (
                                             <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                                 <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">

@@ -34,7 +34,6 @@ const Login = () => {
                     setLoading(false);
                     formRef.current.reset();
                     navigate(location, { replace: true }); //navigate to previous page
-                    // window.location.reload();
                 })
                 .catch((error) => {
                     // if any error catch

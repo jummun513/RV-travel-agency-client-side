@@ -154,7 +154,7 @@ const HotelSearch = () => {
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Search" className='btn xs:btn-wide mt-10 text-gray-700 btn-sm md:btn-md bg-primary border-none hover:bg-secondary' />
+                <input type="submit" value="Search" className='btn xs:btn-wide mt-10 text-gray-900 btn-sm md:btn-md bg-primary border-none hover:bg-secondary' />
             </form>
         </div>
     );

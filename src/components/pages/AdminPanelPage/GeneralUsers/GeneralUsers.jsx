@@ -7,8 +7,13 @@ import Swal from "sweetalert2";
 
 
 const GeneralUsers = () => {
+    const token = localStorage.getItem('access_token');
     const { data: g_users = [], isLoading, isError, refetch } = useQuery(['g_users'], async () => {
-        const res = await fetch('http://localhost:5000/general-users');
+        const res = await fetch('http://localhost:5000/general-users', {
+            headers: {
+                authorization: `bearer ${token}`,
+            }
+        });
         return res.json();
     });
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
@@ -19,13 +24,16 @@ const GeneralUsers = () => {
             text: "Admin can do any change on your website",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#15803D',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Make admin!'
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:5000/admin-add/${email}`, {
-                    method: 'PATCH'
+                    method: 'PATCH',
+                    headers: {
+                        authorization: `bearer ${token}`,
+                    }
                 })
                     .then(res => res.json())
                     .then(data => {

@@ -10,9 +10,9 @@ import { AuthContext } from '../../../../providers/AuthProvider';
 import { AuthContextPG } from '../../../../providers/AuthProviderPG';
 
 const PrivilegeLogin = () => {
-    const { error, dispatch, PGuser } = useContext(AuthContextPG);
+    const { error, dispatch } = useContext(AuthContextPG);
     const [loading, setLoading] = useState(false);
-    const { logOut } = useContext(AuthContext);
+    const { logOut, user } = useContext(AuthContext);
     const email = useRef(null);
     const password = useRef(null);
     const formRef = useRef();
@@ -57,17 +57,18 @@ const PrivilegeLogin = () => {
                     }
                     else {
                         // if any user already login as normal user and then try to login as privileged without logout from previous we should auto logout him
-                        logOut().then(() => {
-                        }).catch((error) => {
-                            notifyError(error);
-                        });
+                        if (user !== null) {
+                            logOut().then(() => {
+                            }).catch((error) => {
+                                notifyError(error);
+                            });
+                        }
 
-                        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
+                        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.mergeData });
                         setLoading(false);
-                        setErrorDisplay('');
                         formRef.current.reset();
+                        setErrorDisplay('');
                         navigate(location, { replace: true }); //navigate to previous page
-                        window.location.reload();
                     }
                 }
                 catch (err) {
@@ -81,8 +82,7 @@ const PrivilegeLogin = () => {
             postData();
         }
     }
-
-    console.log(PGuser);
+    // window.location.reload();
 
     return (
         <div className="bg-[#fbfbfb] relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
