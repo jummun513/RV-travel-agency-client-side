@@ -5,13 +5,13 @@ import { createContext, useEffect, useState } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from '../../providers/AuthProvider';
+import AuthProviderPG from '../../providers/AuthProviderPG';
 
 export const AllContext = createContext("");
 
 function Main() {
     const [lockBody, setLockBody] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
-    const [pgUser, setPGuser] = useState(null);
+    // const [pgUser, setPGuser] = useState(null);
     const targetElement = document.querySelector('#container');
 
     useEffect(() => {
@@ -21,15 +21,19 @@ function Main() {
 
     const client = new QueryClient();
 
+    // console.log(pgUser);
+
     return (
         <QueryClientProvider client={client}>
-            <AllContext.Provider value={{ lockBody, setLockBody, setOpenModal, openModal, pgUser, setPGuser }}>
+            <AllContext.Provider value={{ lockBody, setLockBody }}>
                 <AuthProvider>
-                    <div id='container'>
-                        <NavBar></NavBar>
-                        <Outlet></Outlet>
-                        <Footer></Footer>
-                    </div>
+                    <AuthProviderPG>
+                        <div id='container'>
+                            <NavBar></NavBar>
+                            <Outlet></Outlet>
+                            <Footer></Footer>
+                        </div>
+                    </AuthProviderPG>
                 </AuthProvider>
             </AllContext.Provider>
         </QueryClientProvider>

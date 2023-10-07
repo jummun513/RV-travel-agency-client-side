@@ -19,15 +19,17 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
-import { AllContext } from '../../../layout/Main/Main';
 import { useQuery } from 'react-query';
+import { AuthContextPG } from '../../../providers/AuthProviderPG';
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
-    const { pgUser } = useContext(AllContext);
+    const { PGuser } = useContext(AuthContextPG);
     const { user } = useContext(AuthContext);
     const navbarRef = useRef();
+
+    console.log(user);
 
 
     // off navbar to profile toggle, when click outside
@@ -56,7 +58,7 @@ const NavBar = () => {
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
-                            user || pgUser ?
+                            user || PGuser ?
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
                                     <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
                                         <img src={userImg} alt='User Image' />
@@ -71,7 +73,7 @@ const NavBar = () => {
                 {/* navbar for large device */}
                 <div className='flex items-center xl:hidden'>
                     {
-                        user || pgUser ?
+                        user || PGuser ?
                             <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
                                     <img src={userImg} alt='User Image' />
@@ -160,7 +162,7 @@ const navItems = [
 // Nav menu for large device
 const NavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
-    const { pgUser } = useContext(AllContext);
+    const { PGuser } = useContext(AuthContextPG);
 
     const navbarRef = useRef();
 
@@ -197,12 +199,12 @@ const NavList = () => {
                                 {showDropdown[index] && (
                                     <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
                                         {
-                                            pgUser ?
+                                            PGuser ?
                                                 item.children.slice(1, 4).map((child, childIndex) => (
                                                     <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                                 :
-                                                item.children.map((child, childIndex) => (
+                                                item.children.slice(0, 4).map((child, childIndex) => (
                                                     <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                         }
@@ -231,7 +233,7 @@ const NavList = () => {
 // Nav menu for small device
 const SmallNavList = () => {
     const [showDropdown, setShowDropdown] = useState({});
-    const { pgUser } = useContext(AllContext);
+    const { PGuser } = useContext(AuthContextPG);
 
     const toggleDropdown = (index) => {
         setShowDropdown((prevState) => ({
@@ -257,7 +259,7 @@ const SmallNavList = () => {
                                 {showDropdown[index] && (
                                     <ul className='ms-4'>
                                         {
-                                            pgUser ?
+                                            PGuser ?
                                                 item.children.slice(1, 4).map((child, childIndex) => (
                                                     <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
@@ -322,8 +324,8 @@ const UserProfile = (data) => {
     const { setProfileToggle } = data;
     const navigate = useNavigate();
     const { data: g_user = {}, isLoading, isError } = useQuery(['g_user'], async () => {
-        const res = await fetch(`http://localhost:5000/general-users/${user?.email}`);
-        return res.json();
+        const response = await fetch(`http://localhost:5000/general-users/${user?.email}`);
+        return (response.json());
     })
 
     // toast from toastify
@@ -397,21 +399,30 @@ const UserProfile = (data) => {
 }
 
 // After login as privileged guest User panel
-const UserProfile2 = () => {
-    const { pgUser } = useContext(AllContext);
-    // const { setProfileToggle } = data;
-    // const navigate = useNavigate();
+const UserProfile2 = (data) => {
+    const { PGuser, dispatch, error } = useContext(AuthContextPG);
+    const { setProfileToggle } = data;
+    const navigate = useNavigate();
+
+    const notify = () => toast.success("Sign out successfully.", { theme: "light" });
 
 
     // sing out clicked handle    
     const handleSignOut = () => {
-        window.location.reload();
+        dispatch({ type: "LOG_OUT" });
+        navigate('/privileged-guest/login');
+        setProfileToggle(false);
+        notify();
+    }
+
+    if (error) {
+        return <p>There was a problem try later.</p>
     }
 
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{pgUser?.email}</p>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{PGuser?.available?.email}</p>
                 {
                     userItems.slice(1, 4).map((item, index) => {
                         const isLastItem = index === userItems.slice(1, 4).length - 1;

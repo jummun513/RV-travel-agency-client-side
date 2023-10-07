@@ -6,26 +6,26 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useContext } from 'react';
-import { AllContext } from '../../../../layout/Main/Main';
 import { AuthContext } from '../../../../providers/AuthProvider';
+import { AuthContextPG } from '../../../../providers/AuthProviderPG';
 
 const PrivilegeLogin = () => {
+    const { error, dispatch, PGuser } = useContext(AuthContextPG);
+    const [loading, setLoading] = useState(false);
     const { logOut } = useContext(AuthContext);
-    const { setPGuser } = useContext(AllContext);
     const email = useRef(null);
     const password = useRef(null);
     const formRef = useRef();
-    const [error, setError] = useState('');
+    const [errorDisplay, setErrorDisplay] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
 
     const handleEmailField = () => {
-        setError('')
+        setErrorDisplay('')
     }
     const handlePassField = () => {
-        setError('')
+        setErrorDisplay('')
     }
 
     // after submitted form handle
@@ -35,17 +35,25 @@ const PrivilegeLogin = () => {
         const pass = password.current.value;
         const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
 
-        if (error === '') {
+        if (errorDisplay === '') {
             const postData = async () => {
                 setLoading(true);
+                dispatch({ type: 'LOGIN_START' })
                 try {
-                    const response = await axios.post('http://localhost:5000/pg-users/login', { eml, pass });
-                    setLoading(false);
+                    const response = await axios.post('http://localhost:5000/pg-users/login', { eml, pass }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        withCredentials: true
+                    });
+
                     if (String(response.data).includes('not_register_email')) {
-                        setError('not_register_email');
+                        setErrorDisplay('not_register_email');
+                        setLoading(false);
                     }
                     else if (String(response.data).includes('wrong_password')) {
-                        setError('wrong_password');
+                        setErrorDisplay('wrong_password');
+                        setLoading(false);
                     }
                     else {
                         // if any user already login as normal user and then try to login as privileged without logout from previous we should auto logout him
@@ -54,21 +62,27 @@ const PrivilegeLogin = () => {
                             notifyError(error);
                         });
 
-                        setPGuser(response.data);
-                        setError('');
+                        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
+                        setLoading(false);
+                        setErrorDisplay('');
                         formRef.current.reset();
                         navigate(location, { replace: true }); //navigate to previous page
+                        window.location.reload();
                     }
                 }
-                catch (error) {
+                catch (err) {
+                    dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
                     setLoading(false);
-                    notifyError();
+                    if (error) {
+                        notifyError();
+                    }
                 }
             }
             postData();
         }
-
     }
+
+    console.log(PGuser);
 
     return (
         <div className="bg-[#fbfbfb] relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
@@ -91,7 +105,7 @@ const PrivilegeLogin = () => {
                                     <label htmlFor="login_floating_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
                                     <p className='text-xs xs:text-sm mt-1'>We&#39;ll never share your email with anyone else.</p>
                                     {
-                                        ((error.includes('not_register_email')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>This email is not registered!</p>)
+                                        ((errorDisplay.includes('not_register_email')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>This email is not registered!</p>)
                                     }
                                 </div>
 
@@ -105,7 +119,7 @@ const PrivilegeLogin = () => {
                                         }
                                     </div>
                                     {
-                                        error.includes('wrong_password') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Incorrect password.</p>
+                                        errorDisplay.includes('wrong_password') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Incorrect password.</p>
                                     }
                                 </div>
 
@@ -116,7 +130,7 @@ const PrivilegeLogin = () => {
                                             className="relative float-left -ml-[1.5rem] mr-[3px] xs:mr-[6px] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:-mt-px checked:after:ml-[0.25rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:content-[''] checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:-mt-px checked:focus:after:ml-[0.25rem] checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
                                             type="checkbox"
                                             value=""
-                                            id="loginCheckboxDefault" />
+                                            id="loginCheckboxDefault" required />
                                         <label
                                             className="inline-block pl-[0.15rem] text-gray-600 hover:cursor-pointer"
                                             htmlFor="loginCheckboxDefault">

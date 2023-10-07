@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../../../assets/Logos/short-logo.png';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi'
 import { AuthContext } from '../../../../../providers/AuthProvider';
-import { AllContext } from '../../../../../layout/Main/Main';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { createNewUser, loading, setLoading, verificationEmailSend, sending, errorEmailVerification } = useContext(AuthContext);
@@ -19,8 +19,8 @@ const Register = () => {
     const [passwordStrength, setPasswordStrength] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const { setOpenModal } = useContext(AllContext); // carry setOpenModal function from Main.jsx
     const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
+    const navigate = useNavigate();
 
     // Name field validation checkup and value set
     const handleNameField = () => {
@@ -91,7 +91,18 @@ const Register = () => {
                     await verificationEmailSend();
                     setLoading(false);
                     formRef.current.reset();
-                    setOpenModal(true);
+                    Swal.fire({
+                        title: 'Success!',
+                        text: "A verifying email is sent to your provided address. Please check your inbox/spam to verify your email.",
+                        icon: 'success',
+                        confirmButtonColor: '#15803d',
+                        confirmButtonText: 'OK'
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            navigate('/');
+                            // window.location.reload();
+                        }
+                    })
                 })
                 .catch((error) => {
                     // if any error catch
