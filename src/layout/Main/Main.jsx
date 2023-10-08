@@ -6,6 +6,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from '../../providers/AuthProvider';
 import AuthProviderPG from '../../providers/AuthProviderPG';
+import AuthProviderGUser from '../../providers/AuthProviderGUser';
 
 export const AllContext = createContext("");
 
@@ -26,11 +27,13 @@ function Main() {
             <AllContext.Provider value={{ lockBody, setLockBody }}>
                 <AuthProvider>
                     <AuthProviderPG>
-                        <div id='container'>
-                            <NavBar></NavBar>
-                            <Outlet></Outlet>
-                            <Footer></Footer>
-                        </div>
+                        <AuthProviderGUser>
+                            <div id='container'>
+                                <NavBar></NavBar>
+                                <Outlet></Outlet>
+                                <Footer></Footer>
+                            </div>
+                        </AuthProviderGUser>
                     </AuthProviderPG>
                 </AuthProvider>
             </AllContext.Provider>

@@ -2,11 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
 import Test from "../layout/Test/Test";
-// import About from "../components/pages/PublicPage/About/About";
-// import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
-// import Blogs from "../components/pages/PublicPage/Blogs/Blogs";
-// import Student from "../components/pages/PublicPage/Student/Student";
-// import HotelDetail from "../components/pages/PublicPage/HotelDetail/HotelDetail";
 import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
 import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
 import Admin from "../layout/Admin/Admin";
@@ -17,6 +12,8 @@ import NotFound from "../components/shared/NotFound/NotFound";
 import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
 import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
 import Developing from "../components/shared/Developing/Developing";
+import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
+import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 
 
 export const router = createBrowserRouter([
@@ -40,10 +37,6 @@ export const router = createBrowserRouter([
                 path: '/hotels-list',
                 element: <Developing></Developing>,
             },
-            // {
-            //     path: '/hotel-detail/:hotelId',
-            //     element: <HotelDetail></HotelDetail>,
-            // },
             {
                 path: '/student-service',
                 element: <Developing></Developing>,
@@ -58,7 +51,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <Developing></Developing>,
+                element: <PrivateGuserPguserRoutes><UserDashboard></UserDashboard></PrivateGuserPguserRoutes>,
             },
             {
                 path: '/contact-us',

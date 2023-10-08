@@ -19,8 +19,8 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
-import { useQuery } from 'react-query';
 import { AuthContextPG } from '../../../providers/AuthProviderPG';
+import { AuthContextGUser } from '../../../providers/AuthProviderGUser';
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
@@ -321,11 +321,9 @@ const UserProfile = (data) => {
     const { logOut, loading, setLoading, user } = useContext(AuthContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
+    const { Guser, isLoading, isError } = useContext(AuthContextGUser);
 
-    const { data: g_user = {}, isLoading, isError } = useQuery(['g_user'], async () => {
-        const response = await fetch(`http://localhost:5000/general-users/${user?.email}`);
-        return (response.json());
-    })
+    // console.log(Guser);
 
     // toast from toastify
     const notify = () => toast.success("Sign out successfully.", { theme: "light" });
@@ -361,9 +359,9 @@ const UserProfile = (data) => {
     return (
         <div>
             <ul className='relative flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{g_user.email}</p>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{Guser?.email}</p>
                 {
-                    (g_user.role === 'admin' || g_user.role === 'developer') ?
+                    (Guser?.role === 'admin' || Guser?.role === 'developer') ?
                         userItems.slice(0, 4).map((item, index) => {
                             const isLastItem = index === userItems.slice(0, 4).length - 1;
                             return (
@@ -404,7 +402,6 @@ const UserProfile2 = (data) => {
     const navigate = useNavigate();
 
     const notify = () => toast.success("Sign out successfully.", { theme: "light" });
-
 
     // sing out clicked handle    
     const handleSignOut = () => {
