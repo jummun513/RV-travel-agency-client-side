@@ -20,7 +20,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
 import { AuthContextPG } from '../../../providers/AuthProviderPG';
-import { AuthContextGUser } from '../../../providers/AuthProviderGUser';
 
 const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
@@ -318,10 +317,9 @@ const userItems = [
 
 // After login as general user show this User panel
 const UserProfile = (data) => {
-    const { logOut, loading, setLoading, user } = useContext(AuthContext);
+    const { logOut, loading, setLoading, user, Guser, isLoading, isError } = useContext(AuthContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
-    const { Guser, isLoading, isError } = useContext(AuthContextGUser);
 
     // console.log(Guser);
 

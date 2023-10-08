@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 import { app } from "../firebase/firebase.config";
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
 import axios from "axios";
+import { useQuery } from "react-query";
 
 export const AuthContext = createContext(null);
 
@@ -40,22 +41,38 @@ const AuthProvider = (data) => {
     // auth state changing observe
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
+
             if (currentUser) {
                 axios.post('http://localhost:5000/jwt', { email: currentUser.email })
                     .then(data => {
                         localStorage.setItem('access_token', data.data.token);
+                        setUser(currentUser);
                     })
             }
             else {
                 localStorage.removeItem('access_token');
+                setUser(null);
             }
             setLoading(false);
         });
+
         return () => {
             return unsubscribe();
         }
     }, [])
+
+
+    const token = localStorage.getItem('access_token');
+    const condition = user !== null && token !== null;
+
+    const { data: Guser = {}, isLoading, isError } = useQuery('g_user', async () => {
+        const response = await fetch(`http://localhost:5000/general-users/${user?.email}`, {
+            headers: {
+                authorization: `bearer ${token}`,
+            }
+        });
+        return response.json();
+    }, { enabled: condition });
 
     // these data are passed as props
     const authInfo = {
@@ -67,7 +84,10 @@ const AuthProvider = (data) => {
         setLoading,
         verificationEmailSend,
         sending,
-        errorEmailVerification
+        errorEmailVerification,
+        Guser,
+        isLoading,
+        isError,
     }
 
     return (

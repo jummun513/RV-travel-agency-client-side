@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import Loading from "../components/shared/Loading/Loading";
 import NotFound from "../components/shared/NotFound/NotFound";
-import { AuthContextGUser } from "../providers/AuthProviderGUser";
+import { AuthContext } from "../providers/AuthProvider";
 
 
 const PrivateAdminRoutes = (data) => {
     const { children } = data;
-    const { Guser, isLoading } = useContext(AuthContextGUser);
+    const { Guser, isLoading } = useContext(AuthContext);
 
     if (isLoading) {
         return <Loading></Loading>
