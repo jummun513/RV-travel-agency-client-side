@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const AdminManage = () => {
     const token = localStorage.getItem('access_token');
     const { data: admin = [], isLoading, isError, refetch } = useQuery(['admin'], async () => {
-        const res = await fetch('http://localhost:5000/admin', {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/admin`, {
             headers: {
                 authorization: `bearer ${token}`,
             }
@@ -19,7 +19,7 @@ const AdminManage = () => {
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
     const removeFromAdmin = (email) => {
-        fetch(`http://localhost:5000/admin-remove/${email}`, {
+        fetch(`${import.meta.env.VITE_clientSideLink}/admin-remove/${email}`, {
             method: 'PATCH',
             headers: {
                 authorization: `bearer ${token}`,

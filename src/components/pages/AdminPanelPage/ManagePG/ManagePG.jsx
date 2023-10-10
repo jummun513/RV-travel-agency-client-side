@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const ManagePG = () => {
     const token = localStorage.getItem('access_token');
     const { data: pg_users = [], isLoading, isError, refetch } = useQuery(['pg_users'], async () => {
-        const res = await fetch('http://localhost:5000/pg-users', {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
             headers: {
                 authorization: `bearer ${token}`,
             }
@@ -28,7 +28,7 @@ const ManagePG = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/pg-users/${email}`, {
+                fetch(`${import.meta.env.VITE_clientSideLink}/pg-users/${email}`, {
                     method: 'DELETE',
                     headers: {
                         authorization: `bearer ${token}`,

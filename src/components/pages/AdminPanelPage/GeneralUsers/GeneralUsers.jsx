@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const GeneralUsers = () => {
     const token = localStorage.getItem('access_token');
     const { data: g_users = [], isLoading, isError, refetch } = useQuery(['g_users'], async () => {
-        const res = await fetch('http://localhost:5000/general-users', {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/general-users`, {
             headers: {
                 authorization: `bearer ${token}`,
             }
@@ -29,7 +29,7 @@ const GeneralUsers = () => {
             confirmButtonText: 'Yes, Make admin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/admin-add/${email}`, {
+                fetch(`${import.meta.env.VITE_clientSideLink}/admin-add/${email}`, {
                     method: 'PATCH',
                     headers: {
                         authorization: `bearer ${token}`,

@@ -27,13 +27,13 @@ const Banner = () => {
               <HotelSearch></HotelSearch>
             </TabPanel>
             <TabPanel>
-              <h2>Any content 2</h2>
+              <div className='py-20 text-gray-900 font-bold lg:text-xl'>Coming soon...</div>
             </TabPanel>
             <TabPanel>
-              <h2>Any content 3</h2>
+              <div className='py-20 text-gray-900 font-bold lg:text-xl'>Coming soon...</div>
             </TabPanel>
             <TabPanel>
-              <h2>Any content 4</h2>
+              <div className='py-20 text-gray-900 font-bold lg:text-xl'>Coming soon...</div>
             </TabPanel>
           </Tabs>
         </div>

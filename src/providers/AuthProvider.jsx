@@ -41,9 +41,8 @@ const AuthProvider = (data) => {
     // auth state changing observe
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-
             if (currentUser) {
-                axios.post('http://localhost:5000/jwt', { email: currentUser.email })
+                axios.post(`${import.meta.env.VITE_clientSideLink}/jwt`, { email: currentUser?.email })
                     .then(data => {
                         localStorage.setItem('access_token', data.data.token);
                         setUser(currentUser);
@@ -66,7 +65,7 @@ const AuthProvider = (data) => {
     const condition = user !== null && token !== null;
 
     const { data: Guser = {}, isLoading, isError } = useQuery('g_user', async () => {
-        const response = await fetch(`http://localhost:5000/general-users/${user?.email}`, {
+        const response = await fetch(`${import.meta.env.VITE_clientSideLink}/general-users/${user?.email}`, {
             headers: {
                 authorization: `bearer ${token}`,
             }

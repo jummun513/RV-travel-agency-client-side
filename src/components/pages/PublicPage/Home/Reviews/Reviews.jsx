@@ -6,12 +6,12 @@ import Review from './Review/Review';
 import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
 
 const data = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
+    { id: 5, url: "https://i.ibb.co/GxNmWkR/reviews1.jpg", alt: "Review given user image", occupation: 'Businessman', reviews: `"Royal Venture Limited made our dream vacation a reality! Impeccable service, personalized recommendations, and stress-free planning. They exceeded our expectations."`, star: "", name: "Abdullah Alim" },
+    { id: 3, url: "https://i.ibb.co/f2X5Lgf/reviews2.jpg", alt: "Review given user image", occupation: 'Engineer', reviews: `"Exceptional service from Royal Venture! Our family had an unforgettable Greek Islands vacation, thanks to their expertise and attention to detail."`, star: "", name: "Rahimul Islam" },
+    { id: 6, url: "https://i.ibb.co/84QYQsh/review4.jpg", alt: "Review given user image", occupation: 'Professor', reviews: `"Last-minute trip to Paris? Royal Venture delivered top-notch accommodations and a perfect itinerary. Prompt and professional – our go-to travel agency."`, star: "", name: "Shabnam Sultana" },
+    { id: 1, url: "https://i.ibb.co/xLm13mP/reviews3.jpg", alt: "Review given user image", occupation: 'TV Model', reviews: `"First-time cruiser? Royal Venture made it unforgettable. Perfect cruise choice and great support. Already planning our next adventure with them!"`, star: "", name: "Ahmed Rizwan" },
+    { id: 4, url: "https://i.ibb.co/w0PWgZV/review6.jpg", alt: "Review given user image", occupation: 'Businessman', reviews: `"Our African safari with Royal Venture was educational and thrilling. Knowledgeable guides and incredible wildlife encounters. Highly recommended!"`, star: "", name: "Saifullah Khan" },
+    { id: 2, url: "https://i.ibb.co/jg9j41C/review5.jpg", alt: "Review given user image", occupation: 'Student', reviews: `"Last-minute trip to Paris? Royal Venture delivered top-notch accommodations and a perfect itinerary. Prompt and professional – our go-to travel agency."`, star: "", name: "Mohammad Hasan" },
 ]
 
 

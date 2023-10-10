@@ -79,7 +79,7 @@ const Register = () => {
                     // after successfully create user data save to database
                     const postData = async () => {
                         try {
-                            await axios.post('http://localhost:5000/general-users', { name: nam, email: eml });
+                            await axios.post(`${import.meta.env.VITE_clientSideLink}/general-users`, { name: nam, email: eml });
                         }
                         catch (error) {
                             setLoading(false);

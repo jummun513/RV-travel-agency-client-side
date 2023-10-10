@@ -85,7 +85,7 @@ const AddPG = () => {
             const postData = async () => {
                 setLoading(true);
                 try {
-                    const response = await axios.post('http://localhost:5000/pg-users/register', { nam, eml, pass, phn }, {
+                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/register`, { nam, eml, pass, phn }, {
                         headers: {
                             authorization: `bearer ${token}`,
                         }

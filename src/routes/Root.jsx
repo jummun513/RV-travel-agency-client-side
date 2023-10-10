@@ -14,6 +14,7 @@ import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminMan
 import Developing from "../components/shared/Developing/Developing";
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
+import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
 
 
 export const router = createBrowserRouter([
@@ -71,7 +72,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about-us/chairman-message',
-                element: <Developing></Developing>,
+                // element: <Developing></Developing>,
+                element: <ChairmanMessage></ChairmanMessage>,
             },
             {
                 path: '/about-us/ceo-message',

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/Logos/full-logo-for-dark.png'
+import logo from '../../../assets/Logos/full-logo-for-dark.png';
 
 const navigation = [
     { name: 'Hotels' },
@@ -22,12 +22,14 @@ const Footer = () => {
     return (
         <div className='bg-[#fbfbfb]'>
             <div className='relative pt-12 xs:pt-20 lg:pt-32 bg-zinc-900'>
+
+                {/* for small device */}
                 <nav className="px-2 xxs:px-[16px] sm:px-[32px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
                     <div className="md:hidden">
                         <Link to="/" className="">
                             <img className='h-10 xxs:h-14 md:h-0 max-h-full w-auto' src={logo} alt="Company Logo" />
                         </Link>
-                        <p className='text-gray-300 text-xs xs:text-sm mt-3 xs:mt-5'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        <p className='text-gray-300 text-xs xs:text-sm mt-3 xs:mt-5'>Unlock Your Royal Adventure with Royal Venture Limited - Where Dreams Take Flight! Royal Venture Limited: Crafting Timeless Memories, One Journey at a Time.</p>
                     </div>
                     <div className="flex flex-col xs:flex-col-reverse lg:flex-row lg:justify-between lg:items-center pb-5 xs:border-b-2 xs:border-b-slate-500 mb-14 xs:mb-20">
                         <ul className="my-10 xs:my-0 flex flex-col xs:flex-row xs:items-center xs:justify-between text-slate-50 w-full max-w-[400px]">
@@ -49,26 +51,28 @@ const Footer = () => {
                     </div>
                 </nav>
 
+
+                {/* for large device */}
                 <div className="mx-auto px-[10px] sm:px-[20px] xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
                     <div className="lg:flex justify-between items-center pb-12 lg:pb-14">
                         <div className="hidden md:block lg:w-1/2">
                             <Link to="/" className="">
                                 <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                             </Link>
-                            <p className='text-gray-300 text-sm md:w-2/3 pt-5'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                            <p className='text-gray-300 text-sm md:w-2/3 pt-5'>Unlock Your Royal Adventure with Royal Venture Limited - Where Dreams Take Flight! Royal Venture Limited: Crafting Timeless Memories, One Journey at a Time.</p>
                         </div>
                         <div className="lg:w-1/2 mt-0 md:mt-14 grid grid-cols-2 md:grid-cols-3 gap-y-5 md:gap-0">
                             <div>
-                                <h2 className="mb-2 md:mb-7 font-semibold text-white uppercase">Resources</h2>
+                                <h2 className="mb-2 md:mb-7 font-semibold text-white uppercase">Booking Terms</h2>
                                 <ul className="text-gray-400 text-sm">
                                     <li>
-                                        <a href="/" className="hover:underline">Dummy Link</a>
+                                        <a href="/" className="hover:underline">Reservation Deposit</a>
                                     </li>
                                     <li>
-                                        <a href="/" className="hover:underline">Dummy Link</a>
+                                        <a href="/" className="hover:underline">Cancellation Policy</a>
                                     </li>
                                     <li>
-                                        <a href="/" className="hover:underline">Dummy Link</a>
+                                        <a href="/" className="hover:underline">Payment Schedule</a>
                                     </li>
                                 </ul>
                             </div>
@@ -82,7 +86,7 @@ const Footer = () => {
                                         <a href="/" className="hover:underline">Discord</a>
                                     </li>
                                     <li>
-                                        <a href="/" className="hover:underline">Dummy Link</a>
+                                        <a href="/" className="hover:underline">Instagram</a>
                                     </li>
                                 </ul>
                             </div>
@@ -105,7 +109,7 @@ const Footer = () => {
             <footer className='relative bg-black pt-10 pb-8'>
                 <div className='mx-auto px-[10px] sm:px-[20px] xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                     <div className="flex lg:flex-row flex-col-reverse items-center justify-between">
-                        <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By <a href="/" className="hover:underline text-primary"><span className='text-red-500 text-2xl'>&hearts;</span> Jummun Islam</a></p>
+                        <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By <a href="https://www.facebook.com/Jummun.Jaber" className="hover:underline text-primary"><span className='text-red-500 text-md sm:text-lg xl:text-2xl'>&hearts;</span> Jummun Islam</a></p>
                         <p className="text-xs sm:text-sm mb-1 xxs:mb-2 lg:mb-0 text-gray-500 text-center">&copy; {currentYear} <a href="/" className="hover:underline text-primary uppercase">Royal Venture <sup>LTD</sup></a>. All Rights Reserved.
                         </p>
                         <div className="flex mb-3 xxs:mb-5 lg:mb-0 space-x-4 md:space-x-6 md:justify-start justify-center">

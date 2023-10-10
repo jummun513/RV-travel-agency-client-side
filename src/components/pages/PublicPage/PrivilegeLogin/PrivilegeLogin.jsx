@@ -40,12 +40,7 @@ const PrivilegeLogin = () => {
                 setLoading(true);
                 dispatch({ type: 'LOGIN_START' })
                 try {
-                    const response = await axios.post('http://localhost:5000/pg-users/login', { eml, pass }, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        withCredentials: true
-                    });
+                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/login`, { eml, pass });
 
                     if (String(response.data).includes('not_register_email')) {
                         setErrorDisplay('not_register_email');
@@ -82,7 +77,6 @@ const PrivilegeLogin = () => {
             postData();
         }
     }
-    // window.location.reload();
 
     return (
         <div className="bg-[#fbfbfb] relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
@@ -157,7 +151,6 @@ const PrivilegeLogin = () => {
                                             Sign In
                                         </button>
                                 }
-                                {/* <p className='text-gray-700 mt-6 sm:mt-10'>Not have an account? <Link to='/registration' className='text-blue-600 cursor-pointer hover:underline'>Register here.</Link></p> */}
                             </form>
                         </div >
                     </div>
