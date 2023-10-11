@@ -11,7 +11,7 @@ const Login = () => {
     const formRef = useRef();
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const { loading, setLoading, signIn } = useContext(AuthContext);
+    const { loading, setLoading, signIn, isLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
 
@@ -33,7 +33,7 @@ const Login = () => {
                     // after successfully create user
                     setLoading(false);
                     formRef.current.reset();
-                    navigate(location, { replace: true }); //navigate to previous page
+                    !isLoading && navigate(location, { replace: true }); //navigate to previous page
                 })
                 .catch((error) => {
                     // if any error catch
@@ -46,7 +46,7 @@ const Login = () => {
     return (
         <div className="bg-[#fbfbfb] rounded-lg md:rounded-none md:rounded-e-xl lg:rounded-e-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
             <div className="flex flex-col items-center py-10">
-                <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img className='w-full h-full' src={logo} alt="" /></div>
+                <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img loading='lazy' className='w-full h-full' src={logo} alt="" /></div>
                 <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Sign In with Email and Password</h2>
 
                 {/* form start */}
@@ -94,7 +94,7 @@ const Login = () => {
 
                     {/* submit button */}
                     {
-                        loading ?
+                        (loading || isLoading) ?
                             <button disabled type="button" className="rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 inline-flex items-center">
                                 <svg aria-hidden="true" role="status" className="inline w-4 h-4 mr-3 text-gray-950 animate-spin" viewBox="0 0 100 101" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />

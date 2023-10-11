@@ -83,7 +83,7 @@ const PrivilegeLogin = () => {
             <div className='py-32 mx-2 xxs:mx-5 xs:mx-auto min-w-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'>
                 <div className='flex items-center justify-between rounded-lg sm:rounded-xl lg:rounded-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'>
                     <div className='hidden md:block md:w-[40%] xl:w-1/2'>
-                        <img className='xl:w-[90%]' src={img} alt="Privileged guest login" />
+                        <img loading='lazy' className='xl:w-[90%]' src={img} alt="Privileged guest login" />
                     </div>
                     <div className='w-full md:w-[60%] xl:w-1/2'>
                         <div className="flex flex-col items-center py-10">

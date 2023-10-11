@@ -46,7 +46,7 @@ const AdminPanelPage = () => {
                 <div className='p-2 xl:p-3 w-full'>
                     <div className='w-full'>
                         <Link to='/'>
-                            <img className='h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 w-auto' src={logo} alt="Company Logo" />
+                            <img loading='lazy' className='h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 w-auto' src={logo} alt="Company Logo" />
                         </Link>
                     </div>
                     <ul id='admin_panel_sidebar' className="menu mt-7 h-full">
@@ -65,7 +65,7 @@ const AdminPanelPage = () => {
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-9'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
-                                <img className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
+                                <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
                             </a>
                         </li>
                     </ul>
@@ -81,7 +81,7 @@ const AdminPanelPage = () => {
                 <div className='p-2 w-full'>
                     <div className='w-full'>
                         <Link to='/'>
-                            <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
+                            <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                         </Link>
                     </div>
                     <ul id='admin_panel_sidebar' className="menu mt-4 xs:mt-8 h-full">
@@ -100,7 +100,7 @@ const AdminPanelPage = () => {
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-10'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
-                                <img className='w-8 xs:w-10 md:w-12 border p-1 rounded-full me-1 sm:me-2' src={userImg} alt='User Image' /> Sign Out
+                                <img loading='lazy' className='w-8 xs:w-10 md:w-12 border p-1 rounded-full me-1 sm:me-2' src={userImg} alt='User Image' /> Sign Out
                             </a>
                         </li>
                     </ul>

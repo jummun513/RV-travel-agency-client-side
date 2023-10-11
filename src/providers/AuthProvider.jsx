@@ -4,7 +4,6 @@ import { app } from "../firebase/firebase.config";
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
 import axios from "axios";
 import { useQuery } from "react-query";
-
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
@@ -14,6 +13,7 @@ const AuthProvider = (data) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [sendEmailVerification, sending, errorEmailVerification] = useSendEmailVerification(auth);
+    // const navigate = useNavigate();
 
     // create new user
     const createNewUser = (email, password) => {

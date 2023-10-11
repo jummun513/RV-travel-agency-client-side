@@ -18,7 +18,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from '../Loading/Loading';
+// import Loading from '../Loading/Loading';
 import { AuthContextPG } from '../../../providers/AuthProviderPG';
 
 const NavBar = () => {
@@ -47,7 +47,7 @@ const NavBar = () => {
         <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <Link to='/'>
-                    <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
+                    <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </Link>
 
                 {/* navbar for extra-large device */}
@@ -317,7 +317,7 @@ const userItems = [
 
 // After login as general user show this User panel
 const UserProfile = (data) => {
-    const { logOut, loading, setLoading, user, Guser, isLoading, isError } = useContext(AuthContext);
+    const { logOut, setLoading, user, Guser } = useContext(AuthContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
 
@@ -346,13 +346,13 @@ const UserProfile = (data) => {
     }
 
     // show loading if loading
-    if (loading || isLoading) {
-        return <Loading></Loading>
-    }
+    // if (loading || isLoading) {
+    //     return <Loading></Loading>
+    // }
 
-    if (isError) {
-        return <p>There was a problem try later.</p>
-    }
+    // if (isError) {
+    //     return <p>There was a problem try later.</p>
+    // }
 
     return (
         <div>

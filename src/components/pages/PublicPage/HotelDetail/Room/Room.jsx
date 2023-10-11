@@ -16,7 +16,7 @@ const Room = (data) => {
             <div>
                 <Swiper cssMode={true} navigation={true} modules={[Navigation]} className="roomSwiper rounded-t-md">
                     {
-                        img.map((x, i) => <SwiperSlide key={i}><img src={x} className='rounded-t-md' alt='' /></SwiperSlide>)
+                        img.map((x, i) => <SwiperSlide key={i}><img loading='lazy' src={x} className='rounded-t-md' alt='' /></SwiperSlide>)
                     }
                 </Swiper>
             </div>

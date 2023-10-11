@@ -68,16 +68,16 @@ const HotelSearch = () => {
                                 </label>
                                 <DatePicker
                                     dateFormat="dd/MM/yy"
+                                    startDate={startDate}
+                                    selected={startDate}
+                                    onChange={(date) => setStartDate(date)}
                                     closeOnScroll={true} isClearable
                                     placeholderText="Starts date"
-                                    defaultValue={startDate}
-                                    onChange={(date) => setStartDate(date)}
-                                    selectsStart
-                                    startDate={startDate}
                                     endDate={endDate}
                                     minDate={new Date()}
                                     shouldCloseOnSelect={false}
                                     fixedHeight
+                                    defaultValue={startDate}
                                     className='input input-bordered input-info input-sm 2xl:input-md w-full min-w-[30px] text-gray-950 bg-white'
                                 >
                                     <div className='text-red-500 text-xs'>Do not forget to check the weather!</div>
@@ -98,7 +98,7 @@ const HotelSearch = () => {
                                     placeholderText="Ends date"
                                     defaultValue={endDate}
                                     onChange={(date) => setEndDate(date)}
-                                    selectsEnd
+                                    selected={endDate}
                                     startDate={startDate}
                                     endDate={endDate}
                                     minDate={startDate}

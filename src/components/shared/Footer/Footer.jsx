@@ -27,7 +27,7 @@ const Footer = () => {
                 <nav className="px-2 xxs:px-[16px] sm:px-[32px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
                     <div className="md:hidden">
                         <Link to="/" className="">
-                            <img className='h-10 xxs:h-14 md:h-0 max-h-full w-auto' src={logo} alt="Company Logo" />
+                            <img loading='lazy' className='h-10 xxs:h-14 md:h-0 max-h-full w-auto' src={logo} alt="Company Logo" />
                         </Link>
                         <p className='text-gray-300 text-xs xs:text-sm mt-3 xs:mt-5'>Unlock Your Royal Adventure with Royal Venture Limited - Where Dreams Take Flight! Royal Venture Limited: Crafting Timeless Memories, One Journey at a Time.</p>
                     </div>
@@ -57,7 +57,7 @@ const Footer = () => {
                     <div className="lg:flex justify-between items-center pb-12 lg:pb-14">
                         <div className="hidden md:block lg:w-1/2">
                             <Link to="/" className="">
-                                <img className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
+                                <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                             </Link>
                             <p className='text-gray-300 text-sm md:w-2/3 pt-5'>Unlock Your Royal Adventure with Royal Venture Limited - Where Dreams Take Flight! Royal Venture Limited: Crafting Timeless Memories, One Journey at a Time.</p>
                         </div>

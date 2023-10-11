@@ -16,7 +16,9 @@ const PrivateAdminRoutes = (data) => {
         return children;
     }
 
-    return <NotFound></NotFound>
+    if (!Guser) {
+        return <NotFound></NotFound>
+    }
 };
 
 export default PrivateAdminRoutes;

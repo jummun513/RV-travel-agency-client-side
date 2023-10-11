@@ -83,7 +83,7 @@ const ExploreBD = () => {
                             data?.map((x, i) => {
                                 return (
                                     <SwiperSlide key={i} className='rounded-3xl relative cursor-pointer'>
-                                        <img className='rounded-3xl aspect-[3/4]' src={x.img} />
+                                        <img loading='lazy' className='rounded-3xl aspect-[3/4]' src={x.img} />
                                         <div className='absolute bottom-5 left-3 text-start'>
                                             <h4 className='font-bold text-lg text-slate-50'>{x.location}</h4>
                                             <p className='text-gray-100'>Total {x.hotel} hotels available</p>

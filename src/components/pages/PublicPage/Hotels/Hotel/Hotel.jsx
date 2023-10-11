@@ -12,7 +12,7 @@ const Hotel = (data) => {
         <div className="rounded-md sm:rounded-lg bg-[#fbfbfb] shadow-lg sm:shadow-md border">
             <div className="flex flex-col sm:flex-row">
                 <div className="relative w-full sm:w-1/2 md:w-2/5 lg:w-1/2 2xl:w-2/5 p-2 flex items-center">
-                    <img src={thumb} className="rounded-md sm:rounded-lg w-full object-cover aspect-16/9 sm:aspect-4/3 lg:aspect-4/3 xl:aspect-16/9" />
+                    <img loading='lazy' src={thumb} className="rounded-md sm:rounded-lg w-full object-cover aspect-16/9 sm:aspect-4/3 lg:aspect-4/3 xl:aspect-16/9" />
                     <div onClick={() => { setIsLoved(!isLoved) }} className="z-[11] absolute bg-[#fbfbfb] p-1 sm:p-2 top-3 left-3 rounded-md sm:rounded-lg cursor-pointer">{isLoved ? <AiTwotoneHeart className="w-4 h-4 sm:h-6 sm:w-6 text-primary"></AiTwotoneHeart> : <AiOutlineHeart className="h-4 w-4 sm:h-6 sm:w-6 text-primary"></AiOutlineHeart>}</div>
                 </div>
                 <div className="w-full sm:w-1/2 md:w-3/5 lg:w-1/2 2xl:w-3/5 px-2 xxs:px-3 xs:px-5 sm:px-3 md:ps-5 lg:ps-3 xl:ps-5 pt-2 pb-3 xxs:pt-3 xxs:pb-5 xs:pb-8 sm:pb-3 flex flex-col justify-between">

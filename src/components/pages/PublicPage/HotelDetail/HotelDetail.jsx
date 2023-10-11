@@ -111,7 +111,7 @@ const HotelDetail = () => {
                                             return (
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 4 && 'relative'}`}>
-                                                        <img src={image} alt="" />
+                                                        <img loading='lazy' src={image} alt="" />
                                                         {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
@@ -126,7 +126,7 @@ const HotelDetail = () => {
                                             return (
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 2 && 'relative'}`}>
-                                                        <img src={image} alt="" />
+                                                        <img loading='lazy' src={image} alt="" />
                                                         {idx === 2 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 md:p-4 rounded-xl md:rounded-2xl text-2xl md:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-2 md:w-8 md:h-8 md:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
@@ -141,7 +141,7 @@ const HotelDetail = () => {
                                             return (
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 0 && 'relative'}`}>
-                                                        <img src={image} alt="" />
+                                                        <img loading='lazy' src={image} alt="" />
                                                         {idx === 0 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 xxs:p-3 rounded-xl text-xl xxs:text-2xl text-gray-50"><BsImages className="xxs:w-7 xxs:h-7 xxs:me-3 w-6 h-6 me-2"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
@@ -334,7 +334,7 @@ const HotelDetail = () => {
                                     <AiOutlineClose onClick={handleSlideClose} className="absolute right-5 top-5 bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineClose>
                                     <AiOutlineArrowLeft onClick={() => handleMoveSlide('l')} className="bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineArrowLeft>
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <img className="w-[95%] h-[full] xl:w-[85%] xl:h-[80vh] 2xl:w-[90%] 2xl:h-[90vh] xl:mx-4 2xl:mx-5" loading="lazy" src={item.images[slideNumber]} alt="Slider Image" />
+                                        <img loading='lazy' className="w-[95%] h-[full] xl:w-[85%] xl:h-[80vh] 2xl:w-[90%] 2xl:h-[90vh] xl:mx-4 2xl:mx-5" src={item.images[slideNumber]} alt="Slider Image" />
                                     </div>
                                     <AiOutlineArrowRight onClick={() => handleMoveSlide('r')} className="bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineArrowRight>
                                 </div>

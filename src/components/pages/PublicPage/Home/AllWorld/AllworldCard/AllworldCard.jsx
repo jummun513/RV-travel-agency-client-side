@@ -7,7 +7,7 @@ const AllworldCard = (data) => {
     return (
         <div className="w-60 xxs:w-72 rounded-lg xs:w-96 xs:rounded-2xl pb-5 border bg-gray-50 duration-100 hover:border-primary">
             <div className="relative">
-                <img className="w-full h-full rounded-t-lg xs:rounded-none xs:rounded-t-2xl" src={url} alt={alt} />
+                <img loading='lazy' className="w-full h-full rounded-t-lg xs:rounded-none xs:rounded-t-2xl" src={url} alt={alt} />
                 <div className="absolute -bottom-10 left-2 xs:left-5">
                     <span id="flag-icon" className={`fi fib fis ${flag} rounded-full`}></span>
                 </div>

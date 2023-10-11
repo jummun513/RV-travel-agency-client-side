@@ -69,7 +69,7 @@ const TopOffer = () => {
                             data?.map((x, i) => {
                                 return (
                                     <SwiperSlide key={i} className='offer-card rounded sm:rounded-xl cursor-pointer relative'>
-                                        <div className='card-image rounded sm:rounded-xl'><img className='rounded sm:rounded-xl aspect-[16/9]' src={x.url} /></div>
+                                        <div className='card-image rounded sm:rounded-xl'><img loading='lazy' className='rounded sm:rounded-xl aspect-[16/9]' src={x.url} /></div>
                                         <div className='card-text p-3 bg-primary rounded sm:rounded-xl'>
                                             <p className='text-xs xxs:text-sm lg:text-base text-slate-950'>{x.desc}</p>
                                             <button className='btn btn-xs xl:btn-md text-slate-50 mt-2'>Details</button>

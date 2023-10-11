@@ -106,7 +106,7 @@ const ManagePG = () => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">
-                                                <img className="w-10 h-10 rounded-full" src={user} alt={`${d.name} image`} />
+                                                <img loading='lazy' className="w-10 h-10 rounded-full" src={user} alt={`${d.name} image`} />
                                                 <div className="lg:pl-3">
                                                     <div className="text-base font-semibold">{d.name}</div>
                                                     <div className="font-normal text-gray-500">{d.email}</div>
