@@ -79,8 +79,8 @@ const PrivilegeLogin = () => {
     }
 
     return (
-        <div className="bg-[#fbfbfb] relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
-            <div className='py-32 mx-2 xxs:mx-5 xs:mx-auto min-w-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'>
+        <div className="bg-[#fbfbfb] pb-32 pt-[173px] xxs:pt-[192px] lg:pt-[202px] xl:pt-[228px] 3xl:pt-[234px]">
+            <div className='mx-2 xxs:mx-5 xs:mx-auto min-w-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'>
                 <div className='flex items-center justify-between rounded-lg sm:rounded-xl lg:rounded-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'>
                     <div className='hidden md:block md:w-[40%] xl:w-1/2'>
                         <img loading='lazy' className='xl:w-[90%]' src={img} alt="Privileged guest login" />

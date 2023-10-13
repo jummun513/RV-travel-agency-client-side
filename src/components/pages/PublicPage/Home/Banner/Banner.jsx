@@ -8,7 +8,7 @@ import HotelSearch from '../../../../shared/HotelSearch/HotelSearch';
 
 const Banner = () => {
   return (
-    <Container className='h-[70rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[70rem] top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]'>
+    <Container className='h-[70rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[70rem]'>
       <Video autoPlay muted loop id="background-video">
         <source src={backVideo} type="video/mp4" />
       </Video>

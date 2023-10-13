@@ -42,7 +42,7 @@ const AdminPanelPage = () => {
         <div className="bg-[#fbfbfb] relative flex min-h-screen mx-auto max-w-screen-4xl">
 
             {/* for large device */}
-            <div className="hidden lg:block w-96 bg-zinc-800 shadow-2xl relative">
+            <div className="hidden lg:block w-96 bg-zinc-900 shadow-2xl relative">
                 <div className='p-2 xl:p-3 w-full'>
                     <div className='w-full'>
                         <Link to='/'>

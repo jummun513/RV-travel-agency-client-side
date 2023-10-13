@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
-import Test from "../layout/Test/Test";
+// import Test from "../layout/Test/Test";
 import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
 import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
 import Admin from "../layout/Admin/Admin";
@@ -15,6 +15,8 @@ import Developing from "../components/shared/Developing/Developing";
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
+import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
+import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
 
 
 export const router = createBrowserRouter([
@@ -53,6 +55,16 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <PrivateGuserPguserRoutes><UserDashboard></UserDashboard></PrivateGuserPguserRoutes>,
+                children: [
+                    {
+                        path: 'profile',
+                        element: <Profile></Profile>,
+                    },
+                    {
+                        path: 'edit-profile',
+                        element: <EditProfile></EditProfile>,
+                    }
+                ]
             },
             {
                 path: '/contact-us',
@@ -127,10 +139,10 @@ export const router = createBrowserRouter([
             },
         ]
     },
-    {
-        path: '/test',
-        element: <Test></Test>,
-    },
+    // {
+    //     path: '/test',
+    //     element: <Test></Test>,
+    // },
     {
         path: '*',
         element: <NotFound></NotFound>,

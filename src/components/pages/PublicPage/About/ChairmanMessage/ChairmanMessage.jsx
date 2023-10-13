@@ -2,7 +2,7 @@
 
 const ChairmanMessage = () => {
     return (
-        <div className="bg-[#fbfbfb] py-32 relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px] mb-[45px] xxs:mb-[64px] lg:mb-[74px] xl:mb-[100px] 3xl:mb-[106px]">
+        <div className="bg-[#fbfbfb] pb-32 relative pt-[173px] xxs:pt-[192px] lg:pt-[202px] xl:pt-[228px] 3xl:pt-[234px]">
             <div className="content mx-auto px-2 xxs:px-5 xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl">
                 <div className="border-l-2">
                     <h4 className="">Message from the Chairman</h4>

@@ -44,7 +44,7 @@ const NavBar = () => {
     const location = useLocation();
 
     return (
-        <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
+        <div className='fixed z-20 w-full bg-[#fbfbfb] opacity-80 shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <Link to='/'>
                     <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
