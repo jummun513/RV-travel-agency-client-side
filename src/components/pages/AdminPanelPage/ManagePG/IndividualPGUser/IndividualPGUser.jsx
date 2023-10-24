@@ -1,47 +1,63 @@
-import { useContext } from 'react';
-import useImage from '../../../../../assets/images/user.jpg';
-import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
-import { AuthContext } from '../../../../../providers/AuthProvider';
+import { useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../../../../shared/Loading/Loading";
+import NotFound from "../../../../shared/NotFound/NotFound";
+import userImage from "../../../../../assets/images/user.svg";
 
-const Profile = () => {
-    const { PGuser } = useContext(AuthContextPG);
-    const { Guser, user } = useContext(AuthContext);
+
+const IndividualPGUser = () => {
+    const navigate = useNavigate();
+    const { pgId } = useParams();
+    const token = localStorage.getItem('access_token');
+    const { data: pg_users = [], isLoading, isError } = useQuery(['pg_users'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
+            headers: {
+                authorization: `bearer ${token}`,
+            }
+        });
+        return res.json();
+    })
+    const singlePGUser = pg_users.find(d => (d._id === pgId));
 
     // these data show for privileged user
     const dataPG = [
-        { id: 1, heading: 'Name', value: PGuser?.name },
-        { id: 2, heading: 'Account Number', value: PGuser?.accountNo },
-        { id: 3, heading: 'Privileged Account No', value: PGuser?.pg_account_no },
-        { id: 4, heading: 'Email', value: PGuser?.register_email },
-        { id: 5, heading: 'Gender', value: PGuser?.gender?.label },
-        { id: 6, heading: 'Date Of Birth', value: PGuser?.dob },
-        { id: 7, heading: 'Anniversary Date', value: PGuser?.anniversary },
-        { id: 8, heading: 'NID No', value: PGuser?.nid },
-        { id: 9, heading: 'Mobile No', value: PGuser?.mobile },
-        { id: 10, heading: 'Telephone', value: PGuser?.telephone },
-        { id: 11, heading: 'Balance (Point)', value: PGuser?.point },
-        { id: 12, heading: 'Balance Amount', value: PGuser?.amount },
-        { id: 13, heading: 'Expired Date', value: PGuser?.expires },
-        { id: 14, heading: 'Blood Group', value: PGuser?.blood_group },
-        { id: 15, heading: 'Occupation', value: PGuser?.occupation },
-        { id: 16, heading: 'Work Place', value: PGuser?.work_place },
-        { id: 17, heading: 'Office Contact', value: PGuser?.office_contact },
-        { id: 18, heading: 'Sining Date', value: PGuser?.singIn_date },
-        { id: 19, heading: 'Passport No', value: PGuser?.passport },
-        { id: 20, heading: 'Passport Validity', value: PGuser?.passport_validity },
-        { id: 23, heading: 'Present Address', value: PGuser?.present_address },
-        { id: 24, heading: 'Permanent Address', value: PGuser?.permanent_address },
-        { id: 21, heading: 'City', value: PGuser?.city },
-        { id: 22, heading: 'Country', value: PGuser?.country },
-        { id: 25, heading: 'Remark', value: PGuser?.remark },
+        { id: 1, heading: 'Name', value: singlePGUser?.name },
+        { id: 2, heading: 'Account Number', value: singlePGUser?.accountNo },
+        { id: 3, heading: 'Privileged Account No', value: singlePGUser?.pg_account_no },
+        { id: 4, heading: 'Email', value: singlePGUser?.register_email },
+        { id: 5, heading: 'Gender', value: singlePGUser?.gender?.label },
+        { id: 6, heading: 'Date Of Birth', value: singlePGUser?.dob },
+        { id: 7, heading: 'Anniversary Date', value: singlePGUser?.anniversary },
+        { id: 8, heading: 'NID No', value: singlePGUser?.nid },
+        { id: 9, heading: 'Mobile No', value: singlePGUser?.mobile },
+        { id: 10, heading: 'Telephone', value: singlePGUser?.telephone },
+        { id: 11, heading: 'Balance (Point)', value: singlePGUser?.point },
+        { id: 12, heading: 'Balance Amount', value: singlePGUser?.amount },
+        { id: 13, heading: 'Expired Date', value: singlePGUser?.expires },
+        { id: 14, heading: 'Blood Group', value: singlePGUser?.blood_group },
+        { id: 15, heading: 'Occupation', value: singlePGUser?.occupation },
+        { id: 16, heading: 'Work Place', value: singlePGUser?.work_place },
+        { id: 17, heading: 'Office Contact', value: singlePGUser?.office_contact },
+        { id: 18, heading: 'Sining Date', value: singlePGUser?.singIn_date },
+        { id: 19, heading: 'Passport No', value: singlePGUser?.passport },
+        { id: 20, heading: 'Passport Validity', value: singlePGUser?.passport_validity },
+        { id: 23, heading: 'Present Address', value: singlePGUser?.present_address },
+        { id: 24, heading: 'Permanent Address', value: singlePGUser?.permanent_address },
+        { id: 21, heading: 'City', value: singlePGUser?.city },
+        { id: 22, heading: 'Country', value: singlePGUser?.country },
+        { id: 25, heading: 'Remark', value: singlePGUser?.remark },
     ]
 
-    // data show for general user profile
-    const dataG = [
-        { id: 1, heading: 'Name', value: Guser?.name },
-        { id: 2, heading: 'Account Number', value: Guser?.accountNo },
-        { id: 2, heading: 'email', value: user?.email },
-    ]
+    // // data show for general user profile
+    // const dataG = [
+    //     { id: 1, heading: 'Name', value: Guser?.name },
+    //     { id: 2, heading: 'Account Number', value: Guser?.accountNo },
+    //     { id: 2, heading: 'email', value: user?.email },
+    // ]
+
+    const handleEditUser = () => {
+        navigate('edit');
+    }
 
     // convert date from iso to dd/mm/yyyy
     const convertDate = (d) => {
@@ -77,21 +93,29 @@ const Profile = () => {
         return (`${yearsDiff} years, ${ageMonths} months, ${ageDays} days`);
     }
 
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    if (isError) {
+        return <NotFound></NotFound>
+    }
+
     return (
         <div>
             {
-                (PGuser !== null) &&
+                (singlePGUser !== null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-24">
-                    <div className="mb-24 xl:mb-32">
+                    <div className="xl:mt-10">
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
                         <div className="w-28 xs:w-40 rounded-full mx-auto ring-2 ring-offset-2 ring-primary ring-offset-gray-50">
-                            <img className='rounded-full' src={PGuser?.avatar ? PGuser?.avatar : useImage} alt='User Image' />
+                            <img className='rounded-full' src={singlePGUser?.avatar ? singlePGUser?.avatar : userImage} alt='User Image' />
                         </div>
 
 
                         <div className="mt-10 lg:mt-16">
-                            <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
+                            <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[600px]">
                                 <table className="w-full text-sm text-left text-gray-500">
                                     <tbody>
                                         {
@@ -122,16 +146,16 @@ const Profile = () => {
                         </div>
                     </div>
                     {
-                        (PGuser?.moreGuest.length !== 0) &&
+                        (singlePGUser?.moreGuest.length !== 0) &&
                         <div className="mt-16 lg:mt-32">
                             <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 xxs:mb-10">Dependent Information</h2>
 
                             <div className="mt-10 lg:mt-16">
-                                <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
+                                <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[600px]">
                                     <table className="w-full text-sm text-left text-gray-500">
                                         <tbody>
                                             {
-                                                PGuser?.moreGuest?.map((d, i) => {
+                                                singlePGUser?.moreGuest?.map((d, i) => {
                                                     return (
                                                         <tr key={i} className="bg-white border-b w-[600px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
                                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
@@ -158,33 +182,13 @@ const Profile = () => {
                             </div>
                         </div>
                     }
-                    <div className="mt-20 lg:mt-32">
-                        <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 xxs:mb-10">Guest Documents</h2>
-
-                        <div className="mt-10 lg:mt-16">
-                            <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
-                                <table className="w-full text-sm text-left text-gray-500">
-                                    <tbody>
-                                        <tr className="bg-white border-b w-[600px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
-                                                Download
-                                            </th>
-                                            <td className="px-6 py-4 text-gray-800 w-1/12">
-                                                :
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <a className="text-blue-600 underline" href="">Download Now</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div className="mt-10 xs:mt-16 text-center">
+                        <button onClick={() => handleEditUser()} className='btn xxs:btn-wide btn-xs xxs:btn-sm lg:btn-md bg-primary border-none text-gray-950 hover:bg-secondary'>Edit Guest</button>
                     </div>
                 </div>
             }
-            {
-                (user !== null) &&
+            {/* {
+                (singleGUser !== null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-24">
                     <div className="mb-16 xl:mb-16">
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
@@ -222,9 +226,9 @@ const Profile = () => {
                         <button className='btn btn-wide btn-xs xxs:btn-sm 2xl:btn-md bg-primary border-none text-gray-950 hover:bg-secondary'>Apply For Privilege Guest</button>
                     </div>
                 </div>
-            }
+            } */}
         </div>
     );
 };
 
-export default Profile;
+export default IndividualPGUser;

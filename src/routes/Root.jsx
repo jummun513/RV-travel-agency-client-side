@@ -5,18 +5,20 @@ import Home from "../components/pages/PublicPage/Home/Home";
 import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
 import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
 import Admin from "../layout/Admin/Admin";
-import ManagePG from "../components/pages/AdminPanelPage/ManagePG/ManagePG";
 import AddPG from "../components/pages/AdminPanelPage/AddPG/AddPG";
 import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
 import NotFound from "../components/shared/NotFound/NotFound";
 import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
 import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
 import Developing from "../components/shared/Developing/Developing";
+// import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
+import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
+import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile"
+import ManagePG from "../components/pages/AdminPanelPage/ManagePG/ManagePG";
+import IndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/IndividualPGUser/IndividualPGUser"
+import EditIndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/EditIndividualPGUser/EditIndividualPGUser";
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
-import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
-import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
-import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
 
 
 export const router = createBrowserRouter([
@@ -84,8 +86,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about-us/chairman-message',
-                // element: <Developing></Developing>,
-                element: <ChairmanMessage></ChairmanMessage>,
+                element: <Developing></Developing>,
+                // element: <ChairmanMessage></ChairmanMessage>,
             },
             {
                 path: '/about-us/ceo-message',
@@ -124,6 +126,14 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-privileged-guest',
                 element: <ManagePG></ManagePG>,
+            },
+            {
+                path: 'manage-privileged-guest/individual-user-profile/:pgId',
+                element: <IndividualPGUser></IndividualPGUser>,
+            },
+            {
+                path: 'manage-privileged-guest/individual-user-profile/:pgId/edit',
+                element: <EditIndividualPGUser></EditIndividualPGUser>,
             },
             {
                 path: 'add-new-privileged-guest',

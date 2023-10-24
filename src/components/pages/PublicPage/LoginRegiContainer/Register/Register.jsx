@@ -74,23 +74,12 @@ const Register = () => {
             const pass = password.current.value;
 
             // create user on firebase
-            createNewUser(eml, pass)
-                .then(async () => {
-                    // after successfully create user data save to database
-                    const postData = async () => {
-                        try {
-                            await axios.post(`${import.meta.env.VITE_clientSideLink}/general-users`, { name: nam, email: eml });
-                        }
-                        catch (error) {
-                            setLoading(false);
-                            return notifyError();
-                        }
-                    }
-                    postData();
-
+            createNewUser(eml, pass).then(async () => {
+                // after successfully create user data save to database
+                try {
+                    await axios.post(`${import.meta.env.VITE_clientSideLink}/general-users`, { name: nam, email: eml });
                     await verificationEmailSend();
                     setLoading(false);
-                    formRef.current.reset();
                     Swal.fire({
                         title: 'Success!',
                         text: "A verifying email is sent to your provided address. Please check your inbox/spam to verify your email.",
@@ -99,14 +88,21 @@ const Register = () => {
                         confirmButtonText: 'OK'
                     }).then(result => {
                         if (result.isConfirmed) {
+                            formRef.current.reset();
                             navigate('/');
                         }
                     })
-                })
+                }
+                catch (error) {
+                    setLoading(false);
+                    notifyError();
+                }
+            })
                 .catch((error) => {
                     // if any error catch
-                    setLoading(false);
+                    console.log(error.message);
                     setError(error.message);
+                    setLoading(false);
                 })
         }
     }

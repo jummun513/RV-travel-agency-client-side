@@ -44,10 +44,12 @@ const PrivilegeLogin = () => {
 
                     if (String(response.data).includes('not_register_email')) {
                         setErrorDisplay('not_register_email');
+                        dispatch({ type: "LOGIN_FAILURE", payload: response.data });
                         setLoading(false);
                     }
                     else if (String(response.data).includes('wrong_password')) {
                         setErrorDisplay('wrong_password');
+                        dispatch({ type: "LOGIN_FAILURE", payload: response.data });
                         setLoading(false);
                     }
                     else {

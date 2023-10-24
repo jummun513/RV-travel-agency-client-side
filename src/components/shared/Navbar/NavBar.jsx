@@ -3,7 +3,8 @@ import { PiStudent } from 'react-icons/pi';
 import { BsNewspaper, BsPatchQuestion } from 'react-icons/bs';
 import { RiPassportLine, RiVipCrownLine } from 'react-icons/ri';
 import { AiOutlineLogin, AiOutlineMenuUnfold, AiOutlineMenuFold, AiOutlineHome } from 'react-icons/ai';
-import { BiHotel, BiSolidUser } from 'react-icons/bi';
+// import { BiHotel, BiSolidUser } from 'react-icons/bi';
+import { BiHotel } from 'react-icons/bi';
 import { FcBusinessman } from 'react-icons/fc';
 import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage, MdAdminPanelSettings } from 'react-icons/md';
 import { GrGallery } from 'react-icons/gr';
@@ -18,7 +19,6 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import Loading from '../Loading/Loading';
 import { AuthContextPG } from '../../../providers/AuthProviderPG';
 
 const NavBar = () => {
@@ -55,10 +55,10 @@ const NavBar = () => {
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
-                            user || PGuser ?
+                            (user !== null) || (PGuser !== null) ?
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
                                     <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
-                                        <img src={userImg} alt='User Image' />
+                                        <img src={PGuser?.medium ? PGuser?.medium : userImg} alt='User Image' />
                                     </div>
                                 </div>
                                 :
@@ -73,7 +73,7 @@ const NavBar = () => {
                         user || PGuser ?
                             <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
-                                    <img src={userImg} alt='User Image' />
+                                    <img src={PGuser?.medium ? PGuser?.medium : userImg} alt='User Image' />
                                 </div>
                             </div>
                             :
@@ -93,7 +93,7 @@ const NavBar = () => {
 
                 {/* user panel control for general and privileged users */}
                 {
-                    user ?
+                    (user !== null) ?
                         <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile setProfileToggle={setProfileToggle}></UserProfile></div>
                         :
                         <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile2 setProfileToggle={setProfileToggle}></UserProfile2></div>
@@ -298,14 +298,14 @@ const userItems = [
         href: '/admin-panel',
         icon: <MdAdminPanelSettings className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
     },
+    // {
+    //     label: 'My Profile',
+    //     href: '/dashboard/profile',
+    //     icon: <BiSolidUser className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
+    // },
     {
-        label: 'My Profile',
-        href: '/my-profile',
-        icon: <BiSolidUser className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
-    },
-    {
-        label: 'DashBoard',
-        href: '/dashboard',
+        label: 'My DashBoard',
+        href: '/dashboard/profile',
         icon: <TbLayoutDashboard className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
     },
     {
@@ -320,8 +320,6 @@ const UserProfile = (data) => {
     const { logOut, setLoading, user, Guser } = useContext(AuthContext);
     const { setProfileToggle } = data;
     const navigate = useNavigate();
-
-    // console.log(Guser);
 
     // toast from toastify
     const notify = () => toast.success("Sign out successfully.", { theme: "light" });
@@ -345,43 +343,34 @@ const UserProfile = (data) => {
 
     }
 
-    // show loading if loading
-    // if (loading || isLoading) {
-    //     return <Loading></Loading>
-    // }
-
-    // if (isError) {
-    //     return <p>There was a problem try later.</p>
-    // }
-
     return (
         <div>
             <ul className='relative flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
                 <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{Guser?.email}</p>
                 {
                     (Guser?.role === 'admin' || Guser?.role === 'developer') ?
-                        userItems.slice(0, 4).map((item, index) => {
-                            const isLastItem = index === userItems.slice(0, 4).length - 1;
+                        userItems.slice(0, 3).map((item, index) => {
+                            const isLastItem = index === userItems.slice(0, 3).length - 1;
                             return (
                                 <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
                                     <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
                                         <span className='flex items-center'>
-                                            <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                            <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                            <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
+                                            <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>
                                         </span>
                                     </NavLink>
                                 </li>
                             );
                         })
                         :
-                        userItems.slice(1, 4).map((item, index) => {
-                            const isLastItem = index === userItems.slice(1, 4).length - 1;
+                        userItems.slice(1, 3).map((item, index) => {
+                            const isLastItem = index === userItems.slice(1, 3).length - 1;
                             return (
                                 <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
                                     <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
                                         <span className='flex items-center'>
-                                            <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                            <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                            <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
+                                            <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>
                                         </span>
                                     </NavLink>
                                 </li>
@@ -416,16 +405,16 @@ const UserProfile2 = (data) => {
     return (
         <div>
             <ul className='flex flex-col justify-center items-start bg-slate-50 pt-1 sm:pt-3 w-48 xl:rounded-l-sm'>
-                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{PGuser?.email}</p>
+                <p className='break-words px-2 w-48 sm:w-44 text-gray-950 font-bold sm:text-sm'>{PGuser?.register_email}</p>
                 {
-                    userItems.slice(1, 4).map((item, index) => {
-                        const isLastItem = index === userItems.slice(1, 4).length - 1;
+                    userItems.slice(1, 3).map((item, index) => {
+                        const isLastItem = index === userItems.slice(1, 3).length - 1;
                         return (
                             <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
                                 <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
                                     <span className='flex items-center'>
-                                        <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                        <span className='ms-3 group-hover/nav:text-primary'>{item.label}</span>
+                                        <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
+                                        <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>
                                     </span>
                                 </NavLink>
                             </li>

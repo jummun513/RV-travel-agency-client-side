@@ -16,7 +16,7 @@ const PrivateAdminRoutes = (data) => {
         return children;
     }
 
-    if (!Guser) {
+    else {
         return <NotFound></NotFound>
     }
 };

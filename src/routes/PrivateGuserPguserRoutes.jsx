@@ -6,22 +6,22 @@ import { AuthContextPG } from "../providers/AuthProviderPG";
 
 const PrivateGuserPguserRoutes = (data) => {
     const { children } = data;
-    const { user, loading } = useContext(AuthContext);
+    const { isLoading, Guser } = useContext(AuthContext);
     const { PGuser, pgLoading } = useContext(AuthContextPG);
 
-    if (loading || pgLoading) {
+    if (isLoading || pgLoading) {
         return <Loading></Loading>
     }
 
-    if (user || PGuser) {
+    else if (Guser || PGuser) {
         return children;
     }
 
-    if (!user) {
+    else if (!Guser) {
         return <Navigate to='/login'></Navigate>
     }
 
-    if (!PGuser) {
+    else if (!PGuser) {
         return <Navigate to='/privileged-guest/login'></Navigate>
     }
 };

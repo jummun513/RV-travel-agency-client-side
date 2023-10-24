@@ -4,6 +4,7 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../../../../../providers/AuthProvider';
+import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
 
 const Login = () => {
     const email = useRef(null);
@@ -12,12 +13,14 @@ const Login = () => {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const { loading, setLoading, signIn, isLoading } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContextPG);
     const navigate = useNavigate();
     const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
 
     const handleEmailField = () => {
         setError('')
     }
+
     const handlePassField = () => {
         setError('')
     }
@@ -31,9 +34,10 @@ const Login = () => {
             signIn(e, p)
                 .then(() => {
                     // after successfully create user
+                    dispatch({ type: "LOG_OUT" });
                     setLoading(false);
-                    formRef.current.reset();
                     !isLoading && navigate(location, { replace: true }); //navigate to previous page
+                    formRef.current.reset();
                 })
                 .catch((error) => {
                     // if any error catch

@@ -14,7 +14,7 @@ function Admin() {
             <QueryClientProvider client={admin_client}>
                 <AuthProvider>
                     <PrivateAdminRoutes>
-                        <AdminPanelPage></AdminPanelPage>
+                        <div className='bg-gray-50'><AdminPanelPage></AdminPanelPage></div>
                     </PrivateAdminRoutes>
                 </AuthProvider>
             </QueryClientProvider>

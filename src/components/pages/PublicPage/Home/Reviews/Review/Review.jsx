@@ -1,7 +1,14 @@
 import { Rating } from "@mui/material";
+import { useState } from "react";
 
 const Review = (data) => {
     const { url, alt, name, occupation, reviews } = data.data;
+    const [isReadMore, setIsReadMore] = useState(true);
+
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore);
+    };
+
     return (
         <div className="w-[640px] p-3 xxs:p-5 bg-[#fbfbfb] rounded-lg">
             <div className="flex xs:items-center justify-between">
@@ -19,9 +26,13 @@ const Review = (data) => {
                 </div>
             </div>
             <div className="mt-3 xs:mt-5">
-                <p className="text-gray-500 text-justify">
-                    {reviews}
-                </p>
+                <div className="text-gray-500 text-justify">
+                    {isReadMore ? reviews.slice(0, 100) + ' ...' : reviews}
+                    <br />
+                    <a onClick={toggleReadMore} className="btn btn-xs 3xl:btn-sm border-primary bg-gray-50 text-gray-950 hover:bg-transparent mt-2">
+                        {isReadMore ? "read more" : "show less"}
+                    </a>
+                </div>
             </div>
         </div>
     );

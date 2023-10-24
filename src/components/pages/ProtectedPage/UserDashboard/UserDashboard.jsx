@@ -32,7 +32,7 @@ const UserDashboard = () => {
 
     return (
         <div className="bg-[#fbfbfb]">
-            <div id="user_dashboard" className="bg-[#fbfbfb] h-[100vh] mx-auto max-w-screen-4xl flex pt-[45px] xxs:pt-[64px] lg:pt-[74px] xl:pt-[100px] 3xl:pt-[106px]">
+            <div id="user_dashboard" className={`min-h-[100vh] xl:h-[100vh] bg-[#fbfbfb] mx-auto max-w-screen-4xl flex pt-[45px] xxs:pt-[64px] lg:pt-[74px] xl:pt-[100px] 3xl:pt-[106px]`}>
                 {/* for large device */}
                 <div id="drawer" className="hidden xl:block w-96 bg-black shadow-2xl relative">
                     <div className='p-2 xl:p-3 w-full'>
@@ -48,7 +48,7 @@ const UserDashboard = () => {
                 }
 
                 {/* for small device */}
-                <div id="drawer" ref={dashboardRef} className={`xl:hidden absolute z-[21] h-full overflow-hidden w-[250px] xxs:w-80 bg-zinc-800 shadow-xl duration-200 ease-linear ${drawerOpen ? 'visible opacity-100 translate-x-0' : '-translate-x-20 invisible opacity-0'}`}>
+                <div id="drawer" ref={dashboardRef} className={`xl:hidden absolute z-[19] h-full overflow-hidden w-[250px] xxs:w-80 bg-zinc-800 shadow-xl duration-200 ease-linear ${drawerOpen ? 'visible opacity-100 translate-x-0' : '-translate-x-20 invisible opacity-0'}`}>
                     <div className='p-2 w-full'>
                         <ul id='user_dashboard_sidebar' className="menu mt-10 xs:mt-16 h-full">
                             <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
@@ -59,7 +59,7 @@ const UserDashboard = () => {
                 </div>
 
                 {/* drawer content */}
-                <div id="content" className='w-full overflow-y-auto'>
+                <div id="content" className={`${drawerOpen && 'h-[100vh] overflow-hidden'} w-full xl:overflow-y-auto`}>
                     {/* drawer content top heading for mini device */}
                     <div className='xxs:hidden px-2 pt-4 pb-4 border-b flex flex-col items-center'>
                         <div className='flex justify-between items-center w-full mb-4'>

@@ -4,8 +4,11 @@ import Loading from '../../../shared/Loading/Loading';
 import NotFound from '../../../shared/NotFound/NotFound';
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ManagePG = () => {
+    const navigate = useNavigate();
     const token = localStorage.getItem('access_token');
     const { data: pg_users = [], isLoading, isError, refetch } = useQuery(['pg_users'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
@@ -17,7 +20,7 @@ const ManagePG = () => {
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
-    const removePGuser = (email) => {
+    const removePGuser = (email, image_delete) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -28,28 +31,32 @@ const ManagePG = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`${import.meta.env.VITE_clientSideLink}/pg-users/${email}`, {
-                    method: 'DELETE',
+                axios.delete(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
+                    params: { pgUser: email, delete: image_delete },
                     headers: {
                         authorization: `bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                }).then(response => {
+                    if (response.data.deletedCount === 1) {
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                    else {
+                        errorNotify();
                     }
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.deletedCount === 1) {
-                            refetch();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                        }
-                        else {
-                            errorNotify();
-                        }
-                    })
+
             }
         })
+    }
+
+    const handleViewUser = (id) => {
+        navigate(`individual-user-profile/${id}`);
     }
 
     if (isLoading) {
@@ -59,7 +66,6 @@ const ManagePG = () => {
     if (isError) {
         return <NotFound></NotFound>
     }
-
 
     return (
         <div className="px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-14">
@@ -106,18 +112,18 @@ const ManagePG = () => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">
-                                                <img loading='lazy' className="w-10 h-10 rounded-full" src={user} alt={`${d.name} image`} />
+                                                <img loading='lazy' className="w-10 h-10 rounded-full" src={d.thumb ? d.thumb : user} alt={`${d.name} image`} />
                                                 <div className="lg:pl-3">
                                                     <div className="text-base font-semibold">{d.name}</div>
-                                                    <div className="font-normal text-gray-500">{d.email}</div>
+                                                    <div className="font-normal text-gray-500">{d.register_email}</div>
                                                 </div>
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-gray-800">
                                                 PG User
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
-                                                <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                <button onClick={() => removePGuser(d.email)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button onClick={() => handleViewUser(d._id)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
+                                                <button onClick={() => removePGuser(d.register_email, d.image_delete)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

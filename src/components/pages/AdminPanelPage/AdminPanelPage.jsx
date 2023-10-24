@@ -29,7 +29,7 @@ const AdminPanelPage = () => {
         })
             .catch((error) => {
                 setLoading(false);
-                console.log(error);
+                error;
             });
     }
 
@@ -39,7 +39,7 @@ const AdminPanelPage = () => {
     }
 
     return (
-        <div className="bg-[#fbfbfb] relative flex min-h-screen mx-auto max-w-screen-4xl">
+        <div className="bg-[#fbfbfb] h-[100vh] overflow-auto relative flex min-h-screen mx-auto max-w-screen-4xl">
 
             {/* for large device */}
             <div className="hidden lg:block w-96 bg-zinc-900 shadow-2xl relative">
@@ -110,7 +110,7 @@ const AdminPanelPage = () => {
 
 
             {/* drawer content */}
-            <div className='w-full'>
+            <div className='w-full h-[100vh] overflow-auto'>
                 <ToastContainer autoClose={10000} />
 
                 {/* drawer content top heading for mini device */}

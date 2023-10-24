@@ -11,7 +11,6 @@ export const AllContext = createContext("");
 
 function Main() {
     const [lockBody, setLockBody] = useState(null);
-    // const [pgUser, setPGuser] = useState(null);
     const targetElement = document.querySelector('#container');
 
     useEffect(() => {

@@ -1,8 +1,9 @@
+import Developing from '../../../../shared/Developing/Developing';
 
 const EditProfile = () => {
     return (
         <div>
-            profile edited
+            <Developing></Developing>
         </div>
     );
 };

@@ -13,7 +13,6 @@ const AuthProvider = (data) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [sendEmailVerification, sending, errorEmailVerification] = useSendEmailVerification(auth);
-    // const navigate = useNavigate();
 
     // create new user
     const createNewUser = (email, password) => {
@@ -61,10 +60,11 @@ const AuthProvider = (data) => {
     }, [])
 
 
+    // conditionally fetch user details from database
     const token = localStorage.getItem('access_token');
     const condition = user !== null && token !== null;
 
-    const { data: Guser = {}, isLoading, isError } = useQuery('g_user', async () => {
+    const { data: Guser = null, isLoading, isError } = useQuery('g_user', async () => {
         const response = await fetch(`${import.meta.env.VITE_clientSideLink}/general-users/${user?.email}`, {
             headers: {
                 authorization: `bearer ${token}`,
