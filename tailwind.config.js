@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'login-back': "url('./src/assets/images/login-background.jpg')",
-        'login-front': "url('./src/assets/images/login-foreground.jpg')",
+        'login-back': "url('https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/login-background.jpg?updatedAt=1698410626986')",
+        'login-front': "url('https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/login-foreground.jpg?updatedAt=1698410625446')",
+        'worldExploreBg': "url('https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/world-explore-bg.jpg?updatedAt=1698410626724')",
       },
       colors: {
         primary: '#ffb700',

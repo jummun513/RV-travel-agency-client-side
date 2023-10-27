@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import useImage from '../../../../../assets/images/user.jpg';
+import useImage from '../../../../../assets/images/user.svg';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
 import { AuthContext } from '../../../../../providers/AuthProvider';
 

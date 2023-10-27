@@ -4,7 +4,7 @@ import { RiAdminLine } from 'react-icons/ri';
 import { FaUsers } from 'react-icons/fa';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/Logos/full-logo-for-dark.png';
-import userImg from '../../../assets/images/user.jpg';
+import userImg from '../../../assets/images/user.svg';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import './AdminPanelPage.css';

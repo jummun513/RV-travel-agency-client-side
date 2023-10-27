@@ -19,6 +19,7 @@ import IndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/Indivi
 import EditIndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/EditIndividualPGUser/EditIndividualPGUser";
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
+import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
 
 
 export const router = createBrowserRouter([
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
                 // element: <ChairmanMessage></ChairmanMessage>,
             },
             {
+                path: '/about-us/director-message',
+                element: <Developing></Developing>,
+            },
+            {
                 path: '/about-us/ceo-message',
                 element: <Developing></Developing>,
             },
@@ -112,6 +117,10 @@ export const router = createBrowserRouter([
             {
                 path: '/privileged-guest/login',
                 element: <PrivilegeLogin></PrivilegeLogin>,
+            },
+            {
+                path: '/terms&condition',
+                element: <TermsAndCondition></TermsAndCondition>,
             },
         ]
     },

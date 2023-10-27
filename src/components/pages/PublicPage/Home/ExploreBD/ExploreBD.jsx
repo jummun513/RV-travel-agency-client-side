@@ -8,14 +8,14 @@ import { Autoplay, EffectCoverflow, Pagination, Keyboard, Navigation } from 'swi
 
 
 const data = [
-    { img: "https://i.ibb.co/xswMtPL/chittagong.jpg", location: "Chittagong", hotel: 20 },
-    { img: "https://i.ibb.co/yd8Rb01/dhaka.jpg", location: "Dhaka", hotel: 20 },
-    { img: "https://i.ibb.co/WBqmhxF/sunamganj.jpg", location: "Sunamganj", hotel: 20 },
-    { img: "https://i.ibb.co/drhZpWh/sylhet.jpg", location: "Sylhet", hotel: 20 },
-    { img: "https://i.ibb.co/WcF70Ys/Bhola.jpg", location: "Bhola", hotel: 20 },
-    { img: "https://i.ibb.co/PWsSk6D/coxs-Bazar.jpg", location: "Cox's Bazar", hotel: 20 },
-    { img: "https://i.ibb.co/cQT6SxL/bandarban.jpg", location: "Bandarban", hotel: 20 },
-    { img: "https://i.ibb.co/t46sKQP/narayanganj.jpg", location: "Narayanganj", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/chittagong.jpg?updatedAt=1698387878028", location: "Chittagong", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/dhaka.jpg?updatedAt=1698387878427", location: "Dhaka", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sunamganj.jpg?updatedAt=1698387878076", location: "Sunamganj", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/Bhola.jpg?updatedAt=1698387878418", location: "Sylhet", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sylhet.jpg?updatedAt=1698387878411", location: "Bhola", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/coxs-Bazar.jpg?updatedAt=1698387878023", location: "Cox's Bazar", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/bandarban.jpg?updatedAt=1698387877920", location: "Bandarban", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/narayanganj.jpg?updatedAt=1698387877765", location: "Narayanganj", hotel: 20 },
 ]
 
 const ExploreBD = () => {

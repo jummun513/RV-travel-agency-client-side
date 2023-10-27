@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import logo from '../../../../assets/Logos/short-logo.png';
-import img from '../../../../assets/images/privilege-login.gif';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from 'react-icons/bi';
 import axios from 'axios';
@@ -85,11 +84,11 @@ const PrivilegeLogin = () => {
             <div className='mx-2 xxs:mx-5 xs:mx-auto min-w-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'>
                 <div className='flex items-center justify-between rounded-lg sm:rounded-xl lg:rounded-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'>
                     <div className='hidden md:block md:w-[40%] xl:w-1/2'>
-                        <img loading='lazy' className='xl:w-[90%]' src={img} alt="Privileged guest login" />
+                        <img loading='lazy' className='xl:w-[90%]' src='https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/privilege-login.gif?updatedAt=1698411235990' alt="Privileged guest login" />
                     </div>
                     <div className='w-full md:w-[60%] xl:w-1/2'>
                         <div className="flex flex-col items-center py-10">
-                            <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img className='w-full h-full' src={logo} alt="" /></div>
+                            <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img className='w-full h-full' src={logo} alt="company short logo" /></div>
                             <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Sign In with Email and Password</h2>
 
                             {/* form start */}

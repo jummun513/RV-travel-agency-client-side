@@ -1,15 +1,15 @@
 import HotelCards from "./HotelCards/HotelCards";
 
 const data = [
-    { img: "https://i.ibb.co/ZgHJDzZ/radison-chittagong.jpg", title: "Radisson Blu Chattogram Bay View", loc: "Chittagong, Bangladesh" },
-    { img: "https://i.ibb.co/VMxs4ZS/dubai-emirates-palace-hotel.jpg", title: "Emirates Palace Mandarin Oriental", loc: "Abu Dhabi, UAE." },
-    { img: "https://i.ibb.co/tmMkTP1/Rancho-Valencia-Resort-Spa-usa.jpg", title: "Rancho Valencia Resort & Spa", loc: "California, USA" },
-    { img: "https://i.ibb.co/ZhWWyT7/The-Westin-Excelsior-rome.jpg", title: "The Westin Excelsior", loc: "Rome, Italia" },
-    { img: "https://i.ibb.co/9YbS8FT/Burj-Al-Arab-Hotel-dubai-uae.jpg", title: "Burj Al Arab Hotel", loc: "Dubai, UAE." },
-    { img: "https://i.ibb.co/j8F5Q7W/The-Plaza-usa.jpg", title: "The Plaza", loc: "New York City, USA." },
-    { img: "https://i.ibb.co/1mFf7Fn/Atlantis-Paradise-Island-bahamas.jpg", title: "Atlantis Paradise Island", loc: "Nassau, Bahamas" },
-    { img: "https://i.ibb.co/yf6czgr/Palms-Las-Vegas.jpg", title: "The Palms Hotel", loc: "Las Vegas, USA" },
-    { img: "https://i.ibb.co/KGKDPNH/Cuisin-Art-Golf-Resort-Spa-uk.jpg", title: "CuisinArt Golf Resort & Spa", loc: "Anguilla, UK" }
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/radison-chittagong.jpg?updatedAt=1698387042645", title: "Radisson Blu Chattogram Bay View", loc: "Chittagong, Bangladesh" },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/dubai-emirates-palace-hotel.jpg?updatedAt=1698387043344", title: "Emirates Palace Mandarin Oriental", loc: "Abu Dhabi, UAE." },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Rancho-Valencia-Resort-Spa-usa.jpg?updatedAt=1698387043053", title: "Rancho Valencia Resort & Spa", loc: "California, USA" },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/The-Westin-Excelsior-rome.jpg?updatedAt=1698387043057", title: "The Westin Excelsior", loc: "Rome, Italia" },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Burj-Al-Arab-Hotel-dubai-uae.jpg?updatedAt=1698387043038", title: "Burj Al Arab Hotel", loc: "Dubai, UAE." },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/The-Plaza-usa.jpg?updatedAt=1698387043061", title: "The Plaza", loc: "New York City, USA." },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Atlantis-Paradise-Island-bahamas.jpg?updatedAt=1698387043340", title: "Atlantis Paradise Island", loc: "Nassau, Bahamas" },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Palms-Las-Vegas.jpg?updatedAt=1698387042961", title: "The Palms Hotel", loc: "Las Vegas, USA" },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Cuisin-Art-Golf-Resort-Spa-uk.jpg?updatedAt=1698387042783", title: "CuisinArt Golf Resort & Spa", loc: "Anguilla, UK" }
 ]
 
 const HotelSection = () => {

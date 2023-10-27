@@ -3,18 +3,18 @@ import { PiStudent } from 'react-icons/pi';
 import { BsNewspaper, BsPatchQuestion } from 'react-icons/bs';
 import { RiPassportLine, RiVipCrownLine } from 'react-icons/ri';
 import { AiOutlineLogin, AiOutlineMenuUnfold, AiOutlineMenuFold, AiOutlineHome } from 'react-icons/ai';
-// import { BiHotel, BiSolidUser } from 'react-icons/bi';
 import { BiHotel } from 'react-icons/bi';
 import { FcBusinessman } from 'react-icons/fc';
 import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage, MdAdminPanelSettings } from 'react-icons/md';
 import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
+import { GiDirectorChair } from 'react-icons/gi';
 import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
 import { ImSwitch } from 'react-icons/im';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import './NavBar.css';
-import userImg from '../../../assets/images/user.jpg'
+import userImg from '../../../assets/images/user.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
@@ -144,6 +144,7 @@ const navItems = [
         icon: <TbListDetails className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />,
         children: [
             { label: 'Chairman Message', href: '/about-us/chairman-message', icon: <FcBusinessman className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: 'Director Message', href: '/about-us/director-message', icon: <GiDirectorChair className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'CEO Message', href: '/about-us/ceo-message', icon: <MdOutlineSpeakerNotes className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'Who We Are?', href: '/about-us/who-we-are', icon: <BsPatchQuestion className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'Company Profile', href: '/about-us/company-profile', icon: <FaUserTie className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
@@ -196,13 +197,13 @@ const NavList = () => {
                                 {showDropdown[index] && (
                                     <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
                                         {
-                                            PGuser ?
+                                            (PGuser && (item.label.includes('Privileged Guest'))) ?
                                                 item.children.slice(1, 4).map((child, childIndex) => (
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                                 :
                                                 item.children.slice(0, 4).map((child, childIndex) => (
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                         }
                                     </ul>
@@ -298,11 +299,6 @@ const userItems = [
         href: '/admin-panel',
         icon: <MdAdminPanelSettings className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
     },
-    // {
-    //     label: 'My Profile',
-    //     href: '/dashboard/profile',
-    //     icon: <BiSolidUser className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />
-    // },
     {
         label: 'My DashBoard',
         href: '/dashboard/profile',

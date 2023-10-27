@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
 const row1 = [
-  "https://i.ibb.co/vJchHzJ/logo-1.png",
-  "https://i.ibb.co/BGWD1Vv/logo-2.png",
-  "https://i.ibb.co/mRhS4Ds/logo-3.png",
-  "https://i.ibb.co/qmwxvD3/logo-4.png",
-  "https://i.ibb.co/t4NK2CR/logo-5.png",
-  "https://i.ibb.co/C9s42C1/logo-6.png",
-  "https://i.ibb.co/dr0gwFS/logo-7.png",
-  "https://i.ibb.co/fGNq6Tv/logo-8.png",
-  "https://i.ibb.co/XzNKXGG/logo-9.png",
-  "https://i.ibb.co/9466YLp/logo-10.png"
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/1.png?updatedAt=1698170313864",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/2.png?updatedAt=1698170314257",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/3.png?updatedAt=1698170314135",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/4.png?updatedAt=1698170314129",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/5.png?updatedAt=1698170314069",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/6.png?updatedAt=1698170314267",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/7.png?updatedAt=1698170314132",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/8.png?updatedAt=1698170314264",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/9.png?updatedAt=1698170314073",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/10.png?updatedAt=1698170314261",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/11.png?updatedAt=1698170317373",
+  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/12.png?updatedAt=1698170317726"
 ];
 
 const MarqueeElement = () => {
@@ -18,7 +20,7 @@ const MarqueeElement = () => {
     <MarqueeGroup>
       {row1.map((el, idx) => (
         <ImageGroup key={idx}>
-          <Image src={el} />
+          <Image loading="lazy" src={el} />
         </ImageGroup>
       ))}
     </MarqueeGroup>

@@ -10,10 +10,10 @@ const LogoSlider = () => {
           <div className="text-center mb-8 sm:mb-10 lg:mb-20">
             <h2 className="text-gray-950 font-extrabold text-base xxs:text-2xl xs:text-3xl md:text-5xl xl:text-5xl">Our partners</h2>
           </div>
-          <Marquee pauseOnHover={true} speed={50}>
+          <Marquee pauseOnHover={true} speed={20}>
             <MarqueeElement></MarqueeElement>
           </Marquee>
-          <Marquee className='mt-3 lg:mt-5' pauseOnHover={true} speed={50} direction='right'>
+          <Marquee className='mt-3 lg:mt-5' pauseOnHover={true} speed={20} direction='right'>
             <MarqueeElement></MarqueeElement>
           </Marquee>
         </div>

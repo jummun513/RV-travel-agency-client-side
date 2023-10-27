@@ -19,17 +19,26 @@
 
 #reviews .swiper-pagination-bullet {
     background: #ededed;
+    margin: 0 7px;
 }
 
 @media screen and (max-width: 512px) {
     #reviews .swiper {
         padding-bottom: 1rem;
     }
+
+    #reviews .swiper-pagination-bullet {
+        margin: 0 5px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     #reviews .swiper {
         padding-bottom: 4rem;
+    }
+
+    #reviews .swiper-pagination-bullet {
+        margin: 0 7px;
     }
 }
 

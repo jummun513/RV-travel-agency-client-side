@@ -97,7 +97,7 @@ const Footer = () => {
                                         <a href="/" className="hover:underline">Privacy Policy</a>
                                     </li>
                                     <li>
-                                        <a href="/" className="hover:underline">Terms & Conditions</a>
+                                        <Link to='/terms&condition' className="hover:underline">Terms & Conditions</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -106,10 +106,10 @@ const Footer = () => {
                 </div>
             </div >
 
-            <footer className='relative bg-black pt-10 pb-8'>
+            <footer className='relative bg-black pt-10 pb-2 lg:pb-8'>
                 <div className='mx-auto px-[10px] sm:px-[20px] xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                     <div className="flex lg:flex-row flex-col-reverse items-center justify-between">
-                        <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By <a href="https://www.facebook.com/Jummun.Jaber" className="hover:underline text-primary"><span className='text-red-500 text-md sm:text-lg xl:text-2xl'>&hearts;</span> Jummun Islam</a></p>
+                        {/* <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By :<a href="https://www.facebook.com/Jummun.Jaber" className="hover:underline text-primary"> Jummun Islam</a></p> */}
                         <p className="text-xs sm:text-sm mb-1 xxs:mb-2 lg:mb-0 text-gray-500 text-center">&copy; {currentYear} <a href="/" className="hover:underline text-primary uppercase">Royal Venture <sup>LTD</sup></a>. All Rights Reserved.
                         </p>
                         <div className="flex mb-3 xxs:mb-5 lg:mb-0 space-x-4 md:space-x-6 md:justify-start justify-center">

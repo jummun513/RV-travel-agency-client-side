@@ -16,6 +16,7 @@
 
 #topOffer .swiper-pagination-bullet {
     background: #ffb700;
+    margin: 0px 10px;
 }
 
 
@@ -59,11 +60,19 @@
     #topOffer .swiper {
         padding-bottom: 1rem;
     }
+
+    #topOffer .swiper-pagination-bullet {
+        margin: 0px 5px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     #topOffer .swiper {
         padding-bottom: 4rem;
+    }
+
+    #topOffer .swiper-pagination-bullet {
+        margin: 0px 7px;
     }
 }
 

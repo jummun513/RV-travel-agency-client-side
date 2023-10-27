@@ -1,0 +1,48 @@
+#ourPackages .swiper {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 6rem;
+}
+
+#ourPackages .swiper-slide {
+    height: auto;
+    width: auto;
+}
+
+#ourPackages .swiper-slide img {
+    display: block;
+    width: 100%;
+}
+
+#ourPackages .swiper-pagination-bullet {
+    background: #ffb700;
+    margin: 0 10px;
+}
+
+@media screen and (max-width: 512px) {
+    #ourPackages .swiper {
+        padding-bottom: 1rem;
+    }
+
+    #ourPackages .swiper-pagination-bullet {
+        background: #ffb700;
+        margin: 0 5px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #ourPackages .swiper {
+        padding-bottom: 4rem;
+    }
+
+    #ourPackages .swiper-pagination-bullet {
+        background: #ffb700;
+        margin: 0 7px;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    #ourPackages .swiper-pagination {
+        padding: 2px 0;
+    }
+}
