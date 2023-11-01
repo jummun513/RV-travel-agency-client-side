@@ -9,7 +9,7 @@ import HotelSearch from '../../../../shared/HotelSearch/HotelSearch';
 const Banner = () => {
   return (
     <Container className='h-[60rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[60rem]'>
-      <Video autoPlay muted loop id="background-video">
+      <Video autoPlay muted loop playsInline id="background-video" className='object-cover' poster='https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/video-background.png?updatedAt=1698731597480'>
         <source src={backVideo} type="video/mp4" />
       </Video>
       <OverLay className='bg-[#0005]'></OverLay>

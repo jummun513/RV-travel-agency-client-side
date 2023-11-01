@@ -20,6 +20,7 @@ import EditIndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/Ed
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
+import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyPolicy";
 
 
 export const router = createBrowserRouter([
@@ -121,6 +122,10 @@ export const router = createBrowserRouter([
             {
                 path: '/terms&condition',
                 element: <TermsAndCondition></TermsAndCondition>,
+            },
+            {
+                path: '/privacy&policy',
+                element: <PrivacyPolicy></PrivacyPolicy>,
             },
         ]
     },

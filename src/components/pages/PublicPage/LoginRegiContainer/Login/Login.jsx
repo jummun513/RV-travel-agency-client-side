@@ -5,6 +5,7 @@ import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
     const email = useRef(null);
@@ -49,6 +50,9 @@ const Login = () => {
 
     return (
         <div className="bg-[#fbfbfb] rounded-lg md:rounded-none md:rounded-e-xl lg:rounded-e-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            <Helmet>
+                <title>Login - Royal Venture Limited</title>
+            </Helmet>
             <div className="flex flex-col items-center py-10">
                 <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img loading='lazy' className='w-full h-full' src={logo} alt="" /></div>
                 <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Sign In with Email and Password</h2>
