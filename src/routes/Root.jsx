@@ -21,6 +21,8 @@ import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
 import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyPolicy";
+import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
+import HotelDetail from "../components/pages/PublicPage/HotelDetail/HotelDetail";
 
 
 export const router = createBrowserRouter([
@@ -42,7 +44,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/hotels-list',
-                element: <Developing></Developing>,
+                element: <Hotels></Hotels>,
+            },
+            {
+                path: '/hotel-detail/:hotelId',
+                element: <HotelDetail></HotelDetail>,
             },
             {
                 path: '/student-service',

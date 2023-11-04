@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import url from '../../../../assets/images/terms-and-conditions.svg';
 
 const TermsAndCondition = () => {

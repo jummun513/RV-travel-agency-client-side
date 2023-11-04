@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { AuthContext } from '../../../../providers/AuthProvider';
 import { AuthContextPG } from '../../../../providers/AuthProviderPG';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const PrivilegeLogin = () => {
     const { error, dispatch } = useContext(AuthContextPG);

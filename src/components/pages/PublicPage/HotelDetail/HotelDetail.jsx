@@ -8,12 +8,15 @@ import { Rating } from "@mui/material";
 import { BsImages, BsWifi2 } from 'react-icons/bs';
 import { LiaSwimmerSolid } from 'react-icons/lia';
 import { BiRestaurant } from 'react-icons/bi';
-import { AiFillCar } from 'react-icons/ai';
+import { AiFillCar, AiFillStar } from 'react-icons/ai';
 import { Ri24HoursFill } from 'react-icons/ri';
 import { CgGym } from 'react-icons/cg';
 import { MdLocationOn, MdOutlineFlight } from 'react-icons/md';
 import { AiOutlineClose, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import Room from "./Room/Room";
+import { ImPointRight } from 'react-icons/im';
+import { TiTick } from 'react-icons/ti';
+import { Helmet } from 'react-helmet-async';
 
 
 const HotelDetail = () => {
@@ -90,7 +93,7 @@ const HotelDetail = () => {
     }
 
     // data fetch
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/main/public/hotelData.json'));
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('../../../../../public/hotelData.json'));
     if (isLoading) {
         return <div className='text-4xl text-gray-500'> Loading...</div>
     }
@@ -98,7 +101,10 @@ const HotelDetail = () => {
     const singleHotel = (data?.filter(item => (item.id === hotelId)));
 
     return (
-        <div className="bg-[#fbfbfb] pt-20 xxs:pt-32 xs:pt-36 xl:pt-48">
+        <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
+            <Helmet>
+                <title>Individual Hotel - Royal Venture Limited</title>
+            </Helmet>
             <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
                 {
                     singleHotel?.map((item, idx) => {
@@ -152,7 +158,7 @@ const HotelDetail = () => {
 
 
 
-                                <div className=''>
+                                <div>
                                     <nav id="spy-navbar" className="navbar sticky top-[42px] xxs:top-[62px] lg:top-[72px] xl:top-[95px] 3xl:top-[101px] z-[11] py-3 xl:py-5 shadow-sm mt-12 md:mt-10 lg:mt-16 xl:mt-20 border border-slate-50 bg-[#fff] flex flex-col xs:flex-row items-center justify-between">
                                         <ul className="flex flex-wrap space-x-2 xxs:space-x-5">
                                             <li className={`${activeSection === 'Overview' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
@@ -221,7 +227,7 @@ const HotelDetail = () => {
                                         </div>
                                         <div className="lg:w-1/2 mt-14 lg:mt-0">
                                             <div>
-                                                <iframe className='w-full h-full border-none border-2 rounded-lg' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59051.312105207224!2d91.73999934863278!3d22.326918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8b46373368d%3A0x7f0aa59b4138e5b3!2sHotel%20Agrabad!5e0!3m2!1sen!2sbd!4v1694972262735!5m2!1sen!2sbd" allowFullScreen loading="lazy"></iframe>
+                                                <iframe className='w-full h-full border-none border-2 rounded-lg' src={item.location.map} allowFullScreen loading="lazy"></iframe>
                                             </div>
                                             <p className="text-xs xs:text-sm text-gray-700 mt-2 xs:mt-3">Bulbul Center, 486/B O.R. Nizam Road, CDA Avenue, Chittagong, 4100</p>
                                             <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 xs:mt-5 mt-2 mb-8 xs:mb-5">View in map</button>
@@ -266,36 +272,36 @@ const HotelDetail = () => {
                                             }
                                         </div>
                                     </section>
-                                    <section id="About" className="hidden section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                    <section id="About" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                         <div className='border-b border-gray-200 pb-10'>
-                                            <div className='flex text-gray-900 justify-between'>
-                                                <div className='w-1/3'>
-                                                    <h2 className='text-4xl'>About this property</h2>
+                                            <div className='lg:flex text-gray-900 justify-between'>
+                                                <div className='lg:w-1/3'>
+                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>About this property</h2>
                                                 </div>
-                                                <div className='w-2/3'>
+                                                <div className='lg:w-2/3'>
                                                     <div>
-                                                        <h3 className='text-xl font-medium'>Radisson Blu Chattogram Bay View</h3>
+                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>Radisson Blu Chattogram Bay View</h3>
                                                         <p className='text-gray-600'>Situated on the bay, Radisson Blu Chattogram Bay View is a great choice for a stay in Chittagong. Guests can grab a bite to eat at one of the 3 restaurants and visit the spa to be pampered with hot stone massages, aromatherapy, or reflexology. Other highlights at this luxurious hotel include an outdoor pool, a poolside bar, and a fitness center.</p>
                                                     </div>
-                                                    <div className='mt-10'>
-                                                        <h3 className='text-xl font-medium'>Languages</h3>
+                                                    <div className='mt-6 xs:mt-10'>
+                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>Languages</h3>
                                                         <p className='text-gray-600'>Dutch, English, French, German</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="border-b border-gray-200 mt-16">
-                                            <div className='flex text-gray-900 justify-between'>
-                                                <div className='w-1/3'>
-                                                    <h2 className='text-4xl'>Cleaning and safety practices</h2>
+                                        <div className="mt-16">
+                                            <div className='lg:flex text-gray-900 justify-between'>
+                                                <div className='lg:w-1/3'>
+                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Cleaning and safety practices</h2>
                                                 </div>
-                                                <div className='w-2/3'>
+                                                <div className='lg:w-2/3'>
                                                     {
                                                         item.safety.map((x, i) => {
                                                             return (
                                                                 <div key={i}>
-                                                                    <h3 className='text-xl font-medium'>{x.heading}</h3>
-                                                                    <div className='mt-2 mb-10'>
+                                                                    <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium'>{x.heading}</h3>
+                                                                    <div className='mt-2 mb-6 xs:mb-10'>
                                                                         {
                                                                             x.data.map((p, q) => {
                                                                                 return (
@@ -312,12 +318,207 @@ const HotelDetail = () => {
                                             </div>
                                         </div>
                                     </section>
-                                    <section id="Amenities" className="section">
-
+                                    <section id="Amenities" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                        <div className='border-b border-gray-200 pb-10'>
+                                            <div className='xl:flex text-gray-900 justify-between'>
+                                                <div className='xl:w-1/3'>
+                                                    <h2 className='text-center xl:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>At a glance</h2>
+                                                </div>
+                                                <div className='xl:w-2/3'>
+                                                    <div className='md:grid grid-cols-2 gap-x-3 lg:gap-x-5'>
+                                                        {
+                                                            item.AtGlance.map((x, i) => {
+                                                                return (
+                                                                    <div key={i}>
+                                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium flex items-center'><ImPointRight className='mr-2'></ImPointRight> {x.heading}</h3>
+                                                                        <div className='mt-2 mb-6 xs:mb-10'>
+                                                                            {
+                                                                                x.data.map((p, q) => {
+                                                                                    return (
+                                                                                        <p key={q} className='text-gray-600'>{p}</p>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="border-b border-gray-200 mt-16">
+                                            <div className='xl:flex text-gray-900 justify-between'>
+                                                <div className='xl:w-1/3'>
+                                                    <h2 className='text-center xl:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>Property amenities</h2>
+                                                </div>
+                                                <div className='xl:w-2/3'>
+                                                    <div className='md:grid grid-cols-2 gap-x-3 lg:gap-x-5'>
+                                                        {
+                                                            item.amenities.property.map((x, i) => {
+                                                                return (
+                                                                    <div key={i}>
+                                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium flex items-center'><TiTick className='mr-1 lg:mr-2'></TiTick> {x.heading}</h3>
+                                                                        <div className='mt-2 mb-6 xs:mb-10'>
+                                                                            {
+                                                                                x.data.map((p, q) => {
+                                                                                    return (
+                                                                                        <p key={q} className='text-gray-600'>{p}</p>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="mt-16">
+                                            <div className='xl:flex text-gray-900 justify-between'>
+                                                <div className='xl:w-1/3'>
+                                                    <h2 className='text-center xl:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>Room amenities</h2>
+                                                </div>
+                                                <div className='xl:w-2/3'>
+                                                    <div className='md:grid grid-cols-2 gap-x-3 lg:gap-x-5'>
+                                                        {
+                                                            item.amenities.roomAmenities.map((x, i) => {
+                                                                return (
+                                                                    <div key={i}>
+                                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium flex items-center'><AiFillStar className='mr-1 lg:mr-2'></AiFillStar> {x.heading}</h3>
+                                                                        <div className='mt-2 mb-6 xs:mb-10'>
+                                                                            {
+                                                                                x.data.map((p, q) => {
+                                                                                    return (
+                                                                                        <p key={q} className='text-gray-600'>{p}</p>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </section>
-                                    <section id="Policies" className="section">
-
+                                    <section id="Policies" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                        <div className='pb-10'>
+                                            <div className='lg:flex text-gray-900 justify-between'>
+                                                <div className='lg:w-1/3'>
+                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Policies and Fees</h2>
+                                                </div>
+                                                <div className='lg:w-2/3'>
+                                                    {
+                                                        item.policies.map((x, i) => {
+                                                            return (
+                                                                <div key={i} className={`${i !== 0 ? 'mt-10' : 'mt-0'}`}>
+                                                                    <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{x.heading}</h3>
+                                                                    <p className='text-gray-600'>{x.info}</p>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
                                     </section>
+                                </div>
+
+                                <div className='bg-[#fff] mt-8 sm:mt-5 lg:mt-10'>
+                                    <div className='lg:flex px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10'>
+                                        <div className='lg:w-1/3'>
+                                            <h2 className='text-gray-800 text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>Frequently asked questions</h2>
+                                        </div>
+                                        <div className='lg:w-2/3'>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    Does offer {item.heading} free cancellation for a full refund?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Yes, {item.heading} does have fully refundable room rates available to book on our site. If you’ve booked a fully refundable room rate, this can be cancelled up to a few days before check-in depending on the property&apos;s cancellation policy. Just make sure to check this property&apos;s cancellation policy for the exact terms and conditions.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    What are the cleanliness and hygiene measures currently in place at {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>This property confirms that disinfectant is used to clean the property. Furthermore, guests are provided with hand sanitizer, social distancing measures are in place, and staff are given personal protective equipment. Please note that this information has been provided by our partners.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    Is there a pool at {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Yes, there&apos;s an outdoor pool.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    Are pets allowed at {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Sorry, pets and service animals aren&apos;t allowed.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    Is parking offered on site at {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Yes, there&apos;s free valet parking.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    What are the check-in and check-out times at {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Check-in start time: 2 PM; Check-in end time: midnight. Check-out time is noon. Contactless check-in is available.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    What is there to do at {item.heading} and nearby?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Practice your swing on the tennis courts. Indulge in a treatment at the spa and soothe your senses in the spa tub. Radisson Blu Chattogram Bay View also has an outdoor pool and a sauna, as well as a steam room and a garden.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    Are there restaurants at or near {item.heading}?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Yes, there are 3 onsite restaurants, featuring Asian cuisine.</p>
+                                                </div>
+                                            </div>
+                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                <input type="radio" name="my-accordion-2" />
+                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                    What&apos;s the area around {item.heading} like?
+                                                </div>
+                                                <div className="text-gray-700 collapse-content">
+                                                    <p>Radisson Blu Chattogram Bay View is in the heart of Chittagong, a short 1-minute walk from Shishu Park and 2 minutes&apos; walk from Zia Memorial Museum.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -331,7 +532,7 @@ const HotelDetail = () => {
                         singleHotel?.map((item, idx) => {
                             return (
                                 <div key={idx} className="flex items-center justify-center">
-                                    <AiOutlineClose onClick={handleSlideClose} className="absolute right-5 top-5 bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineClose>
+                                    <AiOutlineClose onClick={handleSlideClose} className="absolute right-1 sm:right-2 top-2 xl:right-5 xl:top-5 bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineClose>
                                     <AiOutlineArrowLeft onClick={() => handleMoveSlide('l')} className="bg-[#fff] w-6 h-6 p-1 xl:w-10 xl:h-10 4xl:w-16 4xl:h-16 4xl:p-4  text-gray-950 xl:p-2 rounded-full cursor-pointer"></AiOutlineArrowLeft>
                                     <div className="w-full h-full flex items-center justify-center">
                                         <img loading='lazy' className="w-[95%] h-[full] xl:w-[85%] xl:h-[80vh] 2xl:w-[90%] 2xl:h-[90vh] xl:mx-4 2xl:mx-5" src={item.images[slideNumber]} alt="Slider Image" />

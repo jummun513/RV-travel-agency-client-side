@@ -7,26 +7,44 @@ import { FaMapMarked } from 'react-icons/fa';
 import Hotel from './Hotel/Hotel';
 import { useQuery } from 'react-query';
 import fetchData from '../../../../functions/fetchData';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Loading from '../../../shared/Loading/Loading.jsx';
+import { Helmet } from 'react-helmet-async';
 
 const Hotels = () => {
     const [seeMore, setSeeMore] = useState(false);
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('https://raw.githubusercontent.com/jummun513/RV-travel-agency-client-side/main/public/hotelData.json'))
+    const location = useLocation();
+    const searchQuery = new URLSearchParams(location.search).get('search');
+    const [searchResults, setSearchResults] = useState([]);
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData('../../../../../public/hotelData.json'));
 
-    if (isLoading) {
-        return <div className='text-4xl text-gray-500'> Loading...</div>
-    }
+
+    useEffect(() => {
+        if (searchQuery) {
+            const newData = data?.filter(d => (d.heading.toLowerCase().includes(searchQuery.toLowerCase()) || d.heading.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.city.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.country.toLowerCase().includes(searchQuery.toLowerCase())));
+            setSearchResults(newData);
+        }
+        else {
+            setSearchResults(data);
+        }
+    }, [searchQuery, data]);
+
 
     return (
-        <div className='bg-[#fbfbfb] pt-20 xxs:pt-32 xs:pt-40 xl:pt-56'>
+        <div className='bg-[#fbfbfb] py-16 xxs:py-24 xs:py-36 md:py-40 xl:py-48 3xl:py-56'>
+            <Helmet>
+                <title>Hotels - Royal Venture Limited</title>
+            </Helmet>
             <div className='xs:bg-gray-50 rounded-md xs:border px-2 xxs:px-5 xs:px-0 mx-auto max-w-screen-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'><HotelSearch></HotelSearch></div>
 
-            {/* For big device */}
+            {/* For large device */}
             <div className='hidden lg:block sm:px-[32px] mx-auto max-w-screen-4xl mt-32'>
                 <div className="flex">
                     {/* filter section */}
                     <div className='w-4/12 2xl:w-3/12 3xl:w-2/12'>
                         <div className='relative border-2 rounded-lg'>
-                            <iframe className='w-full h-full border-none border-2 rounded-lg' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59051.312105207224!2d91.73999934863278!3d22.326918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8b46373368d%3A0x7f0aa59b4138e5b3!2sHotel%20Agrabad!5e0!3m2!1sen!2sbd!4v1694972262735!5m2!1sen!2sbd" allowFullScreen loading="lazy"></iframe>
+                            <iframe className='w-full h-full border-none border-2 rounded-lg' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3747017.2622070983!2d87.7026520471155!3d23.489429144532465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30adaaed80e18ba7%3A0xf2d28e0c4e1fc6b!2sBangladesh!5e0!3m2!1sen!2sbd!4v1699113404830!5m2!1sen!2sbd" allowFullScreen loading="lazy"></iframe>
                             <div className='text-center bg-[#fffb] py-2 absolute bottom-0 rounded-b-lg w-full link text-blue-600'>View in map</div>
                         </div>
                         <form className='rounded-lg my-10'>
@@ -195,25 +213,38 @@ const Hotels = () => {
                     </div>
 
                     {/* card section */}
-                    <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>
-                        <p className="label-text text-gray-950 font-extrabold text-xl 2xl:text-2xl">Dhaka: 395 properties found</p>
-                        <div className="form-control w-1/2 mt-8">
-                            <label className="label pt-0">
-                                <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
-                            </label>
-                            <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
-                                <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
-                                <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
-                                <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
-                                <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
-                            </select>
-                        </div>
-                        <div className='mt-10'>
-                            {
-                                data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                            }
-                        </div>
-                    </div>
+                    {
+                        isLoading ? <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'><Loading></Loading></div> :
+                            <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>
+                                <p className="label-text text-gray-950 font-extrabold text-xl 2xl:text-2xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
+                                {
+                                    searchResults?.length > 0 ?
+                                        <div>
+                                            <div className="form-control w-1/2 mt-8">
+                                                <label className="label pt-0">
+                                                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                                                </label>
+                                                <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
+                                                    <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
+                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
+                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
+                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
+                                                </select>
+                                            </div>
+                                            <div className='mt-10'>
+                                                {
+                                                    searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                                }
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className='flex justify-center mt-20 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>Nothing match!</div>
+                                }
+                            </div>
+                    }
+
+
+
                 </div>
             </div>
 
@@ -430,11 +461,22 @@ const Hotels = () => {
                         </form>
                     </dialog>
                 </div>
-                <div className='mt-24'>
-                    {
-                        data.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                    }
-                </div>
+                {
+                    isLoading ? <div className='mt-12 xs:mt-16'><Loading></Loading></div> :
+                        <div className='mt-12 xs:mt-16'>
+                            <p className="label-text text-gray-950 font-extrabold text-xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
+                            {
+                                searchResults?.length > 0 ?
+                                    <div>
+                                        {
+                                            searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                        }
+                                    </div>
+                                    :
+                                    <div className='flex justify-center mt-12 xs:mt-16'>Nothing match!</div>
+                            }
+                        </div>
+                }
             </div>
         </div>
     );

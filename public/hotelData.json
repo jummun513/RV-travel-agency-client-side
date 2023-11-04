@@ -42,92 +42,133 @@
                 "24/7 front desk",
                 "Non-smoking"
             ],
-            "property": {
-                "Food&drink": [
-                    "3 restaurants",
-                    "Bar/lounge",
-                    "Poolside bar",
-                    "24-hour room service",
-                    "Snack bar/deli"
-                ],
-                "traveling": "Children stay free",
-                "playGround": [
-                    "Indoor games",
-                    "Tennis",
-                    "Golfing"
-                ],
-                "Working-away": [
-                    "Business center",
-                    "Meeting room"
-                ],
-                "Services": [
-                    "24-hour front desk",
-                    "Concierge services",
-                    "Dry cleaning/laundry services",
-                    "Luggage storage",
-                    "Multilingual staff"
-                ],
-                "Facilities": [
-                    "Built in 2015",
-                    "ATM/banking",
-                    "Safe-deposit box at front desk",
-                    "Garden",
-                    "Terrace",
-                    "Fitness center",
-                    "An outdoor pool",
-                    "Full-service spa",
-                    "Spa tub",
-                    "Sauna",
-                    "Steam room",
-                    "Annual offsets purchased for at least 10%",
-                    "of carbon footprint",
-                    "At least 80% lighting from LEDs",
-                    "Banquet hall"
-                ],
-                "Accessibility": [
-                    "Elevator",
-                    "Accessible bathroom (select rooms)",
-                    "In-room accessibility (select rooms)",
-                    "Roll-in shower (select rooms)",
-                    "Wheelchair accessible",
-                    "Wheelchair-accessible path of travel",
-                    "Wheelchair-accessible parking",
-                    "Grab bar near toilet",
-                    "Thin carpet in room"
-                ]
-            },
-            "room": {
-                "Be entertained": [
-                    "40-inch LED TV",
-                    "Satellite TV channels"
-                ],
-                "Home comfort": [
-                    "Air conditioning",
-                    "Coffee/tea maker",
-                    "Slippers",
-                    "Iron/ironing board"
-                ],
-                "Sleep well": [
-                    "Soundproofed rooms",
-                    "Free crib/infant bed",
-                    "Rollaway/extra bed (surcharge)",
-                    "Bed sheets provided"
-                ],
-                "Freshen up": [
-                    "Private bathroom",
-                    "Separate bathtub and shower",
-                    "Hair dryer",
-                    "Towels"
-                ],
-                "Stay connected": [
-                    "Free WiFi",
-                    "Phone"
-                ],
-                "More": [
-                    "Daily housekeeping",
-                    "In-room safe"
-                ]
-            }
+            "property": [
+                {
+                    "heading": "Food and drink",
+                    "data": [
+                        "3 restaurants",
+                        "Bar/lounge",
+                        "Poolside bar",
+                        "24-hour room service",
+                        "Snack bar/deli"
+                    ]
+                },
+                {
+                    "heading": "Travelling with children",
+                    "data": [
+                        "Children stay free"
+                    ]
+                },
+                {
+                    "heading": "Various playground",
+                    "data": [
+                        "Indoor games",
+                        "Tennis",
+                        "Golfing"
+                    ]
+                },
+                {
+                    "heading": "Working away",
+                    "data": [
+                        "Business center",
+                        "Meeting room"
+                    ]
+                },
+                {
+                    "heading": "Service",
+                    "data": [
+                        "24-hour front desk",
+                        "Concierge services",
+                        "Dry cleaning/laundry services",
+                        "Luggage storage",
+                        "Multilingual staff"
+                    ]
+                },
+                {
+                    "heading": "Facilities",
+                    "data": [
+                        "Built in 2015",
+                        "ATM/banking",
+                        "Safe-deposit box at front desk",
+                        "Garden",
+                        "Terrace",
+                        "Fitness center",
+                        "An outdoor pool",
+                        "Full-service spa",
+                        "Spa tub",
+                        "Sauna",
+                        "Steam room",
+                        "Annual offsets purchased for at least 10%",
+                        "of carbon footprint",
+                        "At least 80% lighting from LEDs",
+                        "Banquet hall"
+                    ]
+                },
+                {
+                    "heading": "Accesibility",
+                    "data": [
+                        "3 Elevator",
+                        "Accessible bathroom (select rooms)",
+                        "In-room accessibility (select rooms)",
+                        "Roll-in shower (select rooms)",
+                        "Wheelchair accessible",
+                        "Wheelchair-accessible path of travel",
+                        "Wheelchair-accessible parking",
+                        "Grab bar near toilet",
+                        "Thin carpet in room"
+                    ]
+                }
+            ],
+            "roomAmenities": [
+                {
+                    "heading": "Be entertained",
+                    "data": [
+                        "40-inch LED TV",
+                        "Satellite TV channels"
+                    ]
+                },
+                {
+                    "heading": "Home comfort",
+                    "data": [
+                        "Air conditioning",
+                        "Coffee/tea maker",
+                        "Slippers",
+                        "Iron/ironing board"
+                    ]
+                },
+                {
+                    "heading": "Sleep well",
+                    "data": [
+                        "Soundproofed rooms",
+                        "Free crib/infant bed",
+                        "Rollaway/extra bed (surcharge)",
+                        "Bed sheets provided"
+                    ]
+                },
+                {
+                    "heading": "Freshen up",
+                    "data": [
+                        "Private bathroom",
+                        "Separate bathtub and shower",
+                        "Hair dryer",
+                        "Towels"
+                    ]
+                },
+                {
+                    "heading": "Stay connected",
+                    "data": [
+                        "Free WiFi",
+                        "Phone"
+                    ]
+                },
+                {
+                    "heading": "More",
+                    "data": [
+                        "Daily housekeeping",
+                        "In-room safe"
+                    ]
+                }
+            ]
         },
         "policies": [
             {
@@ -140,7 +181,11 @@
             },
             {
                 "heading": "Policies",
-                "info": "This property accepts credit cards. Cash is not accepted."
+                "info": "This property accepts credit cards or Cash accepted."
+            },
+            {
+                "heading": "Fees",
+                "info": "For more details contract with us."
             }
         ],
         "about": [
@@ -318,7 +363,7 @@
                 "size": "38 sq m",
                 "wifi": "Free WiFi",
                 "food": "Full Breakfast",
-                "parking": "Free parking",
+                "parking": "Free valet parking",
                 "offer": "Collect and Redeem",
                 "price": 125.00,
                 "img": [
@@ -328,14 +373,14 @@
                 ]
             },
             {
-                "heading": "Business Room (Lounge Access)",
+                "heading": "Business Room (Class - Lounge Access)",
                 "rating": "10/10 Exceptional",
                 "bed": "2 Twin Beds OR 1 King Bed",
                 "sleep": "Sleeps 4",
                 "size": "38 sq m",
                 "wifi": "Free WiFi",
                 "food": "Full Breakfast",
-                "parking": "Free parking",
+                "parking": "Free valet parking",
                 "offer": "Collect and Redeem",
                 "price": 125.00,
                 "img": [
@@ -352,7 +397,7 @@
                 "size": "38 sq m",
                 "wifi": "Free WiFi",
                 "food": "Full Breakfast",
-                "parking": "Free parking",
+                "parking": "Free valet parking",
                 "offer": "Collect and Redeem",
                 "price": 125.00,
                 "img": [
@@ -362,20 +407,20 @@
                 ]
             },
             {
-                "heading": "Junior Suite (Lounge Access)",
+                "heading": "Superior Room",
                 "rating": "10/10 Exceptional",
                 "bed": "2 Twin Beds OR 1 King Bed",
                 "sleep": "Sleeps 4",
                 "size": "38 sq m",
                 "wifi": "Free WiFi",
                 "food": "Full Breakfast",
-                "parking": "Free parking",
+                "parking": "Free valet parking",
                 "offer": "Collect and Redeem",
                 "price": 125.00,
                 "img": [
-                    "https://i.ibb.co/qYMHd0S/room3.jpg",
                     "https://i.ibb.co/FzbyFsz/room1.jpg",
-                    "https://i.ibb.co/Pm7RrfZ/room2.png"
+                    "https://i.ibb.co/Pm7RrfZ/room2.png",
+                    "https://i.ibb.co/qYMHd0S/room3.jpg"
                 ]
             }
         ],
@@ -389,5 +434,1749 @@
             "https://i.ibb.co/k4tsTxJ/pic2.jpg"
         ],
         "thumb": "https://i.ibb.co/hgKvN7x/pic6.jpg"
+    },
+    {
+        "id": "6509b7899225b9995812ae8",
+        "heading": "Rahayu Suites Monkey Forest Ubud",
+        "rating": 4.5,
+        "desc": "Luxury hotel in Ubud,Surrounded by a tropical garden & 2 Bungalows",
+        "reviews": [
+            {
+                "userName": "Wasif Bin Adnan",
+                "date": "12 September, 2023",
+                "message": "The hotel is in the center of Ubud, and just a few steps away from the main street (quiet at night). The employees are so kind. If you’re lucky, you’ll see monkeys in the morning passing through the swimming pool area.",
+                "userRating": "8/10 Fair",
+                "country": "Indonesia",
+                "Cleanliness": "8.0/10",
+                "Staff Service": "8.0/10",
+                "PropertyCondition": "9.0/10",
+                "Eco-friendliness": "9.0/10"
+            },
+            {
+                "userName": "Towkir Ahmed",
+                "date": "19 September, 2023",
+                "message": "Room was very large, clean and comfortable. Great beds and very nice ambience. Nice breakfast, which was freshly made. Excellent location, being very central.",
+                "userRating": "8/10 Fair",
+                "country": "Indonesia",
+                "Cleanliness": "8.0/10",
+                "Staff&service": "7.0/10",
+                "propertyCondition": "9.0/10",
+                "Eco-friendliness": "8.0/10"
+            }
+        ],
+        "amenities": {
+            "popular": [
+                "Pool",
+                "Spa",
+                "Free parking",
+                "Free WiFi",
+                "Restaurant",
+                "Air conditioning",
+                "Gym",
+                "Bar",
+                "Laundry facilities",
+                "24/7 front desk",
+                "Non-smoking"
+            ],
+            "property": [
+                {
+                    "heading": "Food and drink",
+                    "data": [
+                        "3 restaurants",
+                        "Bar/lounge",
+                        "Poolside bar",
+                        "24-hour room service",
+                        "Snack bar/deli"
+                    ]
+                },
+                {
+                    "heading": "Travelling with children",
+                    "data": [
+                        "Children stay free"
+                    ]
+                },
+                {
+                    "heading": "Various playground",
+                    "data": [
+                        "Indoor games",
+                        "Tennis",
+                        "Golfing"
+                    ]
+                },
+                {
+                    "heading": "Working away",
+                    "data": [
+                        "Business center",
+                        "Meeting room"
+                    ]
+                },
+                {
+                    "heading": "Service",
+                    "data": [
+                        "24-hour front desk",
+                        "Concierge services",
+                        "Dry cleaning/laundry services",
+                        "Luggage storage",
+                        "Multilingual staff"
+                    ]
+                },
+                {
+                    "heading": "Facilities",
+                    "data": [
+                        "Built in 2015",
+                        "ATM/banking",
+                        "Safe-deposit box at front desk",
+                        "Garden",
+                        "Terrace",
+                        "Fitness center",
+                        "An outdoor pool",
+                        "Full-service spa",
+                        "Spa tub",
+                        "Sauna",
+                        "Steam room",
+                        "Annual offsets purchased for at least 10%",
+                        "of carbon footprint",
+                        "At least 80% lighting from LEDs",
+                        "Banquet hall"
+                    ]
+                },
+                {
+                    "heading": "Accesibility",
+                    "data": [
+                        "3 Elevator",
+                        "Accessible bathroom (select rooms)",
+                        "In-room accessibility (select rooms)",
+                        "Roll-in shower (select rooms)",
+                        "Wheelchair accessible",
+                        "Wheelchair-accessible path of travel",
+                        "Wheelchair-accessible parking",
+                        "Grab bar near toilet",
+                        "Thin carpet in room"
+                    ]
+                }
+            ],
+            "roomAmenities": [
+                {
+                    "heading": "Be entertained",
+                    "data": [
+                        "40-inch LED TV",
+                        "Satellite TV channels"
+                    ]
+                },
+                {
+                    "heading": "Home comfort",
+                    "data": [
+                        "Air conditioning",
+                        "Coffee/tea maker",
+                        "Slippers",
+                        "Iron/ironing board"
+                    ]
+                },
+                {
+                    "heading": "Sleep well",
+                    "data": [
+                        "Soundproofed rooms",
+                        "Free crib/infant bed",
+                        "Rollaway/extra bed (surcharge)",
+                        "Bed sheets provided"
+                    ]
+                },
+                {
+                    "heading": "Freshen up",
+                    "data": [
+                        "Private bathroom",
+                        "Separate bathtub and shower",
+                        "Hair dryer",
+                        "Towels"
+                    ]
+                },
+                {
+                    "heading": "Stay connected",
+                    "data": [
+                        "Free WiFi",
+                        "Phone"
+                    ]
+                },
+                {
+                    "heading": "More",
+                    "data": [
+                        "Daily housekeeping",
+                        "In-room safe"
+                    ]
+                }
+            ]
+        },
+        "policies": [
+            {
+                "heading": "Children & extra beds",
+                "info": "Rollaway beds are available for BDT 2500 per day"
+            },
+            {
+                "heading": "Hygiene & cleanliness",
+                "info": "This property advises that enhanced cleaning and guest safety measures are currently in place. Disinfectant is used to clean the property, and commonly-touched surfaces are cleaned with disinfectant between stays. Personal protective equipment, including masks and gloves, will be available to guests. Social distancing measures are in place; staff at the property wear personal protective equipment; a shield is in place between staff and guests in main contact areas; periodic temperature checks are conducted on staff; temperature checks are available to guests; guests are provided with hand sanitizer. Contactless check-in is available. This property affirms that it follows the cleaning and disinfection practices of Safety Protocol (Radisson). This property affirms that it adheres to the cleaning and disinfection practices of Safe Travels (WTTC - Global)."
+            },
+            {
+                "heading": "Policies",
+                "info": "This property accepts credit cards or Cash accepted."
+            },
+            {
+                "heading": "Fees",
+                "info": "For more details contract with us."
+            }
+        ],
+        "about": [
+            {
+                "heading": "Rahayu Suites Monkey Forest Ubud",
+                "desc": "Surrounded by a tropical garden, Rahayu 2 Bungalows features an outdoor pool and free Wi-Fi throughout. The Sacred Monkey Forest Sanctuary, in Ubud, is 500 m away. With a garden-view terrace or balcony, the air-conditioned rooms are all furnished with large windows, dressing table and a wardrobe. The private bathroom is equipped with a bath tub. Breakfast is delivered to guest's rooms daily. The nearest restaurant can be found within a 5-minute walk from the property. The Ubud Palace is a 10-minute walk from the Rahayu. Ngurah Rai International Airport is 40 km away."
+            },
+            {
+                "heading": "Languages",
+                "desc": [
+                    "Dutch",
+                    "English",
+                    "French",
+                    "German"
+                ]
+            }
+        ],
+        "safety": [
+            {
+                "heading": "Enhanced cleanliness measures",
+                "data": [
+                    "Disinfectant is used to clean the property",
+                    "High-touch surfaces are cleaned and disinfected",
+                    "Follows standard cleaning and disinfection practices of Safety Protocol (Radisson)",
+                    "Follows industry cleaning and disinfection practices of Safe Travels (WTTC - Global)"
+                ]
+            },
+            {
+                "heading": "Social distancing",
+                "data": [
+                    "Contactless check-in",
+                    "Protective shields in place at main contact areas",
+                    "Social distancing measures in place"
+                ]
+            },
+            {
+                "heading": "Safety measures",
+                "data": [
+                    "Personal protective equipment worn by staff",
+                    "Temperature checks given to staff",
+                    "Temperature checks available for guests",
+                    "Masks and gloves available",
+                    "Hand sanitizer provided"
+                ]
+            }
+        ],
+        "AtGlance": [
+            {
+                "heading": "Hotel size",
+                "data": [
+                    "6 luxury rooms",
+                    "Arranged over 2 villa's"
+                ]
+            },
+            {
+                "heading": "Arriving/Leaving",
+                "data": [
+                    "Check-in time from 2 PM - midnight",
+                    "Check-out time is noon"
+                ]
+            },
+            {
+                "heading": "Restrictions related to your trip",
+                "data": [
+                    "Check COVID-19 restrictions"
+                ]
+            },
+            {
+                "heading": "Special check-in instructions",
+                "data": [
+                    "Front desk staff will greet guests on arrival",
+                    "This property doesn't offer after-hours check-in"
+                ]
+            },
+            {
+                "heading": "Required at check-in",
+                "data": [
+                    "Credit card, debit card, or cash deposit required for incidental charges",
+                    "Government-issued photo ID may be required"
+                ]
+            },
+            {
+                "heading": "Children",
+                "data": [
+                    "Up to 2 children (6 years old and younger) stay free when occupying the parent or guardian's room, using existing bedding"
+                ]
+            },
+            {
+                "heading": "Pets",
+                "data": [
+                    "No pets or service animals allowed"
+                ]
+            },
+            {
+                "heading": "Internet",
+                "data": [
+                    "Free WiFi in public areas",
+                    "Free WiFi in rooms"
+                ]
+            },
+            {
+                "heading": "Parking",
+                "data": [
+                    "Free onsite valet parking",
+                    "Wheelchair-accessible parking on site"
+                ]
+            },
+            {
+                "heading": "Other information",
+                "data": [
+                    "Smoke-free property"
+                ]
+            }
+        ],
+        "location": {
+            "country": "Indonesia",
+            "state": "Bali",
+            "province": "Gianyar",
+            "city": "Ubud",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.8513365237636!2d115.25715867490717!3d-8.513811586216043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23d12ce6ec53b%3A0xb72364f66190c327!2sRahayu%20Suites!5e0!3m2!1sen!2sbd!4v1695732227750!5m2!1sen!2sbd",
+            "nearby": "Monkey Forest Park",
+            "around": [
+                {
+                    "place": "Monkey Forest Ubud",
+                    "distance": "500 m"
+                },
+                {
+                    "place": "Ubud Palace",
+                    "distance": "900 m"
+                },
+                {
+                    "place": "Museum Puri Lukisan",
+                    "distance": "950 m"
+                },
+                {
+                    "place": "Ngurah Rai International Airport",
+                    "distance": "27 KM"
+                },
+                {
+                    "restaurants": [
+                        {
+                            "name": "Folk Pool & Garden",
+                            "distance": "40 m"
+                        },
+                        {
+                            "name": "Warung Garasi",
+                            "distance": "50 m"
+                        },
+                        {
+                            "name": "Pissari Bali Café Gran Cuisine",
+                            "distance": "100 m"
+                        },
+                        {
+                            "name": "Coffee & Thyme Ubud",
+                            "distance": "100 m"
+                        },
+                        {
+                            "name": "Elixer",
+                            "distance": "102 m"
+                        }
+                    ]
+                }
+            ],
+            "airport": [
+                "Ngurah Rai International Airport",
+                "27 Km Away"
+            ]
+        },
+        "rooms": [
+            {
+                "heading": "Deluxe Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg",
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg"
+                ]
+            },
+            {
+                "heading": "Superior Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg",
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg"
+                ]
+            },
+            {
+                "heading": "Suite with Pool View",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg",
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg"
+                ]
+            },
+            {
+                "heading": "Deluxe Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg",
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg"
+                ]
+            }
+        ],
+        "images": [
+            "https://i.ibb.co/Zh1LMvr/Pic-11.jpg",
+            "https://i.ibb.co/3fnwrnb/Pic-12.jpg",
+            "https://i.ibb.co/YL0ZQ1R/Pic-1.jpg",
+            "https://i.ibb.co/fx2kN7t/Pic-2.jpg",
+            "https://i.ibb.co/VBjdcnm/Pic-3.jpg",
+            "https://i.ibb.co/KVPhmBP/Pic-4.jpg",
+            "https://i.ibb.co/9qgHhC7/Pic-5.jpg",
+            "https://i.ibb.co/GCGHY1f/Pic-6.jpg",
+            "https://i.ibb.co/t4VDBNH/Pic-7.jpg",
+            "https://i.ibb.co/fF8Y7fr/Pic-8.jpg",
+            "https://i.ibb.co/ryHdbYC/Pic-9.jpg",
+            "https://i.ibb.co/0GWmt7q/Pic-10.jpg"
+        ],
+        "thumb": "https://i.ibb.co/nzRBz1Z/thumb.jpg"
+    },
+    {
+        "id": "6509b7899225b9995812ae18",
+        "heading": "The View Chiang Dao Hotel",
+        "rating": 4.8,
+        "desc": "Luxury hotel in Bangkok, ‘The View Chiang Dao Hotel’ offers 4-star accommodation with a hot tub and terrace.",
+        "reviews": [
+            {
+                "userName": "Wasif Adnan",
+                "date": "12 September, 2023",
+                "message": "Everything new and clean, very nice views, they gave us the option to rent a motorcycle and it was quite close to everything. It is a very quiet area and nothing touristy but if that is what you are looking for this is your hotel",
+                "userRating": "8/10 Fair",
+                "country": "Thailand",
+                "Cleanliness": "8.0/10",
+                "Staff Service": "8.0/10",
+                "PropertyCondition": "9.0/10",
+                "Eco-friendliness": "9.0/10"
+            },
+            {
+                "userName": "Tausif Ahmed",
+                "date": "19 September, 2023",
+                "message": "We arrived late, so we could see the view (and to understand the hotel's name) only in the morning and it was perfect. Great rooftop bar, clean pool and helpful staff. The room was big and the beds were very comfortable. We enjoyed our stay a lot.",
+                "userRating": "8/10 Fair",
+                "country": "Thailand",
+                "Cleanliness": "8.0/10",
+                "Staff&service": "7.0/10",
+                "propertyCondition": "9.0/10",
+                "Eco-friendliness": "8.0/10"
+            }
+        ],
+        "amenities": {
+            "popular": [
+                "Pool",
+                "Spa",
+                "Free parking",
+                "Free WiFi",
+                "Restaurant",
+                "Air conditioning",
+                "Gym",
+                "Bar",
+                "Laundry facilities",
+                "24/7 front desk",
+                "Non-smoking"
+            ],
+            "property": [
+                {
+                    "heading": "Food and drink",
+                    "data": [
+                        "3 restaurants",
+                        "Bar/lounge",
+                        "Poolside bar",
+                        "24-hour room service",
+                        "Snack bar/deli"
+                    ]
+                },
+                {
+                    "heading": "Travelling with children",
+                    "data": [
+                        "Children stay free"
+                    ]
+                },
+                {
+                    "heading": "Various playground",
+                    "data": [
+                        "Indoor games",
+                        "Tennis",
+                        "Golfing"
+                    ]
+                },
+                {
+                    "heading": "Working away",
+                    "data": [
+                        "Business center",
+                        "Meeting room"
+                    ]
+                },
+                {
+                    "heading": "Service",
+                    "data": [
+                        "24-hour front desk",
+                        "Concierge services",
+                        "Dry cleaning/laundry services",
+                        "Luggage storage",
+                        "Multilingual staff"
+                    ]
+                },
+                {
+                    "heading": "Facilities",
+                    "data": [
+                        "Built in 2015",
+                        "ATM/banking",
+                        "Safe-deposit box at front desk",
+                        "Garden",
+                        "Terrace",
+                        "Fitness center",
+                        "An outdoor pool",
+                        "Full-service spa",
+                        "Spa tub",
+                        "Sauna",
+                        "Steam room",
+                        "Annual offsets purchased for at least 10%",
+                        "of carbon footprint",
+                        "At least 80% lighting from LEDs",
+                        "Banquet hall"
+                    ]
+                },
+                {
+                    "heading": "Accesibility",
+                    "data": [
+                        "3 Elevator",
+                        "Accessible bathroom (select rooms)",
+                        "In-room accessibility (select rooms)",
+                        "Roll-in shower (select rooms)",
+                        "Wheelchair accessible",
+                        "Wheelchair-accessible path of travel",
+                        "Wheelchair-accessible parking",
+                        "Grab bar near toilet",
+                        "Thin carpet in room"
+                    ]
+                }
+            ],
+            "roomAmenities": [
+                {
+                    "heading": "Be entertained",
+                    "data": [
+                        "40-inch LED TV",
+                        "Satellite TV channels"
+                    ]
+                },
+                {
+                    "heading": "Home comfort",
+                    "data": [
+                        "Air conditioning",
+                        "Coffee/tea maker",
+                        "Slippers",
+                        "Iron/ironing board"
+                    ]
+                },
+                {
+                    "heading": "Sleep well",
+                    "data": [
+                        "Soundproofed rooms",
+                        "Free crib/infant bed",
+                        "Rollaway/extra bed (surcharge)",
+                        "Bed sheets provided"
+                    ]
+                },
+                {
+                    "heading": "Freshen up",
+                    "data": [
+                        "Private bathroom",
+                        "Separate bathtub and shower",
+                        "Hair dryer",
+                        "Towels"
+                    ]
+                },
+                {
+                    "heading": "Stay connected",
+                    "data": [
+                        "Free WiFi",
+                        "Phone"
+                    ]
+                },
+                {
+                    "heading": "More",
+                    "data": [
+                        "Daily housekeeping",
+                        "In-room safe"
+                    ]
+                }
+            ]
+        },
+        "policies": [
+            {
+                "heading": "Children & extra beds",
+                "info": "Rollaway beds are available for BDT 2500 per day"
+            },
+            {
+                "heading": "Hygiene & cleanliness",
+                "info": "This property advises that enhanced cleaning and guest safety measures are currently in place. Disinfectant is used to clean the property, and commonly-touched surfaces are cleaned with disinfectant between stays. Personal protective equipment, including masks and gloves, will be available to guests. Social distancing measures are in place; staff at the property wear personal protective equipment; a shield is in place between staff and guests in main contact areas; periodic temperature checks are conducted on staff; temperature checks are available to guests; guests are provided with hand sanitizer. Contactless check-in is available. This property affirms that it follows the cleaning and disinfection practices of Safety Protocol (Radisson). This property affirms that it adheres to the cleaning and disinfection practices of Safe Travels (WTTC - Global)."
+            },
+            {
+                "heading": "Policies",
+                "info": "This property accepts credit cards or Cash accepted."
+            },
+            {
+                "heading": "Fees",
+                "info": "For more details contract with us."
+            }
+        ],
+        "about": [
+            {
+                "heading": "Rahayu Suites Monkey Forest Ubud",
+                "desc": "Surrounded by a tropical garden, Rahayu 2 Bungalows features an outdoor pool and free Wi-Fi throughout. The Sacred Monkey Forest Sanctuary, in Ubud, is 500 m away. With a garden-view terrace or balcony, the air-conditioned rooms are all furnished with large windows, dressing table and a wardrobe. The private bathroom is equipped with a bath tub. Breakfast is delivered to guest's rooms daily. The nearest restaurant can be found within a 5-minute walk from the property. The Ubud Palace is a 10-minute walk from the Rahayu. Ngurah Rai International Airport is 40 km away."
+            },
+            {
+                "heading": "Languages",
+                "desc": [
+                    "Dutch",
+                    "English",
+                    "French",
+                    "German"
+                ]
+            }
+        ],
+        "safety": [
+            {
+                "heading": "Enhanced cleanliness measures",
+                "data": [
+                    "Disinfectant is used to clean the property",
+                    "High-touch surfaces are cleaned and disinfected",
+                    "Follows standard cleaning and disinfection practices of Safety Protocol (Radisson)",
+                    "Follows industry cleaning and disinfection practices of Safe Travels (WTTC - Global)"
+                ]
+            },
+            {
+                "heading": "Social distancing",
+                "data": [
+                    "Contactless check-in",
+                    "Protective shields in place at main contact areas",
+                    "Social distancing measures in place"
+                ]
+            },
+            {
+                "heading": "Safety measures",
+                "data": [
+                    "Personal protective equipment worn by staff",
+                    "Temperature checks given to staff",
+                    "Temperature checks available for guests",
+                    "Masks and gloves available",
+                    "Hand sanitizer provided"
+                ]
+            }
+        ],
+        "AtGlance": [
+            {
+                "heading": "Hotel size",
+                "data": [
+                    "6 luxury rooms",
+                    "Arranged over 2 villa's"
+                ]
+            },
+            {
+                "heading": "Arriving/Leaving",
+                "data": [
+                    "Check-in time from 2 PM - midnight",
+                    "Check-out time is noon"
+                ]
+            },
+            {
+                "heading": "Restrictions related to your trip",
+                "data": [
+                    "Check COVID-19 restrictions"
+                ]
+            },
+            {
+                "heading": "Special check-in instructions",
+                "data": [
+                    "Front desk staff will greet guests on arrival",
+                    "This property doesn't offer after-hours check-in"
+                ]
+            },
+            {
+                "heading": "Required at check-in",
+                "data": [
+                    "Credit card, debit card, or cash deposit required for incidental charges",
+                    "Government-issued photo ID may be required"
+                ]
+            },
+            {
+                "heading": "Children",
+                "data": [
+                    "Up to 2 children (6 years old and younger) stay free when occupying the parent or guardian's room, using existing bedding"
+                ]
+            },
+            {
+                "heading": "Pets",
+                "data": [
+                    "No pets or service animals allowed"
+                ]
+            },
+            {
+                "heading": "Internet",
+                "data": [
+                    "Free WiFi in public areas",
+                    "Free WiFi in rooms"
+                ]
+            },
+            {
+                "heading": "Parking",
+                "data": [
+                    "Free onsite valet parking",
+                    "Wheelchair-accessible parking on site"
+                ]
+            },
+            {
+                "heading": "Other information",
+                "data": [
+                    "Smoke-free property"
+                ]
+            }
+        ],
+        "location": {
+            "country": "Thailand",
+            "state": "Chiang Mai",
+            "province": "Chiang Dao",
+            "city": "Chiang Dao",
+            "map": "https://www.google.com/maps/d/embed?mid=1tkYyc14pNH46QR1qI0MmdDwXflE&ehbc=2E312F",
+            "nearby": "Monkey Forest Park",
+            "around": [
+                {
+                    "place": "Wat Tham Pha Plong",
+                    "distance": "500 m"
+                },
+                {
+                    "place": "Chiang Mai International Airport",
+                    "distance": "75 KM"
+                },
+                {
+                    "place": "Chiang Dao Cave ",
+                    "distance": "2.9 miles"
+                },
+                {
+                    "place": "Nong Krok Hot Spring",
+                    "distance": "20km"
+                },
+                {
+                    "restaurants": [
+                        {
+                            "name": "Thai Thai Restaurant",
+                            "distance": "450 m"
+                        },
+                        {
+                            "name": "Chiang Dao EAT Station",
+                            "distance": "650 m"
+                        },
+                        {
+                            "name": "Kamp Cafe",
+                            "distance": "1.2 km"
+                        },
+                        {
+                            "name": "Nakara",
+                            "distance": "1.8 km"
+                        },
+                        {
+                            "name": "Jae vegan Thai restaurant",
+                            "distance": "102 m"
+                        }
+                    ]
+                }
+            ],
+            "airport": [
+                "Chiang Mai International Airport",
+                "75 Km Away"
+            ]
+        },
+        "rooms": [
+            {
+                "heading": "Standard King Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "30 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/SywknvF/Room-1.jpg",
+                    "hhttps://i.ibb.co/dcLZXt3/Room-2.jpg",
+                    "https://i.ibb.co/w4rVv7r/Room-3.jpg"
+                ]
+            },
+            {
+                "heading": "Superior King Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "35 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/fGbKncP/Room-6.jpg",
+                    "https://i.ibb.co/1KXGCD4/Room-5.jpg",
+                    "https://i.ibb.co/TRNSCPQ/Room-4.jpg"
+                ]
+            },
+            {
+                "heading": "Standard Family Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/w4rVv7r/Room-3.jpg",
+                    "https://i.ibb.co/1KXGCD4/Room-5.jpg",
+                    "https://i.ibb.co/fGbKncP/Room-6.jpg"
+                ]
+            },
+            {
+                "heading": "Deluxe Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg",
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg"
+                ]
+            }
+        ],
+        "images": [
+            "https://i.ibb.co/dfSVBf8/2.jpg",
+            "https://i.ibb.co/FYqSYv9/3.jpg",
+            "https://i.ibb.co/mSznCNX/5.jpg",
+            "https://i.ibb.co/5cmSW5v/6.jpg",
+            "https://i.ibb.co/yQgzDhM/10.jpg",
+            "https://i.ibb.co/9wRqVSQ/12.jpg",
+            "https://i.ibb.co/7KJCrMY/11.jpg",
+            "https://i.ibb.co/rQqnFgs/Thumb.jpg",
+            "https://i.ibb.co/nMbYqdN/4.jpg",
+            "https://i.ibb.co/t8XSscT/7.jpg",
+            "https://i.ibb.co/JBFPtBr/8.jpg",
+            "https://i.ibb.co/XLGWqFv/9.jpg"
+        ],
+        "thumb": "https://i.ibb.co/rQqnFgs/Thumb.jpg"
+    },
+    {
+        "id": "6509b7899225b9995812ae23",
+        "heading": "Mount Conifer Suites & Spa",
+        "rating": 3.4,
+        "desc": "Mount Conifer Suites & Spa has a shared lounge, terrace, a restaurant and bar in Darjeeling.",
+        "reviews": [
+            {
+                "userName": "Asif Adnan",
+                "date": "17 September, 2023",
+                "message": "Best Hotel ever. Very friendy staff and well maintained rooms. Restaurant at its best. The food was also very good and hygine. Near to market and all the facilities",
+                "userRating": "8/10 Fair",
+                "country": "India",
+                "Cleanliness": "8.0/10",
+                "Staff Service": "8.0/10",
+                "PropertyCondition": "9.0/10",
+                "Eco-friendliness": "9.0/10"
+            },
+            {
+                "userName": "Tarek Ahmed",
+                "date": "19 September, 2023",
+                "message": "Very good rooms. Delicious buffets. Good room service. They prepare food for kids on request. Walking distance from Mall Road",
+                "userRating": "8/10 Fair",
+                "country": "India",
+                "Cleanliness": "8.0/10",
+                "Staff&service": "7.0/10",
+                "propertyCondition": "9.0/10",
+                "Eco-friendliness": "8.0/10"
+            }
+        ],
+        "amenities": {
+            "popular": [
+                "Pool",
+                "Spa",
+                "Free parking",
+                "Free WiFi",
+                "Restaurant",
+                "Air conditioning",
+                "Gym",
+                "Bar",
+                "Laundry facilities",
+                "24/7 front desk",
+                "Non-smoking"
+            ],
+            "property": [
+                {
+                    "heading": "Food and drink",
+                    "data": [
+                        "3 restaurants",
+                        "Bar/lounge",
+                        "Poolside bar",
+                        "24-hour room service",
+                        "Snack bar/deli"
+                    ]
+                },
+                {
+                    "heading": "Travelling with children",
+                    "data": [
+                        "Children stay free"
+                    ]
+                },
+                {
+                    "heading": "Various playground",
+                    "data": [
+                        "Indoor games",
+                        "Tennis",
+                        "Golfing"
+                    ]
+                },
+                {
+                    "heading": "Working away",
+                    "data": [
+                        "Business center",
+                        "Meeting room"
+                    ]
+                },
+                {
+                    "heading": "Service",
+                    "data": [
+                        "24-hour front desk",
+                        "Concierge services",
+                        "Dry cleaning/laundry services",
+                        "Luggage storage",
+                        "Multilingual staff"
+                    ]
+                },
+                {
+                    "heading": "Facilities",
+                    "data": [
+                        "Built in 2015",
+                        "ATM/banking",
+                        "Safe-deposit box at front desk",
+                        "Garden",
+                        "Terrace",
+                        "Fitness center",
+                        "An outdoor pool",
+                        "Full-service spa",
+                        "Spa tub",
+                        "Sauna",
+                        "Steam room",
+                        "Annual offsets purchased for at least 10%",
+                        "of carbon footprint",
+                        "At least 80% lighting from LEDs",
+                        "Banquet hall"
+                    ]
+                },
+                {
+                    "heading": "Accesibility",
+                    "data": [
+                        "3 Elevator",
+                        "Accessible bathroom (select rooms)",
+                        "In-room accessibility (select rooms)",
+                        "Roll-in shower (select rooms)",
+                        "Wheelchair accessible",
+                        "Wheelchair-accessible path of travel",
+                        "Wheelchair-accessible parking",
+                        "Grab bar near toilet",
+                        "Thin carpet in room"
+                    ]
+                }
+            ],
+            "roomAmenities": [
+                {
+                    "heading": "Be entertained",
+                    "data": [
+                        "40-inch LED TV",
+                        "Satellite TV channels"
+                    ]
+                },
+                {
+                    "heading": "Home comfort",
+                    "data": [
+                        "Air conditioning",
+                        "Coffee/tea maker",
+                        "Slippers",
+                        "Iron/ironing board"
+                    ]
+                },
+                {
+                    "heading": "Sleep well",
+                    "data": [
+                        "Soundproofed rooms",
+                        "Free crib/infant bed",
+                        "Rollaway/extra bed (surcharge)",
+                        "Bed sheets provided"
+                    ]
+                },
+                {
+                    "heading": "Freshen up",
+                    "data": [
+                        "Private bathroom",
+                        "Separate bathtub and shower",
+                        "Hair dryer",
+                        "Towels"
+                    ]
+                },
+                {
+                    "heading": "Stay connected",
+                    "data": [
+                        "Free WiFi",
+                        "Phone"
+                    ]
+                },
+                {
+                    "heading": "More",
+                    "data": [
+                        "Daily housekeeping",
+                        "In-room safe"
+                    ]
+                }
+            ]
+        },
+        "policies": [
+            {
+                "heading": "Children & extra beds",
+                "info": "Rollaway beds are available for BDT 2500 per day"
+            },
+            {
+                "heading": "Hygiene & cleanliness",
+                "info": "This property advises that enhanced cleaning and guest safety measures are currently in place. Disinfectant is used to clean the property, and commonly-touched surfaces are cleaned with disinfectant between stays. Personal protective equipment, including masks and gloves, will be available to guests. Social distancing measures are in place; staff at the property wear personal protective equipment; a shield is in place between staff and guests in main contact areas; periodic temperature checks are conducted on staff; temperature checks are available to guests; guests are provided with hand sanitizer. Contactless check-in is available. This property affirms that it follows the cleaning and disinfection practices of Safety Protocol (Radisson). This property affirms that it adheres to the cleaning and disinfection practices of Safe Travels (WTTC - Global)."
+            },
+            {
+                "heading": "Policies",
+                "info": "This property accepts credit cards or Cash accepted."
+            },
+            {
+                "heading": "Fees",
+                "info": "For more details contract with us."
+            }
+        ],
+        "about": [
+            {
+                "heading": "Mount Conifer Suites & Spa",
+                "desc": "Mount Conifer Suites & Spa has a shared lounge, terrace, a restaurant and bar in Darjeeling. This 3-star hotel offers room service, a 24-hour front desk and free WiFi. The accommodation offers an ATM and a concierge service for guests. At the hotel, all rooms include a desk, a flat-screen TV, a private bathroom, bed linen and towels. All rooms come with a safety deposit box and certain rooms also offer city views. All guest rooms will provide guests with a wardrobe and a kettle. Guests at Mount Conifer Suites & Spa can enjoy a continental or a vegetarian breakfast. Popular points of interest near the accommodation include Himalayan Mountaineering Institute And Zoological Park, Mahakal Mandir and Japanese Peace Pagoda. The nearest airport is Bagdogra International Airport, 67 km from Mount Conifer Suites & Spa"
+            },
+            {
+                "heading": "Languages",
+                "desc": [
+                    "Dutch",
+                    "English",
+                    "French",
+                    "German"
+                ]
+            }
+        ],
+        "safety": [
+            {
+                "heading": "Enhanced cleanliness measures",
+                "data": [
+                    "Disinfectant is used to clean the property",
+                    "High-touch surfaces are cleaned and disinfected",
+                    "Follows standard cleaning and disinfection practices of Safety Protocol (Radisson)",
+                    "Follows industry cleaning and disinfection practices of Safe Travels (WTTC - Global)"
+                ]
+            },
+            {
+                "heading": "Social distancing",
+                "data": [
+                    "Contactless check-in",
+                    "Protective shields in place at main contact areas",
+                    "Social distancing measures in place"
+                ]
+            },
+            {
+                "heading": "Safety measures",
+                "data": [
+                    "Personal protective equipment worn by staff",
+                    "Temperature checks given to staff",
+                    "Temperature checks available for guests",
+                    "Masks and gloves available",
+                    "Hand sanitizer provided"
+                ]
+            }
+        ],
+        "AtGlance": [
+            {
+                "heading": "Hotel size",
+                "data": [
+                    "24 rooms",
+                    "Arranged over 4 Floor"
+                ]
+            },
+            {
+                "heading": "Arriving/Leaving",
+                "data": [
+                    "Check-in time from 2 PM - midnight",
+                    "Check-out time is noon"
+                ]
+            },
+            {
+                "heading": "Restrictions related to your trip",
+                "data": [
+                    "Check COVID-19 restrictions"
+                ]
+            },
+            {
+                "heading": "Special check-in instructions",
+                "data": [
+                    "Front desk staff will greet guests on arrival",
+                    "This property doesn't offer after-hours check-in"
+                ]
+            },
+            {
+                "heading": "Required at check-in",
+                "data": [
+                    "Credit card, debit card, or cash deposit required for incidental charges",
+                    "Government-issued photo ID may be required"
+                ]
+            },
+            {
+                "heading": "Children",
+                "data": [
+                    "Up to 2 children (6 years old and younger) stay free when occupying the parent or guardian's room, using existing bedding"
+                ]
+            },
+            {
+                "heading": "Pets",
+                "data": [
+                    "No pets or service animals allowed"
+                ]
+            },
+            {
+                "heading": "Internet",
+                "data": [
+                    "Free WiFi in public areas",
+                    "Free WiFi in rooms"
+                ]
+            },
+            {
+                "heading": "Parking",
+                "data": [
+                    "Free onsite valet parking",
+                    "Wheelchair-accessible parking on site"
+                ]
+            },
+            {
+                "heading": "Other information",
+                "data": [
+                    "Smoke-free property"
+                ]
+            }
+        ],
+        "location": {
+            "country": "India",
+            "state": "West Bengal",
+            "province": "Limbugaon",
+            "city": "Darjeeling",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3553.7191337896984!2d88.2648346!3d27.039039700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42f6725c1a725%3A0x920091f2db256638!2sMount%20Conifer%20Suites%20%26%20Spa!5e0!3m2!1sen!2sbd!4v1698956084897!5m2!1sen!2sbd",
+            "nearby": "Children's Park",
+            "around": [
+                {
+                    "place": "Children's Park",
+                    "distance": "5m"
+                },
+                {
+                    "place": "Himalayan Mountaineering Institute And Zoological Park",
+                    "distance": "500m"
+                },
+                {
+                    "place": "Water Fountain ",
+                    "distance": "650m"
+                },
+                {
+                    "place": "Bagdogra International Airport",
+                    "distance": "38 KM"
+                },
+                {
+                    "restaurants": [
+                        {
+                            "name": "Aandu Retaurant",
+                            "distance": "20 m"
+                        },
+                        {
+                            "name": "Joey's pub",
+                            "distance": "50 m"
+                        },
+                        {
+                            "name": "Subway",
+                            "distance": "150 m"
+                        },
+                        {
+                            "name": "Nathmulls",
+                            "distance": "150 m"
+                        },
+                        {
+                            "name": "Gatty's Cafe",
+                            "distance": "300 m"
+                        }
+                    ]
+                }
+            ],
+            "airport": [
+                "Bagdogra International Airport",
+                "38 Km Away"
+            ]
+        },
+        "rooms": [
+            {
+                "heading": "Deluxe Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "19 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/gTpkHxC/Room-8.jpg",
+                    "https://i.ibb.co/YZdchcG/Room-9.jpg",
+                    "https://i.ibb.co/pn7VWWW/Room-3.jpg"
+                ]
+            },
+            {
+                "heading": "Superior Double Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "23 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/3c6rphT/Room-7.jpg",
+                    "https://i.ibb.co/NtZzkDc/Room-6.jpg",
+                    "https://i.ibb.co/XCTqtzN/Room-5.jpg"
+                ]
+            },
+            {
+                "heading": "Deluxe Double Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "25 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/zxL2xB4/Room-4.jpg",
+                    "https://i.ibb.co/ZNfN4M4/Room-2.jpg",
+                    "https://i.ibb.co/tLNxcDL/Room-1.jpg"
+                ]
+            },
+            {
+                "heading": "Deluxe Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "60 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/ThJsY0B/Room-1.jpg",
+                    "https://i.ibb.co/BrSPGFT/Room-2.jpg",
+                    "https://i.ibb.co/gDYhK2s/Room-3.jpg"
+                ]
+            }
+        ],
+        "images": [
+            "https://i.ibb.co/SXYM0SD/2.jpg",
+            "https://i.ibb.co/HgxM48q/1.jpg",
+            "https://i.ibb.co/rvMHtt0/11.jpg",
+            "https://i.ibb.co/yNPF2Ym/10.jpg",
+            "https://i.ibb.co/3dJQM24/9.jpg",
+            "https://i.ibb.co/37Z4mYS/8.jpg",
+            "https://i.ibb.co/X7k3CqF/7.jpg",
+            "https://i.ibb.co/C6LF8SJ/6.jpg",
+            "https://i.ibb.co/86Z90FS/5.jpg",
+            "https://i.ibb.co/xSyHWv6/4.jpg"
+        ],
+        "thumb": "https://i.ibb.co/xSyHWv6/4.jpg"
+    },
+    {
+        "id": "6509b7899225b9995812ae25",
+        "heading": "Hotel Noorjahan Grand",
+        "rating": "3.9",
+        "desc": "Hotel Noorjahan Grand features a fitness centre, garden, a terrace and restaurant in Sylhet.",
+        "reviews": [
+            {
+                "userName": "Antik Mahmud",
+                "date": "17 September, 2023",
+                "message": "Everything was amazing - the Rooftop, swimming pool and seating area.The rooftop and Restaurant on the 15th floor had a 360 degree view of Sylhet.Staff were friendly and provided the best service.",
+                "userRating": "8/10 Fair",
+                "country": "Thailand",
+                "Cleanliness": "8.0/10",
+                "Staff Service": "8.0/10",
+                "PropertyCondition": "9.0/10",
+                "Eco-friendliness": "9.0/10"
+            },
+            {
+                "userName": "Riaz Ahmed",
+                "date": "19 September, 2023",
+                "message": "Some Amazing staff are very respectful and helpful with good customer service especially Ronny at reception . ",
+                "userRating": "8/10 Fair",
+                "country": "Thailand",
+                "Cleanliness": "8.0/10",
+                "Staff Service": "7.0/10",
+                "propertyCondition": "9.0/10",
+                "Eco-friendliness": "8.0/10"
+            }
+        ],
+        "amenities": {
+            "popular": [
+                "Pool",
+                "Spa",
+                "Free parking",
+                "Free WiFi",
+                "Restaurant",
+                "Air conditioning",
+                "Gym",
+                "Bar",
+                "Laundry facilities",
+                "24/7 front desk",
+                "Non-smoking"
+            ],
+            "property": [
+                {
+                    "heading": "Food and drink",
+                    "data": [
+                        "3 restaurants",
+                        "Bar/lounge",
+                        "Poolside bar",
+                        "24-hour room service",
+                        "Snack bar/deli"
+                    ]
+                },
+                {
+                    "heading": "Travelling with children",
+                    "data": [
+                        "Children stay free"
+                    ]
+                },
+                {
+                    "heading": "Various playground",
+                    "data": [
+                        "Indoor games",
+                        "Tennis",
+                        "Golfing"
+                    ]
+                },
+                {
+                    "heading": "Working away",
+                    "data": [
+                        "Business center",
+                        "Meeting room"
+                    ]
+                },
+                {
+                    "heading": "Service",
+                    "data": [
+                        "24-hour front desk",
+                        "Concierge services",
+                        "Dry cleaning/laundry services",
+                        "Luggage storage",
+                        "Multilingual staff"
+                    ]
+                },
+                {
+                    "heading": "Facilities",
+                    "data": [
+                        "Built in 2015",
+                        "ATM/banking",
+                        "Safe-deposit box at front desk",
+                        "Garden",
+                        "Terrace",
+                        "Fitness center",
+                        "An outdoor pool",
+                        "Full-service spa",
+                        "Spa tub",
+                        "Sauna",
+                        "Steam room",
+                        "Annual offsets purchased for at least 10%",
+                        "of carbon footprint",
+                        "At least 80% lighting from LEDs",
+                        "Banquet hall"
+                    ]
+                },
+                {
+                    "heading": "Accesibility",
+                    "data": [
+                        "3 Elevator",
+                        "Accessible bathroom (select rooms)",
+                        "In-room accessibility (select rooms)",
+                        "Roll-in shower (select rooms)",
+                        "Wheelchair accessible",
+                        "Wheelchair-accessible path of travel",
+                        "Wheelchair-accessible parking",
+                        "Grab bar near toilet",
+                        "Thin carpet in room"
+                    ]
+                }
+            ],
+            "roomAmenities": [
+                {
+                    "heading": "Be entertained",
+                    "data": [
+                        "40-inch LED TV",
+                        "Satellite TV channels"
+                    ]
+                },
+                {
+                    "heading": "Home comfort",
+                    "data": [
+                        "Air conditioning",
+                        "Coffee/tea maker",
+                        "Slippers",
+                        "Iron/ironing board"
+                    ]
+                },
+                {
+                    "heading": "Sleep well",
+                    "data": [
+                        "Soundproofed rooms",
+                        "Free crib/infant bed",
+                        "Rollaway/extra bed (surcharge)",
+                        "Bed sheets provided"
+                    ]
+                },
+                {
+                    "heading": "Freshen up",
+                    "data": [
+                        "Private bathroom",
+                        "Separate bathtub and shower",
+                        "Hair dryer",
+                        "Towels"
+                    ]
+                },
+                {
+                    "heading": "Stay connected",
+                    "data": [
+                        "Free WiFi",
+                        "Phone"
+                    ]
+                },
+                {
+                    "heading": "More",
+                    "data": [
+                        "Daily housekeeping",
+                        "In-room safe"
+                    ]
+                }
+            ]
+        },
+        "policies": [
+            {
+                "heading": "Children & extra beds",
+                "info": "Rollaway beds are available for BDT 2500 per day"
+            },
+            {
+                "heading": "Hygiene & cleanliness",
+                "info": "This property advises that enhanced cleaning and guest safety measures are currently in place. Disinfectant is used to clean the property, and commonly-touched surfaces are cleaned with disinfectant between stays. Personal protective equipment, including masks and gloves, will be available to guests. Social distancing measures are in place; staff at the property wear personal protective equipment; a shield is in place between staff and guests in main contact areas; periodic temperature checks are conducted on staff; temperature checks are available to guests; guests are provided with hand sanitizer. Contactless check-in is available. This property affirms that it follows the cleaning and disinfection practices of Safety Protocol (Radisson). This property affirms that it adheres to the cleaning and disinfection practices of Safe Travels (WTTC - Global)."
+            },
+            {
+                "heading": "Policies",
+                "info": "This property accepts credit cards or Cash accepted."
+            },
+            {
+                "heading": "Fees",
+                "info": "For more details contract with us."
+            }
+        ],
+        "about": [
+            {
+                "heading": "Hotel Noorjahan Grand",
+                "desc": "Property description Hotel Noorjahan Grand features a fitness centre, garden, a terrace and restaurant in Sylhet. This 4-star hotel offers an ATM and a concierge service. The accommodation offers a 24-hour front desk, airport transfers, room service and free WiFi throughout the property. Every room includes a TV, and certain units at the hotel have a city view. The daily breakfast offers continental, Full English/Irish or American options. The nearest airport is Osmani International Airport, 8 km from Hotel Noorjahan Grand."
+            },
+            {
+                "heading": "Languages",
+                "desc": [
+                    "Dutch",
+                    "English",
+                    "French",
+                    "German"
+                ]
+            }
+        ],
+        "safety": [
+            {
+                "heading": "Enhanced cleanliness measures",
+                "data": [
+                    "Disinfectant is used to clean the property",
+                    "High-touch surfaces are cleaned and disinfected",
+                    "Follows standard cleaning and disinfection practices of Safety Protocol (Radisson)",
+                    "Follows industry cleaning and disinfection practices of Safe Travels (WTTC - Global)"
+                ]
+            },
+            {
+                "heading": "Social distancing",
+                "data": [
+                    "Contactless check-in",
+                    "Protective shields in place at main contact areas",
+                    "Social distancing measures in place"
+                ]
+            },
+            {
+                "heading": "Safety measures",
+                "data": [
+                    "Personal protective equipment worn by staff",
+                    "Temperature checks given to staff",
+                    "Temperature checks available for guests",
+                    "Masks and gloves available",
+                    "Hand sanitizer provided"
+                ]
+            }
+        ],
+        "AtGlance": [
+            {
+                "heading": "Hotel size",
+                "data": [
+                    "50+ rooms",
+                    "Arranged over 15 Floor"
+                ]
+            },
+            {
+                "heading": "Arriving/Leaving",
+                "data": [
+                    "Check-in time from 2 PM - midnight",
+                    "Check-out time is noon"
+                ]
+            },
+            {
+                "heading": "Restrictions related to your trip",
+                "data": [
+                    "Check COVID-19 restrictions"
+                ]
+            },
+            {
+                "heading": "Special check-in instructions",
+                "data": [
+                    "Front desk staff will greet guests on arrival",
+                    "This property doesn't offer after-hours check-in"
+                ]
+            },
+            {
+                "heading": "Required at check-in",
+                "data": [
+                    "Credit card, debit card, or cash deposit required for incidental charges",
+                    "Government-issued photo ID may be required"
+                ]
+            },
+            {
+                "heading": "Children",
+                "data": [
+                    "Up to 2 children (6 years old and younger) stay free when occupying the parent or guardian's room, using existing bedding"
+                ]
+            },
+            {
+                "heading": "Pets",
+                "data": [
+                    "No pets or service animals allowed"
+                ]
+            },
+            {
+                "heading": "Internet",
+                "data": [
+                    "Free WiFi in public areas",
+                    "Free WiFi in rooms"
+                ]
+            },
+            {
+                "heading": "Parking",
+                "data": [
+                    "Free onsite valet parking",
+                    "Wheelchair-accessible parking on site"
+                ]
+            },
+            {
+                "heading": "Other information",
+                "data": [
+                    "Smoke-free property"
+                ]
+            }
+        ],
+        "location": {
+            "country": "Bangladesh",
+            "state": "",
+            "province": "",
+            "city": "Sylhet",
+            "map": "https://www.google.com/maps/d/embed?mid=1AfRH39AxGo-y27-CiXoTR5Qh_vw&hl=en_US&ehbc=2E312F",
+            "nearby": "Old Jail Park",
+            "around": [
+                {
+                    "place": "Old Jail Park",
+                    "distance": "800 m"
+                },
+                {
+                    "place": "Bongobir Osmani Shishu Uddan",
+                    "distance": "1100 m"
+                },
+                {
+                    "place": "Circuit House Park",
+                    "distance": "1.3 Km"
+                },
+                {
+                    "place": "Osmani International Airport",
+                    "distance": "6 KM"
+                },
+                {
+                    "restaurants": [
+                        {
+                            "name": "Langthurai Chinese Restaurant",
+                            "distance": "300 m"
+                        },
+                        {
+                            "name": "Peppers Restaurant & Party Center",
+                            "distance": "700 m"
+                        },
+                        {
+                            "name": "Fat Belly",
+                            "distance": "750 m"
+                        },
+                        {
+                            "name": "Cafe La Vista",
+                            "distance": "700 m"
+                        },
+                        {
+                            "name": "Joshim Tea Kaffee",
+                            "distance": "1.5 Km"
+                        }
+                    ]
+                }
+            ],
+            "airport": [
+                "Osmani International Airport",
+                "6 Km Away"
+            ]
+        },
+        "rooms": [
+            {
+                "heading": "Double or Twin Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "17 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 120.00,
+                "img": [
+                    "https://i.ibb.co/2stq3Jd/room-01.jpg",
+                    "https://i.ibb.co/0F51wf5/room-1.jpg",
+                    "https://i.ibb.co/rx1T77t/room-3.jpg",
+                    "https://i.ibb.co/ysmX1FN/room-9.jpg"
+                ]
+            },
+            {
+                "heading": "Deluxe Double Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "17 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/31MyfNk/room-4.jpg",
+                    "https://i.ibb.co/qW08SKx/room-5.jpg",
+                    "https://i.ibb.co/HYnR4Ww/room-6.jpg"
+                ]
+            },
+            {
+                "heading": "Family Room",
+                "rating": "10/10 Exceptional",
+                "bed": "2 Twin Beds OR 1 King Bed",
+                "sleep": "Sleeps 4",
+                "size": "23 sq m",
+                "wifi": "Free WiFi",
+                "food": "Full Breakfast",
+                "parking": "Free valet parking",
+                "offer": "Collect and Redeem",
+                "price": 125.00,
+                "img": [
+                    "https://i.ibb.co/cXgBdv9/room-7.jpg",
+                    "https://i.ibb.co/646S1d6/room-8.jpg",
+                    "https://i.ibb.co/sgsnfn5/room-10.jpg"
+                ]
+            }
+        ],
+        "images": [
+            "https://i.ibb.co/LS8xcF6/1.jpg",
+            "https://i.ibb.co/GHhV0pz/2.jpg",
+            "https://i.ibb.co/sq3wNy4/3.jpg",
+            "https://i.ibb.co/VjqqDkx/4.jpg",
+            "https://i.ibb.co/Y7k4znk/8.jpg",
+            "https://i.ibb.co/5Y6QBBn/9.jpg",
+            "https://i.ibb.co/B2Q20xg/10.jpg",
+            "https://i.ibb.co/yqLGf7G/6.jpg",
+            "https://i.ibb.co/6tNSmTP/7.jpg",
+            "https://i.ibb.co/xXSBWJJ/5.jpg"
+        ],
+        "thumb": "https://i.ibb.co/gZ4d3jM/Thumb.jpg"
     }
 ]

@@ -6,7 +6,7 @@ import Reviews from "./Reviews/Reviews";
 import TopOffer from "./TopOffer/TopOffer";
 import LogoSlider from "./LogoSlider/LogoSlider";
 import OurPackages from "./OurPackages/OurPackages";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
     return (

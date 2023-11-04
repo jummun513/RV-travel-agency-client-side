@@ -5,7 +5,7 @@ import { useContext, useRef, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const email = useRef(null);

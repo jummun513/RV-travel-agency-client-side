@@ -9,7 +9,7 @@ const Hotel = (data) => {
     const [isLoved, setIsLoved] = useState(false);
 
     return (
-        <div className="rounded-md sm:rounded-lg bg-[#fbfbfb] shadow-lg sm:shadow-md border">
+        <div className="rounded-md sm:rounded-lg bg-[#fbfbfb] shadow-lg sm:shadow-md border mt-7 xl:mt-10">
             <div className="flex flex-col sm:flex-row">
                 <div className="relative w-full sm:w-1/2 md:w-2/5 lg:w-1/2 2xl:w-2/5 p-2 flex items-center">
                     <img loading='lazy' src={thumb} className="rounded-md sm:rounded-lg w-full object-cover aspect-16/9 sm:aspect-4/3 lg:aspect-4/3 xl:aspect-16/9" />

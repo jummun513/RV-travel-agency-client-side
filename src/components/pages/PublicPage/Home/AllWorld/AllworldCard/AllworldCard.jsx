@@ -1,9 +1,12 @@
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import "./AllworldCard.css";
+import { useNavigate } from "react-router-dom";
 
 
 const AllworldCard = (data) => {
     const { url, alt, hotel, flight, country, flag } = data.data;
+    const navigate = useNavigate();
+
     return (
         <div className="w-60 xxs:w-72 rounded-lg xs:w-96 xs:rounded-2xl pb-5 border bg-gray-50 duration-100 hover:border-primary">
             <div className="relative">
@@ -18,8 +21,8 @@ const AllworldCard = (data) => {
                 <p>{hotel}</p>
             </div>
             <div className="px-3 flex justify-between mt-6">
-                <button className="btn btn-xs xxs:btn-sm xs:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Book Now</button>
-                <button className="btn btn-link btn-xs xxs:btn-sm xs:btn-md text-gray-950 no-underline">View all tour</button>
+                <button onClick={() => navigate('/hotels-list')} className="btn btn-xs xxs:btn-sm xs:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Book Now</button>
+                <button onClick={() => navigate('/hotels-list')} className="btn btn-link btn-xs xxs:btn-sm xs:btn-md text-gray-950 no-underline">View all tour</button>
             </div>
         </div>
     );

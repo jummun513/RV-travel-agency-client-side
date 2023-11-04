@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../../../../assets/Logos/short-logo.png';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { useContext, useRef, useState } from 'react';
@@ -7,7 +7,7 @@ import { AuthContext } from '../../../../../providers/AuthProvider';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const Register = () => {
     const { createNewUser, loading, setLoading, verificationEmailSend, sending, errorEmailVerification, isLoading } = useContext(AuthContext);
@@ -22,6 +22,7 @@ const Register = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
     const navigate = useNavigate();
+    const location = useLocation();
 
     // Name field validation checkup and value set
     const handleNameField = () => {
@@ -115,9 +116,9 @@ const Register = () => {
 
     return (
         <div className="bg-[#fbfbfb] rounded-lg md:rounded-none md:rounded-s-xl lg:rounded-s-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-            <Helmet>
+            {location.pathname.includes('registration') && <Helmet>
                 <title>Register - Royal Venture Limited</title>
-            </Helmet>
+            </Helmet>}
             <div className="flex flex-col items-center py-10">
                 <div className='h-16 w-16 xs:h-24 xs:w-24 rounded-full bg-[#18181b] p-3'><img loading='lazy' className='w-full h-full' src={logo} alt="" /></div>
                 <h2 className="xxs:text-base xs:text-xl lg:text-2xl font-bold text-gray-800 mt-3 mb-8 md:mt-5 md:mb-10 2xl:mb-16">Create New Account</h2>
@@ -185,7 +186,7 @@ const Register = () => {
                             </label>
                         </div>
                         <div>
-                            <p className='cursor-pointer hover:underline text-blue-600'>Read here</p>
+                            <p onClick={() => navigate('/terms&condition')} className='cursor-pointer hover:underline text-blue-600'>Read here</p>
                         </div>
                     </div>
 
