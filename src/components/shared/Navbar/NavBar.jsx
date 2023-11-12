@@ -8,7 +8,7 @@ import { FcBusinessman } from 'react-icons/fc';
 import { MdOutlineSpeakerNotes, MdRateReview, MdContactPage, MdAdminPanelSettings } from 'react-icons/md';
 import { GrGallery } from 'react-icons/gr';
 import { FaUserTie } from 'react-icons/fa';
-import { GiDirectorChair } from 'react-icons/gi';
+import { GrUserManager } from 'react-icons/gr';
 import { TbListDetails, TbLayoutDashboard } from 'react-icons/tb';
 import { ImSwitch } from 'react-icons/im';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -144,7 +144,7 @@ const navItems = [
         icon: <TbListDetails className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-8 2xl:w-8' />,
         children: [
             { label: 'Chairman Message', href: '/about-us/chairman-message', icon: <FcBusinessman className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
-            { label: 'Director Message', href: '/about-us/director-message', icon: <GiDirectorChair className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
+            { label: "MD'S Message", href: '/about-us/director-message', icon: <GrUserManager className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'CEO Message', href: '/about-us/ceo-message', icon: <MdOutlineSpeakerNotes className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'Who We Are?', href: '/about-us/who-we-are', icon: <BsPatchQuestion className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },
             { label: 'Company Profile', href: '/about-us/company-profile', icon: <FaUserTie className='h-3 w-3 sm:h-4 sm:w-4 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6' /> },

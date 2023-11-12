@@ -316,7 +316,7 @@ const EditIndividualPGUser = () => {
 
                         {/* top avatar */}
                         <div className="w-28 xs:w-40 rounded-full mx-auto ring-2 ring-offset-2 ring-primary ring-offset-gray-50">
-                            <img className='rounded-full' src={singlePGUser?.avatar ? singlePGUser?.avatar : userImage} alt='User Image' />
+                            <img className='rounded-full aspect-square' src={singlePGUser?.avatar ? singlePGUser?.avatar : userImage} alt='User Image' />
                         </div>
 
                         {/* update image section */}

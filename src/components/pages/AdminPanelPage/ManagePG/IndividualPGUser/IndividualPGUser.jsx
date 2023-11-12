@@ -110,7 +110,7 @@ const IndividualPGUser = () => {
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
                         <div className="w-28 xs:w-40 rounded-full mx-auto ring-2 ring-offset-2 ring-primary ring-offset-gray-50">
-                            <img className='rounded-full' src={singlePGUser?.avatar ? singlePGUser?.avatar : userImage} alt='User Image' />
+                            <img className='rounded-full aspect-square' src={singlePGUser?.avatar ? singlePGUser?.avatar : userImage} alt='User Image' />
                         </div>
 
 

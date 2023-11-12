@@ -11,7 +11,7 @@ import NotFound from "../components/shared/NotFound/NotFound";
 import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
 import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
 import Developing from "../components/shared/Developing/Developing";
-// import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
+import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
 import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
 import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile"
 import ManagePG from "../components/pages/AdminPanelPage/ManagePG/ManagePG";
@@ -94,8 +94,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about-us/chairman-message',
-                element: <Developing></Developing>,
-                // element: <ChairmanMessage></ChairmanMessage>,
+                element: <ChairmanMessage></ChairmanMessage>,
             },
             {
                 path: '/about-us/director-message',

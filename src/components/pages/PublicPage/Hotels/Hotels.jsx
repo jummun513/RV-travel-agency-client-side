@@ -17,8 +17,7 @@ const Hotels = () => {
     const location = useLocation();
     const searchQuery = new URLSearchParams(location.search).get('search');
     const [searchResults, setSearchResults] = useState([]);
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('../../../../../public/hotelData.json'));
-
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData(`${import.meta.env.VITE_fetchDataLink}`));
 
     useEffect(() => {
         if (searchQuery) {

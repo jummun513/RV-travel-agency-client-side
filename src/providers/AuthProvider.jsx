@@ -44,6 +44,7 @@ const AuthProvider = (data) => {
                 axios.post(`${import.meta.env.VITE_clientSideLink}/jwt`, { email: currentUser?.email })
                     .then(data => {
                         localStorage.setItem('access_token', data.data.token);
+                        localStorage.setItem('pg_user', null);
                         setUser(currentUser);
                     })
             }

@@ -11,6 +11,8 @@ export default {
         'login-front': "url('https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/login-foreground.jpg?updatedAt=1698410625446')",
         'worldExploreBg': "url('https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/world-explore-bg.jpg?updatedAt=1698410626724')",
         'privacy&policy': "url('/src/assets/images/privacy&policy.png')",
+        'chairmanLarge': "url('/src/assets/images/chairman.png')",
+        'chairmanSmall': "url('/src/assets/images/chairman-small.png')",
       },
       colors: {
         primary: '#ffb700',

@@ -93,7 +93,7 @@ const HotelDetail = () => {
     }
 
     // data fetch
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData('../../../../../public/hotelData.json'));
+    const { data, isLoading } = useQuery("hotelsData", () => fetchData(`${import.meta.env.VITE_fetchDataLink}`));
     if (isLoading) {
         return <div className='text-4xl text-gray-500'> Loading...</div>
     }

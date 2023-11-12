@@ -65,7 +65,7 @@ const UserDashboard = () => {
                         <div className='flex justify-between items-center w-full mb-4'>
                             <button onClick={() => setDrawerOpen(!drawerOpen)} className={`border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary ${drawerOpen && 'visible opacity-0 translate-x-0'}`}><AiOutlineMenu className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineMenu></button>
                         </div>
-                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {Guser?.name || PGuser?.name}</p>
+                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {PGuser?.name || Guser?.name}</p>
                     </div>
 
                     {/* drawer content top heading for medium device */}
