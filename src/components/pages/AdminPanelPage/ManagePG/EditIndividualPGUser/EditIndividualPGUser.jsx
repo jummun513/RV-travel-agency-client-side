@@ -492,7 +492,7 @@ const EditIndividualPGUser = () => {
                                             </td>
                                         </tr>
                                         <tr className="bg-white border-b w-[640px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
+                                            <th scope="row" className="px-6 py-4 font-medium text-red-500 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
                                                 Balance (Point)
                                             </th>
                                             <td className="px-6 py-4 text-gray-800 w-1/12">
@@ -503,7 +503,7 @@ const EditIndividualPGUser = () => {
                                             </td>
                                         </tr>
                                         <tr className="bg-white border-b w-[640px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
+                                            <th scope="row" className="px-6 py-4 font-medium text-red-500 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
                                                 Balance Amount (Tk.)
                                             </th>
                                             <td className="px-6 py-4 text-gray-800 w-1/12">

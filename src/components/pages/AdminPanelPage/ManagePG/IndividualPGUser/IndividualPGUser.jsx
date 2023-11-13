@@ -122,7 +122,7 @@ const IndividualPGUser = () => {
                                             dataPG.map((d, i) => {
                                                 return (
                                                     <tr key={i} className="bg-white border-b w-[600px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
+                                                        <th scope="row" className={`px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12 ${d.heading.includes('Balance') && 'text-red-500'}`}>
                                                             {d.heading}
                                                         </th>
                                                         <td className="px-6 py-4 text-gray-800 w-1/12">

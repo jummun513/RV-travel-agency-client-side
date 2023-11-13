@@ -98,7 +98,7 @@ const Profile = () => {
                                             dataPG.map((d, i) => {
                                                 return (
                                                     <tr key={i} className="bg-white border-b w-[600px] whitespace-nowrap sm:whitespace-normal text-xs xxs:text-sm sm:text-md xl:text-base">
-                                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12">
+                                                        <th scope="row" className={`px-6 py-4 font-medium text-gray-900 w-5/12 sm:w-4/12 lg:w-3/12 xl:w-3/12 3xl:w-2/12 ${d.heading.includes('Balance') && 'text-red-500'}`}>
                                                             {d.heading}
                                                         </th>
                                                         <td className="px-6 py-4 text-gray-800 w-1/12">
@@ -190,7 +190,7 @@ const Profile = () => {
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
                         <div className="w-28 xs:w-40 rounded-full mx-auto">
-                            <img className='rounded-full' src={PGuser?.avatar ? PGuser?.avatar : useImage} alt='User Image' />
+                            <img className='rounded-full aspect-square' src={PGuser?.avatar ? PGuser?.avatar : useImage} alt='User Image' />
                         </div>
                         <div className="mt-10 lg:mt-16">
                             <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">

@@ -231,9 +231,25 @@ const HotelDetail = () => {
                                             </div>
                                             <p className="text-xs xs:text-sm text-gray-700 mt-2 xs:mt-3">Bulbul Center, 486/B O.R. Nizam Road, CDA Avenue, Chittagong, 4100</p>
                                             <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 xs:mt-5 mt-2 mb-8 xs:mb-5">View in map</button>
-                                            <h3 className="text-gray-800 font-semibold text-base xs:text-xl mb-3">What&#39;s around</h3>
+                                            <h3 className="text-gray-800 font-semibold text-base xs:text-xl">What&#39;s around</h3>
                                             <div>
-                                                <div className="flex justify-between items-center text-gray-800">
+                                                {
+                                                    item.location.around.map((d, i) => {
+                                                        return (
+                                                            <div key={i} className="flex justify-between items-center text-gray-800 mt-3">
+                                                                <div className="flex items-center">
+                                                                    {item.location.around.length == (i) ?
+                                                                        <MdOutlineFlight className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdOutlineFlight>
+                                                                        :
+                                                                        <MdLocationOn className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdLocationOn>}
+                                                                    <span>{d.place}</span>
+                                                                </div>
+                                                                <span className='ms-2 xxs:ms-0 text-end'>{d.distance}</span>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                                {/* <div className="flex justify-between items-center text-gray-800">
                                                     <div className="flex items-center">
                                                         <MdLocationOn className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdLocationOn>
                                                         <span>Baitul Falah (Jamiatul Falah)</span>
@@ -260,7 +276,7 @@ const HotelDetail = () => {
                                                         <span>Chittagong (CGP-Shah Amanat Intl.)</span>
                                                     </div>
                                                     <span className='ms-2 xxs:ms-0 text-end'>7 min drive</span>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </section>

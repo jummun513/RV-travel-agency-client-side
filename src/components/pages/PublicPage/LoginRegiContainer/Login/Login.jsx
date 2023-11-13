@@ -34,7 +34,7 @@ const Login = () => {
         if (error === '') {
             signIn(e, p)
                 .then(() => {
-                    // after successfully create user
+                    // after successfully login to firebase
                     dispatch({ type: "LOG_OUT" });
                     setLoading(false);
                     !isLoading && navigate(location, { replace: true }); //navigate to previous page

@@ -23,6 +23,7 @@ import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/
 import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyPolicy";
 import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
 import HotelDetail from "../components/pages/PublicPage/HotelDetail/HotelDetail";
+import ContactUs from "../components/pages/PublicPage/ContactUs/ContactUs";
 
 
 export const router = createBrowserRouter([
@@ -78,7 +79,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/contact-us',
-                element: <Developing></Developing>,
+                element: <ContactUs></ContactUs>,
             },
             {
                 path: '/privileged-guest/pg-photo-gallery',
