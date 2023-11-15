@@ -37,7 +37,7 @@ const Login = () => {
                     // after successfully login to firebase
                     dispatch({ type: "LOG_OUT" });
                     setLoading(false);
-                    !isLoading && navigate(location, { replace: true }); //navigate to previous page
+                    navigate(location, { replace: true }); //navigate to previous page
                     formRef.current.reset();
                 })
                 .catch((error) => {

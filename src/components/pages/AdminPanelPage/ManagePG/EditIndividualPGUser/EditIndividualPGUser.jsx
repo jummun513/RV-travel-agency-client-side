@@ -25,9 +25,9 @@ const EditIndividualPGUser = () => {
     const notifyUpdate = () => toast.info("Everything looks updated.", { theme: "light" });
     const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
     const { data: pg_users = [], isLoading, isError, refetch } = useQuery(['pg_users'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
             headers: {
-                authorization: `bearer ${token}`,
+                authorization: `Bearer ${token}`,
             }
         });
         return res.json();
@@ -187,18 +187,18 @@ const EditIndividualPGUser = () => {
             try {
                 if ((form_data?.admin_edit_avatar !== null) && (form_data?.admin_edit_avatar?.type)) {
                     const imgbbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_KEY}`, formData);
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/update/${pgId}`, {
+                    const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/privilege-users/${pgId}`, {
                         ...form_data, admin_edit_avatar: imgbbResponse.data.data.image.url,
                         admin_edit_medium: imgbbResponse.data.data.medium.url,
                         admin_edit_thumb: imgbbResponse.data.data.thumb.url,
                         admin_edit_image_delete: imgbbResponse.data.data.delete_url,
                     }, {
                         headers: {
-                            authorization: `bearer ${token}`,
+                            authorization: `Bearer ${token}`,
                         }
                     });
 
-                    if (response.data.modifiedCount === 1) {
+                    if (response?.data?.modifiedCount === 1) {
                         setLoading(false);
                         setError('');
                         formEraseRef.current.reset();
@@ -213,13 +213,13 @@ const EditIndividualPGUser = () => {
                 }
 
                 else {
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/update/${pgId}`, { ...form_data }, {
+                    const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/privilege-users/${pgId}`, { ...form_data }, {
                         headers: {
-                            authorization: `bearer ${token}`,
+                            authorization: `Bearer ${token}`,
                         }
                     });
 
-                    if (response.data.modifiedCount === 1) {
+                    if (response?.data?.modifiedCount === 1) {
                         setLoading(false);
                         setError('');
                         formEraseRef.current.reset();
@@ -243,17 +243,15 @@ const EditIndividualPGUser = () => {
     // delete more guest if click on the top-right delete button
     const handleDeleteDependent = async (idx) => {
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_clientSideLink}/pg-users/${pgId}/delete-more-guest/${idx}`, {
+            await axios.delete(`${import.meta.env.VITE_clientSideLink}/api/privilege-users/${pgId}/delete-more-guest/${idx}`, {
                 headers: {
-                    authorization: `bearer ${token}`,
+                    authorization: `Bearer ${token}`,
                 },
             })
-            if (response.data?.modifiedCount === 1) {
-                refetch();
-            }
+            refetch();
         }
         catch (err) {
-            err;
+            throw new err;
         }
     }
 

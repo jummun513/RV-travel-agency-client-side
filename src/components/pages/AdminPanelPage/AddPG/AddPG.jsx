@@ -138,19 +138,20 @@ const AddPG = () => {
             try {
                 if (form_data?.avatar !== null) {
                     const imgbbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_KEY}`, formData);
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/register`, {
+                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
                         ...form_data, avatar: imgbbResponse.data.data.image.url,
                         medium: imgbbResponse.data.data.medium.url,
                         thumb: imgbbResponse.data.data.thumb.url,
                         image_delete: imgbbResponse.data.data.delete_url,
                     }, {
                         headers: {
-                            authorization: `bearer ${token}`,
+                            authorization: `Bearer ${token}`,
                         }
                     });
 
                     setLoading(false);
-                    if (response?.data?.includes('email_already_register')) {
+
+                    if (response?.data.includes('email_already_register')) {
                         setError('email_already_register');
                     }
                     else {
@@ -162,14 +163,15 @@ const AddPG = () => {
                 }
 
                 else {
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/pg-users/register`, form_data, {
+                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, form_data, {
                         headers: {
-                            authorization: `bearer ${token}`,
+                            authorization: `Bearer ${token}`,
                         }
                     });
 
                     setLoading(false);
-                    if (response?.data?.includes('email_already_register')) {
+
+                    if (response?.data.includes('email_already_register')) {
                         setError('email_already_register');
                     }
                     else {

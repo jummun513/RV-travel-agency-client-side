@@ -7,27 +7,28 @@ import { toast } from 'react-toastify';
 
 const AdminManage = () => {
     const token = localStorage.getItem('access_token');
-    const { data: admin = [], isLoading, isError, refetch } = useQuery(['admin'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/admin`, {
+    const { data: adminData = [], isLoading, isError, refetch } = useQuery(['admin_data'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/users/admin`, {
             headers: {
-                authorization: `bearer ${token}`,
+                authorization: `Bearer ${token}`,
             }
         });
         return res.json();
-    })
+    });
+
     const successNotify = () => toast.success("Success fully removed from admin", { theme: "light" });
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
-    const removeFromAdmin = (email) => {
-        fetch(`${import.meta.env.VITE_clientSideLink}/admin-remove/${email}`, {
+    const removeFromAdmin = (id) => {
+        fetch(`${import.meta.env.VITE_clientSideLink}/api/users/remove-admin/${id}`, {
             method: 'PATCH',
             headers: {
-                authorization: `bearer ${token}`,
+                authorization: `Bearer ${token}`,
             }
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount) {
+                if (data.modifiedCount === 1) {
                     successNotify();
                     refetch();
                 }
@@ -68,7 +69,7 @@ const AdminManage = () => {
                             </thead>
                             <tbody>
                                 {
-                                    admin?.map((d, i) => {
+                                    adminData?.map((d, i) => {
                                         return (
                                             <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                                 <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">
@@ -83,7 +84,7 @@ const AdminManage = () => {
                                                 </td>
                                                 <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
                                                     <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                    <button onClick={() => removeFromAdmin(d.email)} disabled={d.role === 'developer' && true} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete Admin</button>
+                                                    <button onClick={() => removeFromAdmin(d._id)} disabled={d.role === 'developer' && true} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete Admin</button>
                                                 </td>
                                             </tr>
                                         )

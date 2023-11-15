@@ -79,7 +79,7 @@ const Register = () => {
             createNewUser(eml, pass).then(async () => {
                 // after successfully create user data save to database
                 try {
-                    await axios.post(`${import.meta.env.VITE_clientSideLink}/general-users`, { name: nam, email: eml });
+                    await axios.post(`${import.meta.env.VITE_clientSideLink}/api/users`, { name: nam, email: eml });
                     await verificationEmailSend();
                     setLoading(false);
                     Swal.fire({

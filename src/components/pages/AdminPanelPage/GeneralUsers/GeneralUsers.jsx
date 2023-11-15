@@ -4,21 +4,25 @@ import NotFound from "../../../shared/NotFound/NotFound";
 import user from '../../../../assets/images/user.svg';
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 const GeneralUsers = () => {
     const token = localStorage.getItem('access_token');
+    const [searchData, setSearchData] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const { data: g_users = [], isLoading, isError, refetch } = useQuery(['g_users'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/general-users`, {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/users`, {
             headers: {
-                authorization: `bearer ${token}`,
+                authorization: `Bearer ${token}`,
             }
         });
         return res.json();
     });
+
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
-    const addToAdmin = (email) => {
+    const addToAdmin = (id) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "Admin can do any change on your website",
@@ -29,15 +33,15 @@ const GeneralUsers = () => {
             confirmButtonText: 'Yes, Make admin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`${import.meta.env.VITE_clientSideLink}/admin-add/${email}`, {
+                fetch(`${import.meta.env.VITE_clientSideLink}/api/users/add-admin/${id}`, {
                     method: 'PATCH',
                     headers: {
-                        authorization: `bearer ${token}`,
+                        authorization: `Bearer ${token}`,
                     }
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.modifiedCount) {
+                        if (data.modifiedCount === 1) {
                             refetch();
                         }
                         else {
@@ -51,6 +55,13 @@ const GeneralUsers = () => {
                 )
             }
         })
+    }
+
+    const handleSearchField = (event) => {
+        const keyword = event.target.value.trim().toLowerCase();
+        setSearchKeyword(keyword);
+        const results = g_users.filter(d => (d.name.toLowerCase().includes(keyword) || d.email.includes(keyword) || d.role.includes(keyword)));
+        setSearchData(results);
     }
 
     if (isLoading) {
@@ -67,14 +78,14 @@ const GeneralUsers = () => {
                 <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xs:mb-10">All general user</h2>
                 <div className="flex flex-col xs:flex-row justify-between items-center">
                     <div className="w-full xs:w-2/5 xs:me-5">
-                        <p className="text-center xs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {g_users.length}</p>
+                        <p className="text-center xs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData.length : g_users.length}</p>
                     </div>
                     <div className="w-full xs:w-3/5">
                         <form>
                             <div className="flex">
                                 <div className="relative w-full">
-                                    <input type="search" id="search" className="block p-1.5 xxs:p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border border-gray-300 focus:ring-primary focus:border-primary outline-none" placeholder="Search by email or position" required />
-                                    <button type="submit" className="absolute top-0 right-0 h-full p-1.5 xxs:p-2.5 text-sm font-medium text-white bg-primary rounded-r-lg border border-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary">
+                                    <input defaultValue={searchKeyword} onKeyUp={(e) => { handleSearchField(e) }} type="search" id="search" className="block p-1.5 xxs:p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border border-gray-300 focus:ring-primary focus:border-primary outline-none" placeholder="Search by email or position" required />
+                                    <button disabled className="absolute top-0 right-0 h-full p-1.5 xxs:p-2.5 text-sm font-medium text-white bg-primary rounded-r-lg border border-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary">
                                         <svg className="w-4 h-4 text-gray-950" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                         </svg>
@@ -103,7 +114,7 @@ const GeneralUsers = () => {
                             </thead>
                             <tbody>
                                 {
-                                    g_users.map((d, i) => {
+                                    (searchKeyword ? searchData : g_users).map((d, i) => {
                                         return (
                                             <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                                 <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">
@@ -118,7 +129,7 @@ const GeneralUsers = () => {
                                                 </td>
                                                 <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
                                                     <button className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                    <button onClick={() => addToAdmin(d.email)} disabled={(d.role === 'admin' || d.role === 'developer') && true} className="btn btn-sm xl:btn-md text-gray-50 bg-green-700 border-none hover:bg-green-600">Make Admin</button>
+                                                    <button onClick={() => addToAdmin(d._id)} disabled={(d.role === 'admin' || d.role === 'developer') && true} className="btn btn-sm xl:btn-md text-gray-50 bg-green-700 border-none hover:bg-green-600">Make Admin</button>
                                                 </td>
                                             </tr>
                                         )

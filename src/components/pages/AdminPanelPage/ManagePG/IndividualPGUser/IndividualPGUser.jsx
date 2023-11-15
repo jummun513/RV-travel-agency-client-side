@@ -10,9 +10,9 @@ const IndividualPGUser = () => {
     const { pgId } = useParams();
     const token = localStorage.getItem('access_token');
     const { data: pg_users = [], isLoading, isError } = useQuery(['pg_users'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/pg-users`, {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
             headers: {
-                authorization: `bearer ${token}`,
+                authorization: `Bearer ${token}`,
             }
         });
         return res.json();
