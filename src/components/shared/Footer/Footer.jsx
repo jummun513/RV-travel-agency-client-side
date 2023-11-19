@@ -114,7 +114,7 @@ const Footer = () => {
                                     </li>
                                     <li>
                                         <span>WhatsApp: </span>
-                                        <a href='https://wa.me/01331065247' className="hover:underline text-gray-200 hover:text-primary cursor-pointer">01331-065247</a>
+                                        <a href='https://wa.me/+8801331065247' className="hover:underline text-gray-200 hover:text-primary cursor-pointer">01331-065247</a>
                                     </li>
                                 </ul>
                             </div>

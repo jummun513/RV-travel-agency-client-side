@@ -10,6 +10,7 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import './AdminPanelPage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from '../../shared/Loading/Loading';
+import { LiaHotelSolid } from "react-icons/lia";
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -62,6 +63,17 @@ const AdminPanelPage = () => {
                             </details>
                         </li>
                         <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <LiaHotelSolid /> Hotels
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-new-hotel' className='hover:bg-primary hover:text-gray-950'>Add New Hotel</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-hotels' className='hover:bg-primary hover:text-gray-950'>Manage All Hotels</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-9'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
@@ -97,6 +109,17 @@ const AdminPanelPage = () => {
                             </details>
                         </li>
                         <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <LiaHotelSolid></LiaHotelSolid> Hotels
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-new-hotel' className='hover:bg-primary hover:text-gray-950'>Add New Hotel</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-hotels' className='hover:bg-primary hover:text-gray-950'>Manage All Hotels</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                         <li className='text-gray-50 absolute bottom-2 w-full pe-10'>
                             <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>

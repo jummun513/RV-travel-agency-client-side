@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
-// import Test from "../layout/Test/Test";
+import Test from "../layout/Test/Test";
 import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
 import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
 import Admin from "../layout/Admin/Admin";
-import AddPG from "../components/pages/AdminPanelPage/AddPG/AddPG";
 import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
 import NotFound from "../components/shared/NotFound/NotFound";
 import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
@@ -13,10 +12,7 @@ import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminMan
 import Developing from "../components/shared/Developing/Developing";
 import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
 import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
-import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile"
-import ManagePG from "../components/pages/AdminPanelPage/ManagePG/ManagePG";
-import IndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/IndividualPGUser/IndividualPGUser"
-import EditIndividualPGUser from "../components/pages/AdminPanelPage/ManagePG/EditIndividualPGUser/EditIndividualPGUser";
+import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
 import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
@@ -24,6 +20,12 @@ import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyP
 import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
 import HotelDetail from "../components/pages/PublicPage/HotelDetail/HotelDetail";
 import ContactUs from "../components/pages/PublicPage/ContactUs/ContactUs";
+import ManagePG from "../components/pages/AdminPanelPage/PgUsers/ManagePG/ManagePG";
+import IndividualPGUser from "../components/pages/AdminPanelPage/PgUsers/ManagePG/IndividualPGUser/IndividualPGUser";
+import EditIndividualPGUser from "../components/pages/AdminPanelPage/PgUsers/ManagePG/EditIndividualPGUser/EditIndividualPGUser";
+import AddPG from "../components/pages/AdminPanelPage/PgUsers/AddPG/AddPG";
+import AddHotel from "../components/pages/AdminPanelPage/Hotels/AddHotel/AddHotel";
+import ManageHotel from "../components/pages/AdminPanelPage/Hotels/ManageHotels/ManageHotel";
 
 
 export const router = createBrowserRouter([
@@ -167,12 +169,20 @@ export const router = createBrowserRouter([
                 path: 'manage-admin',
                 element: <AdminManage></AdminManage>,
             },
+            {
+                path: 'add-new-hotel',
+                element: <AddHotel></AddHotel>,
+            },
+            {
+                path: 'manage-hotels',
+                element: <ManageHotel></ManageHotel>,
+            },
         ]
     },
-    // {
-    //     path: '/test',
-    //     element: <Test></Test>,
-    // },
+    {
+        path: '/test',
+        element: <Test></Test>,
+    },
     {
         path: '*',
         element: <NotFound></NotFound>,

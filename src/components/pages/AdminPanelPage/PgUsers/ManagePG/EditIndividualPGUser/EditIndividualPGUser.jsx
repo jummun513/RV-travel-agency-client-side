@@ -1,8 +1,8 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Loading from "../../../../shared/Loading/Loading";
-import NotFound from "../../../../shared/NotFound/NotFound";
+import Loading from "../../../../../shared/Loading/Loading";
+import NotFound from "../../../../../shared/NotFound/NotFound";
 import { useQuery } from "react-query";
-import userImage from "../../../../../assets/images/user.svg";
+import userImage from "../../../../../../assets/images/user.svg";
 import { useEffect, useRef, useState } from "react";
 import Select from 'react-select';
 import ReactDatePicker from "react-datepicker";

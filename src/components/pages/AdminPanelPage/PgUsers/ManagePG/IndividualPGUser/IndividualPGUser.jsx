@@ -1,8 +1,8 @@
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import Loading from "../../../../shared/Loading/Loading";
-import NotFound from "../../../../shared/NotFound/NotFound";
-import userImage from "../../../../../assets/images/user.svg";
+import Loading from "../../../../../shared/Loading/Loading";
+import NotFound from "../../../../../shared/NotFound/NotFound";
+import userImage from "../../../../../../assets/images/user.svg";
 
 
 const IndividualPGUser = () => {

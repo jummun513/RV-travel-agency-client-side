@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import user from '../../../../assets/images/user.svg';
-import Loading from '../../../shared/Loading/Loading';
-import NotFound from '../../../shared/NotFound/NotFound';
+import user from '../../../../../assets/images/user.svg';
+import Loading from '../../../../shared/Loading/Loading';
+import NotFound from '../../../../shared/NotFound/NotFound';
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import axios from "axios";

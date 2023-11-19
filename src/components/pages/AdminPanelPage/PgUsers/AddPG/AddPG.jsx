@@ -1,5 +1,5 @@
 import { BiShow, BiHide } from 'react-icons/bi';
-import logo from '../../../../assets/Logos/short-logo.png';
+import logo from '../../../../../assets/Logos/short-logo.png';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import AddMorePG from './AddMorePG/AddMorePG';
