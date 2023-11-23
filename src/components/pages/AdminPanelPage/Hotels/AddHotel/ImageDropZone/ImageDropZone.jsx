@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
-const ImageDropZone = ({ selectedImages, setSelectedImages }) => {
+const ImageDropZone = ({ images, handleAllImages }) => {
+    const [selectedImages, setSelectedImages] = useState([]);
     const [error, setError] = useState('');
-
     const [isDragOver, setIsDragOver] = useState(false);
+
+    useEffect(() => {
+        handleAllImages(selectedImages);
+    }, [selectedImages])
 
     const handleDragEnter = (e) => {
         e.preventDefault();
@@ -58,6 +62,7 @@ const ImageDropZone = ({ selectedImages, setSelectedImages }) => {
 
         // Update the state with the new images
         setSelectedImages([...selectedImages, ...newImages]);
+        handleAllImages([...selectedImages, ...newImages]);
     };
 
     const removeImage = (index) => {
@@ -90,16 +95,16 @@ const ImageDropZone = ({ selectedImages, setSelectedImages }) => {
                 </label>
             </div>
 
-            <div className={`${(error || selectedImages?.length > 0) ? 'bg-gray-50 rounded-lg py-5 text-center' : 'hidden'}`}>
+            <div className={`${(error || images?.length > 0) ? 'bg-gray-50 rounded-lg py-5 text-center' : 'hidden'}`}>
                 {error && <p className="error text-red-500 font-semibold">{error}</p>}
-                {selectedImages.length > 0 && (
+                {images.length > 0 && (
                     <div className='h-full w-full'>
                         <h2 className='text-gray-700 font-bold mb-3 mt-5 text-2xl'>Selected Images:</h2>
                         <div className="image-list flex flex-wrap justify-center">
-                            {selectedImages.map((image, index) => (
+                            {images.map((image, index) => (
                                 <div key={index} className="image-item mx-2 mt-5 relative">
                                     <img className='w-56 rounded-md' src={URL.createObjectURL(image)} alt={`Image ${index + 1}`} />
-                                    <button className='btn bg-primary btn-xs border-none text-gray-950 -top-3 -right-3 absolute btn-circle hover:bg-secondary' onClick={() => removeImage(index)}><IoMdClose /></button>
+                                    <button type='button' className='btn bg-primary btn-xs border-none text-gray-950 -top-3 -right-3 absolute btn-circle hover:bg-secondary' onClick={() => removeImage(index)}><IoMdClose /></button>
                                 </div>
                             ))}
                         </div>

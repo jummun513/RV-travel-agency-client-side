@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
-import Test from "../layout/Test/Test";
+// import Test from "../layout/Test/Test";
 import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
 import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
 import Admin from "../layout/Admin/Admin";
@@ -175,14 +175,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'manage-hotels',
+                // element: <Developing></Developing>
                 element: <ManageHotel></ManageHotel>,
             },
         ]
     },
-    {
-        path: '/test',
-        element: <Test></Test>,
-    },
+    // {
+    //     path: '/test',
+    //     element: <Test></Test>,
+    // },
     {
         path: '*',
         element: <NotFound></NotFound>,

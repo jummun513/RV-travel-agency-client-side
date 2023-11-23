@@ -6,7 +6,6 @@ import { AiOutlineFilter } from 'react-icons/ai';
 import { FaMapMarked } from 'react-icons/fa';
 import Hotel from './Hotel/Hotel';
 import { useQuery } from 'react-query';
-import fetchData from '../../../../functions/fetchData';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../shared/Loading/Loading.jsx';
@@ -17,17 +16,20 @@ const Hotels = () => {
     const location = useLocation();
     const searchQuery = new URLSearchParams(location.search).get('search');
     const [searchResults, setSearchResults] = useState([]);
-    const { data, isLoading } = useQuery("hotelsData", () => fetchData(`${import.meta.env.VITE_fetchDataLink}`));
+    const { data: hotels = [], isLoading } = useQuery(['hotels'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels`);
+        return res.json();
+    })
 
     useEffect(() => {
         if (searchQuery) {
-            const newData = data?.filter(d => (d.heading.toLowerCase().includes(searchQuery.toLowerCase()) || d.heading.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.city.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.country.toLowerCase().includes(searchQuery.toLowerCase())));
+            const newData = hotels?.filter(d => (d.hotelName.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.city.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.country.toLowerCase().includes(searchQuery.toLowerCase())));
             setSearchResults(newData);
         }
         else {
-            setSearchResults(data);
+            setSearchResults(hotels);
         }
-    }, [searchQuery, data]);
+    }, [searchQuery, hotels]);
 
 
     return (
@@ -241,9 +243,6 @@ const Hotels = () => {
                                 }
                             </div>
                     }
-
-
-
                 </div>
             </div>
 

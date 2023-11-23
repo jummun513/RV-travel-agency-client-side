@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
-const RoomImage = ({ roomImage, setRoomImage }) => {
+const RoomImage = ({ index, handleRoomImage, pictures }) => {
+    const [roomImage, setRoomImage] = useState([]);
     const [error, setError] = useState('');
-
     const [isDragOver, setIsDragOver] = useState(false);
+
+    useEffect(() => {
+        handleRoomImage(index, roomImage);
+    }, [roomImage])
 
     const handleDragEnter = (e) => {
         e.preventDefault();
@@ -43,13 +47,13 @@ const RoomImage = ({ roomImage, setRoomImage }) => {
         }
 
         // Validate image count
-        if (roomImage.length + newImages.length > 3) {
+        if (pictures.length + newImages.length > 3) {
             setError('Cannot add more than 3 images.');
             return;
         }
 
         // Validate image count
-        if (roomImage.length + newImages.length < 1) {
+        if (pictures.length + newImages.length < 1) {
             setError('At least one image must be added.');
             return;
         }
@@ -57,11 +61,13 @@ const RoomImage = ({ roomImage, setRoomImage }) => {
         setError('');
 
         // Update the state with the new images
+        const newArray = [...pictures, ...newImages];
+        handleRoomImage(index, newArray)
         setRoomImage([...roomImage, ...newImages]);
     };
 
     const removeImage = (index) => {
-        const updatedImages = [...roomImage];
+        const updatedImages = [...pictures];
         updatedImages.splice(index, 1);
         setRoomImage(updatedImages);
 
@@ -90,16 +96,16 @@ const RoomImage = ({ roomImage, setRoomImage }) => {
                 </label>
             </div>
 
-            <div className={`${(error || roomImage?.length > 0) ? 'bg-gray-50 rounded-lg py-5 text-center' : 'hidden'}`}>
+            <div className={`${(error || pictures?.length > 0) ? 'bg-gray-50 rounded-lg py-5 text-center' : 'hidden'}`}>
                 {error && <p className="error text-red-500 font-semibold">{error}</p>}
-                {roomImage.length > 0 && (
+                {pictures.length > 0 && (
                     <div className='h-full w-full'>
                         <h2 className='text-gray-700 font-bold mb-3 mt-5 text-2xl'>Selected Images:</h2>
                         <div className="image-list flex flex-wrap justify-center">
-                            {roomImage.map((image, index) => (
+                            {pictures.map((image, index) => (
                                 <div key={index} className="image-item mx-2 mt-5 relative">
-                                    <img className='w-56 rounded-md' src={URL.createObjectURL(image)} alt={`Image ${index + 1}`} />
-                                    <button className='btn bg-primary btn-xs border-none text-gray-950 -top-3 -right-3 absolute btn-circle hover:bg-secondary' onClick={() => removeImage(index)}><IoMdClose /></button>
+                                    <img className='w-56 rounded-md' src={URL?.createObjectURL(image)} alt={`Image ${index + 1}`} />
+                                    <button type='button' className='btn bg-primary btn-xs border-none text-gray-950 -top-3 -right-3 absolute btn-circle hover:bg-secondary' onClick={() => removeImage(index)}><IoMdClose /></button>
                                 </div>
                             ))}
                         </div>

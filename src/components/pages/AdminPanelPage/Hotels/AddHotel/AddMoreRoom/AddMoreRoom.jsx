@@ -4,7 +4,6 @@ import RoomImage from "../RoomImage/RoomImage";
 
 const AddMoreRoom = ({ moreData, setMoreData }) => {
     const [divs, setDivs] = useState([]);
-    const [roomImage, setRoomImage] = useState([]);
 
     // add new div of new quest
     const addNewDiv = () => {
@@ -16,10 +15,10 @@ const AddMoreRoom = ({ moreData, setMoreData }) => {
     // In first render add a single room automatically
     useEffect(() => { addNewDiv(); removeDiv(1); }, []);
 
-    const handleRoomImage = (index) => {
+    const handleRoomImage = (index, imageRoom) => {
         setMoreData(moreData?.map((item, idx) => {
             if (idx === index) {
-                return { ...item, pictures: roomImage };
+                return { ...item, pictures: imageRoom };
             }
             return item;
         })
@@ -72,7 +71,7 @@ const AddMoreRoom = ({ moreData, setMoreData }) => {
             {/* this div will continuously clicking new room button */}
             {divs.map((label, index) => (
                 <DynamicDiv key={index} index={index} label={label} removeDiv={removeDiv} handleInputChange={handleInputChange}
-                    moreData={moreData} roomImage={roomImage} setRoomImage={setRoomImage} handleRoomImage={handleRoomImage} />
+                    moreData={moreData} handleRoomImage={handleRoomImage} />
             ))}
 
             {/* remove-all and add new room button */}
@@ -91,14 +90,10 @@ export default AddMoreRoom;
 
 // new guest contains item
 const DynamicDiv = (data) => {
-    const { index, label, removeDiv, handleInputChange, moreData, roomImage, setRoomImage, handleRoomImage } = data;
+    const { index, label, removeDiv, handleInputChange, moreData, handleRoomImage } = data;
     const onRemoveDiv = () => {
         removeDiv(index);
     };
-
-    // useEffect(() => {
-    //     handleRoomImage(index);
-    // }, [roomImage])
 
     return (
         <div id="add_more_pg" key={index} className='mb-6 md:mb-10 border p-2 bg-gray-50'>
@@ -193,9 +188,13 @@ const DynamicDiv = (data) => {
                         </div>
                     </div>
                 </div>
-                <div onClick={() => handleRoomImage(index)}>
-                    <RoomImage roomImage={roomImage} setRoomImage={setRoomImage}></RoomImage>
-                </div>
+                {
+                    moreData?.map((item, idx) => {
+                        if (idx === index) {
+                            return <RoomImage key={idx} pictures={item.pictures} index={index} handleRoomImage={handleRoomImage}></RoomImage>
+                        }
+                    })
+                }
                 <p className="text-end mt-2"><a onClick={() => onRemoveDiv()} className='ms-2 xxs:ms-0 cursor-pointer text-blue-600 underline'>Remove</a></p>
             </div>
         </div>
