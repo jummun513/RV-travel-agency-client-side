@@ -239,7 +239,7 @@ const Hotels = () => {
                                             </div>
                                         </div>
                                         :
-                                        <div className='flex justify-center mt-20 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>Nothing match!</div>
+                                        <div className='flex justify-center mt-24 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
                                 }
                             </div>
                     }
@@ -471,7 +471,7 @@ const Hotels = () => {
                                         }
                                     </div>
                                     :
-                                    <div className='flex justify-center mt-12 xs:mt-16'>Nothing match!</div>
+                                    <div className='flex justify-center mt-12 xs:mt-16'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
                             }
                         </div>
                 }

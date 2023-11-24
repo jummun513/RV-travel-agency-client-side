@@ -13,6 +13,8 @@ export default {
         'privacy&policy': "url('/src/assets/images/privacy&policy.png')",
         'chairmanLarge': "url('/src/assets/images/chairman.png')",
         'chairmanSmall': "url('/src/assets/images/chairman-small.png')",
+        'directorLarge': "url('/src/assets/images/director.png')",
+        'directorSmall': "url('/src/assets/images/director-small.png')",
       },
       colors: {
         primary: '#ffb700',

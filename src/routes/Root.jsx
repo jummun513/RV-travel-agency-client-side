@@ -26,6 +26,9 @@ import EditIndividualPGUser from "../components/pages/AdminPanelPage/PgUsers/Man
 import AddPG from "../components/pages/AdminPanelPage/PgUsers/AddPG/AddPG";
 import AddHotel from "../components/pages/AdminPanelPage/Hotels/AddHotel/AddHotel";
 import ManageHotel from "../components/pages/AdminPanelPage/Hotels/ManageHotels/ManageHotel";
+import WhoWeAre from "../components/pages/PublicPage/About/WhoWeAre/WhoWeAre";
+import DirectorMessage from "../components/pages/PublicPage/About/DirectorMessage/DirectorMessage";
+import CeoMessage from "../components/pages/PublicPage/About/CeoMessage/CeoMessage";
 
 
 export const router = createBrowserRouter([
@@ -101,15 +104,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about-us/director-message',
-                element: <Developing></Developing>,
+                element: <DirectorMessage></DirectorMessage>,
             },
             {
                 path: '/about-us/ceo-message',
-                element: <Developing></Developing>,
+                element: <CeoMessage></CeoMessage>,
             },
             {
                 path: '/about-us/who-we-are',
-                element: <Developing></Developing>,
+                element: <WhoWeAre></WhoWeAre>,
             },
             {
                 path: '/about-us/company-profile',

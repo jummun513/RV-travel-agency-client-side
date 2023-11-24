@@ -16,7 +16,7 @@ const ManageHotel = () => {
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
-    const removePGuser = (id, image_delete) => {
+    const removeHotel = (id, hotelName) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -25,10 +25,10 @@ const ManageHotel = () => {
             confirmButtonColor: '#15803D',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                axios.delete(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
-                    params: { pgUser: id, delete: image_delete },
+                await axios.delete(`${import.meta.env.VITE_clientSideLink}/api/hotels`, {
+                    params: { deletedId: id, hotelName },
                     headers: {
                         authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -46,7 +46,6 @@ const ManageHotel = () => {
                         errorNotify();
                     }
                 })
-
             }
         })
     }
@@ -111,17 +110,17 @@ const ManageHotel = () => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap">
-                                                <img loading='lazy' className="w-24 rounded-sm" src={d.thumbnail[0].url} alt={`${d.name} image`} />
+                                                <img loading='lazy' className="w-24 rounded-sm" src={d.thumbnail[0].url} alt={`${d.hotelName} image`} />
                                                 <div className="lg:pl-3">
                                                     <div className="md:text-base font-semibold mt-1">{d.hotelName.slice(0, 21)}</div>
-                                                    <div className="font-normal text-gray-500">{d.register_email}</div>
+                                                    <div className="font-normal text-gray-500">{d.location.country}</div>
                                                 </div>
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
                                                 {d.location.city}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-center">
-                                                <button disabled onClick={() => removePGuser(d._id, d.image_delete)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button onClick={() => removeHotel(d._id, d.hotelName)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )
