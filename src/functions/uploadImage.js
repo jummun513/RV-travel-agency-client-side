@@ -1,9 +1,9 @@
 import ImageKit from "imagekit";
 
 const imagekit = new ImageKit({
-    publicKey: 'public_ckIhiN3Di+ZHIFF6aPozfEMYwhQ=',
-    privateKey: 'private_BC4VixtIwlbn5CuOZUqbjRRSulQ=',
-    urlEndpoint: 'https://ik.imagekit.io/nz0ptgnila',
+    publicKey: `${import.meta.env.VITE_Imagekit_PUBLIC_KEY}`,
+    privateKey: `${import.meta.env.VITE_Imagekit_PRIVATE_KEY}`,
+    urlEndpoint: `${import.meta.env.VITE_Imagekit_UrlEndPoint}`,
 });
 
 export const uploadImage = async (uploadedFiles, folderName) => {

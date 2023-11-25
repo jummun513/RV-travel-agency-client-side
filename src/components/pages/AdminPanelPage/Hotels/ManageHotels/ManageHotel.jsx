@@ -110,14 +110,14 @@ const ManageHotel = () => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap">
-                                                <img loading='lazy' className="w-24 rounded-sm" src={d.thumbnail[0].url} alt={`${d.hotelName} image`} />
+                                                <img loading='lazy' className="w-24 rounded-sm" src={d?.thumbnail[0]?.url} alt={`${d?.hotelName} image`} />
                                                 <div className="lg:pl-3">
-                                                    <div className="md:text-base font-semibold mt-1">{d.hotelName.slice(0, 21)}</div>
-                                                    <div className="font-normal text-gray-500">{d.location.country}</div>
+                                                    <div className="md:text-base font-semibold mt-1">{d?.hotelName.slice(0, 21)}</div>
+                                                    <div className="font-normal text-gray-500">{d?.location.country}</div>
                                                 </div>
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
-                                                {d.location.city}
+                                                {d?.location?.city}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-center">
                                                 <button onClick={() => removeHotel(d._id, d.hotelName)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>

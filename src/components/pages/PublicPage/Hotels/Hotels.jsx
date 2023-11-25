@@ -234,7 +234,7 @@ const Hotels = () => {
                                             </div>
                                             <div className='mt-10'>
                                                 {
-                                                    searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                                    searchResults?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
                                                 }
                                             </div>
                                         </div>

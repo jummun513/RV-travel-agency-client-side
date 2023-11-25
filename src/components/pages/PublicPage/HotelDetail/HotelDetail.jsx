@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet-async';
 import Loading from '../../../shared/Loading/Loading';
 import { MdOutlineBalcony } from "react-icons/md";
 import { TbAirConditioning } from "react-icons/tb";
+import noImage from '../../../../assets/images/image-not-found.svg';
 
 const safety = [
     {
@@ -200,6 +201,7 @@ const HotelDetail = () => {
 
     // filter the demand data of hotel via id
     const searchHotel = (hotels?.filter(item => (item._id === hotelId)));
+    console.log(searchHotel);
 
     return (
         <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
@@ -218,7 +220,7 @@ const HotelDetail = () => {
                                             return (
                                                 <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
                                                     <div className={`${idx === 4 && 'relative'}`}>
-                                                        <img loading='lazy' src={image.url} alt="" />
+                                                        <img loading='lazy' src={item.images ? image.url : noImage} alt="" />
                                                         {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
                                                     </div>
                                                 </div>
