@@ -1,5 +1,5 @@
 import './HotelDetail.css';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AllContext } from "../../../../layout/Main/Main";
@@ -122,6 +122,7 @@ const HotelDetail = () => {
     const { setLockBody } = useContext(AllContext);
     const { hotelId } = useParams();
     const [activeSection, setActiveSection] = useState(null);
+    const navigate = useNavigate();
 
     // scroll spy effect on navbar
     useEffect(() => {
@@ -205,7 +206,7 @@ const HotelDetail = () => {
     return (
         <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
             <Helmet>
-                <title>{searchHotel[0].hotelName} - Royal Venture Limited</title>
+                <title> {searchHotel[0].hotelName ? searchHotel[0].hotelName : 'Hotel Details'} Royal Venture Limited</title>
             </Helmet>
             <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
                 {
@@ -289,7 +290,7 @@ const HotelDetail = () => {
                                                 </button>
                                             </li>
                                         </ul>
-                                        <button className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
+                                        <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
                                     </nav>
                                     <section id="Overview" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                         <div className="lg:flex text-gray-800">
@@ -389,7 +390,7 @@ const HotelDetail = () => {
                                         <h2 className="text-gray-800 text-2xl font-medium mb-8">Choose your room</h2>
                                         <div className="grid lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 justify-items-center gap-y-7 sm:gap-y-10">
                                             {
-                                                item.rooms.map((r, i) => <Room key={i} data={r}></Room>)
+                                                item.rooms.map((r, i) => <Room key={i} data={r} hotelId={hotelId}></Room>)
                                             }
                                         </div>
                                     </section>

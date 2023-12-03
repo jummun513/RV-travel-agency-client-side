@@ -7,10 +7,14 @@ import { MdOutlinePhotoSizeSelectSmall, MdOutlineBed } from 'react-icons/md';
 import { BsFillPersonFill, BsWifi2, BsFillMoonFill } from 'react-icons/bs';
 import { GiCoffeeCup } from 'react-icons/gi';
 import { AiFillCar } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 
 const Room = (data) => {
     const { bed, breakfast, name, parking, pictures, price, size, wifi, sleep } = data.data;
+    const { hotelId } = data;
+    const navigate = useNavigate();
+
     return (
         <div id='room' className="w-[250px] xxs:w-80 xs:w-96 bg-base-100 border relative z-10 rounded-md">
             <div>
@@ -36,7 +40,7 @@ const Room = (data) => {
                         {/* <p className='text-sm xxs:text-base'>USD {price + 20} total</p> */}
                         <p className='text-xs xxs:text-sm'>Includes taxes & fees</p>
                     </div>
-                    <button className='btn btn-xs xxs:btn-sm border-none bg-primary hover:bg-primary text-gray-950'>Select</button>
+                    <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className='btn btn-xs xxs:btn-sm border-none bg-primary hover:bg-primary text-gray-950'>Select</button>
                 </div>
             </div>
         </div>
