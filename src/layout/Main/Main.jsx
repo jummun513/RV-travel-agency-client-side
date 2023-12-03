@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from '../../components/shared/Navbar/NavBar';
 import Footer from '../../components/shared/Footer/Footer';
 import { createContext, useEffect, useState } from 'react';
@@ -14,6 +14,7 @@ function Main() {
     const [lockBody, setLockBody] = useState(null);
     const targetElement = document.querySelector('#container');
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
 
     useEffect(() => {
         (lockBody === true) && disableBodyScroll(targetElement);
@@ -38,9 +39,20 @@ function Main() {
                         <AuthProvider>
                             <AuthProviderPG>
                                 <div id='container'>
-                                    <NavBar></NavBar>
+                                    {(
+                                        // location.pathname.includes('login') ||
+                                        // location.pathname.includes('registration') ||
+                                        location.pathname.includes('admin-panel')
+                                    ) || <NavBar></NavBar>}
                                     <Outlet></Outlet>
-                                    <Footer></Footer>
+                                    {
+                                        (
+                                            // location.pathname.includes('login') ||
+                                            // location.pathname.includes('registration') ||
+                                            location.pathname.includes('admin-panel')
+                                        ) ||
+                                        <Footer></Footer>
+                                    }
                                 </div>
                             </AuthProviderPG>
                         </AuthProvider>

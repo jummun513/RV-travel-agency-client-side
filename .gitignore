@@ -1,9 +1,8 @@
-# Custom
-build_tailwind
-# public/hotelData.json
-temporay.html
+temporary.html
+temporary.json
+configMyTailwind
 /src/layout/Test
-test.json
+
 
 # Logs
 logs

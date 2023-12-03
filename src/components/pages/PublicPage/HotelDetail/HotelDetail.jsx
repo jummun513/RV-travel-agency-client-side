@@ -201,12 +201,11 @@ const HotelDetail = () => {
 
     // filter the demand data of hotel via id
     const searchHotel = (hotels?.filter(item => (item._id === hotelId)));
-    console.log(searchHotel);
 
     return (
         <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
             <Helmet>
-                <title>Individual Hotel - Royal Venture Limited</title>
+                <title>{searchHotel[0].hotelName} - Royal Venture Limited</title>
             </Helmet>
             <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
                 {

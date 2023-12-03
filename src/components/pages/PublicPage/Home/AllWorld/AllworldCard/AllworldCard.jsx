@@ -1,4 +1,3 @@
-import "/node_modules/flag-icons/css/flag-icons.min.css";
 import "./AllworldCard.css";
 import { useNavigate } from "react-router-dom";
 

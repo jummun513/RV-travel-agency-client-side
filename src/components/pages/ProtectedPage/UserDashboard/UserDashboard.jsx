@@ -13,7 +13,7 @@ const UserDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const dashboardRef = useRef();
     const { PGuser, pgLoading } = useContext(AuthContextPG);
-    const { Guser, isLoading } = useContext(AuthContext);
+    const { Guser, loading } = useContext(AuthContext);
 
     // off navbar to profile toggle, when click outside
     useEffect(() => {
@@ -25,7 +25,7 @@ const UserDashboard = () => {
         document.addEventListener('mousedown', handler);
     })
 
-    if (pgLoading || isLoading) {
+    if (pgLoading || loading) {
         return <Loading></Loading>
     }
 

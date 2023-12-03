@@ -27,7 +27,7 @@ const Reviews = () => {
                         keyboard={true}
                         speed={700}
                         autoplay={{
-                            delay: 2500,
+                            delay: 2500000,
                             disableOnInteraction: false,
                         }}
                         slidesPerView={1}

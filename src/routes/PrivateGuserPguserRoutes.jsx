@@ -6,10 +6,10 @@ import { AuthContextPG } from "../providers/AuthProviderPG";
 
 const PrivateGuserPguserRoutes = (data) => {
     const { children } = data;
-    const { isLoading, Guser } = useContext(AuthContext);
+    const { loading, Guser } = useContext(AuthContext);
     const { PGuser, pgLoading } = useContext(AuthContextPG);
 
-    if (isLoading || pgLoading) {
+    if (loading || pgLoading) {
         return <Loading></Loading>
     }
 

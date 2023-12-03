@@ -22,11 +22,11 @@ const Hotels = () => {
     })
 
     useEffect(() => {
-        if (searchQuery) {
+        if (searchQuery !== null && (searchQuery !== '' || hotels.length > 0)) {
             const newData = hotels?.filter(d => (d.hotelName.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.city.toLowerCase().includes(searchQuery.toLowerCase()) || d.location.country.toLowerCase().includes(searchQuery.toLowerCase())));
             setSearchResults(newData);
         }
-        else {
+        else if (hotels.length > 0) {
             setSearchResults(hotels);
         }
     }, [searchQuery, hotels]);

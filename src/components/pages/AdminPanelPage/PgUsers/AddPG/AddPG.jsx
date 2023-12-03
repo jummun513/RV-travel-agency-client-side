@@ -261,7 +261,7 @@ const AddPG = () => {
                     {/* add an image */}
                     <div className="form-control w-full mt-4">
                         <label htmlFor='avatar' className="label mb-1">
-                            <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 500 KB.</span>
+                            <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 500 KB. (Aspect ratio 1:1)</span>
                         </label>
                         <input type="file" onChange={(e) => { handleInputChange(e); handleFileField(e) }} name='avatar' id='avatar' className="file-input-xs file-input-warning bg-white text-gray-950 xxs:file-input-sm xl:file-input-md file-input file-input-bordered w-full max-w-[200px] xxs:max-w-[250px] md:max-w-xs" />
                         {

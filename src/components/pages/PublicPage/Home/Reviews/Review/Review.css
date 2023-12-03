@@ -1,0 +1,6 @@
+@media screen and (min-width: 768px) {
+    .MuiSvgIcon-root {
+        width: 25px !important;
+        height: 25px !important;
+    }
+}

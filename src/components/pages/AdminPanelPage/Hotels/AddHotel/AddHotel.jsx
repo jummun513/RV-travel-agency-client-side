@@ -45,7 +45,7 @@ const AddHotel = () => {
     }, [moreData]);
 
     useEffect(() => {
-        if (error == 'large_file' || error == 'file_type_invalid') {
+        if (error == 'large_file' || error == 'file_type_invalid' || error == 'invalid_name') {
             return;
         }
         data.rooms.map(d => {
@@ -138,6 +138,17 @@ const AddHotel = () => {
         }
     }
 
+    // handle name field
+    const handleHotelName = (e) => {
+        const value = e.target.value;
+        if (/^[a-zA-Z\s]*$/.test(value)) {
+            setError('');
+        }
+        else {
+            setError('invalid_name');
+        }
+    }
+
 
     const handleUpload = async (event) => {
         event.preventDefault();
@@ -192,8 +203,13 @@ const AddHotel = () => {
             <form ref={formRef} className="mt-8" onSubmit={handleUpload}>
                 {/* hotel name */}
                 <div className="mb-6">
-                    <label htmlFor="hotelName" className="block mb-2 text-sm font-medium text-gray-900">Hotel Name <sup className="text-red-500">*</sup></label>
-                    <input onChange={(e) => handleInputChange('hotelName', e)} type="text" id="hotelName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Radisson Blu Chattogram Bay View" required />
+                    <label htmlFor="hotelName" className="block mb-2 text-sm font-medium text-gray-900">Hotel Name <sup className="text-red-500">*</sup><small>(Only letters and space allowed, no special character.)</small></label>
+                    <input onChange={(e) => { handleInputChange('hotelName', e), handleHotelName(e) }} type="text" id="hotelName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Radisson Blu Chattogram Bay View" required />
+                    {
+                        error.includes('invalid_name') && <label className="label">
+                            <span className="label-text-alt text-red-600">Only letters and space allowed, no special character.</span>
+                        </label>
+                    }
                 </div>
 
                 {/* hotel description */}

@@ -8,12 +8,12 @@ import HotelSearch from '../../../../shared/HotelSearch/HotelSearch';
 
 const Banner = () => {
   return (
-    <Container className='h-[60rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[60rem]'>
+    <Container className='h-[60rem] sm:h-[60rem] xl:h-[50rem] 3xl:h-[60rem] relative top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]'>
       <Video autoPlay muted loop playsInline id="background-video" className='object-cover' poster='https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/all%20background/video-background.png?updatedAt=1698731597480'>
         <source src={backVideo} type="video/mp4" />
       </Video>
       <OverLay className='bg-[#0005]'></OverLay>
-      <Content id='search-section' className='top-[10rem] sm:top-[10rem] xl:top-[15rem] 3xl:top-[20rem] '>
+      <Content id='search-section' className='top-[8rem] sm:top-[10rem] xl:top-[12rem] 3xl:top-[16rem] '>
         <div className='px-2 xxs:px-5 xs:px-0 mx-auto max-w-screen-[250px] xs:max-w-screen-xxs sm:max-w-screen-xs md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl 4xl:max-w-screen-3xl'>
           <Tabs className='bg-[#ffffffe0] rounded-lg'>
             <TabList id='#nestedNav' className='grid grid-cols-4 sm:grid-cols-2 xl:grid-cols-4 justify-center items-center border-b-2 border-gray-400 rounded-t-lg'>

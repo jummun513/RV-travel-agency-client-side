@@ -1,34 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../components/pages/PublicPage/Home/Home";
-// import Test from "../layout/Test/Test";
-import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
-import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
-import Admin from "../layout/Admin/Admin";
-import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
-import NotFound from "../components/shared/NotFound/NotFound";
-import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
-import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
-import Developing from "../components/shared/Developing/Developing";
-import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
-import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
-import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
-import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
-import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
-import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
-import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyPolicy";
 import Hotels from "../components/pages/PublicPage/Hotels/Hotels";
+import Developing from "../components/shared/Developing/Developing";
 import HotelDetail from "../components/pages/PublicPage/HotelDetail/HotelDetail";
 import ContactUs from "../components/pages/PublicPage/ContactUs/ContactUs";
+import ChairmanMessage from "../components/pages/PublicPage/About/ChairmanMessage/ChairmanMessage";
+import DirectorMessage from "../components/pages/PublicPage/About/DirectorMessage/DirectorMessage";
+import CeoMessage from "../components/pages/PublicPage/About/CeoMessage/CeoMessage";
+import WhoWeAre from "../components/pages/PublicPage/About/WhoWeAre/WhoWeAre";
+import LoginRegiContainer from "../components/pages/PublicPage/LoginRegiContainer/LoginRegiContainer";
+import PrivilegeLogin from "../components/pages/PublicPage/PrivilegeLogin/PrivilegeLogin";
+import TermsAndCondition from "../components/pages/PublicPage/TermsAndCondition/TermsAndCondition";
+import PrivacyPolicy from "../components/pages/PublicPage/PrivacyPolicy/PrivacyPolicy";
+import PrivatePgRoutes from "./PrivatePgRoutes";
+import HotelBooking from "../components/pages/ProtectedPage/HotelBooking/HotelBooking";
+import NotFound from "../components/shared/NotFound/NotFound";
+import AdminPanelPage from "../components/pages/AdminPanelPage/AdminPanelPage";
+import AddPG from "../components/pages/AdminPanelPage/PgUsers/AddPG/AddPG";
 import ManagePG from "../components/pages/AdminPanelPage/PgUsers/ManagePG/ManagePG";
 import IndividualPGUser from "../components/pages/AdminPanelPage/PgUsers/ManagePG/IndividualPGUser/IndividualPGUser";
 import EditIndividualPGUser from "../components/pages/AdminPanelPage/PgUsers/ManagePG/EditIndividualPGUser/EditIndividualPGUser";
-import AddPG from "../components/pages/AdminPanelPage/PgUsers/AddPG/AddPG";
+import GeneralUsers from "../components/pages/AdminPanelPage/GeneralUsers/GeneralUsers";
+import AdminManage from "../components/pages/AdminPanelPage/AdminManage/AdminManage";
 import AddHotel from "../components/pages/AdminPanelPage/Hotels/AddHotel/AddHotel";
 import ManageHotel from "../components/pages/AdminPanelPage/Hotels/ManageHotels/ManageHotel";
-import WhoWeAre from "../components/pages/PublicPage/About/WhoWeAre/WhoWeAre";
-import DirectorMessage from "../components/pages/PublicPage/About/DirectorMessage/DirectorMessage";
-import CeoMessage from "../components/pages/PublicPage/About/CeoMessage/CeoMessage";
+import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
+import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
+import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
+import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
 
 
 export const router = createBrowserRouter([
@@ -43,10 +43,6 @@ export const router = createBrowserRouter([
             {
                 path: '/home',
                 element: <Home></Home>,
-            },
-            {
-                path: '/',
-                element: <Developing></Developing>,
             },
             {
                 path: '/hotels-list',
@@ -67,20 +63,6 @@ export const router = createBrowserRouter([
             {
                 path: '/my-profile',
                 element: <Developing></Developing>,
-            },
-            {
-                path: '/dashboard',
-                element: <PrivateGuserPguserRoutes><UserDashboard></UserDashboard></PrivateGuserPguserRoutes>,
-                children: [
-                    {
-                        path: 'profile',
-                        element: <Profile></Profile>,
-                    },
-                    {
-                        path: 'edit-profile',
-                        element: <EditProfile></EditProfile>,
-                    }
-                ]
             },
             {
                 path: '/contact-us',
@@ -138,48 +120,61 @@ export const router = createBrowserRouter([
                 path: '/privacy&policy',
                 element: <PrivacyPolicy></PrivacyPolicy>,
             },
-        ]
-    },
-    {
-        path: '/admin-panel',
-        element: <Admin></Admin>,
-        children: [
             {
-                path: 'admin-panel',
+                path: '/dashboard',
+                element: <PrivateGuserPguserRoutes><UserDashboard></UserDashboard></PrivateGuserPguserRoutes>,
+                children: [
+                    {
+                        path: 'profile',
+                        element: <Profile></Profile>,
+                    },
+                    {
+                        path: 'edit-profile',
+                        element: <EditProfile></EditProfile>,
+                    }
+                ]
+            },
+            {
+                path: '/booked-hotels/:hotelId',
+                element: <PrivatePgRoutes><HotelBooking></HotelBooking></PrivatePgRoutes>,
+            },
+            {
+                path: '/admin-panel',
                 element: <AdminPanelPage></AdminPanelPage>,
-            },
-            {
-                path: 'manage-privileged-guest',
-                element: <ManagePG></ManagePG>,
-            },
-            {
-                path: 'manage-privileged-guest/individual-user-profile/:pgId',
-                element: <IndividualPGUser></IndividualPGUser>,
-            },
-            {
-                path: 'manage-privileged-guest/individual-user-profile/:pgId/edit',
-                element: <EditIndividualPGUser></EditIndividualPGUser>,
-            },
-            {
-                path: 'add-new-privileged-guest',
-                element: <AddPG></AddPG>,
-            },
-            {
-                path: 'general-users',
-                element: <GeneralUsers></GeneralUsers>,
-            },
-            {
-                path: 'manage-admin',
-                element: <AdminManage></AdminManage>,
-            },
-            {
-                path: 'add-new-hotel',
-                element: <AddHotel></AddHotel>,
-            },
-            {
-                path: 'manage-hotels',
-                // element: <Developing></Developing>
-                element: <ManageHotel></ManageHotel>,
+                children: [
+                    {
+                        path: 'add-new-privileged-guest',
+                        element: <AddPG></AddPG>,
+                    },
+                    {
+                        path: 'manage-privileged-guest',
+                        element: <ManagePG></ManagePG>,
+                    },
+                    {
+                        path: 'manage-privileged-guest/individual-user-profile/:pgId',
+                        element: <IndividualPGUser></IndividualPGUser>,
+                    },
+                    {
+                        path: 'manage-privileged-guest/individual-user-profile/:pgId/edit',
+                        element: <EditIndividualPGUser></EditIndividualPGUser>,
+                    },
+                    {
+                        path: 'general-users',
+                        element: <GeneralUsers></GeneralUsers>,
+                    },
+                    {
+                        path: 'manage-admin',
+                        element: <AdminManage></AdminManage>,
+                    },
+                    {
+                        path: 'add-new-hotel',
+                        element: <AddHotel></AddHotel>,
+                    },
+                    {
+                        path: 'manage-hotels',
+                        element: <ManageHotel></ManageHotel>,
+                    },
+                ]
             },
         ]
     },

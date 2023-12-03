@@ -6,9 +6,9 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const PrivateAdminRoutes = (data) => {
     const { children } = data;
-    const { Guser, isLoading } = useContext(AuthContext);
+    const { Guser, loading } = useContext(AuthContext);
 
-    if (isLoading) {
+    if (loading) {
         return <Loading></Loading>
     }
 

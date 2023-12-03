@@ -44,7 +44,7 @@ const NavBar = () => {
     const location = useLocation();
 
     return (
-        <div className='fixed z-20 w-full bg-[#fbfbfb] opacity-80 shadow-md'>
+        <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
                 <Link to='/'>
                     <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
@@ -182,28 +182,33 @@ const NavList = () => {
 
     return (
         <div>
-            <ul ref={navbarRef} className='flex items-center 3xl:mt-2'>
+            {/* <ul ref={navbarRef} className='flex items-center mt-2 3xl:mt-2'> */}
+            <ul ref={navbarRef} className='flex items-center mt-2'>
                 {navItems.map((item, index) => {
                     if (item.children) {
                         return (
                             <div className='relative' key={index}>
-                                <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
+                                <div onMouseEnter={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex flex-col 3xl:flex-row items-center'>
-                                        <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                        <span className='xl:mt-2 3xl:ms-2 text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
+                                        {/* <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                        <span className='xl:mt-2 3xl:ms-2 text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span> */}
+                                        <span className='text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
                                     </div>
                                     <span className='group-hover/nav:text-primary'>{showDropdown[index] ? '▲' : '▼'}</span>
                                 </div>
                                 {showDropdown[index] && (
-                                    <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
+                                    // <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
+                                    <ul className='absolute xl:top-[70px] 2xl:top-[80px] -left-10 2xl:-left-5 w-[220px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
                                         {
                                             (PGuser && (item.label.includes('Privileged Guest'))) ?
                                                 item.children.slice(1, 4).map((child, childIndex) => (
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-black'>{child.label}</span></NavLink></li>
                                                 ))
                                                 :
                                                 item.children.slice(0, 4).map((child, childIndex) => (
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-gray-800'>{child.label}</span></NavLink></li>
                                                 ))
                                         }
                                     </ul>
@@ -216,8 +221,9 @@ const NavList = () => {
                         <li id='sidebar' key={index}>
                             <NavLink to={item.href} className='group/nav btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                 <span className='flex flex-col 3xl:flex-row items-center'>
-                                    <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                    <span className='xl:mt-2 3xl:ms-2 xl:text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
+                                    {/* <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                    <span className='xl:mt-2 3xl:ms-2 xl:text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span> */}
+                                    <span className='xl:text-sm 2xl:text-base group-hover/nav:text-primary'>{item.label}</span>
                                 </span>
                             </NavLink>
                         </li>
@@ -249,8 +255,9 @@ const SmallNavList = () => {
                             <div key={index}>
                                 <div onClick={() => toggleDropdown(index)} className='group/nav flex items-center justify-between mt-3 btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex items-center'>
-                                        <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                        <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span>
+                                        {/* <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                        <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span> */}
+                                        <span className='group-hover/nav:text-primary'>{item.label}</span>
                                     </div>
                                     <span className='group-hover/nav:text-primary'>{showDropdown[index] ? '▲' : '▼'}</span>
                                 </div>
@@ -259,11 +266,13 @@ const SmallNavList = () => {
                                         {
                                             PGuser ?
                                                 item.children.slice(1, 4).map((child, childIndex) => (
-                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    // <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                                 :
                                                 item.children.map((child, childIndex) => (
-                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    // <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                    <li id='sidebar' className='group/item mt-2' key={childIndex}><NavLink to={child.href} className='flex items-center justify-start btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
                                                 ))
                                         }
                                     </ul>
@@ -276,8 +285,9 @@ const SmallNavList = () => {
                         <li id='sidebar' key={index}>
                             <NavLink to={item.href} className='group/nav btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline text-gray-700 hover:no-underline mt-3'>
                                 <span className='flex items-center'>
-                                    <span className='group-hover/nav:text-primary'>{item.icon}</span>
-                                    <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span>
+                                    {/* <span className='group-hover/nav:text-primary'>{item.icon}</span>
+                                    <span className='ms-2 group-hover/nav:text-primary'>{item.label}</span> */}
+                                    <span className='group-hover/nav:text-primary'>{item.label}</span>
                                 </span>
                             </NavLink>
                         </li>
@@ -348,8 +358,8 @@ const UserProfile = (data) => {
                         userItems.slice(0, 3).map((item, index) => {
                             const isLastItem = index === userItems.slice(0, 3).length - 1;
                             return (
-                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
-                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 cursor-pointer ${isLastItem ? 'bg-red-600 w-full hover:bg-red-500 duration-150 ease-linear' : 'border-b'}`} key={index}>
+                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-800 group/nav'}`}>
                                         <span className='flex items-center'>
                                             <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
                                             <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>
@@ -362,8 +372,8 @@ const UserProfile = (data) => {
                         userItems.slice(1, 3).map((item, index) => {
                             const isLastItem = index === userItems.slice(1, 3).length - 1;
                             return (
-                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
-                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                                <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 cursor-pointer ${isLastItem ? 'bg-zinc-200 w-full hover:bg-slate-300 duration-150 ease-linear' : 'border-b'}`} key={index}>
+                                    <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-900' : 'text-slate-800 group/nav'}`}>
                                         <span className='flex items-center'>
                                             <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
                                             <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>
@@ -406,8 +416,8 @@ const UserProfile2 = (data) => {
                     userItems.slice(1, 3).map((item, index) => {
                         const isLastItem = index === userItems.slice(1, 3).length - 1;
                         return (
-                            <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 ${isLastItem ? 'bg-red-500 w-full' : 'border-b'}`} key={index}>
-                                <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-50' : 'text-gray-700 group/nav'}`}>
+                            <li onClick={() => { isLastItem && handleSignOut() }} id={`${!isLastItem && 'sidebar'}`} className={`mt-4 sm:mt-5 md:mt-3 cursor-pointer ${isLastItem ? 'bg-primary w-full hover:bg-secondary duration-150 ease-linear' : 'border-b'}`} key={index}>
+                                <NavLink to={item.href} className={`btn btn-link btn-xs xxs:btn-sm sm:btn-md no-underline hover:no-underline font-semibold ${isLastItem ? 'text-gray-900' : 'text-slate-800 group/nav'}`}>
                                     <span className='flex items-center'>
                                         <span className='group-hover/nav:text-primary text-sm'>{item.icon}</span>
                                         <span className='ms-3 group-hover/nav:text-primary text-sm'>{item.label}</span>

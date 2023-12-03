@@ -1,5 +1,6 @@
 import { Rating } from "@mui/material";
 import { useState } from "react";
+import './Review.css';
 
 const Review = (data) => {
     const { url, alt, name, occupation, reviews } = data.data;
@@ -22,7 +23,7 @@ const Review = (data) => {
                     </div>
                 </div>
                 <div>
-                    <Rating name="size-large" defaultValue={4} size="large" readOnly />
+                    <Rating name="size-large" precision={0.5} value={3.5} size="large" readOnly />
                 </div>
             </div>
             <div className="mt-3 xs:mt-5">

@@ -6,6 +6,7 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const email = useRef(null);
@@ -13,10 +14,11 @@ const Login = () => {
     const formRef = useRef();
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const { loading, setLoading, signIn, isLoading } = useContext(AuthContext);
+    const { loading, setLoading, signIn } = useContext(AuthContext);
     const { dispatch } = useContext(AuthContextPG);
     const navigate = useNavigate();
     const location = useLocation().state?.from?.pathname || '/'; // save the user location from where he or she come
+    const errorNotify = () => toast.error("There was a problem. Try again!", { theme: "light" });
 
     const handleEmailField = () => {
         setError('')
@@ -41,12 +43,16 @@ const Login = () => {
                     formRef.current.reset();
                 })
                 .catch((error) => {
-                    // if any error catch
                     setLoading(false);
                     setError(error.message);
+                    if (!error.message.includes('invalid-credential')) {
+                        errorNotify();
+                        navigate('/')
+                    }
                 })
         }
     }
+
 
     return (
         <div className="bg-[#fbfbfb] rounded-lg md:rounded-none md:rounded-e-xl lg:rounded-e-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
@@ -77,7 +83,7 @@ const Login = () => {
                             }
                         </div>
                         {
-                            error.includes('invalid-login-credentials') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Incorrect email/password.</p>
+                            error.includes('invalid-credential') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Incorrect email/password.</p>
                         }
                     </div>
 
@@ -102,7 +108,7 @@ const Login = () => {
 
                     {/* submit button */}
                     {
-                        (loading || isLoading) ?
+                        (loading) ?
                             <button disabled type="button" className="rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 inline-flex items-center">
                                 <svg aria-hidden="true" role="status" className="inline w-4 h-4 mr-3 text-gray-950 animate-spin" viewBox="0 0 100 101" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />

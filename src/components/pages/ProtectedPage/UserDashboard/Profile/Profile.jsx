@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import useImage from '../../../../../assets/images/user.svg';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
 import { AuthContext } from '../../../../../providers/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const Profile = () => {
     const { PGuser } = useContext(AuthContextPG);
@@ -79,6 +80,9 @@ const Profile = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Profile - Royal Venture Limited</title>
+            </Helmet>
             {
                 (PGuser !== null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-24">
