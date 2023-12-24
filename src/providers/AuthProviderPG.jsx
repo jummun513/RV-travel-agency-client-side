@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, createContext, useReducer } from "react";
 
 const INITIAL_STATE = {
@@ -46,7 +47,18 @@ const AuthProviderPG = (data) => {
 
 
     useEffect(() => {
-        localStorage.setItem('pg_user', JSON.stringify(state.user))
+        localStorage.setItem('pg_user', JSON.stringify(state.user));
+        if (state?.user?.register_email) {
+            axios.post(`${import.meta.env.VITE_clientSideLink}/api/auth/jwt-pg`, { email: state.user?.register_email })
+                .then(data => {
+                    const token = data.data;
+                    localStorage.setItem('pg_access_token', token);
+                    localStorage.removeItem('access_token');
+                })
+        }
+        else {
+            localStorage.removeItem('pg_access_token');
+        }
     }, [state.user])
 
 

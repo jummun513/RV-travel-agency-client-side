@@ -25,7 +25,7 @@ function Main() {
         // Simulate loading your website content
         setTimeout(() => {
             setLoading(false);
-        }, 1000); // Replace with actual loading logic
+        }, 500); // Replace with actual loading logic
 
     }, []);
 

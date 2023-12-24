@@ -9,7 +9,7 @@ const AddMoreRoom = ({ moreData, setMoreData }) => {
     const addNewDiv = () => {
         const newLabel = `Room-${divs.length + 1}`;
         setDivs((prevDivs) => [...prevDivs, newLabel]);
-        setMoreData((prevFormData) => [...prevFormData, { name: '', price: '', bed: '', sleep: '', size: '', wifi: true, breakfast: true, parking: true, pictures: [] }]);
+        setMoreData((prevFormData) => [...prevFormData, { name: '', price: 0, bed: '', sleep: '', size: '', wifi: true, breakfast: true, parking: true, pictures: [] }]);
     };
 
     // In first render add a single room automatically

@@ -99,7 +99,7 @@ const NavBar = () => {
                         <div className={`absolute right-0 sm:right-10 xl:right-0 duration-100 ease-linear ${profileToggle ? 'opacity-100 visible top-[45px] xxs:top-[64px] lg:top-[74px] xl:top-[100px] 3xl:top-[106px]' : 'opacity-0 invisible top-[35px] xxs:top-[54px] lg:top-[64px] xl:top-[90px] 3xl:top-[96px] overflow-hidden'}`}><UserProfile2 setProfileToggle={setProfileToggle}></UserProfile2></div>
                 }
             </div>
-            <ToastContainer autoClose={10000} />
+            <ToastContainer autoClose={5000} />
         </div>
     );
 };
@@ -187,7 +187,7 @@ const NavList = () => {
                 {navItems.map((item, index) => {
                     if (item.children) {
                         return (
-                            <div className='relative' key={index}>
+                            <div onMouseLeave={() => toggleDropdown(index)} className='relative' key={index}>
                                 <div onMouseEnter={() => toggleDropdown(index)} className='group/nav flex items-center justify-between btn btn-link xl:btn-sm 2xl:btn-md no-underline text-gray-700 hover:no-underline'>
                                     <div className='flex flex-col 3xl:flex-row items-center'>
                                         {/* <span className='group-hover/nav:text-primary'>{item.icon}</span>
@@ -198,20 +198,22 @@ const NavList = () => {
                                 </div>
                                 {showDropdown[index] && (
                                     // <ul className='absolute xl:top-[75px] 2xl:top-[85px] 3xl:top-[80px] -left-10 2xl:-left-5 w-[256px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
-                                    <ul className='absolute xl:top-[70px] 2xl:top-[80px] -left-10 2xl:-left-5 w-[220px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
-                                        {
-                                            (PGuser && (item.label.includes('Privileged Guest'))) ?
-                                                item.children.slice(1, 4).map((child, childIndex) => (
-                                                    // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-black'>{child.label}</span></NavLink></li>
-                                                ))
-                                                :
-                                                item.children.slice(0, 4).map((child, childIndex) => (
-                                                    // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
-                                                    <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-gray-800'>{child.label}</span></NavLink></li>
-                                                ))
-                                        }
-                                    </ul>
+                                    <div className='relative bg-transparent xl:-top-[70px] 2xl:-top-[80px]'>
+                                        <ul className='absolute xl:top-[70px] 2xl:top-[80px] -left-10 2xl:-left-5 w-[220px] bg-[#fbfbfb] shadow-sm rounded-b-md pt-2 pb-5 px-2'>
+                                            {
+                                                (PGuser && (item.label.includes('Privileged Guest'))) ?
+                                                    item.children.slice(1, 4).map((child, childIndex) => (
+                                                        // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                        <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-black'>{child.label}</span></NavLink></li>
+                                                    ))
+                                                    :
+                                                    item.children.slice(0, 4).map((child, childIndex) => (
+                                                        // <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span>{child.icon}</span><span className='xl:mt-2 3xl:ms-2 group-hover/item:text-primary text-gray-600'>{child.label}</span></NavLink></li>
+                                                        <li id='sidebar' className='mt-3 group/item' key={childIndex}><NavLink to={child.href} className='flex items-center xl:items-end justify-start btn btn-link no-underline text-gray-950 hover:no-underline'><span className='group-hover/item:text-primary text-gray-800'>{child.label}</span></NavLink></li>
+                                                    ))
+                                            }
+                                        </ul>
+                                    </div>
                                 )}
                             </div>
                         );

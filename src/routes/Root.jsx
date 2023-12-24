@@ -29,6 +29,12 @@ import PrivateGuserPguserRoutes from "./PrivateGuserPguserRoutes";
 import UserDashboard from "../components/pages/ProtectedPage/UserDashboard/UserDashboard";
 import Profile from "../components/pages/ProtectedPage/UserDashboard/Profile/Profile";
 import EditProfile from "../components/pages/ProtectedPage/UserDashboard/EditProfile/EditProfile";
+import BookingReview from "../components/pages/ProtectedPage/HotelBooking/BookingReview/BookingReview";
+import HotelBooked from "../components/pages/ProtectedPage/UserDashboard/History/HotelBooked/HotelBooked";
+import PackagePurchased from "../components/pages/ProtectedPage/UserDashboard/History/PackagePurchased/PackagePurchased";
+import BookedHotel from "../components/pages/AdminPanelPage/Booked/BookedHotel/BookedHotel";
+import BookedPackage from "../components/pages/AdminPanelPage/Booked/BookedPackage/BookedPackage";
+import Cancellation from "../components/pages/PublicPage/Cancellation/Cancellation";
 
 
 export const router = createBrowserRouter([
@@ -121,6 +127,10 @@ export const router = createBrowserRouter([
                 element: <PrivacyPolicy></PrivacyPolicy>,
             },
             {
+                path: '/refund&cancellation',
+                element: <Cancellation></Cancellation>,
+            },
+            {
                 path: '/dashboard',
                 element: <PrivateGuserPguserRoutes><UserDashboard></UserDashboard></PrivateGuserPguserRoutes>,
                 children: [
@@ -130,13 +140,25 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'edit-profile',
-                        element: <EditProfile></EditProfile>,
+                        element: <PrivatePgRoutes><EditProfile></EditProfile></PrivatePgRoutes>,
+                    },
+                    {
+                        path: 'my-order-history/hotel-booked',
+                        element: <PrivatePgRoutes><HotelBooked></HotelBooked></PrivatePgRoutes>,
+                    },
+                    {
+                        path: 'my-order-history/package-purchased',
+                        element: <PrivatePgRoutes><PackagePurchased></PackagePurchased></PrivatePgRoutes>,
                     }
                 ]
             },
             {
                 path: '/booked-hotels/:hotelId',
                 element: <PrivatePgRoutes><HotelBooking></HotelBooking></PrivatePgRoutes>,
+            },
+            {
+                path: '/my-booked-hotels/booking-review/:orderId',
+                element: <PrivatePgRoutes><BookingReview></BookingReview></PrivatePgRoutes>,
             },
             {
                 path: '/admin-panel',
@@ -173,6 +195,14 @@ export const router = createBrowserRouter([
                     {
                         path: 'manage-hotels',
                         element: <ManageHotel></ManageHotel>,
+                    },
+                    {
+                        path: 'booking-manage/booked-hotel',
+                        element: <BookedHotel></BookedHotel>,
+                    },
+                    {
+                        path: 'booking-manage/booked-package',
+                        element: <BookedPackage></BookedPackage>,
                     },
                 ]
             },

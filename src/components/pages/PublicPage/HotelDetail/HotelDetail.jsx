@@ -13,7 +13,6 @@ import { AiOutlineClose, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-i
 import Room from "./Room/Room";
 import { ImPointRight } from 'react-icons/im';
 import { Helmet } from 'react-helmet-async';
-import Loading from '../../../shared/Loading/Loading';
 import { MdOutlineBalcony } from "react-icons/md";
 import { TbAirConditioning } from "react-icons/tb";
 import noImage from '../../../../assets/images/image-not-found.svg';
@@ -196,9 +195,6 @@ const HotelDetail = () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels`);
         return res.json();
     })
-    if (isLoading) {
-        return <Loading></Loading>
-    }
 
     // filter the demand data of hotel via id
     const searchHotel = (hotels?.filter(item => (item._id === hotelId)));
@@ -206,126 +202,132 @@ const HotelDetail = () => {
     return (
         <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
             <Helmet>
-                <title> {searchHotel[0].hotelName ? searchHotel[0].hotelName : 'Hotel Details'} Royal Venture Limited</title>
+                <title> {searchHotel[0]?.hotelName ? searchHotel[0]?.hotelName : 'Hotel Details'} Royal Venture Limited</title>
             </Helmet>
-            <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
-                {
-                    searchHotel?.map((item, idx) => {
-                        return (
-                            <div key={idx}>
-                                {/* for large device */}
-                                <div className="hidden lg:grid grid-cols-4 gap-1">
-                                    {
-                                        item.images.slice(0, 5)?.map((image, idx) => {
-                                            return (
-                                                <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
-                                                    <div className={`${idx === 4 && 'relative'}`}>
-                                                        <img loading='lazy' src={item.images ? image.url : noImage} alt="" />
-                                                        {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                {/* for medium device */}
-                                <div className="hidden xs:grid lg:hidden grid-cols-3 gap-1">
-                                    {
-                                        item.images.slice(0, 3).map((image, idx) => {
-                                            return (
-                                                <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
-                                                    <div className={`${idx === 2 && 'relative'}`}>
-                                                        <img loading='lazy' src={image.url} alt="" />
-                                                        {idx === 2 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 md:p-4 rounded-xl md:rounded-2xl text-2xl md:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-2 md:w-8 md:h-8 md:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                {/* for small device */}
-                                <div className="xs:hidden">
-                                    {
-                                        item.images.slice(0, 1).map((image, idx) => {
-                                            return (
-                                                <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
-                                                    <div className={`${idx === 0 && 'relative'}`}>
-                                                        <img loading='lazy' src={image.url} alt="" />
-                                                        {idx === 0 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 xxs:p-3 rounded-xl text-xl xxs:text-2xl text-gray-50"><BsImages className="xxs:w-7 xxs:h-7 xxs:me-3 w-6 h-6 me-2"></BsImages>{item.images.length - (idx + 1)}+</div>}
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-
-
-
-                                <div>
-                                    <nav id="spy-navbar" className="navbar sticky top-[42px] xxs:top-[62px] lg:top-[72px] xl:top-[95px] 3xl:top-[101px] z-[11] py-3 xl:py-5 shadow-sm mt-12 md:mt-10 lg:mt-16 xl:mt-20 border border-slate-50 bg-[#fff] flex flex-col xs:flex-row items-center justify-between">
-                                        <ul className="flex flex-wrap space-x-2 xxs:space-x-5">
-                                            <li className={`${activeSection === 'Overview' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Overview")}>
-                                                    Overview
-                                                </button>
-                                            </li>
-                                            <li className={`${activeSection === 'Rooms' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Rooms")}>
-                                                    Rooms
-                                                </button>
-                                            </li>
-                                            <li className={`${activeSection === 'About' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("About")}>
-                                                    About
-                                                </button>
-                                            </li>
-                                            <li className={`${activeSection === 'Amenities' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Amenities")}>
-                                                    Amenities
-                                                </button>
-                                            </li>
-                                            <li className={`${activeSection === 'Policies' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
-                                                <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Policies")}>
-                                                    Policies
-                                                </button>
-                                            </li>
-                                        </ul>
-                                        <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
-                                    </nav>
-                                    <section id="Overview" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
-                                        <div className="lg:flex text-gray-800">
-                                            <div className='lg:w-1/2 lg:mr-8'>
-                                                <h2 className="text-lg font-bold xs:text-2xl xl:text-4xl">{item.hotelName}</h2>
-                                                <Rating className='my-1 lg:my-3' name="read-only" size="large" defaultValue={4.5} precision={0.5} readOnly />
-                                                <p className="text-xs xs:text-sm xl:text-base text-gray-700">{item.description}</p>
-                                            </div>
-                                            <div className='mt-5 lg:mt-0 lg:w-1/2'>
-                                                <iframe className='w-full h-full border-none border-2 rounded-lg' src={item.location.map} allowFullScreen loading="lazy"></iframe>
-                                            </div>
-                                            {/* <p className="text-gray-800 font-semibold my-3 xs:my-5">8.8/10 Fabulous</p> */}
-                                            {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900">See all reviews</button> */}
-                                            {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 mt-5">See all</button> */}
+            {
+                isLoading ?
+                    <div className='h-64 max-w-screen-4xl rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10'>
+                        <div className='skeleton bg-gray'></div>
+                    </div>
+                    :
+                    <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
+                        {
+                            searchHotel?.map((item, idx) => {
+                                return (
+                                    <div key={idx}>
+                                        {/* for large device */}
+                                        <div className="hidden lg:grid grid-cols-4 gap-1">
+                                            {
+                                                item.images.slice(0, 5)?.map((image, idx) => {
+                                                    return (
+                                                        <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
+                                                            <div className={`${idx === 4 && 'relative'}`}>
+                                                                <img loading='lazy' src={item.images ? image.url : noImage} alt="" />
+                                                                {idx === 4 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-3 2xl:p-4 rounded-xl 2xl:rounded-2xl text-2xl 2xl:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-3 2xl:w-8 2xl:h-8 2xl:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
-                                        <div className="lg:flex lg:flex-row-reverse lg:mt-1 items-end">
-                                            <div className='lg:w-1/2'>
-                                                <p className="text-xs xs:text-sm text-gray-800 mt-2 xs:mt-3">{item.location.detailsAdd}</p>
-                                                {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 xs:mt-5 mt-2 mb-8 xs:mb-5">View in map</button> */}
-                                                <h3 className="text-gray-800 font-semibold text-base xs:text-xl mt-7 sm:mt-10 lg:mt-10">What&#39;s around</h3>
-                                                <div>
-                                                    {
-                                                        item.location.around.map((d, i) => {
-                                                            return (
-                                                                <div key={i} className="flex justify-between items-center text-gray-800 mt-3">
-                                                                    <div className="flex items-center">
-                                                                        <MdLocationOn className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdLocationOn>
-                                                                        <span>{d.name}</span>
-                                                                    </div>
-                                                                    <span className='ms-2 xxs:ms-0 text-end'>{d.distance}</span>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                    {/* <div className="flex justify-between items-center text-gray-800">
+                                        {/* for medium device */}
+                                        <div className="hidden xs:grid lg:hidden grid-cols-3 gap-1">
+                                            {
+                                                item.images.slice(0, 3).map((image, idx) => {
+                                                    return (
+                                                        <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
+                                                            <div className={`${idx === 2 && 'relative'}`}>
+                                                                <img loading='lazy' src={image.url} alt="" />
+                                                                {idx === 2 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 md:p-4 rounded-xl md:rounded-2xl text-2xl md:text-3xl text-gray-50"><BsImages className="w-6 h-6 me-2 md:w-8 md:h-8 md:me-4"></BsImages>{item.images.length - (idx + 1)}+</div>}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        {/* for small device */}
+                                        <div className="xs:hidden">
+                                            {
+                                                item.images.slice(0, 1).map((image, idx) => {
+                                                    return (
+                                                        <div onClick={() => handleSlideOpen(idx)} key={idx} className={`cursor-pointer ${idx === 0 && 'col-span-2 row-span-2'}`}>
+                                                            <div className={`${idx === 0 && 'relative'}`}>
+                                                                <img loading='lazy' src={image.url} alt="" />
+                                                                {idx === 0 && <div className="absolute bg-gray-950 opacity-80 right-2 bottom-2 flex items-center justify-between p-2 xxs:p-3 rounded-xl text-xl xxs:text-2xl text-gray-50"><BsImages className="xxs:w-7 xxs:h-7 xxs:me-3 w-6 h-6 me-2"></BsImages>{item.images.length - (idx + 1)}+</div>}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+
+
+
+                                        <div>
+                                            <nav id="spy-navbar" className="navbar sticky top-[42px] xxs:top-[62px] lg:top-[72px] xl:top-[95px] 3xl:top-[101px] z-[11] py-3 xl:py-5 shadow-sm mt-12 md:mt-10 lg:mt-16 xl:mt-20 border border-slate-50 bg-[#fff] flex flex-col xs:flex-row items-center justify-between">
+                                                <ul className="flex flex-wrap space-x-2 xxs:space-x-5">
+                                                    <li className={`${activeSection === 'Overview' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                        <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Overview")}>
+                                                            Overview
+                                                        </button>
+                                                    </li>
+                                                    <li className={`${activeSection === 'Rooms' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                        <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Rooms")}>
+                                                            Rooms
+                                                        </button>
+                                                    </li>
+                                                    <li className={`${activeSection === 'About' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                        <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("About")}>
+                                                            About
+                                                        </button>
+                                                    </li>
+                                                    <li className={`${activeSection === 'Amenities' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                        <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Amenities")}>
+                                                            Amenities
+                                                        </button>
+                                                    </li>
+                                                    <li className={`${activeSection === 'Policies' ? 'spy-nav-item-active' : 'spy-nav-item'}`}>
+                                                        <button className="py-2 text-gray-800 font-bold" onClick={() => handleNavClick("Policies")}>
+                                                            Policies
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                                <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
+                                            </nav>
+                                            <section id="Overview" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                                <div className="lg:flex text-gray-800">
+                                                    <div className='lg:w-1/2 lg:mr-8'>
+                                                        <h2 className="text-lg font-bold xs:text-2xl xl:text-4xl">{item?.hotelName}</h2>
+                                                        <Rating className='my-1 lg:my-3' name="read-only" size="large" defaultValue={4.5} precision={0.5} readOnly />
+                                                        <p className="text-xs xs:text-sm xl:text-base text-gray-700">{item.description}</p>
+                                                    </div>
+                                                    <div className='mt-5 lg:mt-0 lg:w-1/2'>
+                                                        <iframe className='w-full h-full border-none border-2 rounded-lg' src={item.location.map} allowFullScreen loading="lazy"></iframe>
+                                                    </div>
+                                                    {/* <p className="text-gray-800 font-semibold my-3 xs:my-5">8.8/10 Fabulous</p> */}
+                                                    {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900">See all reviews</button> */}
+                                                    {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 mt-5">See all</button> */}
+                                                </div>
+                                                <div className="lg:flex lg:flex-row-reverse lg:mt-1 items-end">
+                                                    <div className='lg:w-1/2'>
+                                                        <p className="text-xs xs:text-sm text-gray-800 mt-2 xs:mt-3">{item.location.detailsAdd}</p>
+                                                        {/* <button className="btn btn-xs xs:btn-sm bg-transparent border-primary hover:bg-primary hover:border-secondary text-gray-900 xs:mt-5 mt-2 mb-8 xs:mb-5">View in map</button> */}
+                                                        <h3 className="text-gray-800 font-semibold text-base xs:text-xl mt-7 sm:mt-10 lg:mt-10">What&#39;s around</h3>
+                                                        <div>
+                                                            {
+                                                                item.location.around.map((d, i) => {
+                                                                    return (
+                                                                        <div key={i} className="flex justify-between items-center text-gray-800 mt-3">
+                                                                            <div className="flex items-center">
+                                                                                <MdLocationOn className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdLocationOn>
+                                                                                <span>{d.name}</span>
+                                                                            </div>
+                                                                            <span className='ms-2 xxs:ms-0 text-end'>{d.distance}</span>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                            {/* <div className="flex justify-between items-center text-gray-800">
                                                     <div className="flex items-center">
                                                         <MdLocationOn className="xs:h-8 xs:w-8 xs:me-3 h-6 w-6 me-1"></MdLocationOn>
                                                         <span>Baitul Falah (Jamiatul Falah)</span>
@@ -353,242 +355,243 @@ const HotelDetail = () => {
                                                     </div>
                                                     <span className='ms-2 xxs:ms-0 text-end'>7 min drive</span>
                                                 </div> */}
-                                                </div>
-                                            </div>
-                                            <div className='mt-7 sm:mt-10 lg:w-1/2 lg:mb-5 text-gray-700 lg:mr-8'>
-                                                <h3 className="font-semibold mb-3 text-base xs:text-xl text-gray-900">Popular amenities</h3>
-                                                <div className="grid grid-cols-2 gap-y-3">
-                                                    <div className="flex items-center">
-                                                        <BsWifi2 className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></BsWifi2>
-                                                        <span>Free WiFi</span>
+                                                        </div>
                                                     </div>
-                                                    <div className="flex items-center">
-                                                        <MdOutlineBalcony className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></MdOutlineBalcony>
-                                                        <span>Balcony</span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <BiRestaurant className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></BiRestaurant>
-                                                        <span>Restaurant</span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <AiFillCar className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></AiFillCar>
-                                                        <span>Free Parking</span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <TbAirConditioning className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></TbAirConditioning>
-                                                        <span>Air Conditioning</span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <Ri24HoursFill className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></Ri24HoursFill>
-                                                        <span>24/7 Front desk</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section id="Rooms" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
-                                        <h2 className="text-gray-800 text-2xl font-medium mb-8">Choose your room</h2>
-                                        <div className="grid lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 justify-items-center gap-y-7 sm:gap-y-10">
-                                            {
-                                                item.rooms.map((r, i) => <Room key={i} data={r} hotelId={hotelId}></Room>)
-                                            }
-                                        </div>
-                                    </section>
-                                    <section id="About" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
-                                        <div className='border-b border-gray-200 pb-10'>
-                                            <div className='lg:flex text-gray-900 justify-between'>
-                                                <div className='lg:w-1/3'>
-                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>About this property</h2>
-                                                </div>
-                                                <div className='lg:w-2/3'>
-                                                    <div>
-                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{item.hotelName}</h3>
-                                                        <p className='text-gray-600'>{item.about}</p>
-                                                    </div>
-                                                    <div className='mt-6 xs:mt-10'>
-                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>Languages</h3>
-                                                        <p className='text-gray-600'>English, Bangla</p>
+                                                    <div className='mt-7 sm:mt-10 lg:w-1/2 lg:mb-5 text-gray-700 lg:mr-8'>
+                                                        <h3 className="font-semibold mb-3 text-base xs:text-xl text-gray-900">Popular amenities</h3>
+                                                        <div className="grid grid-cols-2 gap-y-3">
+                                                            <div className="flex items-center">
+                                                                <BsWifi2 className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></BsWifi2>
+                                                                <span>Free WiFi</span>
+                                                            </div>
+                                                            <div className="flex items-center">
+                                                                <MdOutlineBalcony className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></MdOutlineBalcony>
+                                                                <span>Balcony</span>
+                                                            </div>
+                                                            <div className="flex items-center">
+                                                                <BiRestaurant className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></BiRestaurant>
+                                                                <span>Restaurant</span>
+                                                            </div>
+                                                            <div className="flex items-center">
+                                                                <AiFillCar className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></AiFillCar>
+                                                                <span>Free Parking</span>
+                                                            </div>
+                                                            <div className="flex items-center">
+                                                                <TbAirConditioning className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></TbAirConditioning>
+                                                                <span>Air Conditioning</span>
+                                                            </div>
+                                                            <div className="flex items-center">
+                                                                <Ri24HoursFill className="xs:h-8 xs:w-8 h-6 w-6 me-2 text-gray-900"></Ri24HoursFill>
+                                                                <span>24/7 Front desk</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div className="mt-16">
-                                            <div className='lg:flex text-gray-900 justify-between'>
-                                                <div className='lg:w-1/3'>
-                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Cleaning and safety practices</h2>
-                                                </div>
-                                                <div className='lg:w-2/3'>
+                                            </section>
+                                            <section id="Rooms" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                                <h2 className="text-gray-800 text-2xl font-medium mb-8">Choose your room</h2>
+                                                <div className="grid lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 justify-items-center gap-y-7 sm:gap-y-10">
                                                     {
-                                                        safety?.map((x, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium'>{x.heading}</h3>
-                                                                    <div className='mt-2 mb-6 xs:mb-10'>
-                                                                        {
-                                                                            x.data.map((p, q) => {
-                                                                                return (
-                                                                                    <p key={q} className='text-gray-600'>{p}</p>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        })
+                                                        item.rooms.map((r, i) => <Room key={i} data={r} hotelId={hotelId}></Room>)
                                                     }
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section id="Amenities" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
-                                        <div className='border-gray-200 pb-10'>
-                                            <div className='xl:flex text-gray-900 justify-between'>
-                                                <div className='xl:w-1/3'>
-                                                    <h2 className='text-center xl:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>At a glance</h2>
+                                            </section>
+                                            <section id="About" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                                <div className='border-b border-gray-200 pb-10'>
+                                                    <div className='lg:flex text-gray-900 justify-between'>
+                                                        <div className='lg:w-1/3'>
+                                                            <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>About this property</h2>
+                                                        </div>
+                                                        <div className='lg:w-2/3'>
+                                                            <div>
+                                                                <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{item.hotelName}</h3>
+                                                                <p className='text-gray-600'>{item.about}</p>
+                                                            </div>
+                                                            <div className='mt-6 xs:mt-10'>
+                                                                <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>Languages</h3>
+                                                                <p className='text-gray-600'>English, Bangla</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className='xl:w-2/3'>
-                                                    <div className='md:grid grid-cols-2 gap-x-3 lg:gap-x-5'>
-                                                        {
-                                                            AtGlance?.map((x, i) => {
-                                                                return (
-                                                                    <div key={i}>
-                                                                        <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium flex items-center'><ImPointRight className='mr-2'></ImPointRight> {x.heading}</h3>
-                                                                        <div className='mt-2 mb-6 xs:mb-10'>
-                                                                            {
-                                                                                x.data.map((p, q) => {
-                                                                                    return (
-                                                                                        <p key={q} className='text-gray-600'>{p}</p>
-                                                                                    )
-                                                                                })
-                                                                            }
+                                                <div className="mt-16">
+                                                    <div className='lg:flex text-gray-900 justify-between'>
+                                                        <div className='lg:w-1/3'>
+                                                            <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Cleaning and safety practices</h2>
+                                                        </div>
+                                                        <div className='lg:w-2/3'>
+                                                            {
+                                                                safety?.map((x, i) => {
+                                                                    return (
+                                                                        <div key={i}>
+                                                                            <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium'>{x.heading}</h3>
+                                                                            <div className='mt-2 mb-6 xs:mb-10'>
+                                                                                {
+                                                                                    x.data.map((p, q) => {
+                                                                                        return (
+                                                                                            <p key={q} className='text-gray-600'>{p}</p>
+                                                                                        )
+                                                                                    })
+                                                                                }
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </section>
+                                            <section id="Amenities" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                                <div className='border-gray-200 pb-10'>
+                                                    <div className='xl:flex text-gray-900 justify-between'>
+                                                        <div className='xl:w-1/3'>
+                                                            <h2 className='text-center xl:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>At a glance</h2>
+                                                        </div>
+                                                        <div className='xl:w-2/3'>
+                                                            <div className='md:grid grid-cols-2 gap-x-3 lg:gap-x-5'>
+                                                                {
+                                                                    AtGlance?.map((x, i) => {
+                                                                        return (
+                                                                            <div key={i}>
+                                                                                <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium flex items-center'><ImPointRight className='mr-2'></ImPointRight> {x.heading}</h3>
+                                                                                <div className='mt-2 mb-6 xs:mb-10'>
+                                                                                    {
+                                                                                        x.data.map((p, q) => {
+                                                                                            return (
+                                                                                                <p key={q} className='text-gray-600'>{p}</p>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <section id="Policies" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
+                                                <div className='pb-10'>
+                                                    <div className='lg:flex text-gray-900 justify-between'>
+                                                        <div className='lg:w-1/3'>
+                                                            <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Policies and Fees</h2>
+                                                        </div>
+                                                        <div className='lg:w-2/3'>
+                                                            {
+                                                                policies?.map((x, i) => {
+                                                                    return (
+                                                                        <div key={i} className={`${i !== 0 ? 'mt-10' : 'mt-0'}`}>
+                                                                            <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{x.heading}</h3>
+                                                                            <p className='text-gray-600'>{x.info}</p>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section id="Policies" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
-                                        <div className='pb-10'>
-                                            <div className='lg:flex text-gray-900 justify-between'>
+
+                                        <div className='bg-[#fff] mt-8 sm:mt-5 lg:mt-10'>
+                                            <div className='lg:flex px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10'>
                                                 <div className='lg:w-1/3'>
-                                                    <h2 className='text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl'>Policies and Fees</h2>
+                                                    <h2 className='text-gray-800 text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>Frequently asked questions</h2>
                                                 </div>
                                                 <div className='lg:w-2/3'>
-                                                    {
-                                                        policies?.map((x, i) => {
-                                                            return (
-                                                                <div key={i} className={`${i !== 0 ? 'mt-10' : 'mt-0'}`}>
-                                                                    <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{x.heading}</h3>
-                                                                    <p className='text-gray-600'>{x.info}</p>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <div className='bg-[#fff] mt-8 sm:mt-5 lg:mt-10'>
-                                    <div className='lg:flex px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10'>
-                                        <div className='lg:w-1/3'>
-                                            <h2 className='text-gray-800 text-center lg:text-left mb-10 font-semibold text-base xxs:text-lg xs:text-2xl lg:text-4xl'>Frequently asked questions</h2>
-                                        </div>
-                                        <div className='lg:w-2/3'>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    Does offer {item.hotelName} free cancellation for a full refund?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_1}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    What are the cleanliness and hygiene measures currently in place at {item.hotelName}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_2}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    Is there a pool at {item.heading}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_3}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    Are pets allowed at {item.hotelName}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_4}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    Is parking offered on site at {item.hotelName}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_5}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    What are the check-in and check-out times at {item.hotelName}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_6}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    What is there to do at {item.hotelName} and nearby?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_7}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    Are there restaurants at or near {item.hotelName}?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_8}</p>
-                                                </div>
-                                            </div>
-                                            <div className="collapse collapse-arrow bg-transparent rounded-none">
-                                                <input type="radio" name="my-accordion-2" />
-                                                <div className="text-gray-900 collapse-title lg:text-xl font-medium">
-                                                    What&apos;s the area around {item.hotelName} like?
-                                                </div>
-                                                <div className="text-gray-700 collapse-content">
-                                                    <p>{item.faq.faq_9}</p>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            Does offer {item.hotelName} free cancellation for a full refund?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_1}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            What are the cleanliness and hygiene measures currently in place at {item.hotelName}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_2}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            Is there a pool at {item.heading}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_3}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            Are pets allowed at {item.hotelName}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_4}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            Is parking offered on site at {item.hotelName}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_5}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            What are the check-in and check-out times at {item.hotelName}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_6}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            What is there to do at {item.hotelName} and nearby?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_7}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            Are there restaurants at or near {item.hotelName}?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_8}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="collapse collapse-arrow bg-transparent rounded-none">
+                                                        <input type="radio" name="my-accordion-2" />
+                                                        <div className="text-gray-900 collapse-title lg:text-xl font-medium">
+                                                            What&apos;s the area around {item.hotelName} like?
+                                                        </div>
+                                                        <div className="text-gray-700 collapse-content">
+                                                            <p>{item.faq.faq_9}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+                                )
+                            })
+                        }
+                    </div>
+            }
             {
                 openSlide &&
                 <div id="container" className="px-1 xxs:px-2 lg:px-4 absolute top-0 left-0 z-20 bg-black lg:bg-[#000000b9] h-[100vh] w-full flex items-center justify-center duration-1000 ease-linear">

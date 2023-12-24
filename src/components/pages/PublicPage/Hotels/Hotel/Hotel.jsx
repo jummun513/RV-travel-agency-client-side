@@ -64,7 +64,7 @@ const Hotel = (data) => {
                         <div className="flex flex-col items-end">
                             {/* <div className="p-1 xl:p-2 text-gray-50 bg-red-500 rounded text-xs xxs:text-sm mb-2">10% off</div> */}
                             {/* <p className="text-gray-800 font-semibold"><strike>USD 26</strike> <span>USD 24</span></p> */}
-                            <p className="text-gray-700">Taka {data.data?.rooms[0]?.price} total</p>
+                            <p className="text-gray-700">Taka {data?.data?.rooms[0]?.price} total</p>
                             <p className="text-[10px] xxs:text-xs 2xl:text-sm text-gray-400">Includes taxes and fees <span className="text-red-500">*</span></p>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import Loading from "../../../shared/Loading/Loading";
 import { useContext } from "react";
 import { AuthContextPG } from "../../../../providers/AuthProviderPG";
 import { AuthContext } from "../../../../providers/AuthProvider";
+import { FaHistory } from "react-icons/fa";
 
 const UserDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,10 +37,31 @@ const UserDashboard = () => {
                 {/* for large device */}
                 <div id="drawer" className="hidden xl:block w-96 bg-black shadow-2xl relative">
                     <div className='p-2 xl:p-3 w-full'>
-                        <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
-                            <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
-                            <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
-                        </ul>
+                        {
+                            PGuser &&
+                            <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
+                                <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                                <li className="mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <FaHistory></FaHistory> Booked History
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-order-history/hotel-booked' className='hover:bg-primary hover:text-gray-950'>Hotel Booked</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-order-history/package-purchased' className='hover:bg-primary hover:text-gray-950'>Package Purchase</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
+                            </ul>
+                        }
+
+                        {
+                            Guser &&
+                            <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
+                                <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                            </ul>
+                        }
                     </div>
                 </div>
 
@@ -50,10 +72,30 @@ const UserDashboard = () => {
                 {/* for small device */}
                 <div id="drawer" ref={dashboardRef} className={`xl:hidden absolute z-[19] h-full overflow-hidden w-[250px] xxs:w-80 bg-zinc-800 shadow-xl duration-200 ease-linear ${drawerOpen ? 'visible opacity-100 translate-x-0' : '-translate-x-20 invisible opacity-0'}`}>
                     <div className='p-2 w-full'>
-                        <ul id='user_dashboard_sidebar' className="menu mt-10 xs:mt-16 h-full">
-                            <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
-                            <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
-                        </ul>
+                        {
+                            PGuser &&
+                            <ul id='user_dashboard_sidebar' className="menu mt-10 xs:mt-16 h-full">
+                                <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                                <li className="mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <FaHistory></FaHistory> Booked History
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-order-history/hotel-booked' className='hover:bg-primary hover:text-gray-950'>Hotel Booked</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-order-history/package-purchased' className='hover:bg-primary hover:text-gray-950'>Package Purchased</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
+                            </ul>
+                        }
+                        {
+                            Guser &&
+                            <ul id='user_dashboard_sidebar' className="menu mt-10 xs:mt-16 h-full">
+                                <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                            </ul>
+                        }
                     </div>
                     <button onClick={() => setDrawerOpen(!drawerOpen)} className='absolute right-1 top-4 border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary'><AiOutlineClose className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineClose></button>
                 </div>

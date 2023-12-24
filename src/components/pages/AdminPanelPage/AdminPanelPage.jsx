@@ -11,6 +11,7 @@ import './AdminPanelPage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from '../../shared/Loading/Loading';
 import { LiaHotelSolid } from "react-icons/lia";
+import { MdBorderColor } from "react-icons/md";
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -40,17 +41,17 @@ const AdminPanelPage = () => {
     }
 
     return (
-        <div className="bg-[#fbfbfb] h-[100vh] overflow-auto relative flex min-h-screen mx-auto max-w-screen-4xl">
+        <div className="bg-[#fbfbfb] h-[100vh] overflow-auto relative flex mx-auto max-w-screen-4xl">
 
             {/* for large device */}
-            <div className="hidden lg:block w-96 bg-zinc-900 shadow-2xl relative">
+            <div className="hidden lg:block w-96 bg-zinc-900 shadow-2xl relative h-[100vh] overflow-auto">
                 <div className='p-2 xl:p-3 w-full'>
                     <div className='w-full'>
                         <Link to='/'>
                             <img loading='lazy' className='h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 w-auto' src={logo} alt="Company Logo" />
                         </Link>
                     </div>
-                    <ul id='admin_panel_sidebar' className="menu mt-7 h-full">
+                    <ul id='admin_panel_sidebar' className="menu mt-7 h-fit">
                         <li>
                             <details>
                                 <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
@@ -62,7 +63,6 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
                         <li className='mt-3'>
                             <details>
                                 <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
@@ -74,13 +74,25 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
-                        <li className='text-gray-50 absolute bottom-2 w-full pe-9'>
-                            <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
-                                <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
-                            </a>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <MdBorderColor /> Booking List
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='booking-manage/booked-hotel' className='hover:bg-primary hover:text-gray-950'>Booked Hotels</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='booking-manage/booked-package' className='hover:bg-primary hover:text-gray-950'>Booked Packages</NavLink></li>
+                                </ul>
+                            </details>
                         </li>
+                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                     </ul>
+                </div>
+                <div className='mx-3 mb-1 mt-5'>
+                    <a onClick={() => handleSignOut()} className='bg-[#ffffff2a] flex items-center px-2 py-2 rounded-md cursor-pointer hover:bg-[#ffffff15] duration-150 ease-linear'>
+                        <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
+                    </a>
                 </div>
             </div>
 
@@ -89,14 +101,14 @@ const AdminPanelPage = () => {
             }
 
             {/* for small device */}
-            <div className={`lg:hidden absolute z-[21] h-full overflow-hidden w-[250px] xxs:w-80 bg-zinc-800 shadow-xl duration-200 ease-linear ${drawerOpen ? 'visible opacity-100 translate-x-0' : '-translate-x-20 invisible opacity-0'}`}>
+            <div className={`lg:hidden absolute z-[21] h-[100vh] overflow-auto w-[250px] xxs:w-80 bg-zinc-800 shadow-xl duration-200 ease-linear ${drawerOpen ? 'visible opacity-100 translate-x-0' : '-translate-x-20 invisible opacity-0'}`}>
                 <div className='p-2 w-full'>
                     <div className='w-full'>
                         <Link to='/'>
                             <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                         </Link>
                     </div>
-                    <ul id='admin_panel_sidebar' className="menu mt-4 xs:mt-8 h-full">
+                    <ul id='admin_panel_sidebar' className="menu mt-4 xs:mt-8">
                         <li>
                             <details>
                                 <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
@@ -108,7 +120,6 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
                         <li className='mt-3'>
                             <details>
                                 <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
@@ -120,13 +131,25 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
-                        <li className='text-gray-50 absolute bottom-2 w-full pe-10'>
-                            <a onClick={() => handleSignOut()} className='bg-[#ffffff2a]'>
-                                <img loading='lazy' className='w-8 xs:w-10 md:w-12 border p-1 rounded-full me-1 sm:me-2' src={userImg} alt='User Image' /> Sign Out
-                            </a>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <MdBorderColor /> Booking List
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='booking-manage/booked-hotel' className='hover:bg-primary hover:text-gray-950'>Booked Hotels</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='booking-manage/booked-package' className='hover:bg-primary hover:text-gray-950'>Booked Packages</NavLink></li>
+                                </ul>
+                            </details>
                         </li>
+                        <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
+                        <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                     </ul>
+                </div>
+                <div className='mx-3 mb-1 mt-4'>
+                    <a onClick={() => handleSignOut()} className='bg-[#ffffff2a] flex items-center px-2 py-2 rounded-md cursor-pointer hover:bg-[#ffffff15] duration-150 ease-linear'>
+                        <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
+                    </a>
                 </div>
                 <button onClick={() => setDrawerOpen(!drawerOpen)} className='absolute right-1 top-1 border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary'><AiOutlineClose className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineClose></button>
             </div>
@@ -134,7 +157,7 @@ const AdminPanelPage = () => {
 
             {/* drawer content */}
             <div className='w-full h-[100vh] overflow-auto'>
-                <ToastContainer autoClose={10000} />
+                <ToastContainer autoClose={5000} />
 
                 {/* drawer content top heading for mini device */}
                 <div className='xxs:hidden px-2 pt-3 pb-4 border-b flex flex-col items-center'>

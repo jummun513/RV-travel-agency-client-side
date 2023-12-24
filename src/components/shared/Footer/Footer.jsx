@@ -69,7 +69,7 @@ const Footer = () => {
                                         <a href="/" className="hover:underline hover:text-primary">Reservation Deposit</a>
                                     </li>
                                     <li>
-                                        <a href="/" className="hover:underline hover:text-primary">Cancellation Policy</a>
+                                        <Link to='/refund&cancellation' className="hover:underline hover:text-primary">Refund & Cancellation Policy</Link>
                                     </li>
                                     <li>
                                         <a href="/" className="hover:underline hover:text-primary">Payment Schedule</a>

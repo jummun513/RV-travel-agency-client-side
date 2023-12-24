@@ -8,7 +8,6 @@ import Hotel from './Hotel/Hotel';
 import { useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Loading from '../../../shared/Loading/Loading.jsx';
 import { Helmet } from 'react-helmet-async';
 
 const Hotels = () => {
@@ -214,35 +213,48 @@ const Hotels = () => {
                     </div>
 
                     {/* card section */}
-                    {
-                        isLoading ? <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'><Loading></Loading></div> :
-                            <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>
-                                <p className="label-text text-gray-950 font-extrabold text-xl 2xl:text-2xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
-                                {
-                                    searchResults?.length > 0 ?
-                                        <div>
-                                            <div className="form-control w-1/2 mt-8">
-                                                <label className="label pt-0">
-                                                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
-                                                </label>
-                                                <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
-                                                    <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
-                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
-                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
-                                                    <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
-                                                </select>
+                    <div className='w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>
+                        <p className="label-text text-gray-950 font-extrabold text-xl 2xl:text-2xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
+                        {
+                            isLoading ?
+                                <div>
+                                    <div className="w-1/2 mt-8">
+                                        <p className='skeleton bg-gray-300 animate-pulse w-40 h-7'></p>
+                                        <div className='skeleton bg-gray-300 animate-pulse w-60 h-16 mt-3'></div>
+                                    </div>
+                                    <div className='mt-10'>
+                                        <div className='skeleton bg-gray-300 animate-pulse w-full h-64'></div>
+                                        <div className='skeleton bg-gray-300 animate-pulse w-full h-64 mt-5'></div>
+                                    </div>
+                                </div>
+                                :
+                                <>
+                                    {
+                                        searchResults?.length > 0 ?
+                                            <div>
+                                                <div className="form-control w-1/2 mt-8">
+                                                    <label className="label pt-0">
+                                                        <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                                                    </label>
+                                                    <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
+                                                        <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
+                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
+                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
+                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
+                                                    </select>
+                                                </div>
+                                                <div className='mt-10'>
+                                                    {
+                                                        searchResults?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                                    }
+                                                </div>
                                             </div>
-                                            <div className='mt-10'>
-                                                {
-                                                    searchResults?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                                                }
-                                            </div>
-                                        </div>
-                                        :
-                                        <div className='flex justify-center mt-24 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
-                                }
-                            </div>
-                    }
+                                            :
+                                            <div className='flex justify-center mt-36 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                    }
+                                </>
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -459,22 +471,51 @@ const Hotels = () => {
                         </form>
                     </dialog>
                 </div>
-                {
-                    isLoading ? <div className='mt-12 xs:mt-16'><Loading></Loading></div> :
-                        <div className='mt-12 xs:mt-16'>
-                            <p className="label-text text-gray-950 font-extrabold text-xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
-                            {
-                                searchResults?.length > 0 ?
-                                    <div>
-                                        {
-                                            searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                                        }
+
+                {/* card section */}
+                <div className='mt-12 xs:mt-16'>
+                    <p className="label-text text-gray-950 font-extrabold text-xl first-letter:uppercase">{searchQuery ? searchQuery : "Total"}: {searchResults?.length} properties found</p>
+                    {
+                        isLoading ?
+                            <div className='mt-7 xxs:mt-10'>
+                                <div className='p-3 bg-gray-100 rounded-2xl'>
+                                    <div className='skeleton bg-gray-300 animate-pulse w-full h-[150px] xxs:h-[200px] xs:h-[225px]'></div>
+                                    <div className='mt-3 xxs:mt-5'>
+                                        <div className='flex justify-between items-center'>
+                                            <p className='skeleton bg-gray-300 animate-pulse w-[30%] h-4'></p>
+                                            <p className='skeleton bg-gray-300 animate-pulse w-[20%] h-8 rounded-lg'></p>
+                                        </div>
+                                        <p className='skeleton bg-gray-300 animate-pulse w-[20%] h-3 mt-1'></p>
+                                        <p className='skeleton bg-gray-300 animate-pulse w-[10%] h-3 mt-1'></p>
                                     </div>
-                                    :
-                                    <div className='flex justify-center mt-12 xs:mt-16'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
-                            }
-                        </div>
-                }
+                                </div>
+                                <div className='p-3 bg-gray-100 rounded-2xl mt-3 xxs:mt-5'>
+                                    <div className='skeleton bg-gray-300 animate-pulse w-full h-[150px] xxs:h-[200px] xs:h-[225px]'></div>
+                                    <div className='mt-3 xxs:mt-5'>
+                                        <div className='flex justify-between items-center'>
+                                            <p className='skeleton bg-gray-300 animate-pulse w-[30%] h-4'></p>
+                                            <p className='skeleton bg-gray-300 animate-pulse w-[20%] h-8 rounded-lg'></p>
+                                        </div>
+                                        <p className='skeleton bg-gray-300 animate-pulse w-[20%] h-3 mt-1'></p>
+                                        <p className='skeleton bg-gray-300 animate-pulse w-[10%] h-3 mt-1'></p>
+                                    </div>
+                                </div>
+                            </div>
+                            :
+                            <>
+                                {
+                                    searchResults?.length > 0 ?
+                                        <div>
+                                            {
+                                                searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                            }
+                                        </div>
+                                        :
+                                        <div className='flex justify-center mt-12 xs:mt-16'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                }
+                            </>
+                    }
+                </div>
             </div>
         </div>
     );

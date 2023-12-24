@@ -44,7 +44,7 @@ const TermsAndCondition = () => {
                             <div className="h-full w-full z-10 absolute top-0 bg-[#fff] opacity-[0.85] rounded-md sm:rounded-lg"></div>
                             <div className="relative z-[11] h-full w-full top-0 px-2 xxs:px-[16px] sm:px-[32px] 2xl:px-[20]">
                                 <h2 className='text-gray-800 font-bold text-sm xxs:text-base sm:text-xl md:text-2xl 2xl:text-3xl text-center'>Terms and Conditions on</h2>
-                                <h2 className='text-primary font-bold text-base xxs:text-xl sm:text-2xl md:text-3xl 2xl:text-4xl text-center mt-1 sm:mt-3 mb-5 xl:mb-8'>Visa Service</h2>
+                                <h2 className='text-primary font-bold text-base xxs:text-xl sm:text-2xl md:text-3xl 2xl:text-4xl text-center mt-1 sm:mt-3 mb-5 xl:mb-8'>Tour Package</h2>
                                 <ol className='list-decimal text-gray-700 mx-3 xxs:mx-5'>
                                     <li className='text-justify xxs:pl-1 sm:pl-3 xl:pl-5'>All prices are subject to change without prior notice as per availability. Even after advance payment prices may change till booking is confirmed.</li>
                                     <li className='text-justify xxs:pl-1 sm:pl-3 xl:pl-5 mt-2'>All tour packages & related services are subject to availability at the time of booking. Not at the time of payment received from guests</li>

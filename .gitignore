@@ -2,6 +2,9 @@ temporary.html
 temporary.json
 configMyTailwind
 /src/layout/Test
+.firebaserc
+firebase.json
+.firebase
 
 
 # Logs

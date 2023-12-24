@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import url from "../../../../assets/images/booking_back.jpg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Loading from "../../../shared/Loading/Loading";
 import { useContext, useRef, useState } from "react";
@@ -8,22 +8,23 @@ import { AuthContextPG } from "../../../../providers/AuthProviderPG";
 import { MdOutlineBed, MdOutlinePhotoSizeSelectSmall } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 
 const HotelBooking = () => {
+    const pgToken = localStorage.getItem('pg_access_token');
     const { hotelId } = useParams();
+    const navigate = useNavigate();
     const { PGuser } = useContext(AuthContextPG);
     const formRef = useRef();
     const [loading, setLoading] = useState(false);
     const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const [formData, setFormData] = useState({
-        name: PGuser.name,
-        email: PGuser.register_email,
-        phone: PGuser.mobile,
+        userName: PGuser.name,
         userId: PGuser._id,
-        BookedHotelId: hotelId,
+        hotelId: hotelId,
         checkIn: new Date(),
         checkOut: new Date(),
-        selectedRooms: [true],
+        selectedRooms: [{ isSelected: true, quantity: 1 }],
         childrenGuest: 1,
         adultGuest: 2,
         totalGuest: 3,
@@ -45,14 +46,36 @@ const HotelBooking = () => {
         if (field === 'checkIn' || field === 'checkOut') {
             value = event;
         }
-        else if (event.target.name === 'selectedRooms') {
-            formData.selectedRooms[field] = event.target.checked;
+        else if (event.target.name === 'increaseButton' || event.target.name === 'decreaseButton' || event.target.name === 'selectedRooms') {
+            if (event.target.name === 'selectedRooms') {
+                const selectedRoomLength = formData.selectedRooms.length;
+                const roomLength = selectedHotel?.rooms.length;
+                if (selectedRoomLength < roomLength && selectedRoomLength < field + 1) {
+                    const newRoom = Array.from({ length: ((field + 1) - selectedRoomLength) }, () => ({
+                        isSelected: true,
+                        quantity: 1,
+                    }));
+                    const updatedRooms = [...formData.selectedRooms, ...newRoom];
+                    setFormData({ ...formData, selectedRooms: updatedRooms });
+                }
+                else {
+                    setFormData((prevFormData) => {
+                        const updatedRooms = [...prevFormData.selectedRooms];
+                        [updatedRooms[field].isSelected = event.target.checked, (event.target.checked === true ? updatedRooms[field].quantity = 1 : updatedRooms[field].quantity = 0)];
+                        return { ...prevFormData, selectedRooms: updatedRooms };
+                    });
+                }
+            }
+            else {
+                event.target.name === 'increaseButton' ? formData.selectedRooms[field].quantity += 1 : ((formData.selectedRooms[field].quantity > 1) && (formData.selectedRooms[field].quantity -= 1));
+                setFormData({ ...formData, selectedRooms: [...formData.selectedRooms] });
+            }
         }
         else {
             value = event.target.value;
         }
 
-        if (event?.target?.name !== 'selectedRooms') {
+        if (event?.target?.name !== 'selectedRooms' && event?.target?.name !== 'increaseButton' && event?.target?.name !== 'decreaseButton') {
             setFormData({
                 ...formData,
                 [field]: value,
@@ -74,10 +97,22 @@ const HotelBooking = () => {
         }));
     };
 
-    const handleNextButton = (event) => {
+    const handleNextButton = async (event) => {
         event.preventDefault();
-        // console.log(formData);
         setLoading(true);
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders`, formData,
+                {
+                    headers: {
+                        authorization: `Bearer ${pgToken}`,
+                    }
+                });
+            setLoading(false);
+            navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
     }
 
     return (
@@ -189,18 +224,32 @@ const HotelBooking = () => {
                                 {
                                     selectedHotel?.rooms?.map((d, i) => {
                                         return (
-                                            <div key={i} className="form-control shadow hover:shadow-lg mb-4 lg:mb-6 py-3 px-4 rounded-md">
-                                                <label className="cursor-pointer label">
-                                                    <div>
-                                                        <p className="text-gray-700 font-semibold">{d?.name}</p>
-                                                        <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlineBed className='h-4 w-4 me-2 xs:me-3'></MdOutlineBed><span className="text-xs sm:text-sm">{d?.bed}</span></p>
-                                                        <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><BsFillPersonFill className='h-4 w-4 me-2 xs:me-3'></BsFillPersonFill><span className="text-xs sm:text-sm">Sleeps {d.sleep}</span></p>
-                                                        <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlinePhotoSizeSelectSmall className='h-4 w-4 me-2 xs:me-3'></MdOutlinePhotoSizeSelectSmall><span className="text-xs sm:text-sm">{d.size}</span></p>
-                                                        <p className="text-gray-700 font-semibold text-sm mt-3">Price(&#2547;) : <span className="text-red-500 ml-1">{d.price} tk.</span> <small>(per night)</small> <sup className="text-red-500">*</sup></p>
-                                                        <p className="text-gray-600 text-[8px] sm:text-xs 3xl:text-sm sm:mt-1">Included Taxes and Fees</p>
+                                            <div key={i} className="shadow hover:shadow-lg mb-4 lg:mb-6 py-3 px-4 rounded-md">
+                                                <div className="flex justify-between">
+                                                    <div className="w-[80%] 3xl:w-[70%] lg:flex items-center justify-between">
+                                                        <div>
+                                                            <p className="text-gray-700 font-semibold">{d?.name}</p>
+                                                            <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlineBed className='h-4 w-4 me-2 xs:me-3'></MdOutlineBed><span className="text-xs sm:text-sm">{d?.bed}</span></p>
+                                                            <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><BsFillPersonFill className='h-4 w-4 me-2 xs:me-3'></BsFillPersonFill><span className="text-xs sm:text-sm">Sleeps {d.sleep}</span></p>
+                                                            <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlinePhotoSizeSelectSmall className='h-4 w-4 me-2 xs:me-3'></MdOutlinePhotoSizeSelectSmall><span className="text-xs sm:text-sm">{d.size}</span></p>
+                                                            <p className="text-gray-700 font-semibold text-sm mt-3">Price(&#2547;) : <span className="text-red-500 ml-1">{d.price} tk.</span> <small>(per night)</small> <sup className="text-red-500">*</sup></p>
+                                                            <p className="text-gray-600 text-[8px] sm:text-xs 3xl:text-sm sm:mt-1">Included Taxes and Fees</p>
+                                                        </div>
+                                                        <div className="mt-4 xxs:mt-7 lg:mt-0">
+                                                            <p className="font-semibold text-gray-700">Quantity</p>
+                                                            <div className={`flex items-center mt-1 ${(formData.selectedRooms[i]?.isSelected || formData.selectedRooms[i]?.isSelected === true) ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+                                                                <button onClick={(e) => handleInputChange(i, e)} disabled={formData?.selectedRooms[i]?.quantity < 2 && true} name="decreaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
+                                                                <p className='w-14 p-2 mx-3 text-gray-950 border border-primary'>{formData?.selectedRooms[i]?.quantity ? formData?.selectedRooms[i]?.quantity : 0}</p>
+                                                                <button onClick={(e) => handleInputChange(i, e)} disabled={formData?.selectedRooms[i]?.quantity < 1 && true} name="increaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>+</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <input onChange={(e) => handleInputChange(i, e)} name="selectedRooms" type="checkbox" className="checkbox checkbox-sm lg:checkbox-md checkbox-warning" defaultChecked={formData.selectedRooms[i] === true && true} />
-                                                </label>
+                                                    <div className="w-[20%] 3xl:w-[30%] flex justify-end">
+                                                        <label className="cursor-pointer">
+                                                            <input onChange={(e) => handleInputChange(i, e)} name="selectedRooms" type="checkbox" className="checkbox checkbox-sm lg:checkbox-md checkbox-warning" checked={formData.selectedRooms[i]?.isSelected === true && true} />
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )
                                     })
@@ -243,7 +292,7 @@ const HotelBooking = () => {
                                         Processing...
                                     </button>
                                     :
-                                    <button disabled type="submit" className='inline-block rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]' data-te-ripple-init data-te-ripple-color="light">
+                                    <button type="submit" className='inline-block rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]' data-te-ripple-init data-te-ripple-color="light">
                                         Next
                                     </button>
                             }

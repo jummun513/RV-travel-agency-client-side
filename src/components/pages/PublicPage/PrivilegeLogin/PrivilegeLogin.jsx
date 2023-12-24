@@ -53,8 +53,7 @@ const PrivilegeLogin = () => {
                                 notifyError(error);
                             });
                         }
-
-                        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.mergeData });
+                        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
                         setLoading(false);
                         formRef.current.reset();
                         setErrorDisplay('');
