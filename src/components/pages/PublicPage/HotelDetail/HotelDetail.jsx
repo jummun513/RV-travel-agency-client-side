@@ -206,8 +206,25 @@ const HotelDetail = () => {
             </Helmet>
             {
                 isLoading ?
-                    <div className='h-64 max-w-screen-4xl rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10'>
-                        <div className='skeleton bg-gray'></div>
+                    <div className='rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl'>
+                        <div className='hidden lg:grid grid-cols-4 h-[20rem] xl:h-[28rem] 3xl:h-[34rem] gap-3 3xl:gap-5'>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full col-span-2 row-span-2'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full'></div>
+                        </div>
+
+                        <div className='hidden xs:grid lg:hidden grid-cols-3 h-[190px] sm:h-[270px] md:h-[340px] gap-1 md:gap-2'>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full rounded-md col-span-2 row-span-2'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full rounded-md'></div>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full rounded-md'></div>
+                        </div>
+
+                        <div className='grid xs:hidden grid-cols-1 h-[160px] xxs:h-[250px]'>
+                            <div className='skeleton bg-gray-300 animate-pulse h-full w-full'></div>
+                        </div>
+                        <div className='skeleton bg-gray-300 animate-pulse mt-4 xxs:mt-8 xs:mt-12 lg:mt-16 2xl:mt-20 h-8 xxs:h-12 xs:h-16 lg:h-20 xl:h-24'></div>
                     </div>
                     :
                     <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl">
