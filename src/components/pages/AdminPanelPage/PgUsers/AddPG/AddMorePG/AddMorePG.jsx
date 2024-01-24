@@ -83,7 +83,8 @@ const options = [
     { value: 'husband', label: 'Husband' },
     { value: 'wife', label: 'Wife' },
     { value: 'son', label: 'Son' },
-    { value: 'daughter', label: 'Daughter' }
+    { value: 'daughter', label: 'Daughter' },
+    { value: 'other', label: 'Other' }
 ]
 
 // new guest contains item
@@ -103,13 +104,13 @@ const DynamicDiv = (data) => {
                     {/* relation select dropdown with registered guest */}
                     <div className="mb-3 sm:mb-0 w-full sm:max-w-[200px] sm:mr-5 2xl:mr-10 group text-gray-600">
                         <label htmlFor="relation">Relation <sup className='text-red-500'>*</sup></label>
-                        <Select value={moreData[index].relation} name={`relation-${index}`} onChange={(e) => handleInputChange('relation', index, e)} className='mt-1' options={options} required />
+                        <Select value={moreData[index]?.relation} name={`relation-${index}`} onChange={(e) => handleInputChange('relation', index, e)} className='mt-1' options={options} required />
                     </div>
                     {/* name field */}
                     <div className="mb-3 sm:mb-0 w-full sm:max-w-[300px] sm:mr-5 2xl:mr-10 text-gray-600 group z-0">
                         <label htmlFor="name">Name <sup className='text-red-500'>*</sup></label>
                         <input name={`name-${index}`}
-                            value={moreData[index].name}
+                            value={moreData[index]?.name}
                             onChange={(e) => handleInputChange('name', index, e)} type="text" placeholder="Mr. X" className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" required />
                     </div>
                     {/* nid number */}
@@ -117,7 +118,7 @@ const DynamicDiv = (data) => {
                         <label htmlFor="nid">NID No.</label>
                         <input
                             name={`nid-${index}`}
-                            value={moreData[index].nid}
+                            value={moreData[index]?.nid}
                             onChange={(e) => handleInputChange('nid', index, e)} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>
                 </div>
@@ -127,7 +128,7 @@ const DynamicDiv = (data) => {
                     <div className="mb-3 sm:mb-0 w-full sm:max-w-[300px] sm:mr-5 2xl:mr-10 text-gray-600 group z-0">
                         <label htmlFor="passport">Passport No.</label>
                         <input name={`passport-${index}`}
-                            value={moreData[index].passport}
+                            value={moreData[index]?.passport}
                             onChange={(e) => handleInputChange('passport', index, e)} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>
                     {/* mobile number */}
@@ -135,12 +136,12 @@ const DynamicDiv = (data) => {
                         <label htmlFor="mobile">Mobile No.</label>
                         <input type="number" pattern="[0-9]*" inputMode="numeric" placeholder='017xxxxxxxx'
                             name={`mobile-${index}`}
-                            value={moreData[index].mobile}
+                            value={moreData[index]?.mobile}
                             onChange={(e) => handleInputChange('mobile', index, e)}
                             className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>
                     {/* date of birth pick */}
-                    <div className="w-full xs:max-w-[200px] xs:mr-5 2xl:mr-10 group text-gray-600">
+                    <div className="relative z-10 w-full xs:max-w-[200px] xs:mr-5 2xl:mr-10 group text-gray-600">
                         <label htmlFor="dob" className='me-2'>Date of Birth:</label>
                         <br />
                         <ReactDatePicker
@@ -153,7 +154,7 @@ const DynamicDiv = (data) => {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
-                            selected={moreData[index].dob}
+                            selected={moreData[index]?.dob}
                             onChange={(e) => handleInputChange('dob', index, e)}
                             className='mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full'
                         />

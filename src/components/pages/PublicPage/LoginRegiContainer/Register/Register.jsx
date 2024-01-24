@@ -6,11 +6,10 @@ import { BiShow, BiHide } from 'react-icons/bi'
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 
 const Register = () => {
-    const { createNewUser, loading, setLoading, verificationEmailSend, sending, errorEmailVerification } = useContext(AuthContext);
+    const { createNewUser, loading, setLoading, errorEmailVerification } = useContext(AuthContext);
     const [error, setError] = useState('');
     const name = useRef(null);
     const email = useRef(null);
@@ -71,8 +70,8 @@ const Register = () => {
             setError('invalid_password');
         }
         else if (error === '') {
-            const nam = name.current.value;
-            const eml = email.current.value;
+            const nam = name.current.value.trim();
+            const eml = email.current.value.toLowerCase().trim();
             const pass = password.current.value;
 
             // create user on firebase
@@ -80,20 +79,8 @@ const Register = () => {
                 // after successfully create user data save to database
                 try {
                     await axios.post(`${import.meta.env.VITE_clientSideLink}/api/users`, { name: nam, email: eml });
-                    await verificationEmailSend();
                     setLoading(false);
-                    Swal.fire({
-                        title: 'Success!',
-                        text: "A verifying email is sent to your provided address. Please check your inbox/spam to verify your email.",
-                        icon: 'success',
-                        confirmButtonColor: '#15803d',
-                        confirmButtonText: 'OK'
-                    }).then(result => {
-                        if (result.isConfirmed) {
-                            formRef.current.reset();
-                            navigate('/');
-                        }
-                    })
+                    formRef.current.reset();
                 }
                 catch (error) {
                     setLoading(false);
@@ -192,7 +179,7 @@ const Register = () => {
 
                     {/* term and condition check, if loading is true show processing button instead of register button */}
                     {
-                        (loading || sending) ?
+                        loading ?
                             <button disabled type="button" className="rounded bg-primary px-3 py-2 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-xs md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-950 inline-flex items-center">
                                 <svg aria-hidden="true" role="status" className="inline w-4 h-4 mr-3 text-gray-950 animate-spin" viewBox="0 0 100 101" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />

@@ -309,7 +309,7 @@ const HotelDetail = () => {
                                                         </button>
                                                     </li>
                                                 </ul>
-                                                <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
+                                                <button disabled onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
                                             </nav>
                                             <section id="Overview" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                                 <div className="lg:flex text-gray-800">

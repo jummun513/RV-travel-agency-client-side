@@ -4,6 +4,7 @@ import { app } from "../firebase/firebase.config";
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
 import axios from "axios";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 
@@ -25,6 +26,7 @@ const AuthProvider = (data) => {
     const [loading, setLoading] = useState(true);
     const [sendEmailVerification, sending, errorEmailVerification] = useSendEmailVerification(auth);
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     // create new user
     const createNewUser = (email, password) => {
@@ -48,6 +50,17 @@ const AuthProvider = (data) => {
     const verificationEmailSend = () => {
         sendEmailVerification();
     }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, currentUser => {
+            if (currentUser?.emailVerified === false) {
+                navigate('/email-confirmation');
+            }
+            else {
+                navigate('/')
+            }
+        })
+    }, [auth])
 
     // auth state changing observe
     useEffect(() => {

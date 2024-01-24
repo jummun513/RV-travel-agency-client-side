@@ -262,7 +262,7 @@ const Hotels = () => {
             <div className='lg:hidden px-2 xxs:px-[16px] sm:px-[32px] mx-auto max-w-screen-4xl mt-16 xs:mt-32'>
                 <div className='px-2 xxs:px-0 flex flex-col-reverse xxs:flex-row xxs:justify-center'>
                     {/* for open modal */}
-                    <button onClick={() => document.getElementById('my_modal_3').showModal()} className='mt-2 xxs:mt-0 xxs:me-3 sm:me-5 md:me-10 btn btn-sm xxs:btn-md sm:btn-wide bg-transparent border-primary hover:border-secondary text-gray-950 hover:bg-primary hover:text-gray-900'>
+                    <button onClick={() => document.getElementById('my_modal_5').showModal()} className='mt-2 xxs:mt-0 xxs:me-3 sm:me-5 md:me-10 btn btn-sm xxs:btn-md sm:btn-wide bg-transparent border-primary hover:border-secondary text-gray-950 hover:bg-primary hover:text-gray-900'>
                         <AiOutlineFilter className='h-3 w-3 xs:h-5 xs:w-5'></AiOutlineFilter>
                         <span>Sort & Filter</span>
                     </button>
@@ -274,7 +274,7 @@ const Hotels = () => {
                     </button>
 
                     {/* modal */}
-                    <dialog id="my_modal_3" className="modal">
+                    <dialog id="my_modal_5" className="modal">
                         <div className="modal-box bg-[#fbfbfb] rounded-sm">
                             {/* top form close button */}
                             <form method="dialog">

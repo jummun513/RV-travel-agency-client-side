@@ -5,75 +5,66 @@ import { toast } from 'react-toastify';
 import AddMorePG from './AddMorePG/AddMorePG';
 import './AddPG.css';
 import axios from 'axios';
+import AddImage from './AddImage/AddImage';
+import ReactDatePicker from 'react-datepicker';
+import { uploadImage } from '../../../../../functions/imageStore';
+import { useNavigate } from 'react-router-dom';
 
 const AddPG = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const fullName = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
-    const name = useRef(null);
-    const number = useRef(null);
     const confirmPassword = useRef(null);
+    const mobile = useRef(null);
     const formRef = useRef(); // for resetting form's input field
     const [passwordStrength, setPasswordStrength] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [moreData, setMoreData] = useState([]);
-    const [form_data, setFormData] = useState({
-        pg_account_no: '',
-        name: '',
-        register_email: '',
-        confirm_password: '',
-        mobile: '',
-        nid: '',
-        passport: '',
-        present_address: '',
-        city: '',
-        country: '',
-        permanent_address: '',
-        moreGuest: [],
-        avatar: null,
-        thumb: '',
-        medium: '',
-        image_delete: '',
-    });
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
         setFormData({
-            ...form_data,
+            ...formData,
             moreGuest: moreData,
         });
     }, [moreData]);
 
     // set input value according their name
-    const handleInputChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.type === 'file' ? e.target.files[0] : (e.target.type === 'email' ? e.target.value.trim().toLowerCase() : e.target.value);
+    const handleInputChange = (field, e) => {
+        let value;
+        if (field === "email") {
+            value = e.target.value.trim().toLowerCase();
+        }
+        else if (field === "registrationDate") {
+            value = e;
+        }
+        else {
+            value = e.target.value;
+        }
+        // const value = e.target.type === 'file' ? e.target.files[0] : (e.target.type === 'email' ? e.target.value.trim().toLowerCase() : e.target.value);
         setFormData({
-            ...form_data,
-            [name]: value,
+            ...formData,
+            [field]: value,
         });
     };
 
     // Name field validation checkup and value set
-    const handleNameField = () => {
-        if (/^[a-zA-Z .',-_]{5,32}$/.test(name.current.value)) {
+    const handleNameField = (e) => {
+        if (/^[a-zA-Z .',-_]{5,32}$/.test(fullName.current.value)) {
             setError('');
+            handleInputChange('fullName', e);
         }
         else { setError('invalid_name'); }
     }
 
-    // mobile number field validation checkup and value set
-    const handleNumberField = () => {
-        if (/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/.test(number.current.value)) {
-            setError('');
-        }
-        else { setError('invalid_number'); }
-    }
-
     // Email field validation checkup and value set
-    const handleEmailField = () => {
+    const handleEmailField = (e) => {
         if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email.current.value)) {
+            handleInputChange('email', e);
             setError('');
         }
         else {
@@ -102,17 +93,23 @@ const AddPG = () => {
         (confirmPassword.current.value !== password.current.value) ? setError('password_not_match') : setError('');
     }
 
-    // file size and type check
-    const handleFileField = (e) => {
-        const allowedType = ['image/jpeg', 'image/jpg', 'image/png'];
-        if (e.target?.files[0]?.size > 1024 * 500) {
-            setError('large_file');
+    // mobile number field validation checkup and value set
+    const handleNumberField = (e) => {
+        if (/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/.test(mobile.current.value)) {
+            setError('');
+            handleInputChange('mobileNo', e);
         }
-        else if (!allowedType.includes(e.target?.files[0]?.type)) {
-            setError('file_type_invalid');
+        else { setError('invalid_number'); }
+    }
+
+    // only number allows
+    const numberValidation = (field, e) => {
+        if (/^[0-9]+$/.test(e.target.value)) {
+            setError('');
+            handleInputChange(field, e);
         }
         else {
-            setError('');
+            setError(`not_number_${field}`)
         }
     }
 
@@ -129,41 +126,34 @@ const AddPG = () => {
             const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
             const token = localStorage.getItem('access_token');
 
-            // convert file into form data
-            const formData = new FormData();
-            formData.append('image', form_data?.avatar);
-
             setLoading(true);
 
             try {
-                if (form_data?.avatar !== null) {
-                    const imgbbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_KEY}`, formData);
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
-                        ...form_data, avatar: imgbbResponse.data.data.image.url,
-                        medium: imgbbResponse.data.data.medium.url,
-                        thumb: imgbbResponse.data.data.thumb.url,
-                        image_delete: imgbbResponse.data.data.delete_url,
-                    }, {
-                        headers: {
-                            authorization: `Bearer ${token}`,
+                if (formData?.avatar) {
+                    const base64 = formData?.avatar[0]?.split(',')[1];
+                    await uploadImage([base64], `Royal_Venture/Privilege_Users`).then(async (d) => {
+                        const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users/create-one`, { ...formData, avatar: d }, {
+                            headers: {
+                                authorization: `Bearer ${token}`,
+                            }
+                        });
+                        setLoading(false);
+
+                        if (response?.data.includes('email_already_register')) {
+                            setError('email_already_register');
+                        }
+                        else {
+                            setPasswordStrength('');
+                            setError('');
+                            notify();
+                            formRef.current.reset();
+                            navigate('/admin-panel/manage-privileged-guest');
                         }
                     });
 
-                    setLoading(false);
-
-                    if (response?.data.includes('email_already_register')) {
-                        setError('email_already_register');
-                    }
-                    else {
-                        setPasswordStrength('');
-                        setError('');
-                        formRef.current.reset();
-                        notify();
-                    }
                 }
-
                 else {
-                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, form_data, {
+                    const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/privilege-users/create-one`, formData, {
                         headers: {
                             authorization: `Bearer ${token}`,
                         }
@@ -177,8 +167,9 @@ const AddPG = () => {
                     else {
                         setPasswordStrength('');
                         setError('');
-                        formRef.current.reset();
                         notify();
+                        formRef.current.reset();
+                        navigate('/admin-panel/manage-privileged-guest');
                     }
                 }
             }
@@ -200,14 +191,14 @@ const AddPG = () => {
 
                     {/* Privileged Account No field */}
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                        <input onBlur={(e) => handleInputChange(e)} type="text" name="pg_account_no" id="pg_account_no" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <input onBlur={(e) => handleInputChange('pgAccountNo', e)} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label htmlFor="pg_account_no" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Privileged Account No. <sup className='text-red-500'>*</sup></label>
                     </div>
 
                     {/* Name field */}
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                        <input onBlur={(e) => handleInputChange(e)} onKeyUp={handleNameField} ref={name} type="text" name="name" id="name" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        <label htmlFor="name" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full Name <sup className='text-red-500'>*</sup></label>
+                        <input onKeyUp={(e) => handleNameField(e)} ref={fullName} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full Name <sup className='text-red-500'>*</sup></label>
                         {
                             ((error.includes('invalid_name')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Name length should be 5 to 32</p>)
                         }
@@ -215,8 +206,8 @@ const AddPG = () => {
 
                     {/* Email field */}
                     <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                        <input onBlur={(e) => handleInputChange(e)} onKeyUp={handleEmailField} ref={email} type="email" name="register_email" id="register_email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        <label htmlFor="register_email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address <sup className='text-red-500'>*</sup></label>
+                        <input onKeyUp={(e) => handleEmailField(e)} ref={email} type="email" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address <sup className='text-red-500'>*</sup></label>
                         <p className='text-xs xs:text-sm mt-1'>We&#39;ll never share your email with anyone else.</p>
                         {
                             ((error.includes('invalid_email')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Your email is invalid!</p>) ||
@@ -228,8 +219,8 @@ const AddPG = () => {
                     <div className='md:flex justify-between'>
                         {/* password field  */}
                         <div className="relative z-0 w-full mb-6 xs:mb-8 group md:me-10">
-                            <input onKeyUp={() => { checkPasswordValidation(); passwordCompareWithConfirmPassword() }} ref={password} type={showPassword ? 'text' : 'password'} title='Password must have contain one lowercase(a-z), one uppercase(A-Z), one number(0-9), one special character (!,@,#,$,%,^,&,*) and length must be 8 to 16' name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                            <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password <sup className='text-red-500'>*</sup></label>
+                            <input onKeyUp={() => { checkPasswordValidation(); passwordCompareWithConfirmPassword() }} ref={password} type={showPassword ? 'text' : 'password'} title='Password must have contain one lowercase(a-z), one uppercase(A-Z), one number(0-9), one special character (!,@,#,$,%,^,&,*) and length must be 8 to 16' className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password <sup className='text-red-500'>*</sup></label>
                             <div className='flex items-center absolute top-3 right-1'>
                                 {
                                     ((passwordStrength.includes('strong_password')) && <p className='text-xs xs:text-sm xs:font-semibold text-green-600'>Strong</p>) ||
@@ -250,8 +241,8 @@ const AddPG = () => {
                             {
                                 (confirmPassword.current?.value !== null) && (showConfirmPassword ? <BiShow onClick={() => { setShowConfirmPassword(!showConfirmPassword) }} className='cursor-pointer absolute text-gray-700 top-3 right-1 h-4 w-4 sm:h-6 sm:w-6'></BiShow> : <BiHide onClick={() => { setShowConfirmPassword(!showConfirmPassword) }} className='cursor-pointer absolute text-gray-700 top-3 right-1 h-4 w-4 sm:h-6 sm:w-6'></BiHide>)
                             }
-                            <input onBlur={(e) => handleInputChange(e)} onKeyUp={passwordCompareWithConfirmPassword} ref={confirmPassword} type={showConfirmPassword ? 'text' : 'password'} name="confirm_password" id="confirm_password" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                            <label htmlFor="confirm_password" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password <sup className='text-red-500'>*</sup></label>
+                            <input onBlur={(e) => handleInputChange('password', e)} onKeyUp={passwordCompareWithConfirmPassword} ref={confirmPassword} type={showConfirmPassword ? 'text' : 'password'} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password <sup className='text-red-500'>*</sup></label>
                             {
                                 error.includes('password_not_match') && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Doesn&#39;t match the password!</p>
                             }
@@ -259,69 +250,81 @@ const AddPG = () => {
                     </div>
 
                     {/* add an image */}
-                    <div className="form-control w-full mt-4">
-                        <label htmlFor='avatar' className="label mb-1">
-                            <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 500 KB. (Aspect ratio 1:1)</span>
-                        </label>
-                        <input type="file" onChange={(e) => { handleInputChange(e); handleFileField(e) }} name='avatar' id='avatar' className="file-input-xs file-input-warning bg-white text-gray-950 xxs:file-input-sm xl:file-input-md file-input file-input-bordered w-full max-w-[200px] xxs:max-w-[250px] md:max-w-xs" />
-                        {
-                            (error.includes('large_file') && <label className="label">
-                                <span className="label-text-alt text-red-600">Maximum file size 500 KB.</span>
-                            </label>) ||
-                            (error.includes('file_type_invalid') && <label className="label">
-                                <span className="label-text-alt text-red-600">Only .jpg, .png, .jpeg allowed.</span>
-                            </label>)
-                        }
-                    </div>
+                    <h4 className='mt-12 xl:text-xl font-bold text-gray-950 text-center'>Add User Picture</h4>
+                    <AddImage formData={formData} setFormData={setFormData}></AddImage>
 
                     {/* additional details */}
                     <div className='mt-16'>
                         <h4 className='mb-12 xl:text-xl font-bold text-gray-950'>Additional Details</h4>
-                        {/* Mobile Number */}
-                        <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                            <input onBlur={(e) => handleInputChange(e)} onKeyUp={handleNumberField} ref={number} type="text" name="mobile" id="mobile" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                            <label htmlFor="mobile" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone Number <sup className='text-red-500'>*</sup></label>
-                            {
-                                ((error.includes('invalid_number')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Invalid mobile number!</p>)
-                            }
+
+                        <div className='md:flex justify-between'>
+                            {/* Mobile Number */}
+                            <div className="relative z-0 w-full mb-6 xs:mb-8 group md:me-10">
+                                <input onKeyUp={(e) => handleNumberField(e)} ref={mobile} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile Number <sup className='text-red-500'>*</sup></label>
+                                {
+                                    ((error.includes('invalid_number')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Invalid mobile number!</p>)
+                                }
+                            </div>
+                            {/* RegistrationDate */}
+                            <div className="relative z-10 w-full mb-6 xs:mb-8 group">
+                                <ReactDatePicker
+                                    dateFormat="d MMMM, yyyy"
+                                    placeholderText="Registration Date"
+                                    closeOnScroll={true}
+                                    name='registrationDate'
+                                    maxDate={Date.now()}
+                                    isClearable
+                                    showYearDropdown
+                                    dropdownMode="select"
+                                    selected={formData?.registrationDate}
+                                    onChange={(e) => handleInputChange('registrationDate', e)}
+                                    className='input input-xs xxs:input-sm lg:input-md border-2 focus:input-info hover:border-gray-400 border-gray-300 text-gray-900 bg-transparent w-full min-w-[300px]'
+                                />
+                            </div>
                         </div>
 
                         {/* passport and nid number */}
                         <div className='md:flex justify-between'>
                             <div className="relative z-0 w-full mb-6 xs:mb-8 group md:me-10">
-                                <input onBlur={(e) => handleInputChange(e)} type="number" min={0} pattern="[0-9]*" step="1" inputMode="numeric" name="nid" id="nid" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label htmlFor="nid" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">NID No.</label>
+                                <input onKeyUp={(e) => numberValidation('nidNo', e)} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">NID No.</label>
+                                {
+                                    ((error.includes('not_number_nidNo')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Only numbers input allowed!</p>)
+                                }
                             </div>
-
                             <div className="relative z-0 w-full mb-6 xs:mb-8 group">
-                                <input onBlur={(e) => handleInputChange(e)} type="number" min={0} pattern="[0-9]*" step="1" inputMode="numeric" name="passport" id="passport" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label htmlFor="passport" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Passport No.</label>
+                                <input onKeyUp={(e) => numberValidation('passportNo', e)} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Passport No.</label>
+                                {
+                                    ((error.includes('not_number_passportNo')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Only numbers input allowed!</p>)
+                                }
                             </div>
                         </div>
 
                         {/* present address */}
                         <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                            <input onBlur={(e) => handleInputChange(e)} type="text" name="present_address" id="present_address" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                            <label htmlFor="present_address" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Present Address</label>
+                            <input onBlur={(e) => handleInputChange('presentAdd', e)} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                            <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Present Address</label>
                         </div>
 
                         {/* city / country */}
                         <div className='md:flex justify-between'>
                             <div className="relative z-0 w-full mb-6 xs:mb-8 group md:me-10">
-                                <input onBlur={(e) => handleInputChange(e)} type='text' name="city" id="city" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label htmlFor="city" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Current City</label>
+                                <input onBlur={(e) => handleInputChange('city', e)} type='text' className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Current City</label>
                             </div>
 
                             <div className="relative z-0 w-full mb-6 xs:mb-8 group">
-                                <input onBlur={(e) => handleInputChange(e)} type='text' name="country" id="flcountryoating_country" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label htmlFor="country" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Country</label>
+                                <input onBlur={(e) => handleInputChange('country', e)} type='text' className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Country</label>
                             </div>
                         </div>
 
                         {/* permanent address */}
                         <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                            <input onBlur={(e) => handleInputChange(e)} type="text" name="permanent_address" id="permanent_address" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                            <label htmlFor="permanent_address" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Permanent Address</label>
+                            <input onBlur={(e) => handleInputChange('permanentAdd', e)} type="text" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                            <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Permanent Address</label>
                         </div>
                     </div>
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/Logos/full-logo-for-dark.png';
+import aamarPay from '../../../assets/images/aamarPay.png';
 
 const navigation = [
     { name: 'Hotels' },
@@ -105,16 +106,24 @@ const Footer = () => {
                                 <h2 className="mb-1 xxs:mb-2 md:mb-4 font-semibold uppercase text-primary">Contact</h2>
                                 <ul className="text-gray-400 text-sm">
                                     <li>
-                                        <span>Email: </span>
-                                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=theroyalventureltd@gmail.com&su=Details%20on%20Royal%20venture%20limited&body=Write%20your%20opinion%20here..." className="hover:underline text-gray-200 hover:text-primary cursor-pointer">theroyalventureltd@gmail.com</a>
-                                    </li>
-                                    <li>
                                         <span>Phone: </span>
                                         <a href='tel:+880-1331-065247' className="hover:underline text-gray-200 hover:text-primary cursor-pointer">01331-065247</a>
                                     </li>
                                     <li>
                                         <span>WhatsApp: </span>
                                         <a href='https://wa.me/+8801331065247' className="hover:underline text-gray-200 hover:text-primary cursor-pointer">01331-065247</a>
+                                    </li>
+                                    <li>
+                                        <span>Head Office: </span>
+                                        <a href='https://maps.app.goo.gl/4uoRPSXQ53uXwS3g8' className="hover:underline text-gray-200 hover:text-primary cursor-pointer">Irving Rishta (3rd Floor),Link Road, Gulshan, Dhaka-1212.</a>
+                                    </li>
+                                    <li>
+                                        <span>Email: </span>
+                                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=theroyalventureltd@gmail.com&su=Details%20on%20Royal%20venture%20limited&body=Write%20your%20opinion%20here..." className="hover:underline text-gray-200 hover:text-primary cursor-pointer">theroyalventureltd@gmail.com</a>
+                                    </li>
+                                    <li>
+                                        <span>Trade License Serial No: </span>
+                                        <span className='text-gray-200'>TRAD/DNCC/014896/2023</span>
                                     </li>
                                 </ul>
                             </div>
@@ -129,6 +138,9 @@ const Footer = () => {
                         {/* <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By :<a href="https://www.facebook.com/Jummun.Jaber" className="hover:underline text-primary"> Jummun Islam</a></p> */}
                         <p className="text-xs sm:text-sm mb-1 xxs:mb-2 lg:mb-0 text-gray-500 text-center">&copy; {currentYear} <a href="/" className="hover:underline text-primary uppercase">Royal Venture <sup>LTD</sup></a>. All Rights Reserved.
                         </p>
+                        <div className='mb-2 xs:mb-3 md:mb-5 lg:mb-0 lg:mx-5 xl:mx-10 lg:w-[450px] xl:w-[550px] 2xl:w-[700px] 3xl:w-[800px] 4xl:w-[900px]'>
+                            <img className='w-full h-full' src={aamarPay} alt="" />
+                        </div>
                         <div className="flex mb-3 xxs:mb-5 lg:mb-0 space-x-4 md:space-x-6 md:justify-start justify-center">
                             <a href="https://www.facebook.com/RoyalVentureLimited?mibextid=LQQJ4d" className="btn btn-xs xs:btn-sm lg:btn-md bg-primary hover:bg-secondary border-none focus:animate-bounce rounded-sm lg:rounded-full text-gray-950">
                                 <svg className="w-4 h-4 xs:h-5 xs:w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" /></svg>

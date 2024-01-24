@@ -35,6 +35,8 @@ import PackagePurchased from "../components/pages/ProtectedPage/UserDashboard/Hi
 import BookedHotel from "../components/pages/AdminPanelPage/Booked/BookedHotel/BookedHotel";
 import BookedPackage from "../components/pages/AdminPanelPage/Booked/BookedPackage/BookedPackage";
 import Cancellation from "../components/pages/PublicPage/Cancellation/Cancellation";
+import VerificationConfirmed from "../components/shared/VerificationConfirmed/VerificationConfirmed";
+import Test from "../layout/Test/Test";
 
 
 export const router = createBrowserRouter([
@@ -49,6 +51,10 @@ export const router = createBrowserRouter([
             {
                 path: '/home',
                 element: <Home></Home>,
+            },
+            {
+                path: '/email-confirmation',
+                element: <VerificationConfirmed></VerificationConfirmed>,
             },
             {
                 path: '/hotels-list',
@@ -208,10 +214,10 @@ export const router = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: '/test',
-    //     element: <Test></Test>,
-    // },
+    {
+        path: '/test',
+        element: <Test></Test>,
+    },
     {
         path: '*',
         element: <NotFound></NotFound>,

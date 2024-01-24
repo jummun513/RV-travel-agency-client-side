@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ManageHotel = () => {
     const [searchData, setSearchData] = useState([]);
@@ -15,6 +16,7 @@ const ManageHotel = () => {
         return res.json();
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
+    const navigate = useNavigate();
 
     const removeHotel = (id, hotelName) => {
         Swal.fire({
@@ -112,7 +114,7 @@ const ManageHotel = () => {
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap">
                                                 <img loading='lazy' className="w-24 rounded-sm" src={d?.thumbnail[0]?.url} alt={`${d?.hotelName} image`} />
                                                 <div className="lg:pl-3">
-                                                    <div className="md:text-base font-semibold mt-1">{d?.hotelName}</div>
+                                                    <div onClick={() => navigate(`/hotel-details/${d._id}`)} className="md:text-base font-semibold mt-1 cursor-pointer text-blue-500 hover:underline">{d?.hotelName}</div>
                                                     <div className="font-normal text-gray-500">{d?.location.country}</div>
                                                 </div>
                                             </td>

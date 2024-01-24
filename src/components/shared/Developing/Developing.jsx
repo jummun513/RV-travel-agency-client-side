@@ -10,7 +10,7 @@ const Developing = () => {
             <div className='h-full max-h-[50vh]'>
                 <img loading='lazy' className='h-full w-full' src={url} alt="developing image" />
             </div>
-            <p className="xs:mt-6 sm:mt-10 md:text-xl leading-12 text-gray-600">This section is under maintenance, coming soon.......</p>
+            <p className="xs:mt-6 sm:mt-10 md:text-xl leading-12 text-gray-600">This section is under maintenance, coming soon...</p>
         </div>
     );
 };

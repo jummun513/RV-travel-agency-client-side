@@ -12,6 +12,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import Loading from '../../shared/Loading/Loading';
 import { LiaHotelSolid } from "react-icons/lia";
 import { MdBorderColor } from "react-icons/md";
+import { LuPackageOpen } from "react-icons/lu";
+import { Helmet } from 'react-helmet-async';
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -43,6 +45,10 @@ const AdminPanelPage = () => {
     return (
         <div className="bg-[#fbfbfb] h-[100vh] overflow-auto relative flex mx-auto max-w-screen-4xl">
 
+            <Helmet>
+                <title>Admin Panel - Royal Venture Limited</title>
+            </Helmet>
+
             {/* for large device */}
             <div className="hidden lg:block w-96 bg-zinc-900 shadow-2xl relative h-[100vh] overflow-auto">
                 <div className='p-2 xl:p-3 w-full'>
@@ -58,8 +64,8 @@ const AdminPanelPage = () => {
                                     <RiVipCrownLine></RiVipCrownLine> Privileged Guest
                                 </summary>
                                 <ul className="p-2">
-                                    <li className='text-gray-100 mb-1'><NavLink to='manage-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Manage All Guest</NavLink></li>
-                                    <li className='text-gray-100'><NavLink to='add-new-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Register New Guest</NavLink></li>
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Manage All PG</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='add-new-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Register New PG</NavLink></li>
                                 </ul>
                             </details>
                         </li>
@@ -71,6 +77,17 @@ const AdminPanelPage = () => {
                                 <ul className="p-2">
                                     <li className='text-gray-100 mb-1'><NavLink to='add-new-hotel' className='hover:bg-primary hover:text-gray-950'>Add New Hotel</NavLink></li>
                                     <li className='text-gray-100'><NavLink to='manage-hotels' className='hover:bg-primary hover:text-gray-950'>Manage All Hotels</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <LuPackageOpen /> Packages
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-new-package' className='hover:bg-primary hover:text-gray-950'>Add New Package</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-packages' className='hover:bg-primary hover:text-gray-950'>Manage All Packages</NavLink></li>
                                 </ul>
                             </details>
                         </li>
@@ -115,8 +132,19 @@ const AdminPanelPage = () => {
                                     <RiVipCrownLine></RiVipCrownLine> Privileged Guest
                                 </summary>
                                 <ul className="p-2">
-                                    <li className='text-gray-100 mb-1'><NavLink to='manage-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Manage All Guest</NavLink></li>
-                                    <li className='text-gray-100'><NavLink to='add-new-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Register New Guest</NavLink></li>
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Manage All PG</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='add-new-privileged-guest' className='hover:bg-primary hover:text-gray-950'>Register New PG</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <LiaHotelSolid></LiaHotelSolid> Hotels
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-new-package' className='hover:bg-primary hover:text-gray-950'>Add New Hotel</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-packages' className='hover:bg-primary hover:text-gray-950'>Manage All Hotels</NavLink></li>
                                 </ul>
                             </details>
                         </li>

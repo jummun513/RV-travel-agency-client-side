@@ -1,8 +1,5 @@
-.react-datepicker-popper {
-    z-index: 9999 !important;
-}
-
 .react-datepicker__month-select,
-.react-datepicker__year-select {
-    background: white;
+.react-datepicker__year-select,
+.react-datepicker-time__input {
+    background: #9f9f9f;
 }

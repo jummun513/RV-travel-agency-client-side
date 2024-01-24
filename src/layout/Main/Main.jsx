@@ -41,14 +41,14 @@ function Main() {
                                 <div id='container'>
                                     {(
                                         // location.pathname.includes('login') ||
-                                        // location.pathname.includes('registration') ||
+                                        location.pathname.includes('email-confirmation') ||
                                         location.pathname.includes('admin-panel')
                                     ) || <NavBar></NavBar>}
                                     <Outlet></Outlet>
                                     {
                                         (
                                             // location.pathname.includes('login') ||
-                                            // location.pathname.includes('registration') ||
+                                            location.pathname.includes('email-confirmation') ||
                                             location.pathname.includes('admin-panel')
                                         ) ||
                                         <Footer></Footer>

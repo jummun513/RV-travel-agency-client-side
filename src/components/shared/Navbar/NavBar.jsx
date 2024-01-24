@@ -58,7 +58,7 @@ const NavBar = () => {
                             (user !== null) || (PGuser !== null) ?
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
                                     <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
-                                        <img src={PGuser?.medium ? PGuser?.medium : userImg} alt='User Image' />
+                                        <img src={PGuser?.avatar?.length > 0 ? PGuser?.avatar[0].thumbnailUrl : userImg} alt='User Image' />
                                     </div>
                                 </div>
                                 :
@@ -73,7 +73,7 @@ const NavBar = () => {
                         user || PGuser ?
                             <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
-                                    <img src={PGuser?.medium ? PGuser?.medium : userImg} alt='User Image' />
+                                    <img src={PGuser?.avatar?.length > 0 ? PGuser?.avatar[0].thumbnailUrl : userImg} alt='User Image' />
                                 </div>
                             </div>
                             :

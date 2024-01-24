@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import useImage from '../../../../../assets/images/user.svg';
+import userImage from '../../../../../assets/images/user.svg';
 import { AuthContextPG } from '../../../../../providers/AuthProviderPG';
 import { AuthContext } from '../../../../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
@@ -10,28 +10,28 @@ const Profile = () => {
 
     // these data show for privileged user
     const dataPG = [
-        { id: 1, heading: 'Name', value: PGuser?.name },
+        { id: 1, heading: 'Name', value: PGuser?.fullName },
         { id: 2, heading: 'Account Number', value: PGuser?.accountNo },
-        { id: 3, heading: 'Privileged Account No', value: PGuser?.pg_account_no },
-        { id: 4, heading: 'Email', value: PGuser?.register_email },
+        { id: 3, heading: 'Privileged Account No', value: PGuser?.pgAccountNo },
+        { id: 4, heading: 'Email', value: PGuser?.email },
         { id: 5, heading: 'Gender', value: PGuser?.gender?.label },
         { id: 6, heading: 'Date Of Birth', value: PGuser?.dob },
-        { id: 7, heading: 'Anniversary Date', value: PGuser?.anniversary },
-        { id: 8, heading: 'NID No', value: PGuser?.nid },
-        { id: 9, heading: 'Mobile No', value: PGuser?.mobile },
+        { id: 7, heading: 'Anniversary Date', value: PGuser?.anniversaryDate },
+        { id: 8, heading: 'NID No', value: PGuser?.nidNo },
+        { id: 9, heading: 'Mobile No', value: PGuser?.mobileNo },
         { id: 10, heading: 'Telephone', value: PGuser?.telephone },
-        { id: 11, heading: 'Balance (Point)', value: PGuser?.point },
-        { id: 12, heading: 'Balance Amount', value: PGuser?.amount },
-        { id: 13, heading: 'Expired Date', value: PGuser?.expires },
-        { id: 14, heading: 'Blood Group', value: PGuser?.blood_group },
+        { id: 11, heading: 'Balance (Point)', value: PGuser?.balancePoint },
+        { id: 12, heading: 'Balance Amount', value: PGuser?.balanceAmount },
+        { id: 13, heading: 'Expired Date', value: PGuser?.expireDate },
+        { id: 14, heading: 'Blood Group', value: PGuser?.bloodGroup },
         { id: 15, heading: 'Occupation', value: PGuser?.occupation },
-        { id: 16, heading: 'Work Place', value: PGuser?.work_place },
-        { id: 17, heading: 'Office Contact', value: PGuser?.office_contact },
-        { id: 18, heading: 'Sining Date', value: PGuser?.singIn_date },
-        { id: 19, heading: 'Passport No', value: PGuser?.passport },
-        { id: 20, heading: 'Passport Validity', value: PGuser?.passport_validity },
-        { id: 23, heading: 'Present Address', value: PGuser?.present_address },
-        { id: 24, heading: 'Permanent Address', value: PGuser?.permanent_address },
+        { id: 16, heading: 'Work Place', value: PGuser?.workPlace },
+        { id: 17, heading: 'Office Contact', value: PGuser?.officeContact },
+        { id: 18, heading: 'Registration Date', value: PGuser?.registrationDate },
+        { id: 19, heading: 'Passport No', value: PGuser?.passportNo },
+        { id: 20, heading: 'Passport Validity', value: PGuser?.passportValidity },
+        { id: 23, heading: 'Present Address', value: PGuser?.presentAdd },
+        { id: 24, heading: 'Permanent Address', value: PGuser?.permanentAdd },
         { id: 21, heading: 'City', value: PGuser?.city },
         { id: 22, heading: 'Country', value: PGuser?.country },
         { id: 25, heading: 'Remark', value: PGuser?.remark },
@@ -57,7 +57,13 @@ const Profile = () => {
     const ageCount = (d) => {
         const today = new Date();
         const birthDay = new Date(d);
-        const yearsDiff = (today.getFullYear() - birthDay.getFullYear());
+        let yearsDiff;
+        if (today.getFullYear() === birthDay.getFullYear()) {
+            yearsDiff = (today.getFullYear() - (birthDay.getFullYear()));
+        }
+        else {
+            yearsDiff = (today.getFullYear() - (birthDay.getFullYear() + 1));
+        }
 
         // Calculate months
         let ageMonths = today.getMonth() - birthDay.getMonth();
@@ -78,6 +84,12 @@ const Profile = () => {
         return (`${yearsDiff} years, ${ageMonths} months, ${ageDays} days`);
     }
 
+    // currency add commas
+    const addCommas = (number) => {
+        const numberString = number.toString();
+        return numberString.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
     return (
         <div>
             <Helmet>
@@ -89,10 +101,9 @@ const Profile = () => {
                     <div className="mb-24 xl:mb-32">
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
-                        <div className="w-28 xs:w-40 rounded-full mx-auto ring-2 ring-offset-2 ring-primary ring-offset-gray-50">
-                            <img className='rounded-full aspect-square' src={PGuser?.avatar ? PGuser?.avatar : useImage} alt='User Image' />
+                        <div onClick={() => document.getElementById('my_modal_4').showModal()} className="w-28 xs:w-40 aspect-square rounded-full mx-auto ring-2 ring-offset-2 ring-primary ring-offset-gray-50 hover:cursor-pointer">
+                            <img className='rounded-full aspect-square' src={PGuser?.avatar[0]?.url ? PGuser?.avatar[0]?.url : userImage} alt='User Image' />
                         </div>
-
 
                         <div className="mt-10 lg:mt-16">
                             <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
@@ -110,10 +121,14 @@ const Profile = () => {
                                                         </td>
                                                         <td className={`px-6 py-4 text-gray-800 ${d.heading === 'Blood Group' && 'uppercase'}`}>
                                                             {
-                                                                (d.heading === 'Sining Date' || d.heading === 'Date Of Birth' || d.heading === 'Expired Date' || d.heading === 'Anniversary Date' || d.heading === 'Passport Validity') ?
+                                                                (d.heading === 'Registration Date' || d.heading === 'Date Of Birth' || d.heading === 'Expired Date' || d.heading === 'Anniversary Date' || d.heading === 'Passport Validity') ?
                                                                     (d.value ? convertDate(d.value) : '')
                                                                     :
-                                                                    d.value
+                                                                    ((d.heading === 'Balance Amount' || d.heading === 'Balance (Point)') ?
+                                                                        addCommas(d.value) : d.value)
+                                                            } &nbsp;
+                                                            {
+                                                                d.heading === 'Registration Date' && <span>(<b>Left:</b> {ageCount(d.value)})</span>
                                                             }
                                                         </td>
                                                     </tr>
@@ -145,11 +160,11 @@ const Profile = () => {
                                                                 :
                                                             </td>
                                                             <td className="px-6 py-4 text-gray-800">
-                                                                <p><span className="font-semibold mr-2">Name:</span>{d.name}</p>
-                                                                <p><span className="font-semibold mr-2">Passport:</span>{d.passport}</p>
-                                                                <p><span className="font-semibold mr-2">NID:</span>{d.nid}</p>
-                                                                <p><span className="font-semibold mr-2">Date Of Birth:</span>{d.dob && convertDate(d.dob)}</p>
-                                                                <p><span className="font-semibold mr-2">Age:</span>{d.dob && ageCount(d.dob)}</p>
+                                                                <p className='mb-1'><span className="font-semibold mr-2">Name:</span>{d.name}</p>
+                                                                <p className='mb-1'><span className="font-semibold mr-2">Passport:</span>{d.passport}</p>
+                                                                <p className='mb-1'><span className="font-semibold mr-2">NID:</span>{d.nid}</p>
+                                                                <p className='mb-1'><span className="font-semibold mr-2">Date Of Birth:</span>{d.dob && convertDate(d.dob)}</p>
+                                                                <p className='mb-1'><span className="font-semibold mr-2">Age:</span>{d.dob && ageCount(d.dob)}</p>
                                                                 <p><span className="font-semibold mr-2">Mobile:</span>{d.mobile}</p>
                                                             </td>
                                                         </tr>
@@ -177,7 +192,7 @@ const Profile = () => {
                                                 :
                                             </td>
                                             <td className="px-6 py-4">
-                                                <a className="text-blue-600 underline" href="">Download Now</a>
+                                                <button onClick={() => { window.print(); }} className="text-blue-600 hover:underline">Download Now</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -194,7 +209,7 @@ const Profile = () => {
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
                         <div className="w-28 xs:w-40 rounded-full mx-auto">
-                            <img className='rounded-full aspect-square' src={PGuser?.avatar ? PGuser?.avatar : useImage} alt='User Image' />
+                            <img className='rounded-full aspect-square' src={PGuser?.avatar ? PGuser?.avatar : userImage} alt='User Image' />
                         </div>
                         <div className="mt-10 lg:mt-16">
                             <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
@@ -227,7 +242,21 @@ const Profile = () => {
                     </div>
                 </div>
             }
-        </div>
+
+            <dialog id="my_modal_4" className="modal">
+                <div className="bg-gray-50 modal-box w-11/12 max-w-5xl">
+                    <div className="h-auto sm:h-[70vh] flex justify-center">
+                        <img className="rounded-sm md:rounded-xl" src={PGuser?.avatar[0]?.url ? PGuser?.avatar[0]?.url : userImage} alt='User Image' />
+                    </div>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            {/* if there is a button, it will close the modal */}
+                            <button className="btn btn-sm md:btn-md bg-red-600 hover:bg-red-500 text-gray-50 border-none">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+        </div >
     );
 };
 

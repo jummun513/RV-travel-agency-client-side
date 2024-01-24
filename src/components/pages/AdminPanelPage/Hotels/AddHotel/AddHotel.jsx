@@ -341,7 +341,7 @@ const AddHotel = () => {
                         <input onChange={(e) => handleInputChange('faq_3', e)} type="text" id="faq_3" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, there's an outdoor pool..." required />
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="faq_4" className="block mb-2 text-sm font-medium text-gray-900">Are per allows?<sup className="text-red-500">*</sup></label>
+                        <label htmlFor="faq_4" className="block mb-2 text-sm font-medium text-gray-900">Are pet allows?<sup className="text-red-500">*</sup></label>
                         <input onChange={(e) => handleInputChange('faq_4', e)} type="text" id="faq_4" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Sorry, pets and service animals aren't allowed..." required />
                     </div>
                     <div className="mb-6">

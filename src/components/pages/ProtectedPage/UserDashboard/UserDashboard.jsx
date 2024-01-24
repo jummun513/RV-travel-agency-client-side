@@ -113,12 +113,12 @@ const UserDashboard = () => {
                     {/* drawer content top heading for medium device */}
                     <div className='hidden xxs:flex xl:hidden px-3 sm:px-5 pt-4 sm:pt-5 pb-5 xs:pb-8 border-b items-center justify-between'>
                         <button onClick={() => setDrawerOpen(!drawerOpen)} className={`border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary ${drawerOpen && 'visible opacity-0 translate-x-0'}`}><AiOutlineMenu className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineMenu></button>
-                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {Guser?.name || PGuser?.name}</p>
+                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {Guser?.name || PGuser?.fullName}</p>
                     </div>
 
                     {/* drawer content top heading for large device */}
                     <div className='hidden xl:flex w-full justify-between items-center py-10 border-b-2 px-5'>
-                        <p className='text-gray-700 font-bold text-xl xl:text-2xl'><span className='text-secondary font-bold text-xl xl:text-2xl'>Welcome Back,</span> {Guser?.name || PGuser?.name}</p>
+                        <p className='text-gray-700 font-bold text-xl xl:text-2xl'><span className='text-secondary font-bold text-xl xl:text-2xl'>Welcome Back,</span> {Guser?.name || PGuser?.fullName}</p>
                     </div>
                     <div>
                         <Outlet></Outlet>

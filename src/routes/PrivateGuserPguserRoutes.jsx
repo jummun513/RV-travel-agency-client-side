@@ -6,14 +6,18 @@ import { AuthContextPG } from "../providers/AuthProviderPG";
 
 const PrivateGuserPguserRoutes = (data) => {
     const { children } = data;
-    const { loading, Guser } = useContext(AuthContext);
+    const { loading, Guser, user } = useContext(AuthContext);
     const { PGuser, pgLoading } = useContext(AuthContextPG);
 
     if (loading || pgLoading) {
         return <Loading></Loading>
     }
 
-    else if (Guser || PGuser) {
+    if (user?.emailVerified === false) {
+        return <Navigate to='/email-confirmation'></Navigate>
+    }
+
+    else if ((Guser && user?.emailVerified === true) || PGuser) {
         return children;
     }
 

@@ -41,11 +41,11 @@ const Hotel = (data) => {
                 <div className="w-full sm:w-1/2 md:w-3/5 lg:w-1/2 2xl:w-3/5 px-2 xxs:px-3 xs:px-5 sm:px-3 md:ps-5 lg:ps-3 xl:ps-5 pt-2 pb-3 xxs:pt-3 xxs:pb-5 xs:pb-8 sm:pb-3 flex flex-col justify-between">
                     <div className="flex justify-between">
                         <div className="text-gray-950">
-                            <h2 className="font-bold hover:underline text-blue-500 cursor-pointer"><Link to={`/hotel-detail/${_id}`} className="text-xs xxs:text-sm md:text-lg 2xl:text-xl 3xl:text-3xl">{newHotelName(hotelName)}</Link></h2>
+                            <h2 className="font-bold hover:underline text-blue-500 cursor-pointer"><Link to={`/hotel-details/${_id}`} className="text-xs xxs:text-sm md:text-lg 2xl:text-xl 3xl:text-3xl">{newHotelName(hotelName)}</Link></h2>
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.country}</p>
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.city}</p>
                         </div>
-                        <button onClick={() => navigate(`/booked-hotels/${_id}`)} className="btn btn-xs xxs:btn-sm 2xl:btn-md bg-primary text-gray-900 border-none hover:bg-secondary">Book Now</button>
+                        <button disabled onClick={() => navigate(`/booked-hotels/${_id}`)} className="btn btn-xs xxs:btn-sm 2xl:btn-md bg-primary text-gray-900 border-none hover:bg-secondary">Book Now</button>
                     </div>
                     <div className="flex justify-between items-end">
                         <div className="mt-3 sm:mt-0">

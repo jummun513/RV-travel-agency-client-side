@@ -23,7 +23,7 @@ const ManagePG = () => {
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
 
-    const removePGuser = (id, image_delete) => {
+    const removePGuser = (id, avatar) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -35,7 +35,7 @@ const ManagePG = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(`${import.meta.env.VITE_clientSideLink}/api/privilege-users`, {
-                    params: { pgUser: id, delete: image_delete },
+                    params: { pgUser: id, fileId: avatar },
                     headers: {
                         authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -53,7 +53,6 @@ const ManagePG = () => {
                         errorNotify();
                     }
                 })
-
             }
         })
     }
@@ -61,7 +60,7 @@ const ManagePG = () => {
     const handleSearchField = (event) => {
         const keyword = event.target.value.trim().toLowerCase();
         setSearchKeyword(keyword);
-        const results = pg_users.filter(d => (d.name.toLowerCase().includes(keyword) || d.register_email.includes(keyword)));
+        const results = pg_users.filter(d => (d?.fullName.toLowerCase().includes(keyword) || d?.email.includes(keyword)));
         setSearchData(results);
     }
 
@@ -82,7 +81,7 @@ const ManagePG = () => {
             <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">All privileged guest</h2>
             <div className="flex flex-col xxs:flex-row justify-between items-center">
                 <div className="w-2/5 me-5">
-                    <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData.length : pg_users.length}</p>
+                    <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData?.length : pg_users?.length}</p>
                 </div>
                 <div className="w-3/5">
                     <form>
@@ -118,22 +117,22 @@ const ManagePG = () => {
                         </thead>
                         <tbody>
                             {
-                                (searchKeyword ? searchData : pg_users).map((d, i) => {
+                                (searchKeyword ? searchData : pg_users)?.map((d, i) => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 xl:px-6 py-4 text-gray-900 whitespace-nowrap">
-                                                <img loading='lazy' className="w-10 h-10 rounded-full" src={d.thumb ? d.thumb : user} alt={`${d.name} image`} />
+                                                <img loading='lazy' className="w-14 h-14 rounded-full" src={(d.avatar.length > 0) ? d.avatar?.[0]?.thumbnailUrl : user} alt={`${d?.fullName} image`} />
                                                 <div className="lg:pl-3">
-                                                    <div className="text-base font-semibold">{d.name}</div>
-                                                    <div className="font-normal text-gray-500">{d.register_email}</div>
+                                                    <div className="text-base font-semibold">{d?.fullName}</div>
+                                                    <div className="font-normal text-gray-500">{d?.email}</div>
                                                 </div>
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-gray-800">
                                                 PG User
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-center">
-                                                <button onClick={() => handleViewUser(d._id)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
-                                                <button onClick={() => removePGuser(d._id, d.image_delete)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button onClick={() => handleViewUser(d?._id)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary xs:me-2 mb-2">View Profile</button>
+                                                <button onClick={() => removePGuser(d?._id, d?.avatar[0]?.fileId)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )
