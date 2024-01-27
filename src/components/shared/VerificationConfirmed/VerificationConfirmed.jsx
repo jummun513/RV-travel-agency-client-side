@@ -65,7 +65,7 @@ const VerificationConfirmed = () => {
                     </div>
             }
             <div className="flex flex-col lg:flex-row mt-5 lg:mt-10">
-                <button onClick={() => navigate('/')} className="btn btn-xs xxs:btn-sm lg:btn-wide lg:btn-md bg-primary hover:bg-secondary border-none text-gray-950">Go to home</button>
+                <button onClick={() => { navigate('/'); navigate(0) }} className="btn btn-xs xxs:btn-sm lg:btn-wide lg:btn-md bg-primary hover:bg-secondary border-none text-gray-950">Go to home</button>
                 {
                     disabled ?
                         <p className="mt-3 lg:ml-5 text-gray-900 font-semibold">Wait {countdown}s</p>

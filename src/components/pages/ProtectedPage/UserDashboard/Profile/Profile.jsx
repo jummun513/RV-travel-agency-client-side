@@ -245,7 +245,7 @@ const Profile = () => {
 
             <dialog id="my_modal_4" className="modal">
                 <div className="bg-gray-50 modal-box w-11/12 max-w-5xl">
-                    <div className="h-auto sm:h-[70vh] flex justify-center">
+                    <div className="h-auto sm:h-[70vh] 4xl:h-auto flex justify-center">
                         <img className="rounded-sm md:rounded-xl" src={PGuser?.avatar[0]?.url ? PGuser?.avatar[0]?.url : userImage} alt='User Image' />
                     </div>
                     <div className="modal-action">

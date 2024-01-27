@@ -56,9 +56,6 @@ const AuthProvider = (data) => {
             if (currentUser?.emailVerified === false) {
                 navigate('/email-confirmation');
             }
-            else {
-                navigate('/')
-            }
         })
     }, [auth])
 

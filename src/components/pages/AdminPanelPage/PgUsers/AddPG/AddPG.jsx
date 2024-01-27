@@ -349,7 +349,7 @@ const AddPG = () => {
                                 </button>
                         }
                     </div>
-                    <p className='text-[8px] xxs:text-xs sm:text-sm text-gray-600 mt-6 sm:mt-10'>(<span className='text-red-500 text-[8px] md:text-sm'>*</span>) These fields are required.</p>
+                    <p className='text-[8px] xxs:text-xs sm:text-sm text-gray-700 mt-6 sm:mt-10'>(<span className='text-red-500 text-[8px] md:text-sm'>*</span>) These fields are required.</p>
                 </form>
             </div >
         </div >

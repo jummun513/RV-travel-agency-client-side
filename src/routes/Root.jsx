@@ -183,7 +183,7 @@ export const router = createBrowserRouter([
                         element: <IndividualPGUser></IndividualPGUser>,
                     },
                     {
-                        path: 'manage-privileged-guest/individual-user-profile/:pgId/edit',
+                        path: 'manage-privileged-guest/individual-user-profile/:pgId/profile-edit',
                         element: <EditIndividualPGUser></EditIndividualPGUser>,
                     },
                     {

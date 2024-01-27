@@ -160,6 +160,7 @@ const IndividualPoints = ({ singlePGUser, refetch }) => {
                                 </tr>
                             </tbody>
                         </table>
+                        <p className=" text-red-600 text-xs md:text-sm mt-8 lg:mt-10">(*) These fields are required.</p>
                         <div className="modal-action">
                             {
                                 loading ?
