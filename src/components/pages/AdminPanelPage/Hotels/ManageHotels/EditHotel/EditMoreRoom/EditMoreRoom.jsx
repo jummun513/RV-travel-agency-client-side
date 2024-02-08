@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiSquarePlus } from 'react-icons/ci';
-import RoomImage from "../RoomImage/RoomImage";
 
-const AddMoreRoom = ({ moreData, setMoreData }) => {
+const EditMoreRoom = ({ rooms, moreData, setMoreData }) => {
     const [divs, setDivs] = useState([]);
 
     // add new div of new quest
     const addNewDiv = () => {
-        const newLabel = `Room-${divs.length + 1}`;
+        const newLabel = `Room-${divs.length + 1 + rooms?.length}`;
         setDivs((prevDivs) => [...prevDivs, newLabel]);
         setMoreData((prevFormData) => [...prevFormData, { name: '', price: '', discountPrice: '', bed: '', sleep: '', size: '', wifi: true, breakfast: true, parking: true, pictures: [] }]);
     };
-
-    // In first render add a single room automatically
-    useEffect(() => { addNewDiv(); removeDiv(1); }, []);
 
     const handleRoomImage = (index, imageRoom) => {
         setMoreData(moreData?.map((item, idx) => {
@@ -86,11 +82,11 @@ const AddMoreRoom = ({ moreData, setMoreData }) => {
     );
 };
 
-export default AddMoreRoom;
+export default EditMoreRoom;
 
 // new guest contains item
 const DynamicDiv = (data) => {
-    const { index, label, removeDiv, handleInputChange, moreData, handleRoomImage } = data;
+    const { index, label, removeDiv, handleInputChange, moreData } = data;
     const onRemoveDiv = () => {
         removeDiv(index);
     };
@@ -197,13 +193,6 @@ const DynamicDiv = (data) => {
                         </div>
                     </div>
                 </div>
-                {
-                    moreData?.map((item, idx) => {
-                        if (idx === index) {
-                            return <RoomImage key={idx} pictures={item.pictures} index={index} handleRoomImage={handleRoomImage}></RoomImage>
-                        }
-                    })
-                }
                 <p className="text-end mt-2"><a onClick={() => onRemoveDiv()} className='ms-2 xxs:ms-0 cursor-pointer text-blue-600 underline'>Remove</a></p>
             </div>
         </div>

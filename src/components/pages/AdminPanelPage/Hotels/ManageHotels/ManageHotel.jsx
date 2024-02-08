@@ -122,7 +122,21 @@ const ManageHotel = () => {
                                                 {d?.location?.city}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-center">
-                                                <button onClick={() => removeHotel(d._id, d.hotelName)} className="btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                {/* <button onClick={() => navigate(`/admin-panel/manage-hotel/edit-hotel/${d._id}`)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button> */}
+                                                <button onClick={() => alert('This section is under maintaining. Try later!')} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
+                                                {
+                                                    d.addToHome ?
+                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
+                                                        :
+                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Home</button>
+                                                }
+                                                {
+                                                    d.isSuspend ?
+                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
+                                                        :
+                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
+                                                }
+                                                <button onClick={() => removeHotel(d._id, d.hotelName)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

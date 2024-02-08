@@ -48,8 +48,8 @@ const AuthProviderPG = (data) => {
 
     useEffect(() => {
         localStorage.setItem('pg_user', JSON.stringify(state.user));
-        if (state?.user?.register_email) {
-            axios.post(`${import.meta.env.VITE_clientSideLink}/api/auth/jwt-pg`, { email: state.user?.register_email })
+        if (state?.user?.email) {
+            axios.post(`${import.meta.env.VITE_clientSideLink}/api/auth/jwt-pg`, { email: state.user?.email })
                 .then(data => {
                     const token = data.data;
                     localStorage.setItem('pg_access_token', token);

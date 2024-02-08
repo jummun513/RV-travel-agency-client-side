@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import ImageDropZone from "./ImageDropZone/ImageDropZone";
 import axios from "axios";
 import AddMoreRoom from "./AddMoreRoom/AddMoreRoom";
-import { uploadImage } from "../../../../../functions/uploadImage";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../../../../functions/imageStore";
 
 const AddHotel = () => {
     const token = localStorage.getItem('access_token');
@@ -32,7 +32,6 @@ const AddHotel = () => {
         },
         rooms: [],
         about: '',
-        reviews: [],
         faq: {},
         images: []
     });
@@ -194,7 +193,6 @@ const AddHotel = () => {
         else {
             setError('upload_invalid');
         }
-
     };
 
     return (
@@ -204,7 +202,7 @@ const AddHotel = () => {
                 {/* hotel name */}
                 <div className="mb-6">
                     <label htmlFor="hotelName" className="block mb-2 text-sm font-medium text-gray-900">Hotel Name <sup className="text-red-500">*</sup><small>(Only letters and space allowed, no special character.)</small></label>
-                    <input onChange={(e) => { handleInputChange('hotelName', e), handleHotelName(e) }} type="text" id="hotelName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Radisson Blu Chattogram Bay View" required />
+                    <input onChange={(e) => { handleInputChange('hotelName', e), handleHotelName(e) }} type="text" id="hotelName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Radisson Blu Chattogram Bay View" required />
                     {
                         error.includes('invalid_name') && <label className="label">
                             <span className="label-text-alt text-red-600">Only letters and space allowed, no special character.</span>
@@ -240,7 +238,7 @@ const AddHotel = () => {
                     <div className="grid grid-cols-3 gap-x-5 mb-5">
                         <div>
                             <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City <sup className="text-red-500">*</sup></label>
-                            <input onChange={(e) => handleInputChange('city', e)} type="text" id="city" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Chittagong" required />
+                            <input onChange={(e) => handleInputChange('city', e)} type="text" id="city" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Chittagong" required />
                         </div>
                         <div>
                             <label htmlFor="state" className="block mb-2 text-sm font-medium text-gray-900">State</label>
@@ -248,17 +246,17 @@ const AddHotel = () => {
                         </div>
                         <div>
                             <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900">Country <sup className="text-red-500">*</sup></label>
-                            <input onChange={(e) => handleInputChange('country', e)} type="text" id="country" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Bangladesh" required />
+                            <input onChange={(e) => handleInputChange('country', e)} type="text" id="country" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Bangladesh" required />
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-x-5 mb-5">
                         <div>
                             <label htmlFor="map" className="block mb-2 text-sm font-medium text-gray-900">Google Map Link <sup className="text-red-500">*</sup></label>
-                            <input onChange={(e) => handleInputChange('map', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14760.646552930377!2d91.8229809!3d22.3475248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a2a645ee07%3A0x2a94a4fa61c7b1a3!2sRadisson%20Blu%20Chattogram%20Bay%20View!5e0!3m2!1sen!2sbd!4v1694954254215!5m2!1sen!2sbd" required />
+                            <input onChange={(e) => handleInputChange('map', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14760.646552930377!2d91.8229809!3d22.3475248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a2a645ee07%3A0x2a94a4fa61c7b1a3!2sRadisson%20Blu%20Chattogram%20Bay%20View!5e0!3m2!1sen!2sbd!4v1694954254215!5m2!1sen!2sbd" required />
                         </div>
                         <div>
                             <label htmlFor="detailsAdd" className="block mb-2 text-sm font-medium text-gray-900">Address Details <sup className="text-red-500">*</sup><small>(Road, Area, Police Station, City, Country)</small></label>
-                            <input onChange={(e) => handleInputChange('detailsAdd', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Bulbul Center, 486/B O.R. Nizam Road, CDA Avenue, Chittagong, 4100" required />
+                            <input onChange={(e) => handleInputChange('detailsAdd', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Bulbul Center, 486/B O.R. Nizam Road, CDA Avenue, Chittagong, 4100" required />
                         </div>
                     </div>
                     {/* waht's around */}
@@ -267,51 +265,51 @@ const AddHotel = () => {
                         <div className="grid grid-cols-2 gap-x-5 mb-5">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Airport Name <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.name1', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Chittagong (CGP-Shah Amanat Intl.)" required />
+                                <input onChange={(e) => handleInputChange('around.name1', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Chittagong (CGP-Shah Amanat Intl.)" required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Distance <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.distance1', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 59 min driveway" required />
+                                <input onChange={(e) => handleInputChange('around.distance1', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="59 min driveway" required />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-x-5 mb-5">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Recreational Place <sup className="text-red-500">*</sup> <small>(Ex: Park, Museum etc.)</small></label>
-                                <input onChange={(e) => handleInputChange('around.name2', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Shishu park" required />
+                                <input onChange={(e) => handleInputChange('around.name2', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Shishu park" required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Distance <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.distance2', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 2 min walkway" required />
+                                <input onChange={(e) => handleInputChange('around.distance2', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="2 min walkway" required />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-x-5 mb-5">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Religious Prayer Place <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.name3', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Jamiatul Falah Mosque" required />
+                                <input onChange={(e) => handleInputChange('around.name3', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Jamiatul Falah Mosque" required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Distance <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.distance3', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 8 min walkway" required />
+                                <input onChange={(e) => handleInputChange('around.distance3', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="8 min walkway" required />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-x-5 mb-5">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Restaurants Name <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.name4', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Eden Restaurant & Kids Zone" required />
+                                <input onChange={(e) => handleInputChange('around.name4', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Eden Restaurant & Kids Zone" required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Distance <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.distance4', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 20 min walkway" required />
+                                <input onChange={(e) => handleInputChange('around.distance4', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="20 min walkway" required />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-x-5 mb-5">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Restaurants Name <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.name5', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Pizza Hut" required />
+                                <input onChange={(e) => handleInputChange('around.name5', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Pizza Hut" required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Distance <sup className="text-red-500">*</sup></label>
-                                <input onChange={(e) => handleInputChange('around.distance5', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 18 min walkway" required />
+                                <input onChange={(e) => handleInputChange('around.distance5', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="18 min walkway" required />
                             </div>
                         </div>
                     </div>
@@ -330,39 +328,39 @@ const AddHotel = () => {
                     <h3 className="text-xl text-gray-800 font-semibold mb-5">Frequently Asked Question</h3>
                     <div className="mb-6">
                         <label htmlFor="faq_1" className="block mb-2 text-sm font-medium text-gray-900">Does offer free cancellation for a full refund?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_1', e)} type="text" id="faq_1" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, Radisson Blu Bay View does have fully refundable room rates available to book on our site..." required />
+                        <input onChange={(e) => handleInputChange('faq_1', e)} type="text" id="faq_1" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Yes, Radisson Blu Bay View does have fully refundable room rates available to book on our site..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_2" className="block mb-2 text-sm font-medium text-gray-900">What are the cleanliness and hygiene measure?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_2', e)} type="text" id="faq_2" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. This property confirms that disinfectant is used to clean the property..." required />
+                        <input onChange={(e) => handleInputChange('faq_2', e)} type="text" id="faq_2" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="This property confirms that disinfectant is used to clean the property..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_3" className="block mb-2 text-sm font-medium text-gray-900">Is there a pull?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_3', e)} type="text" id="faq_3" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, there's an outdoor pool..." required />
+                        <input onChange={(e) => handleInputChange('faq_3', e)} type="text" id="faq_3" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Yes, there's an outdoor pool..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_4" className="block mb-2 text-sm font-medium text-gray-900">Are pet allows?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_4', e)} type="text" id="faq_4" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Sorry, pets and service animals aren't allowed..." required />
+                        <input onChange={(e) => handleInputChange('faq_4', e)} type="text" id="faq_4" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Sorry, pets and service animals aren't allowed..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_5" className="block mb-2 text-sm font-medium text-gray-900">Is parking offered onside?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_5', e)} type="text" id="faq_5" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, there's free valet parking..." required />
+                        <input onChange={(e) => handleInputChange('faq_5', e)} type="text" id="faq_5" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Yes, there's free valet parking..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_6" className="block mb-2 text-sm font-medium text-gray-900">What are the check-in and check-out time?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_6', e)} type="text" id="faq_6" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Check-in start time: 2 PM; Check-in end time: midnight. Check-out time is noon. Contactless check-in is available..." required />
+                        <input onChange={(e) => handleInputChange('faq_6', e)} type="text" id="faq_6" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Check-in start time: 2 PM; Check-in end time: midnight. Check-out time is noon. Contactless check-in is available..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_7" className="block mb-2 text-sm font-medium text-gray-900">What is there to do view and nearby?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_7', e)} type="text" id="faq_7" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Practice your swing on the tennis courts..." required />
+                        <input onChange={(e) => handleInputChange('faq_7', e)} type="text" id="faq_7" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Practice your swing on the tennis courts..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_8" className="block mb-2 text-sm font-medium text-gray-900">Are there restaurants at or near?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_8', e)} type="text" id="faq_8" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, there are 3 onsite restaurants, featuring Asian cuisine..." required />
+                        <input onChange={(e) => handleInputChange('faq_8', e)} type="text" id="faq_8" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Yes, there are 3 onsite restaurants, featuring Asian cuisine..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_9" className="block mb-2 text-sm font-medium text-gray-900">What&lsquo;s the area around view like?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_9', e)} type="text" id="faq_9" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Radisson Blu Chattogram Bay View is in the heart of Chittagong, a short 1-minute..." required />
+                        <input onChange={(e) => handleInputChange('faq_9', e)} type="text" id="faq_9" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Radisson Blu Chattogram Bay View is in the heart of Chittagong, a short 1-minute..." required />
                     </div>
                 </div>
 

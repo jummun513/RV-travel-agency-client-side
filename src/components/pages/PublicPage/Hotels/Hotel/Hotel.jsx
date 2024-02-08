@@ -45,7 +45,7 @@ const Hotel = (data) => {
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.country}</p>
                             <p className="text-xs xxs:text-sm 2xl:text-base">{location.city}</p>
                         </div>
-                        <button disabled onClick={() => navigate(`/booked-hotels/${_id}`)} className="btn btn-xs xxs:btn-sm 2xl:btn-md bg-primary text-gray-900 border-none hover:bg-secondary">Book Now</button>
+                        <button onClick={() => navigate(`/booked-hotels/${_id}`)} className="btn btn-xs xxs:btn-sm 2xl:btn-md bg-primary text-gray-900 border-none hover:bg-secondary">Book Now</button>
                     </div>
                     <div className="flex justify-between items-end">
                         <div className="mt-3 sm:mt-0">
@@ -64,7 +64,8 @@ const Hotel = (data) => {
                         <div className="flex flex-col items-end">
                             {/* <div className="p-1 xl:p-2 text-gray-50 bg-red-500 rounded text-xs xxs:text-sm mb-2">10% off</div> */}
                             {/* <p className="text-gray-800 font-semibold"><strike>USD 26</strike> <span>USD 24</span></p> */}
-                            <p className="text-gray-700">Taka {data?.data?.rooms[0]?.price} total</p>
+                            {data?.data?.rooms?.[0].price && <p className="text-gray-700"><strike>Taka {data?.data?.rooms?.[0]?.price} total</strike></p>}
+                            {data?.data?.rooms?.[0].price ? <p className="text-gray-700">After Discount {data?.data?.rooms?.[0]?.discountPrice} taka</p> : <p className="text-gray-700">Taka {data?.data?.rooms?.[0]?.discountPrice} total</p>}
                             <p className="text-[10px] xxs:text-xs 2xl:text-sm text-gray-400">Includes taxes and fees <span className="text-red-500">*</span></p>
                         </div>
                     </div>

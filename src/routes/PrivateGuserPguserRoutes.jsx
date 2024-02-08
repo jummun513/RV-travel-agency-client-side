@@ -21,7 +21,8 @@ const PrivateGuserPguserRoutes = (data) => {
         return children;
     }
 
-    else if (!Guser) {
+    else if (!user) {
+        console.log(user);
         return <Navigate to='/login'></Navigate>
     }
 

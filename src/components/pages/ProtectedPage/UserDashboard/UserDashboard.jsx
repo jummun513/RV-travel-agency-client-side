@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { AuthContextPG } from "../../../../providers/AuthProviderPG";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import { FaHistory } from "react-icons/fa";
+import { GrTransaction } from "react-icons/gr";
 
 const UserDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -52,7 +53,7 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
-                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
+                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><GrTransaction />Transaction Details</NavLink></li>
                             </ul>
                         }
 
@@ -60,6 +61,17 @@ const UserDashboard = () => {
                             Guser &&
                             <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
                                 <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                                <li className="mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <FaHistory></FaHistory> Booked History
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-order-history/hotel-booked' className='hover:bg-primary hover:text-gray-950'>Hotel Booked</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-order-history/package-purchased' className='hover:bg-primary hover:text-gray-950'>Package Purchase</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
                             </ul>
                         }
                     </div>
@@ -107,7 +119,7 @@ const UserDashboard = () => {
                         <div className='flex justify-between items-center w-full mb-4'>
                             <button onClick={() => setDrawerOpen(!drawerOpen)} className={`border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary ${drawerOpen && 'visible opacity-0 translate-x-0'}`}><AiOutlineMenu className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineMenu></button>
                         </div>
-                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {PGuser?.name || Guser?.name}</p>
+                        <p className='text-gray-700 font-bold sm:text-xl'><span className='text-secondary font-bold sm:text-xl'>Welcome Back,</span> {Guser?.name || PGuser?.fullName}</p>
                     </div>
 
                     {/* drawer content top heading for medium device */}

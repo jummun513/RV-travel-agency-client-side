@@ -119,7 +119,7 @@ const DynamicDiv = (data) => {
                         <input
                             name={`nid-${index}`}
                             value={moreData[index]?.nid}
-                            onChange={(e) => handleInputChange('nid', index, e)} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
+                            onChange={(e) => handleInputChange('nid', index, e)} onWheel={(e) => e.target.blur()} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@ const DynamicDiv = (data) => {
                         <label htmlFor="passport">Passport No.</label>
                         <input name={`passport-${index}`}
                             value={moreData[index]?.passport}
-                            onChange={(e) => handleInputChange('passport', index, e)} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
+                            onChange={(e) => handleInputChange('passport', index, e)} onWheel={(e) => e.target.blur()} type="number" pattern="[0-9]*" inputMode="numeric" placeholder='0123' className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>
                     {/* mobile number */}
                     <div className="mb-3 sm:mb-0 w-full sm:max-w-[300px] sm:mr-5 2xl:mr-10 text-gray-600 group z-0">
@@ -137,6 +137,7 @@ const DynamicDiv = (data) => {
                         <input type="number" pattern="[0-9]*" inputMode="numeric" placeholder='017xxxxxxxx'
                             name={`mobile-${index}`}
                             value={moreData[index]?.mobile}
+                            onWheel={(e) => e.target.blur()}
                             onChange={(e) => handleInputChange('mobile', index, e)}
                             className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" />
                     </div>

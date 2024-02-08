@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Room = (data) => {
-    const { bed, breakfast, name, parking, pictures, price, size, wifi, sleep } = data.data;
+    const { bed, breakfast, name, parking, pictures, price, size, wifi, sleep, discountPrice } = data.data;
     const { hotelId } = data;
     const navigate = useNavigate();
 
@@ -36,7 +36,8 @@ const Room = (data) => {
                 <p className='flex items-center mt-1 xxs:mt-2'><BsFillMoonFill className='xxs:h-5 xxs:w-5 h-4 w-4 me-2 xs:me-3 bg-purple-600 text-[#fff] p-1 rounded'></BsFillMoonFill><span>Collect and Redeem</span></p>
                 <div className='flex justify-between items-end mt-4'>
                     <div>
-                        <p className='text-base xxs:text-lg font-semibold'>TAKA {price}</p>
+                        {price && <p className='text-base xxs:text-lg font-semibold'><strike>TAKA {price}/-</strike></p>}
+                        <p className='text-base xxs:text-lg font-semibold'>{price && 'After discount'} TAKA {discountPrice}/-</p>
                         {/* <p className='text-sm xxs:text-base'>USD {price + 20} total</p> */}
                         <p className='text-xs xxs:text-sm'>Includes taxes & fees</p>
                     </div>

@@ -309,7 +309,7 @@ const HotelDetail = () => {
                                                         </button>
                                                     </li>
                                                 </ul>
-                                                <button disabled onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
+                                                <button onClick={() => navigate(`/booked-hotels/${hotelId}`)} className="btn btn-xs sm:btn-sm lg:btn-md mt-2 xs:mt-0 text-gray-950 bg-primary hover:bg-secondary border-none">Book Now</button>
                                             </nav>
                                             <section id="Overview" className="section mt-8 sm:mt-5 lg:mt-10 bg-[#fff] px-1 xxs:px-2 xs:px-5 py-7 xxs:py-10">
                                                 <div className="lg:flex text-gray-800">
@@ -422,7 +422,7 @@ const HotelDetail = () => {
                                                         <div className='lg:w-2/3'>
                                                             <div>
                                                                 <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>{item.hotelName}</h3>
-                                                                <p className='text-gray-600'>{item.about}</p>
+                                                                <pre className='whitespace-pre-wrap text-justify text-gray-600'>{item.about}</pre>
                                                             </div>
                                                             <div className='mt-6 xs:mt-10'>
                                                                 <h3 className='text-sm xxs:text-base xs:text-lg lg:text-xl font-medium mb-2'>Languages</h3>

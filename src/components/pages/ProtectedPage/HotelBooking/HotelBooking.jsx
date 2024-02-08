@@ -3,28 +3,32 @@ import url from "../../../../assets/images/booking_back.jpg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Loading from "../../../shared/Loading/Loading";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContextPG } from "../../../../providers/AuthProviderPG";
 import { MdOutlineBed, MdOutlinePhotoSizeSelectSmall } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import DatePicker from "react-datepicker";
 import axios from "axios";
+import { AuthContext } from "../../../../providers/AuthProvider";
 
 const HotelBooking = () => {
     const pgToken = localStorage.getItem('pg_access_token');
+    const token = localStorage.getItem('access_token');
     const { hotelId } = useParams();
     const navigate = useNavigate();
+    const { Guser } = useContext(AuthContext);
     const { PGuser } = useContext(AuthContextPG);
     const formRef = useRef();
+    const [error, setError] = useState('');
+    const mobile = useRef(null);
     const [loading, setLoading] = useState(false);
     const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const [formData, setFormData] = useState({
-        userName: PGuser.name,
-        userId: PGuser._id,
+        userId: Guser ? Guser._id : PGuser._id,
         hotelId: hotelId,
         checkIn: new Date(),
         checkOut: new Date(),
-        selectedRooms: [{ isSelected: true, quantity: 1 }],
+        selectedRooms: [],
         childrenGuest: 1,
         adultGuest: 2,
         totalGuest: 3,
@@ -34,12 +38,13 @@ const HotelBooking = () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels`);
         return res.json();
     })
-    if (isLoading) {
-        return <Loading></Loading>
-    }
 
     // filter the demand data of hotel via id
     const selectedHotel = (hotels?.find(item => (item._id === hotelId)));
+
+    useEffect(() => {
+        if (formData.selectedRooms.length > 1) setError('')
+    }, [formData.selectedRooms])
 
     const handleInputChange = (field, event) => {
         let value;
@@ -50,8 +55,9 @@ const HotelBooking = () => {
             if (event.target.name === 'selectedRooms') {
                 const selectedRoomLength = formData.selectedRooms.length;
                 const roomLength = selectedHotel?.rooms.length;
-                if (selectedRoomLength < roomLength && selectedRoomLength < field + 1) {
-                    const newRoom = Array.from({ length: ((field + 1) - selectedRoomLength) }, () => ({
+                if (selectedRoomLength < roomLength && selectedRoomLength < field.index + 1) {
+                    const newRoom = Array.from({ length: ((field.index + 1) - selectedRoomLength) }, () => ({
+                        roomId: field.roomId,
                         isSelected: true,
                         quantity: 1,
                     }));
@@ -61,13 +67,13 @@ const HotelBooking = () => {
                 else {
                     setFormData((prevFormData) => {
                         const updatedRooms = [...prevFormData.selectedRooms];
-                        [updatedRooms[field].isSelected = event.target.checked, (event.target.checked === true ? updatedRooms[field].quantity = 1 : updatedRooms[field].quantity = 0)];
+                        [updatedRooms[field.index].isSelected = event.target.checked, (event.target.checked === true ? updatedRooms[field.index].quantity = 1 : updatedRooms[field.index].quantity = 0)];
                         return { ...prevFormData, selectedRooms: updatedRooms };
                     });
                 }
             }
             else {
-                event.target.name === 'increaseButton' ? formData.selectedRooms[field].quantity += 1 : ((formData.selectedRooms[field].quantity > 1) && (formData.selectedRooms[field].quantity -= 1));
+                event.target.name === 'increaseButton' ? formData.selectedRooms[field.index].quantity += 1 : ((formData.selectedRooms[field.index].quantity > 1) && (formData.selectedRooms[field.index].quantity -= 1));
                 setFormData({ ...formData, selectedRooms: [...formData.selectedRooms] });
             }
         }
@@ -81,6 +87,15 @@ const HotelBooking = () => {
                 [field]: value,
             });
         }
+    }
+
+    // mobile number field validation checkup and value set
+    const handleNumberField = (e) => {
+        if (/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/.test(mobile.current.value)) {
+            setError('');
+            handleInputChange('emergencyContact', e);
+        }
+        else { setError('invalid_number'); }
     }
 
     const handleGuestChange = (e) => {
@@ -99,20 +114,39 @@ const HotelBooking = () => {
 
     const handleNextButton = async (event) => {
         event.preventDefault();
+
+        if (formData.selectedRooms?.length < 1) {
+            return setError('notASingleRoom');
+        }
         setLoading(true);
         try {
-            const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders`, formData,
-                {
-                    headers: {
-                        authorization: `Bearer ${pgToken}`,
-                    }
-                });
-            setLoading(false);
-            navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
+            if (Guser) {
+                const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/user`, formData,
+                    {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        }
+                    });
+                setLoading(false);
+                navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
+            }
+            else if (PGuser) {
+                const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/pg-user`, formData,
+                    {
+                        headers: {
+                            authorization: `Bearer ${pgToken}`,
+                        }
+                    });
+                setLoading(false);
+                navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
+            }
         } catch (error) {
-            console.log(error);
             setLoading(false);
         }
+    };
+
+    if (isLoading) {
+        return <Loading></Loading>
     }
 
     return (
@@ -136,24 +170,27 @@ const HotelBooking = () => {
                     <form ref={formRef} onSubmit={handleNextButton} className='mx-auto w-[95%] xs:w-[90%] xl:w-[70%] mt-10'>
                         {/* Name field */}
                         <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                            <input readOnly type="text" name="name" id="name" defaultValue={PGuser.name} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                            <label htmlFor="name" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Order Name</label>
+                            <input readOnly type="text" name="name" id="name" defaultValue={Guser ? Guser.name : PGuser.fullName} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer" />
+                            <label htmlFor="name" className="absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Order Name</label>
                         </div>
 
                         {/* email field */}
                         <div className="relative z-0 w-full mb-6 xs:mb-10 group">
-                            <input readOnly type="email" name="email" id="email" defaultValue={PGuser.register_email} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                            <label htmlFor="email" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                            <input readOnly type="email" name="email" id="email" defaultValue={Guser ? Guser.email : PGuser.email} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer" />
+                            <label htmlFor="email" className="absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                         </div>
                         {/* phone field */}
                         <div className="flex">
                             <div className="mr-5 relative z-0 w-full mb-6 xs:mb-10 group">
-                                <input readOnly type="text" name="mobile" id="mobile" defaultValue={PGuser.mobile} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                                <label htmlFor="mobile" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile</label>
+                                <input readOnly type="text" name="mobile" id="mobile" defaultValue={Guser ? 'Only for privilege users' : PGuser.mobileNo} className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer" />
+                                <label htmlFor="mobile" className="absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile</label>
                             </div>
                             <div className="ml-5 relative z-0 w-full mb-6 xs:mb-10 group">
-                                <input onChange={(e) => handleInputChange('emergencyContact', e)} type="text" name="emergency_contact" id="emergency_contact" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                                <label htmlFor="emergency_contact" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Emergency Contact</label>
+                                <input ref={mobile} required={Guser} onChange={(e) => handleNumberField(e)} type="text" name="emergency_contact" id="emergency_contact" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
+                                <label htmlFor="emergency_contact" className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Emergency Contact{Guser && <sup className="text-red-500 text-sm">*</sup>}</label>
+                                {
+                                    ((error.includes('invalid_number')) && <p className='text-xs sm:text-sm mt-1 sm:mt-3 text-red-600'>Invalid mobile number!</p>)
+                                }
                             </div>
                         </div>
 
@@ -232,21 +269,21 @@ const HotelBooking = () => {
                                                             <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlineBed className='h-4 w-4 me-2 xs:me-3'></MdOutlineBed><span className="text-xs sm:text-sm">{d?.bed}</span></p>
                                                             <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><BsFillPersonFill className='h-4 w-4 me-2 xs:me-3'></BsFillPersonFill><span className="text-xs sm:text-sm">Sleeps {d.sleep}</span></p>
                                                             <p className='flex items-center mt-1 xxs:mt-2 text-gray-600'><MdOutlinePhotoSizeSelectSmall className='h-4 w-4 me-2 xs:me-3'></MdOutlinePhotoSizeSelectSmall><span className="text-xs sm:text-sm">{d.size}</span></p>
-                                                            <p className="text-gray-700 font-semibold text-sm mt-3">Price(&#2547;) : <span className="text-red-500 ml-1">{d.price} tk.</span> <small>(per night)</small> <sup className="text-red-500">*</sup></p>
+                                                            <p className="text-gray-700 font-semibold text-sm mt-3">Price(&#2547;) : <span className="text-red-500 ml-1">{d.discountPrice} tk.</span> <small>(per night)</small> <sup className="text-red-500">*</sup></p>
                                                             <p className="text-gray-600 text-[8px] sm:text-xs 3xl:text-sm sm:mt-1">Included Taxes and Fees</p>
                                                         </div>
                                                         <div className="mt-4 xxs:mt-7 lg:mt-0">
                                                             <p className="font-semibold text-gray-700">Quantity</p>
                                                             <div className={`flex items-center mt-1 ${(formData.selectedRooms[i]?.isSelected || formData.selectedRooms[i]?.isSelected === true) ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-                                                                <button onClick={(e) => handleInputChange(i, e)} disabled={formData?.selectedRooms[i]?.quantity < 2 && true} name="decreaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
+                                                                <button onClick={(e) => handleInputChange({ roomId: d?._id, index: i }, e)} disabled={formData?.selectedRooms[i]?.quantity < 2 && true} name="decreaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>-</button>
                                                                 <p className='w-14 p-2 mx-3 text-gray-950 border border-primary'>{formData?.selectedRooms[i]?.quantity ? formData?.selectedRooms[i]?.quantity : 0}</p>
-                                                                <button onClick={(e) => handleInputChange(i, e)} disabled={formData?.selectedRooms[i]?.quantity < 1 && true} name="increaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>+</button>
+                                                                <button onClick={(e) => handleInputChange({ roomId: d?._id, index: i }, e)} disabled={formData?.selectedRooms[i]?.quantity < 1 && true} name="increaseButton" type='button' className='p-2 bg-primary font-semibold hover:bg-secondary disabled:cursor-not-allowed disabled:bg-[#ffb7005e] text-gray-950'>+</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="w-[20%] 3xl:w-[30%] flex justify-end">
                                                         <label className="cursor-pointer">
-                                                            <input onChange={(e) => handleInputChange(i, e)} name="selectedRooms" type="checkbox" className="checkbox checkbox-sm lg:checkbox-md checkbox-warning" checked={formData.selectedRooms[i]?.isSelected === true && true} />
+                                                            <input onChange={(e) => handleInputChange({ roomId: d?._id, index: i }, e)} name="selectedRooms" type="checkbox" className="checkbox checkbox-sm lg:checkbox-md checkbox-warning" checked={formData.selectedRooms[i]?.isSelected === true && true} />
                                                         </label>
                                                     </div>
                                                 </div>
@@ -297,6 +334,9 @@ const HotelBooking = () => {
                                     </button>
                             }
                         </div>
+                        {
+                            error.includes('notASingleRoom') && <p className="text-red-500 text-xs md:text-sm 4xl:text-base mt-2 xxs:mt-3 xl:mt-6">At least a room must be added.</p>
+                        }
                     </form>
                 </div>
             </div>

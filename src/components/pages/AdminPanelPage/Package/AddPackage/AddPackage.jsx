@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { uploadImage } from "../../../../../functions/uploadImage";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select';
 import ReactDatePicker from "react-datepicker";
 import ImageDropZoneForPackage from "./ImageDropZoneForPackage/ImageDropZoneForPackage";
+import { uploadImage } from "../../../../../functions/imageStore";
 
 const AddPackage = () => {
     const token = localStorage.getItem('access_token');
@@ -17,7 +17,7 @@ const AddPackage = () => {
     const [data, setData] = useState({
         packageCode: '',
         packageName: '',
-        packagePrice: '',
+        packageDiscountPrice: '',
         packageType: {},
         lastEntry: Date.now(),
         packageDuration: { days: '', nights: '' },
@@ -126,7 +126,7 @@ const AddPackage = () => {
         event.preventDefault();
         const notify = () => toast.success("Successfully, new hotel added.", { theme: "light" });
         const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
-        const folderName = parseInt(data.packageCode) + (Date.now());
+        const folderName = Math.round(Math.random() * 1000) + (Date.now());
         const uploadedData = { ...data, imageFolder: folderName };
 
         if (data.images.length > 0 && data.thumbnail.length > 0 && error === '') {
@@ -163,7 +163,6 @@ const AddPackage = () => {
         else {
             setError('upload_invalid');
         }
-
     };
 
     // option for relation select dropdown
@@ -191,19 +190,25 @@ const AddPackage = () => {
                 {/* Package Code */}
                 <div className="mb-6">
                     <label htmlFor="packageCode" className="block mb-2 text-sm font-medium text-gray-900">Package Code <sup className="text-red-500">*</sup><small> (Only number)</small></label>
-                    <input onChange={(e) => handleInputChange('packageCode', e)} type="number" id="packageCode" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 101" required />
+                    <input onChange={(e) => handleInputChange('packageCode', e)} type="text" id="packageCode" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="RVL-PAC-101" required />
                 </div>
 
                 {/* Package name */}
                 <div className="mb-6">
                     <label htmlFor="packageName" className="block mb-2 text-sm font-medium text-gray-900">Package Name <sup className="text-red-500">*</sup></label>
-                    <input onChange={(e) => handleInputChange('packageName', e)} type="text" id="packageName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Escape to Romance - Royal Tulip" required />
+                    <input onChange={(e) => handleInputChange('packageName', e)} type="text" id="packageName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Escape to Romance - Royal Tulip" required />
                 </div>
 
                 {/* Package Price */}
-                <div className="mb-6">
-                    <label htmlFor="packagePrice" className="block mb-2 text-sm font-medium text-gray-900">Package Price <sup className="text-red-500">*</sup><small> (Per person)</small></label>
-                    <input onChange={(e) => handleInputChange('packagePrice', e)} type="number" id="packagePrice" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. 10000" required />
+                <div className="grid grid-cols-2">
+                    <div className="mb-6">
+                        <label htmlFor="packagePrice" className="block mb-2 text-sm font-medium text-gray-900">Package Price<small> (Per person)</small></label>
+                        <input onChange={(e) => handleInputChange('packagePrice', e)} onWheel={(e) => e.target.blur()} type="number" id="packagePrice" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="10000" />
+                    </div>
+                    <div className="mb-6 ml-5">
+                        <label htmlFor="packageDiscountPrice" className="block mb-2 text-sm font-medium text-gray-900">Package Discount Price <sup className="text-red-500">*</sup><small> (Per person)</small></label>
+                        <input onChange={(e) => handleInputChange('packageDiscountPrice', e)} onWheel={(e) => e.target.blur()} type="number" id="packageDiscountPrice" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="10000" required />
+                    </div>
                 </div>
 
                 <div className="flex mb-6">
@@ -238,8 +243,8 @@ const AddPackage = () => {
                 <div className="mb-6">
                     <label htmlFor="packageDuration" className="block mb-2 text-sm font-medium text-gray-900">Package Duration <sup className="text-red-500">*</sup></label>
                     <div className="flex">
-                        <div className="flex items-center"><input name="packageDuration" onChange={(e) => { handleInputChange('days', e) }} type="number" id="packageDuration" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 2" required /> <small className="text-gray-700 font-semibold ml-1">Days</small></div>
-                        <div className="flex items-center ml-5"><input name="packageDuration" onChange={(e) => { handleInputChange('nights', e) }} type="number" id="packageDuration1" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 3" required /> <small className="text-gray-700 font-semibold ml-1">Nights</small></div>
+                        <div className="flex items-center"><input name="packageDuration" onChange={(e) => { handleInputChange('days', e) }} onWheel={(e) => e.target.blur()} type="number" id="packageDuration" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="2" required /> <small className="text-gray-700 font-semibold ml-1">Days</small></div>
+                        <div className="flex items-center ml-5"><input name="packageDuration" onChange={(e) => { handleInputChange('nights', e) }} onWheel={(e) => e.target.blur()} type="number" id="packageDuration1" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="3" required /> <small className="text-gray-700 font-semibold ml-1">Nights</small></div>
                     </div>
                 </div>
 
@@ -247,9 +252,9 @@ const AddPackage = () => {
                 <div className="mb-6">
                     <label htmlFor="guestNumber" className="block mb-2 text-sm font-medium text-gray-900">Maximum Guest <sup className="text-red-500">*</sup></label>
                     <div className="flex">
-                        <div className="flex items-center"><input name="guestNumber" onChange={(e) => { handleInputChange('adult', e) }} type="number" defaultValue={data.guestNumber.adult} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 2" required /> <small className="text-gray-700 font-semibold ml-1">Adults</small></div>
-                        <div className="flex items-center ml-5"><input name="guestNumber" onChange={(e) => { handleInputChange('child', e) }} type="number" defaultValue={data.guestNumber.child} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 1" required /> <small className="text-gray-700 font-semibold ml-1">Children</small></div>
-                        <div className="flex items-center ml-5"><input type="number" value={data.guestNumber.total} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 3" readOnly /> <small className="text-gray-700 font-semibold ml-1">Total</small></div>
+                        <div className="flex items-center"><input name="guestNumber" onChange={(e) => { handleInputChange('adult', e) }} onWheel={(e) => e.target.blur()} type="number" defaultValue={data.guestNumber.adult} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 2" required /> <small className="text-gray-700 font-semibold ml-1">Adults</small></div>
+                        <div className="flex items-center ml-5"><input name="guestNumber" onChange={(e) => { handleInputChange('child', e) }} onWheel={(e) => e.target.blur()} type="number" defaultValue={data.guestNumber.child} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 1" required /> <small className="text-gray-700 font-semibold ml-1">Children</small></div>
+                        <div className="flex items-center ml-5"><input type="number" value={data.guestNumber.total} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" disabled /> <small className="text-gray-700 font-semibold ml-1">Total</small></div>
                     </div>
                 </div>
 
@@ -275,7 +280,7 @@ const AddPackage = () => {
                     <div className="grid grid-cols-3 gap-x-5 mb-5">
                         <div>
                             <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City <sup className="text-red-500">*</sup></label>
-                            <input name="packageZone" onChange={(e) => handleInputChange('city', e)} type="text" id="city" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Chittagong" required />
+                            <input name="packageZone" onChange={(e) => handleInputChange('city', e)} type="text" id="city" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Chittagong" required />
                         </div>
                         <div>
                             <label htmlFor="state" className="block mb-2 text-sm font-medium text-gray-900">State</label>
@@ -283,24 +288,24 @@ const AddPackage = () => {
                         </div>
                         <div>
                             <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900">Country <sup className="text-red-500">*</sup></label>
-                            <input name="packageZone" onChange={(e) => handleInputChange('country', e)} type="text" id="country" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Bangladesh" required />
+                            <input name="packageZone" onChange={(e) => handleInputChange('country', e)} type="text" id="country" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Bangladesh" required />
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-x-5 mb-5">
                         <div>
                             <label htmlFor="map" className="block mb-2 text-sm font-medium text-gray-900">Google Map Link <sup className="text-red-500">*</sup></label>
-                            <input name="packageZone" onChange={(e) => handleInputChange('map', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14760.646552930377!2d91.8229809!3d22.3475248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a2a645ee07%3A0x2a94a4fa61c7b1a3!2sRadisson%20Blu%20Chattogram%20Bay%20View!5e0!3m2!1sen!2sbd!4v1694954254215!5m2!1sen!2sbd" required />
+                            <input name="packageZone" onChange={(e) => handleInputChange('map', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14760.646552930377!2d91.8229809!3d22.3475248!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a2a645ee07%3A0x2a94a4fa61c7b1a3!2sRadisson%20Blu%20Chattogram%20Bay%20View!5e0!3m2!1sen!2sbd!4v1694954254215!5m2!1sen!2sbd" required />
                         </div>
                         <div>
                             <label htmlFor="detailsAdd" className="block mb-2 text-sm font-medium text-gray-900">Address Details <small>(Road, Area, Police Station, City, Country)</small></label>
-                            <input name="packageZone" onChange={(e) => handleInputChange('detailsAdd', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Avenue Center, 486/B Lalkhan Bazar, CDA Avenue, Chittagong, 4110" />
+                            <input name="packageZone" onChange={(e) => handleInputChange('detailsAdd', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Avenue Center, 486/B Lalkhan Bazar, CDA Avenue, Chittagong, 4110" />
                         </div>
                     </div>
                 </div>
 
                 {/* Package Overview */}
                 <div className="mt-14">
-                    <h3 className="text-xl text-gray-800 font-semibold mb-5">Package Overview</h3>
+                    <h3 className="text-xl text-gray-800 font-semibold mb-5">Package Overview<sup className="text-red-500"><small>*</small></sup></h3>
                     <textarea onChange={(e) => handleInputChange('overview', e)} style={{ resize: 'none' }} name="overview" id="overview" className="w-full h-48 bg-gray-50 border border-gray-400 rounded-md text-gray-950 text-sm p-4" placeholder="Write Here..." required></textarea>
                 </div>
 
@@ -313,7 +318,7 @@ const AddPackage = () => {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_2" className="block mb-2 text-sm font-medium text-gray-900">Pickup Note<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_2', e)} type="text" id="faq_2" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Yes, Radisson Blu Bay View does have fully refundable room rates available to book on our site..." required />
+                        <input onChange={(e) => handleInputChange('faq_2', e)} type="text" id="faq_2" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Yes, Radisson Blu Bay View does have fully refundable room rates available to book on our site..." required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_3" className="block mb-2 text-sm font-medium text-gray-900">What are the cancellation and refund policy?<sup className="text-red-500">*</sup></label>
@@ -333,12 +338,14 @@ const AddPackage = () => {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="faq_7" className="block mb-2 text-sm font-medium text-gray-900">What is there to do view and nearby?<sup className="text-red-500">*</sup></label>
-                        <input onChange={(e) => handleInputChange('faq_7', e)} type="text" id="faq_7" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Ex. Practice your swing on the tennis courts..." required />
+                        <input onChange={(e) => handleInputChange('faq_7', e)} type="text" id="faq_7" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Practice your swing on the tennis courts..." required />
                     </div>
                 </div>
 
                 <h3 className="text-xl text-gray-800 font-semibold mb-5">Package Images</h3>
                 <ImageDropZoneForPackage handleAllImages={handleAllImages} images={data.images}></ImageDropZoneForPackage>
+
+                <p className=" text-red-500 mt-8 lg:mt-10">(*) These fields are required.</p>
 
                 <p className="text-end mt-10">
                     {

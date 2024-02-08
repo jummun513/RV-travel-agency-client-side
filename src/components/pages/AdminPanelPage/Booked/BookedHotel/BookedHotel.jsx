@@ -126,8 +126,8 @@ const BookedHotel = () => {
             })
     }
 
-    const paidOrders = allOrders.data.filter(i => i.isPaid === true);
-    const unpaidOrders = allOrders.data.filter(i => i.isPaid === false);
+    const pgOrders = allOrders.data.filter(i => i.userType === 'privilege_user');
+    const userOrders = allOrders.data.filter(i => i.userType === 'user');
 
     const openModal = (selectedHotel, d, i, user) => {
         setCurrentData({ hotel: selectedHotel, order: d, index: i, user: user, sum: 0 });
@@ -140,13 +140,13 @@ const BookedHotel = () => {
 
             <Tabs className='mt-5'>
                 <TabList className='flex items-end justify-center'>
-                    <Tab className='px-5 py-2 outline-none rounded focus:ring-4 focus:ring-[#ffb700ac] bg-[#fff] border-2 border-primary text-gray-900 font-semibold cursor-pointer'>Paid</Tab>
-                    <Tab className='px-5 py-2 outline-none rounded focus:ring-4 focus:ring-[#ffb700ac] bg-[#fff] border-2 border-primary text-gray-900 font-semibold cursor-pointer ml-3'>Unpaid</Tab>
+                    <Tab className='px-5 py-2 outline-none rounded focus:ring-4 focus:ring-[#ffb700ac] bg-[#fff] border-2 border-primary text-gray-900 font-semibold cursor-pointer'>PG Orders</Tab>
+                    <Tab className='px-5 py-2 outline-none rounded focus:ring-4 focus:ring-[#ffb700ac] bg-[#fff] border-2 border-primary text-gray-900 font-semibold cursor-pointer ml-3'>User Orders</Tab>
                 </TabList>
                 <TabPanel>
                     <div className="flex flex-col xxs:flex-row justify-between items-center mt-16">
                         <div className="w-2/5 me-5">
-                            <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {paidOrders?.length}</p>
+                            <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {pgOrders?.length}</p>
                         </div>
                         <div className="w-3/5">
                             <form>
@@ -184,7 +184,7 @@ const BookedHotel = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        paidOrders?.map((d, i) => {
+                                        pgOrders?.map((d, i) => {
                                             const selectedHotel = (hotels?.find(item => (item._id === d?.hotelId)));
                                             const user = (pg_users?.find(item => (item._id === d?.userId)));
 
@@ -322,7 +322,7 @@ const BookedHotel = () => {
                 <TabPanel>
                     <div className="flex flex-col xxs:flex-row justify-between items-center mt-16">
                         <div className="w-2/5 me-5">
-                            <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {unpaidOrders?.length}</p>
+                            <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {userOrders?.length}</p>
                         </div>
                         <div className="w-3/5">
                             <form>
@@ -360,7 +360,7 @@ const BookedHotel = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        unpaidOrders?.map((d, i) => {
+                                        userOrders?.map((d, i) => {
                                             const selectedHotel = (hotels?.find(item => (item._id === d?.hotelId)));
                                             const user = (pg_users?.find(item => (item._id === d?.userId)));
 
