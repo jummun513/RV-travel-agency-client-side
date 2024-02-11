@@ -36,7 +36,7 @@ const ManageHotel = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data.deletedCount === 1) {
+                    if (response?.data.deletedCount === 1 || response?.data.modifiedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',
@@ -122,8 +122,8 @@ const ManageHotel = () => {
                                                 {d?.location?.city}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-center">
-                                                {/* <button onClick={() => navigate(`/admin-panel/manage-hotel/edit-hotel/${d._id}`)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button> */}
-                                                <button onClick={() => alert('This section is under maintaining. Try later!')} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
+                                                <button onClick={() => navigate(`/admin-panel/manage-hotel/edit-hotel/${d._id}`)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
+                                                {/* <button onClick={() => alert('This section is under maintaining. Try later!')} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button> */}
                                                 {
                                                     d.addToHome ?
                                                         <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>

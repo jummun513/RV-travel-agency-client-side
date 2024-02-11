@@ -205,6 +205,12 @@ const HotelDetail = () => {
                 <title> {searchHotel[0]?.hotelName ? searchHotel[0]?.hotelName : 'Hotel Details'} Royal Venture Limited</title>
             </Helmet>
             {
+                searchHotel.length < 1 &&
+                <div className='text-center text-gray-500 my-16'>
+                    The Hotels data is deleted.
+                </div>
+            }
+            {
                 isLoading ?
                     <div className='rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-4xl'>
                         <div className='hidden lg:grid grid-cols-4 h-[20rem] xl:h-[28rem] 3xl:h-[34rem] gap-3 3xl:gap-5'>

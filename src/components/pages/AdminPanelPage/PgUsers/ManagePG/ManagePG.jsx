@@ -41,7 +41,7 @@ const ManagePG = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data.deletedCount === 1) {
+                    if (response?.data.deletedCount === 1 || response?.data.modifiedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',

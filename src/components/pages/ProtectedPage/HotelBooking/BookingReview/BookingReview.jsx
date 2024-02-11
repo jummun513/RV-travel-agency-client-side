@@ -81,7 +81,7 @@ const BookingReview = () => {
 
     const handleUserSubmit = (e) => {
         e.preventDefault();
-        alert('Our providers will contact with you.');
+        alert('This section is under maintaining.');
     }
 
     // currency add commas

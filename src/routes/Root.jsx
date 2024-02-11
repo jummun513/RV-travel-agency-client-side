@@ -212,7 +212,7 @@ export const router = createBrowserRouter([
                         element: <ManageHotel></ManageHotel>,
                     },
                     {
-                        path: 'manage-hotel/edit-hotel/:editHotel',
+                        path: 'manage-hotel/edit-hotel/:editHotelId',
                         element: <EditHotel></EditHotel>,
                     },
                     {

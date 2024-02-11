@@ -106,6 +106,17 @@ const UserDashboard = () => {
                             Guser &&
                             <ul id='user_dashboard_sidebar' className="menu mt-10 xs:mt-16 h-full">
                                 <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
+                                <li className="mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <FaHistory></FaHistory> Booked History
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-order-history/hotel-booked' className='hover:bg-primary hover:text-gray-950'>Hotel Booked</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-order-history/package-purchased' className='hover:bg-primary hover:text-gray-950'>Package Purchased</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
                             </ul>
                         }
                     </div>

@@ -283,9 +283,9 @@ const HotelBooked = () => {
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-gray-800 whitespace-nowrap text-center">
+                                                                <td className="px-3 sm:px-6 lg:px-3 xl:px-6 py-4 text-gray-800 text-center">
                                                                     {
-                                                                        d.isPaid ? d.isConfirmed ? <p className="font-medium text-green-500">Confirmed</p> : (d.isCancel ? <p className="font-medium text-red-500">Canceled</p> : (d.isAccept ? <p className="font-medium text-green-500">Accepted</p> : <p className="font-medium">Pending</p>)) : <p className="font-medium text-red-500">Not Paid</p>
+                                                                        d.isPaid ? (d.isConfirmed ? <p className="font-medium text-green-500">Confirmed</p> : (d.isCancel ? <p className="font-medium text-red-500">Canceled</p> : (d.isAccept ? <p className="font-medium text-green-500">Accepted</p> : <p className="font-medium">Pending</p>))) : <p className="font-medium text-red-500">Not Paid</p>
                                                                     }
                                                                     {
                                                                         (d.remark && d.remark !== '') && <p className="md:text-sm 4xl:text-base"><span className="font-medium">{(d.remark && d.remark !== '') && 'Remark: '}</span>{d.remark}</p>

@@ -69,15 +69,15 @@ const AuthProvider = (data) => {
                         const token = data.data;
                         localStorage.setItem('access_token', token);
                         localStorage.removeItem('pg_user');
-                        queryClient.setQueryData(['g_user', currentUser.email], getUser(currentUser.email, token)).then(d => setGuser(d));
-                    })
+                        queryClient.setQueryData(['g_user', currentUser.email], getUser(currentUser.email, token)).then(d => { setGuser(d); setLoading(false); });
+                    });
             }
             else {
                 localStorage.removeItem('access_token');
                 setGuser(null);
                 setUser(null);
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return () => {

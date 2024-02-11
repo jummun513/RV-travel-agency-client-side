@@ -118,6 +118,12 @@ const HotelBooking = () => {
         if (formData.selectedRooms?.length < 1) {
             return setError('notASingleRoom');
         }
+
+        if (Guser || !PGuser) {
+            alert('Not ready yet')
+            return
+        }
+
         setLoading(true);
         try {
             if (Guser) {
