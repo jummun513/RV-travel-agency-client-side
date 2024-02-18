@@ -7,10 +7,12 @@ import Select from 'react-select';
 import ReactDatePicker from "react-datepicker";
 import ImageDropZoneForPackage from "./ImageDropZoneForPackage/ImageDropZoneForPackage";
 import { uploadImage } from "../../../../../functions/imageStore";
+import AddMoreItinerary from "./AddMoreItinerary/AddMoreItinerary";
 
 const AddPackage = () => {
     const token = localStorage.getItem('access_token');
     const [error, setError] = useState('');
+    const [itineraryData, setItineraryData] = useState([]);
     const [loading, setLoading] = useState(false);
     const formRef = useRef();
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ const AddPackage = () => {
         packageDiscountPrice: '',
         packageType: {},
         lastEntry: Date.now(),
+        startDate: Date.now(),
         packageDuration: { days: '', nights: '' },
         guestNumber: { adult: '2', child: '1', total: '3' },
         thumbnail: [],
@@ -31,6 +34,7 @@ const AddPackage = () => {
             detailsAdd: '',
         },
         overview: '',
+        itineraryData: [],
         faq: {},
         images: []
     });
@@ -44,6 +48,13 @@ const AddPackage = () => {
         }
     }, [data]);
 
+    useEffect(() => {
+        setData({
+            ...data,
+            itineraryData: itineraryData,
+        });
+    }, [itineraryData]);
+
     const handleAllImages = (image) => {
         setData({ ...data, images: image });
     }
@@ -54,7 +65,7 @@ const AddPackage = () => {
         if (field === 'thumbnail') {
             value = e.target.files[0];
         }
-        else if (field === 'packageType' || field === 'lastEntry') {
+        else if (field === 'packageType' || field === 'lastEntry' || field === 'startDate') {
             value = e;
         }
         else {
@@ -78,10 +89,22 @@ const AddPackage = () => {
                 },
             }));
             if (field === 'adult') {
-                data.guestNumber.total = parseInt(value) + parseInt(data.guestNumber.child);
+                setData((prevData) => ({
+                    ...prevData,
+                    guestNumber: {
+                        ...prevData.guestNumber,
+                        total: parseInt(value) + parseInt(data.guestNumber.child),
+                    },
+                }));
             }
             else {
-                data.guestNumber.total = parseInt(value) + parseInt(data.guestNumber.adult);
+                setData((prevData) => ({
+                    ...prevData,
+                    guestNumber: {
+                        ...prevData.guestNumber,
+                        total: parseInt(value) + parseInt(data.guestNumber.adult),
+                    },
+                }));
             }
         }
         else if (field?.startsWith('faq')) {
@@ -130,7 +153,6 @@ const AddPackage = () => {
         const uploadedData = { ...data, imageFolder: folderName };
 
         if (data.images.length > 0 && data.thumbnail.length > 0 && error === '') {
-
             try {
                 setLoading(true);
 
@@ -211,16 +233,17 @@ const AddPackage = () => {
                     </div>
                 </div>
 
-                <div className="flex mb-6">
-                    {/* package Type */}
-                    <div className="w-1/2 me-5">
-                        <label htmlFor="packageType" className="block mb-2 text-sm font-medium text-gray-900">Package Type <sup className="text-red-500">*</sup></label>
-                        <Select name='packageType' onChange={(e) => handleInputChange('packageType', e)} className='mt-1 text-gray-700' options={options} required />
-                    </div>
+                {/* package type */}
+                <div className="mb-6">
+                    <label htmlFor="packageType" className="block mb-2 text-sm font-medium text-gray-900">Package Type <sup className="text-red-500">*</sup></label>
+                    <Select name='packageType' onChange={(e) => handleInputChange('packageType', e)} className='mt-1 text-gray-700' options={options} required />
+                </div>
 
-                    {/* package Duration */}
+                {/* start and last entry date */}
+                <div className="flex mb-6">
+                    {/* last entry date*/}
                     <div className="w-1/2">
-                        <label htmlFor="packageType" className="block mb-2 text-sm font-medium text-gray-900">Last Date of Entry <sup className="text-red-500">*</sup></label>
+                        <label htmlFor="lastEntry" className="block mb-2 text-sm font-medium text-gray-900">Last Date of Entry <sup className="text-red-500">*</sup></label>
                         <ReactDatePicker
                             dateFormat="MMMM d, yyyy h:mm aa"
                             closeOnScroll={true}
@@ -234,7 +257,26 @@ const AddPackage = () => {
                             timeInputLabel="Time:"
                             showTimeInput
                             onChange={(e) => handleInputChange('lastEntry', e)}
-                            className='w-60 mt-1 input input-bordered input-info input-xs xxs:input-sm text-gray-950 bg-white'
+                            className='w-72 2xl:w-96 mt-1 input input-bordered input-info input-xs xxs:input-sm text-gray-950 bg-white'
+                        />
+                    </div>
+                    {/* start date*/}
+                    <div className="w-1/2">
+                        <label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-900">Approximate Start Date <sup className="text-red-500">*</sup></label>
+                        <ReactDatePicker
+                            dateFormat="MMMM d, yyyy h:mm aa"
+                            closeOnScroll={true}
+                            name=''
+                            minDate={Date.now()}
+                            isClearable
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            selected={data.startDate}
+                            timeInputLabel="Time:"
+                            showTimeInput
+                            onChange={(e) => handleInputChange('startDate', e)}
+                            className='w-72 2xl:w-96 mt-1 input input-bordered input-info input-xs xxs:input-sm text-gray-950 bg-white'
                         />
                     </div>
                 </div>
@@ -254,14 +296,14 @@ const AddPackage = () => {
                     <div className="flex">
                         <div className="flex items-center"><input name="guestNumber" onChange={(e) => { handleInputChange('adult', e) }} onWheel={(e) => e.target.blur()} type="number" defaultValue={data.guestNumber.adult} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 2" required /> <small className="text-gray-700 font-semibold ml-1">Adults</small></div>
                         <div className="flex items-center ml-5"><input name="guestNumber" onChange={(e) => { handleInputChange('child', e) }} onWheel={(e) => e.target.blur()} type="number" defaultValue={data.guestNumber.child} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" placeholder="Ex. 1" required /> <small className="text-gray-700 font-semibold ml-1">Children</small></div>
-                        <div className="flex items-center ml-5"><input type="number" value={data.guestNumber.total} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" disabled /> <small className="text-gray-700 font-semibold ml-1">Total</small></div>
+                        <div className="flex items-center ml-5"><input type="number" value={data?.guestNumber?.total} className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none w-full p-2.5" disabled /> <small className="text-gray-700 font-semibold ml-1">Total</small></div>
                     </div>
                 </div>
 
                 {/* add package thumbnail */}
                 <div className="form-control w-full mt-4">
                     <label htmlFor='thumbnail' className="label mb-1">
-                        <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 300 KB. Aspect Ratio 1:1.</span>
+                        <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 300 KB. Aspect Ratio 16:9.</span>
                     </label>
                     <input type="file" onChange={(e) => { handleInputChange('thumbnail', e); handleFileField(e) }} name='thumbnail' className="file-input-xs file-input-warning bg-white text-gray-950 xxs:file-input-sm xl:file-input-md file-input file-input-bordered w-full max-w-[200px] xxs:max-w-[250px] md:max-w-xs" required />
                     {
@@ -308,6 +350,9 @@ const AddPackage = () => {
                     <h3 className="text-xl text-gray-800 font-semibold mb-5">Package Overview<sup className="text-red-500"><small>*</small></sup></h3>
                     <textarea onChange={(e) => handleInputChange('overview', e)} style={{ resize: 'none' }} name="overview" id="overview" className="w-full h-48 bg-gray-50 border border-gray-400 rounded-md text-gray-950 text-sm p-4" placeholder="Write Here..." required></textarea>
                 </div>
+
+                {/* add more itinerary */}
+                <AddMoreItinerary itineraryData={itineraryData} setItineraryData={setItineraryData}></AddMoreItinerary>
 
                 {/* faq */}
                 <div className="mt-8 mb-14">

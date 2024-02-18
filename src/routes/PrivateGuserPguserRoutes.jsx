@@ -22,7 +22,6 @@ const PrivateGuserPguserRoutes = (data) => {
     }
 
     else if (!user) {
-        console.log(user);
         return <Navigate to='/login'></Navigate>
     }
 

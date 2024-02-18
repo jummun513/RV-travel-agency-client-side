@@ -73,15 +73,35 @@ const BookingReview = () => {
                 navigate('/dashboard/my-order-history/hotel-booked');
             }
             setLoading(false);
+
         } catch (error) {
             errorNotify();
             setLoading(false);
         }
     }
 
-    const handleUserSubmit = (e) => {
+    const handleUserSubmit = async (e) => {
         e.preventDefault();
-        alert('This section is under maintaining.');
+
+        if (orderUser?.data?.isPaid === true) {
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/orders/user/payment/${orderId?.orderId}`, { data: null }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            });
+            if (response?.data?.data !== '') {
+                window.location.replace(response?.data?.data);
+            }
+            setLoading(false);
+        } catch (error) {
+            errorNotify();
+            setLoading(false);
+        }
     }
 
     // currency add commas
@@ -212,8 +232,12 @@ const BookingReview = () => {
                 <div className="bg-white my-10 sm:my-14 md:my-16 lg:my-20 shadow-md sm:shadow-lg py-5 xxs:py-8 sm:py-10 md:py-14 xs:px-4 sm:px-10 md:px-14 2xl:shadow-2xl relative mx-3 sm:mx-8 md:mx-auto md:max-w-screen-sm xl:max-w-screen-lg 3xl:max-w-screen-2xl">
                     <h3 className="mt-5 mb-5 text-center text-base xxs:text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold text-gray-900">Review Once Again</h3>
                     <div className=" mt-4 xxs:mt-7 sm:mt-10 3xl:mt-16 mb-3 xxs:mb-5 sm:mb-7 3xl:mb-10 px-2 xs:px-5">
-                        <h4 className="text-primary font-semibold text-sm xs:text-base sm:text-lg xl:text-2xl"><span className="text-gray-700 text-sm xxs:text-base sm:text-lg xl:text-2xl">Hotel Name: </span>{orderUser?.data?.hotelId?.hotelName}</h4>
-                        <p className="text-gray-700 font-semibold mt-3 sm:mt-5">Booking No: <span className="font-normal">{orderUser?.data?.bookingNo}</span></p>
+                        <h4 className="text-primary font-semibold text-sm xs:text-base sm:text-lg xl:text-2xl mb-3 sm:mb-5"><span className="text-gray-700 text-sm xxs:text-base sm:text-lg xl:text-2xl">Hotel Name: </span>{orderUser?.data?.hotelId?.hotelName}</h4>
+                        {
+                            orderUser?.data?.isPaid &&
+                            <p className="text-gray-700 font-semibold">Transaction Id: <span className="font-medium text-red-500">{orderUser?.data?.transactionId}</span></p>
+                        }
+                        <p className="text-gray-700 font-semibold">Booking No: <span className="font-normal">{orderUser?.data?.bookingNo}</span></p>
                         <p className="text-gray-700 font-semibold mt-1">Booked Name: <span className="font-normal">{orderUser?.data?.userId?.name}</span></p>
                         <p className="text-gray-700 font-semibold mt-1">Contact No: <span className="font-normal">{orderUser?.data?.emergencyContact}</span></p>
                         <p className="text-gray-700 font-semibold mt-1">Check In: <span className="font-normal text-red-500">{convertDate(orderUser?.data?.checkIn)}</span></p>
@@ -266,7 +290,7 @@ const BookingReview = () => {
                                         }
                                         <tr className="bg-white border-b w-[200px] whitespace-nowrap xxs:whitespace-normal text-xs xs:text-sm sm:text-md xl:text-base">
                                             <td colSpan={4} className="px-3 sm:px-6 py-3 xxs:py-4 text-gray-950 font-bold text-right">
-                                                <span className="mr-5">Total =</span> {addCommas(sum)}/-
+                                                {orderUser?.data?.isPaid && <span>(<span className="font-medium text-green-500">Paid</span>)</span>}<span className="ms-2 mr-5">Total =</span> {addCommas(sum)}/-
                                             </td>
                                         </tr>
                                     </tbody>

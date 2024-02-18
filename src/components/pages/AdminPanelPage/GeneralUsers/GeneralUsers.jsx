@@ -11,6 +11,7 @@ const GeneralUsers = () => {
     const token = localStorage.getItem('access_token');
     const [searchData, setSearchData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+
     const { data: g_users = [], isLoading, isError, refetch } = useQuery(['g_users'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/users`, {
             headers: {

@@ -36,7 +36,7 @@ const ManagePackage = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data.deletedCount === 1) {
+                    if (response?.data?.modifiedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',
@@ -120,7 +120,7 @@ const ManagePackage = () => {
                         </thead>
                         <tbody>
                             {
-                                (searchKeyword ? searchData : packages).map((d, i) => {
+                                (searchKeyword ? searchData : packages)?.map((d, i) => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="lg:flex items-center px-3 md:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap">
@@ -139,10 +139,10 @@ const ManagePackage = () => {
                                                 <p>{d?.packageZone?.country}</p>
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-center">
-                                                <button onClick={() => alert('This section is under maintaining. Try later!')} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
+                                                <button onClick={() => navigate(`edit-package/${d?._id}`)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
                                                 {
                                                     d.addToCarousel ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Carousel</button>
+                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className=" 3xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Carousel</button>
                                                         :
                                                         <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Carousel</button>
                                                 }
@@ -152,7 +152,7 @@ const ManagePackage = () => {
                                                         :
                                                         <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
                                                 }
-                                                <button disabled={packages?.length < 7} onClick={() => removeHotel(d?._id, d?.imageFolder)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={packages?.length < 7} onClick={() => removeHotel(d?._id, d?.imageFolder)} className="mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

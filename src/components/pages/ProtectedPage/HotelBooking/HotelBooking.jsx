@@ -13,7 +13,7 @@ import { AuthContext } from "../../../../providers/AuthProvider";
 
 const HotelBooking = () => {
     const pgToken = localStorage.getItem('pg_access_token');
-    const token = localStorage.getItem('access_token');
+    // const token = localStorage.getItem('access_token');
     const { hotelId } = useParams();
     const navigate = useNavigate();
     const { Guser } = useContext(AuthContext);
@@ -119,22 +119,22 @@ const HotelBooking = () => {
             return setError('notASingleRoom');
         }
 
-        if (Guser || !PGuser) {
-            alert('Not ready yet')
-            return
+        if (Guser) {
+            return alert('This is under maintaining.');
         }
 
         setLoading(true);
+
         try {
             if (Guser) {
-                const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/user`, formData,
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                        }
-                    });
-                setLoading(false);
-                navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
+                // const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/user`, formData,
+                //     {
+                //         headers: {
+                //             authorization: `Bearer ${token}`,
+                //         }
+                //     });
+                // setLoading(false);
+                // navigate(`/my-booked-hotels/booking-review/${response.data.data.orderId}`);
             }
             else if (PGuser) {
                 const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/pg-user`, formData,

@@ -36,11 +36,16 @@ import BookedHotel from "../components/pages/AdminPanelPage/Booked/BookedHotel/B
 import BookedPackage from "../components/pages/AdminPanelPage/Booked/BookedPackage/BookedPackage";
 import Cancellation from "../components/pages/PublicPage/Cancellation/Cancellation";
 import VerificationConfirmed from "../components/shared/VerificationConfirmed/VerificationConfirmed";
-import Test from "../layout/Test/Test";
+// import Test from "../layout/Test/Test";
 import AddPackage from "../components/pages/AdminPanelPage/Package/AddPackage/AddPackage";
 import ManagePackage from "../components/pages/AdminPanelPage/Package/ManagePackage/ManagePackage";
 import PackageDetails from "../components/pages/PublicPage/PackageDetails/PackageDetails";
 import EditHotel from "../components/pages/AdminPanelPage/Hotels/ManageHotels/EditHotel/EditHotel";
+import PrivateAdminRoutes from "./PrivateAdminRoutes";
+import PaymentFail from "../components/shared/PaymentFail/PaymentFail";
+import PaymentSuccess from "../components/shared/PaymentSuccess/PaymentSuccess";
+import EditPackage from "../components/pages/AdminPanelPage/Package/EditPackage/EditPackage";
+// import UploadImage from "../layout/Test/UploadImage";
 
 
 export const router = createBrowserRouter([
@@ -177,7 +182,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/admin-panel',
-                element: <AdminPanelPage></AdminPanelPage>,
+                element: <PrivateAdminRoutes><AdminPanelPage></AdminPanelPage></PrivateAdminRoutes>,
                 children: [
                     {
                         path: 'add-new-privileged-guest',
@@ -224,6 +229,10 @@ export const router = createBrowserRouter([
                         element: <ManagePackage></ManagePackage>,
                     },
                     {
+                        path: 'manage-packages/edit-package/:packageId',
+                        element: <EditPackage></EditPackage>,
+                    },
+                    {
                         path: 'booking-manage/booked-hotel',
                         element: <BookedHotel></BookedHotel>,
                     },
@@ -235,9 +244,21 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    // {
+    //     path: '/test',
+    //     element: <Test></Test>,
+    // },
+    // {
+    //     path: '/upload-image',
+    //     element: <UploadImage></UploadImage>,
+    // },
     {
-        path: '/test',
-        element: <Test></Test>,
+        path: '/payment-success/:id',
+        element: <PaymentSuccess></PaymentSuccess>,
+    },
+    {
+        path: '/payment-fail/:id',
+        element: <PaymentFail></PaymentFail>,
     },
     {
         path: '*',

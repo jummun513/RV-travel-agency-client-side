@@ -90,15 +90,20 @@ const OurPackages = () => {
                                     {
                                         packages?.slice(0, 8)?.map((x, i) => {
                                             return (
-                                                <SwiperSlide key={i} onClick={() => navigate(`/package-tour/details/${x._id}`)} className='offer-card rounded sm:rounded-xl cursor-pointer relative group/container'>
+                                                <SwiperSlide key={i} className='offer-card rounded sm:rounded-xl cursor-pointer relative group/container'>
                                                     <div className="relative group/container">
                                                         <div className="relative rounded-md xs:rounded-xl aspect-[1/1] flex justify-between overflow-hidden items-center group/container">
-                                                            <div style={{ backgroundImage: `url(${x?.thumbnail[0].url})` }} className="rounded-md xs:rounded-xl h-full w-full transition-all duration-[700ms] ease-in-out transform bg-center bg-contain bg-no-repeat group-hover/container:scale-110"></div>
+                                                            <div style={{ backgroundImage: `url(${x?.thumbnail?.[0].url})` }} className="rounded-md xs:rounded-xl h-full w-full transition-all duration-[700ms] ease-in-out transform bg-center bg-cover bg-no-repeat group-hover/container:scale-110"></div>
                                                         </div>
                                                         <div className='ps-2 pt-2 rounded sm:rounded-xl'>
-                                                            <p className='text-sm xxs:text-base lg:text-xl text-slate-950 font-semibold duration-200 ease-linear group-hover/container:text-blue-500 group-hover/container:underline'>{x?.packageName}</p>
-                                                            <p className='text-xs xxs:text-sm lg:text-base text-gray-700 mb-1 sm:mb-2'>{x?.packageZone?.city}, {x?.packageZone?.country}</p>
-                                                            <p className='text-xs xxs:text-sm lg:text-base text-slate-950 flex items-center'><AiFillStar className='h-3 w-3 xs:h-5 xs:w-5 me-1 text-yellow-500 duration-300 group-hover/container:-rotate-45'></AiFillStar>5.0 <span className='ms-3'>(36 reviews)</span></p>
+                                                            <p onClick={() => navigate(`/package-tour/details/${x?._id}`)} className='text-sm xxs:text-base lg:text-xl text-slate-950 font-semibold duration-200 ease-linear hover:text-blue-500 hover:underline'>{x?.packageName}</p>
+                                                        </div>
+                                                        <div className='flex flex-col lg:flex-row lg:items-end lg:justify-between'>
+                                                            <div className='ps-2 pt-2 rounded sm:rounded-xl'>
+                                                                <p className='text-xs xxs:text-sm lg:text-base text-gray-700 mb-1 sm:mb-2'>{x?.packageZone?.city}, {x?.packageZone?.country}</p>
+                                                                <p className='text-xs xxs:text-sm lg:text-base text-slate-950 flex items-center'><AiFillStar className='h-3 w-3 xs:h-5 xs:w-5 me-1 text-yellow-500 duration-300 group-hover/container:-rotate-45'></AiFillStar>5.0 <span className='ms-3'>(36 reviews)</span></p>
+                                                            </div>
+                                                            <p className='text-end lg:text-start mt-2 lg:mt-0'><button onClick={() => alert('This is under maintaining.')} className='btn btn-xs xxs:btn-sm lg:btn-md bg-primary hover:bg-secondary border-none text-gray-950'>Book Now</button></p>
                                                         </div>
                                                     </div>
                                                 </SwiperSlide>

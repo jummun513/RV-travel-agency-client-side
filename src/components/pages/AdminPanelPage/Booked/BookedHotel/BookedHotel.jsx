@@ -3,11 +3,11 @@ import Loading from '../../../../shared/Loading/Loading';
 import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import NotFound from '../../../../shared/NotFound/NotFound';
 import userImg from '../../../../../assets/images/user.svg';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const BookedHotel = () => {
     const token = localStorage.getItem('access_token');
@@ -25,7 +25,7 @@ const BookedHotel = () => {
         return res.json();
     });
 
-    const { data: userAllOrders = [], isUserLoading, isUserError } = useQuery(['userAllOrders'], async () => {
+    const { data: userAllOrders = [], isUserLoading, isUserError, refetch: userDataRefetch } = useQuery(['userAllOrders'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/orders/user-orders`, {
             headers: {
                 authorization: `Bearer ${token}`,
@@ -38,11 +38,9 @@ const BookedHotel = () => {
     const isConfirmedData = pgAllOrders?.data?.filter(d => (d?.isConfirmed === true && d?.isCancel === false));
     const isCanceledData = pgAllOrders?.data?.filter(d => (d?.isCancel === true && d?.isConfirmed === false));
 
-    const isAcceptedUserData = userAllOrders?.data?.filter(d => d.isAccept === true);
-    const isConfirmedUserData = userAllOrders?.data?.filter(d => d.isConfirmed === true);
-    const isCanceledUserData = userAllOrders?.data?.filter(d => d.isCancel === true);
-
-    useEffect(() => { }, [isAcceptedData, isCanceledData, isConfirmedData])
+    const isAcceptedUserData = userAllOrders?.data?.filter(d => (d?.isAccept === true && d?.isCancel === false && d?.isConfirmed === false));
+    const isConfirmedUserData = userAllOrders?.data?.filter(d => (d?.isConfirmed === true && d?.isCancel === false));
+    const isCanceledUserData = userAllOrders?.data?.filter(d => (d?.isCancel === true && d?.isConfirmed === false));
 
     if (isPgLoading || isUserLoading || loading) {
         return <Loading></Loading>
@@ -65,6 +63,7 @@ const BookedHotel = () => {
                 setLoading(false);
                 successNotify();
                 pgDataRefetch();
+                userDataRefetch();
             }
         } catch (error) {
             errorNotify();
@@ -85,6 +84,7 @@ const BookedHotel = () => {
                 setLoading(false);
                 successNotify();
                 pgDataRefetch();
+                userDataRefetch();
             }
 
             if (response?.data?.message === 'first-accept') {
@@ -121,6 +121,7 @@ const BookedHotel = () => {
                     setLoading(false);
                     successNotify();
                     pgDataRefetch();
+                    userDataRefetch();
                 }
 
                 if (response?.data?.message === 'first-accept') {
@@ -133,19 +134,6 @@ const BookedHotel = () => {
             setLoading(false);
         }
     }
-
-    const acceptUserOrder = (id) => {
-        alert(`This is not ready yet ${id}`);
-    }
-
-    const confirmUserOrder = (id) => {
-        alert(`This is not ready yet ${id}`);
-    }
-
-    const cancelUserOrder = (id) => {
-        alert(`This is not ready yet ${id}`);
-    }
-
 
     return (
         <div className="px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-14">
@@ -190,16 +178,16 @@ const BookedHotel = () => {
                             <Tab className='px-3 py-1 outline-none rounded focus:ring-2 focus:ring-primary bg-[#fff] border-2 border-primary text-gray-900 font-semibold cursor-pointer'>Canceled</Tab>
                         </TabList>
                         <TabPanel>
-                            <DynamicTab confirmOrder={confirmUserOrder} acceptOrder={acceptUserOrder} cancelOrder={cancelUserOrder} mapData={userAllOrders?.data}></DynamicTab>
+                            <DynamicTab confirmOrder={confirmOrder} acceptOrder={acceptOrder} cancelOrder={cancelOrder} mapData={userAllOrders?.data}></DynamicTab>
                         </TabPanel>
                         <TabPanel>
-                            <DynamicTab confirmOrder={confirmUserOrder} acceptOrder={acceptUserOrder} cancelOrder={cancelUserOrder} mapData={isAcceptedUserData}></DynamicTab>
+                            <DynamicTab confirmOrder={confirmOrder} acceptOrder={acceptOrder} cancelOrder={cancelOrder} mapData={isAcceptedUserData}></DynamicTab>
                         </TabPanel>
                         <TabPanel>
-                            <DynamicTab confirmOrder={confirmUserOrder} acceptOrder={acceptUserOrder} cancelOrder={cancelUserOrder} mapData={isConfirmedUserData}></DynamicTab>
+                            <DynamicTab confirmOrder={confirmOrder} acceptOrder={acceptOrder} cancelOrder={cancelOrder} mapData={isConfirmedUserData}></DynamicTab>
                         </TabPanel>
                         <TabPanel>
-                            <DynamicTab confirmOrder={confirmUserOrder} acceptOrder={acceptUserOrder} cancelOrder={cancelUserOrder} mapData={isCanceledUserData}></DynamicTab>
+                            <DynamicTab confirmOrder={confirmOrder} acceptOrder={acceptOrder} cancelOrder={cancelOrder} mapData={isCanceledUserData}></DynamicTab>
                         </TabPanel>
                     </Tabs>
                 </TabPanel>
@@ -312,7 +300,8 @@ const DynamicTab = ({ mapData, confirmOrder, acceptOrder, cancelOrder }) => {
                                         <tr key={i} className="bg-white border-t border-t-gray-600 hover:bg-gray-50">
                                             <td className="px-3 md:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap">
                                                 <p onClick={() => navigate(`/hotel-details/${d?.hotelId?._id}`)} className="md:text-base font-semibold cursor-pointer text-blue-500 hover:underline">{d?.hotelId?.hotelName}</p>
-                                                <p className="font-normal text-gray-600">{d?.hotelId?.location?.city}</p>
+                                                <p className="font-normal text-gray-700">{d?.hotelId?.location?.city}</p>
+                                                {d?.isPaid && <p className="text-gray-700 font-semibold">Tran-Id: <span className='font-normal'>{d?.transactionId}</span></p>}
                                             </td>
                                             {
                                                 d?.userId?.fullName ?
@@ -357,6 +346,8 @@ const DynamicTab = ({ mapData, confirmOrder, acceptOrder, cancelOrder }) => {
                     </div>
                     <h3 className="font-bold text-xl 2xl:text-xl 3xl:text-2xl text-gray-900 text-center">Booking Details</h3>
                     <p className='text-center font-semibold text-gray-800 mt-5'>Booking Status: <span className={`font-bold ${currentData?.order?.isConfirmed ? 'text-green-600' : (currentData?.order?.isCancel ? 'text-red-500' : (currentData?.order?.isAccept ? 'text-green-600' : 'text-red-500'))}`}>{currentData?.order?.isConfirmed ? 'Confirmed' : (currentData?.order?.isCancel ? 'Canceled' : (currentData?.order?.isAccept ? 'Accepted' : 'Pending'))}</span></p>
+                    {currentData?.order?.isCancel && <p className='text-center font-semibold text-gray-800 mt-1'>Remark: <span className='font-normal'>{currentData?.order?.remark}</span></p>}
+                    {currentData?.order?.isPaid && <p className='text-center font-semibold text-gray-800 mt-1'>Transaction Id: <span className='font-normal'>{currentData?.order?.transactionId}</span></p>}
                     <p className='text-center font-semibold text-gray-800 mt-1'>Booking No: <span className='font-normal'>{currentData?.order?.bookingNo}</span></p>
                     <p className='text-center font-semibold text-gray-800 mt-1'>Booking Time: <span className='font-normal'>{convertDate(currentData?.order?.createdAt)} (At: {formatTimeWithSeconds(currentData?.order?.createdAt)})</span></p>
                     <div className='flex items-center justify-between'>
