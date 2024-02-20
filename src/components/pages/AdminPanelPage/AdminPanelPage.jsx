@@ -14,6 +14,8 @@ import { LiaHotelSolid } from "react-icons/lia";
 import { MdBorderColor } from "react-icons/md";
 import { LuPackageOpen } from "react-icons/lu";
 import { Helmet } from 'react-helmet-async';
+import { MdReviews } from "react-icons/md";
+import { IoMdPhotos } from "react-icons/io";
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -102,6 +104,28 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <MdReviews /> Reviews
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-pg-reviews' className='hover:bg-primary hover:text-gray-950'>PG Review</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <IoMdPhotos /> Photo Album
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-to-photo-album' className='hover:bg-primary hover:text-gray-950'>Add To Album</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-photo-album' className='hover:bg-primary hover:text-gray-950'>Manage Album</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
                         <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                     </ul>
@@ -167,6 +191,28 @@ const AdminPanelPage = () => {
                                 <ul className="p-2">
                                     <li className='text-gray-100 mb-1'><NavLink to='booking-manage/booked-hotel' className='hover:bg-primary hover:text-gray-950'>Booked Hotels</NavLink></li>
                                     <li className='text-gray-100'><NavLink to='booking-manage/booked-package' className='hover:bg-primary hover:text-gray-950'>Booked Packages</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <MdReviews /> Reviews
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-pg-reviews' className='hover:bg-primary hover:text-gray-950'>PG Review</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <IoMdPhotos /> Photo Album
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-to-photo-album' className='hover:bg-primary hover:text-gray-950'>Add To Album</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-photo-album' className='hover:bg-primary hover:text-gray-950'>Manage Album</NavLink></li>
                                 </ul>
                             </details>
                         </li>

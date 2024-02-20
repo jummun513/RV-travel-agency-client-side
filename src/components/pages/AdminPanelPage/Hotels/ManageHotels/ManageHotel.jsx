@@ -72,7 +72,7 @@ const ManageHotel = () => {
             <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">All Hotels</h2>
             <div className="flex flex-col xxs:flex-row justify-between items-center">
                 <div className="w-2/5 me-5">
-                    <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData.length : hotels.length}</p>
+                    <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData?.length : hotels?.length}</p>
                 </div>
                 <div className="w-3/5">
                     <form>

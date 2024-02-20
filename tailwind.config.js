@@ -41,6 +41,9 @@ export default {
         '2xl': '1536px',
         '3xl': '1792px',
         '4xl': '2048px',
+      },
+      fontFamily: {
+        cursive: ["Style Script", 'cursive']
       }
     },
     daisyui: {

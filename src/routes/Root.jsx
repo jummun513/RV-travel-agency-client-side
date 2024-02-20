@@ -45,6 +45,9 @@ import PrivateAdminRoutes from "./PrivateAdminRoutes";
 import PaymentFail from "../components/shared/PaymentFail/PaymentFail";
 import PaymentSuccess from "../components/shared/PaymentSuccess/PaymentSuccess";
 import EditPackage from "../components/pages/AdminPanelPage/Package/EditPackage/EditPackage";
+import AddToAlbum from "../components/pages/AdminPanelPage/PhotoAlbum/AddToAlbum/AddToAlbum";
+import ManageAlbum from "../components/pages/AdminPanelPage/PhotoAlbum/ManageAlbum/ManageAlbum";
+import PgPhotoGallery from "../components/pages/PublicPage/PgPhotoGallery/PgPhotoGallery";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -96,7 +99,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/privileged-guest/pg-photo-gallery',
-                element: <Developing></Developing>,
+                element: <PgPhotoGallery></PgPhotoGallery>,
             },
             {
                 path: '/privileged-guest/pg-reviews',
@@ -239,6 +242,22 @@ export const router = createBrowserRouter([
                     {
                         path: 'booking-manage/booked-package',
                         element: <BookedPackage></BookedPackage>,
+                    },
+                    {
+                        path: 'add-to-photo-album',
+                        element: <AddToAlbum></AddToAlbum>,
+                    },
+                    {
+                        path: 'manage-photo-album',
+                        element: <ManageAlbum></ManageAlbum>,
+                    },
+                    {
+                        path: 'manage-pg-reviews',
+                        element: <Developing></Developing>,
+                    },
+                    {
+                        path: 'manage-user-reviews',
+                        element: <Developing></Developing>,
                     },
                 ]
             },
