@@ -103,7 +103,7 @@ const OurPackages = () => {
                                                                 <p className='text-xs xxs:text-sm lg:text-base text-gray-700 mb-1 sm:mb-2'>{x?.packageZone?.city}, {x?.packageZone?.country}</p>
                                                                 <p className='text-xs xxs:text-sm lg:text-base text-slate-950 flex items-center'><AiFillStar className='h-3 w-3 xs:h-5 xs:w-5 me-1 text-yellow-500 duration-300 group-hover/container:-rotate-45'></AiFillStar>5.0 <span className='ms-3'>(36 reviews)</span></p>
                                                             </div>
-                                                            <p className='text-end lg:text-start mt-2 lg:mt-0'><button onClick={() => alert('This is under maintaining.')} className='btn btn-xs xxs:btn-sm lg:btn-md bg-primary hover:bg-secondary border-none text-gray-950'>Book Now</button></p>
+                                                            <p className='text-center lg:text-start mt-2 lg:mt-0'><button onClick={() => alert('This is under maintaining.')} className='btn btn-xs xxs:btn-sm lg:btn-md bg-primary hover:bg-secondary border-none text-gray-950'>Book This</button></p>
                                                         </div>
                                                     </div>
                                                 </SwiperSlide>

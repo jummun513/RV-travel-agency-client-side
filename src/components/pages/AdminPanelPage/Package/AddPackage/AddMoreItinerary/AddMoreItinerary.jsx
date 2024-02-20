@@ -56,7 +56,7 @@ const AddMoreItinerary = ({ itineraryData, setItineraryData }) => {
             {/* remove-all and add new room button */}
             <div className="flex items-center">
                 <a className="rounded bg-blue-600 px-2 py-1 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-[10px] md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-50 inline-flex items-center cursor-pointer"
-                    onClick={addNewDiv}>Add More Room <CiSquarePlus className="ms-1 xxs:ms-2 h-3 w-3 xs:h-5 xs:w-5">
+                    onClick={addNewDiv}>Add More Itinerary <CiSquarePlus className="ms-1 xxs:ms-2 h-3 w-3 xs:h-5 xs:w-5">
                     </CiSquarePlus></a>
                 <a className="ms-2 xxs:ms-4 rounded bg-red-600 px-2 py-1 xxs:px-4 xs:px-6 xxs:pb-2 xxs:pt-2.5 text-[10px] md:text-sm 2xl:text-base font-medium uppercase leading-normal text-gray-50 inline-flex items-center cursor-pointer"
                     onClick={removeAllDivs}>Remove All</a>
