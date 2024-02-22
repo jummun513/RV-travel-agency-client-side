@@ -4,18 +4,24 @@ import 'swiper/css/pagination';
 import './Reviews.css';
 import Review from './Review/Review';
 import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
-
-const data = [
-    { id: 5, url: "https://i.ibb.co/GxNmWkR/reviews1.jpg", alt: "Review given user image", occupation: 'Businessman', reviews: `"Royal Venture Limited made our dream vacation a reality! Impeccable service, personalized recommendations, and stress-free planning. They exceeded our expectations."`, star: "", name: "Abdullah Alim" },
-    { id: 3, url: "https://i.ibb.co/f2X5Lgf/reviews2.jpg", alt: "Review given user image", occupation: 'Engineer', reviews: `"Exceptional service from Royal Venture! Our family had an unforgettable Greek Islands vacation, thanks to their expertise and attention to detail."`, star: "", name: "Rahimul Islam" },
-    { id: 6, url: "https://i.ibb.co/84QYQsh/review4.jpg", alt: "Review given user image", occupation: 'Professor', reviews: `"Last-minute trip to Paris? Royal Venture delivered top-notch accommodations and a perfect itinerary. Prompt and professional – our go-to travel agency."`, star: "", name: "Shabnam Sultana" },
-    { id: 1, url: "https://i.ibb.co/xLm13mP/reviews3.jpg", alt: "Review given user image", occupation: 'TV Model', reviews: `"First-time cruiser? Royal Venture made it unforgettable. Perfect cruise choice and great support. Already planning our next adventure with them!"`, star: "", name: "Ahmed Rizwan" },
-    { id: 4, url: "https://i.ibb.co/w0PWgZV/review6.jpg", alt: "Review given user image", occupation: 'Businessman', reviews: `"Our African safari with Royal Venture was educational and thrilling. Knowledgeable guides and incredible wildlife encounters. Highly recommended!"`, star: "", name: "Saifullah Khan" },
-    { id: 2, url: "https://i.ibb.co/jg9j41C/review5.jpg", alt: "Review given user image", occupation: 'Student', reviews: `"Last-minute trip to Paris? Royal Venture delivered top-notch accommodations and a perfect itinerary. Prompt and professional – our go-to travel agency."`, star: "", name: "Mohammad Hasan" },
-]
-
+import { useQuery } from 'react-query';
+import Loading from "../../../../shared/Loading/Loading";
+import NotFound from "../../../../shared/NotFound/NotFound";
 
 const Reviews = () => {
+    const { data: reviews = [], isLoading, isError } = useQuery(['reviews'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/reviews`);
+        return res.json();
+    });
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    if (isError) {
+        return <NotFound></NotFound>
+    }
+
     return (
         <div id="reviews" className="bg-[#fbfbfb] pt-12 xxs:pt-18 md:pt-32 2xl:pt-48">
             <div className="bg-primary py-12 xxs:py-18 md:py-32 2xl:py-32">
@@ -61,9 +67,9 @@ const Reviews = () => {
                         className="mySwiper"
                     >
                         {
-                            data.map((d, i) =>
+                            reviews.map((d, i) =>
                                 <SwiperSlide key={i}>
-                                    <Review data={d}></Review>
+                                    <Review d={d}></Review>
                                 </SwiperSlide>
                             )
                         }

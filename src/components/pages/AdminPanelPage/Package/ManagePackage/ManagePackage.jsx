@@ -18,7 +18,7 @@ const ManagePackage = () => {
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const navigate = useNavigate();
 
-    const removeHotel = (id, folderName) => {
+    const removePackage = (id, folderName) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -78,7 +78,7 @@ const ManagePackage = () => {
 
     return (
         <div className="px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-14">
-            <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">All Hotels</h2>
+            <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">Manage All Packages</h2>
             <div className="flex flex-col xxs:flex-row justify-between items-center">
                 <div className="w-2/5 me-5">
                     <p className="text-center xxs:text-left my-4 font-semibold text-gray-800 xxs:text-base xs:text-xl">Total : {searchKeyword ? searchData.length : packages.length}</p>
@@ -127,7 +127,7 @@ const ManagePackage = () => {
                                                 <img loading='lazy' className="w-24 rounded-sm" src={d?.thumbnail[0]?.url} alt={`${d?.packageName} image`} />
                                                 <div className="lg:pl-3">
                                                     <div onClick={() => navigate(`/package-tour/details/${d._id}`)} className="md:text-base font-semibold mt-1 cursor-pointer text-blue-500 hover:underline">{d?.packageName}</div>
-                                                    <div className="md:text-base mt-1">RVL-Pack-{d?.packageCode}</div>
+                                                    <div className="md:text-base mt-1">{d?.packageCode}</div>
                                                     <div className="font-normal text-gray-500">{d?.packageType?.label}</div>
                                                 </div>
                                             </td>
@@ -152,7 +152,7 @@ const ManagePackage = () => {
                                                         :
                                                         <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
                                                 }
-                                                <button disabled={packages?.length < 7} onClick={() => removeHotel(d?._id, d?.imageFolder)} className="mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={packages?.length < 7} onClick={() => removePackage(d?._id, d?.imageFolder)} className="mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )
@@ -164,11 +164,6 @@ const ManagePackage = () => {
             </div>
         </div>
     );
-
-
-
-
-    // return (
     //     <div className="px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-14">
     //         <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">All Hotels</h2>
     //         <div className="flex flex-col xxs:flex-row justify-between items-center">

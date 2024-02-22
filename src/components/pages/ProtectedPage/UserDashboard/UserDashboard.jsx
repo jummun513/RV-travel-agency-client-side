@@ -10,6 +10,7 @@ import { AuthContextPG } from "../../../../providers/AuthProviderPG";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import { FaHistory } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
+import { MdOutlineRateReview } from "react-icons/md";
 
 const UserDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -42,7 +43,7 @@ const UserDashboard = () => {
                             PGuser &&
                             <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
                                 <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
-                                <li className="mt-4">
+                                <li className="mt-3 md:mt-4">
                                     <details>
                                         <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
                                             <FaHistory></FaHistory> Booked History
@@ -53,6 +54,7 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className='text-gray-50 mt-3 md:mt-4'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
                                 <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><GrTransaction />Transaction Details</NavLink></li>
                             </ul>
                         }
@@ -61,7 +63,7 @@ const UserDashboard = () => {
                             Guser &&
                             <ul id='user_dashboard_sidebar' className="menu mt-4 h-full">
                                 <li className='text-gray-50 mt-3'><NavLink to='profile' className='hover:bg-primary hover:text-gray-950'><ImProfile></ImProfile>My Profile</NavLink></li>
-                                <li className="mt-4">
+                                <li className="mt-3 md:mt-4">
                                     <details>
                                         <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
                                             <FaHistory></FaHistory> Booked History
@@ -72,6 +74,7 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className='text-gray-50 mt-3 md:mt-4'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
                             </ul>
                         }
                     </div>
@@ -99,6 +102,7 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className='text-gray-50 mt-3'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
                                 <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
                             </ul>
                         }
@@ -117,6 +121,7 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className='text-gray-50 mt-3'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
                             </ul>
                         }
                     </div>

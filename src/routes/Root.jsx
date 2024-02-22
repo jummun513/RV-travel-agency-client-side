@@ -48,6 +48,10 @@ import EditPackage from "../components/pages/AdminPanelPage/Package/EditPackage/
 import AddToAlbum from "../components/pages/AdminPanelPage/PhotoAlbum/AddToAlbum/AddToAlbum";
 import ManageAlbum from "../components/pages/AdminPanelPage/PhotoAlbum/ManageAlbum/ManageAlbum";
 import PgPhotoGallery from "../components/pages/PublicPage/PgPhotoGallery/PgPhotoGallery";
+import WriteReview from "../components/pages/ProtectedPage/UserDashboard/WriteReview/WriteReview";
+import AdminReviews from "../components/pages/AdminPanelPage/Reviews/AdminReviews/AdminReviews";
+import UserReviews from "../components/pages/AdminPanelPage/Reviews/UserReviews/UserReviews";
+import PgReviews from "../components/pages/AdminPanelPage/Reviews/PgReviews/PgReviews";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -172,6 +176,10 @@ export const router = createBrowserRouter([
                     {
                         path: 'my-order-history/package-purchased',
                         element: <PackagePurchased></PackagePurchased>,
+                    },
+                    {
+                        path: 'write-review',
+                        element: <WriteReview></WriteReview>,
                     }
                 ]
             },
@@ -253,11 +261,15 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'manage-pg-reviews',
-                        element: <Developing></Developing>,
+                        element: <PgReviews></PgReviews>,
                     },
                     {
                         path: 'manage-user-reviews',
-                        element: <Developing></Developing>,
+                        element: <UserReviews></UserReviews>,
+                    },
+                    {
+                        path: 'manage-admin-written-reviews',
+                        element: <AdminReviews></AdminReviews>,
                     },
                 ]
             },

@@ -111,7 +111,8 @@ const AdminPanelPage = () => {
                                 </summary>
                                 <ul className="p-2">
                                     <li className='text-gray-100 mb-1'><NavLink to='manage-pg-reviews' className='hover:bg-primary hover:text-gray-950'>PG Review</NavLink></li>
-                                    <li className='text-gray-100'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-admin-written-reviews' className='hover:bg-primary hover:text-gray-950'>Admin Review</NavLink></li>
                                 </ul>
                             </details>
                         </li>
@@ -201,7 +202,8 @@ const AdminPanelPage = () => {
                                 </summary>
                                 <ul className="p-2">
                                     <li className='text-gray-100 mb-1'><NavLink to='manage-pg-reviews' className='hover:bg-primary hover:text-gray-950'>PG Review</NavLink></li>
-                                    <li className='text-gray-100'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                    <li className='text-gray-100 mb-1'><NavLink to='manage-user-reviews' className='hover:bg-primary hover:text-gray-950'>Users Review</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-admin-written-reviews' className='hover:bg-primary hover:text-gray-950'>Admin Review</NavLink></li>
                                 </ul>
                             </details>
                         </li>

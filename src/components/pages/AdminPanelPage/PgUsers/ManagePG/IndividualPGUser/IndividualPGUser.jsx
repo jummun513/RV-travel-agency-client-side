@@ -56,7 +56,7 @@ const IndividualPGUser = () => {
                         <IndividualPackage></IndividualPackage>
                     </TabPanel>
                     <TabPanel className="mt-16">
-                        <IndividualReview></IndividualReview>
+                        <IndividualReview singlePGUser={singlePGUser}></IndividualReview>
                     </TabPanel>
                 </Tabs>
             }
