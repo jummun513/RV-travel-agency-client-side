@@ -36,7 +36,7 @@ import BookedHotel from "../components/pages/AdminPanelPage/Booked/BookedHotel/B
 import BookedPackage from "../components/pages/AdminPanelPage/Booked/BookedPackage/BookedPackage";
 import Cancellation from "../components/pages/PublicPage/Cancellation/Cancellation";
 import VerificationConfirmed from "../components/shared/VerificationConfirmed/VerificationConfirmed";
-// import Test from "../layout/Test/Test";
+import Test from "../layout/Test/Test";
 import AddPackage from "../components/pages/AdminPanelPage/Package/AddPackage/AddPackage";
 import ManagePackage from "../components/pages/AdminPanelPage/Package/ManagePackage/ManagePackage";
 import PackageDetails from "../components/pages/PublicPage/PackageDetails/PackageDetails";
@@ -52,6 +52,10 @@ import WriteReview from "../components/pages/ProtectedPage/UserDashboard/WriteRe
 import AdminReviews from "../components/pages/AdminPanelPage/Reviews/AdminReviews/AdminReviews";
 import UserReviews from "../components/pages/AdminPanelPage/Reviews/UserReviews/UserReviews";
 import PgReviews from "../components/pages/AdminPanelPage/Reviews/PgReviews/PgReviews";
+import AddToHotOffer from "../components/pages/AdminPanelPage/HotOffers/AddToHotOffer/AddToHotOffer";
+import ManageHotOffer from "../components/pages/AdminPanelPage/HotOffers/ManageHotOffer/ManageHotOffer";
+import AddToPartners from "../components/pages/AdminPanelPage/Partners/AddToPartners/AddToPartners";
+import ManagePartners from "../components/pages/AdminPanelPage/Partners/ManagePartners/ManagePartners";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -271,14 +275,30 @@ export const router = createBrowserRouter([
                         path: 'manage-admin-written-reviews',
                         element: <AdminReviews></AdminReviews>,
                     },
+                    {
+                        path: 'add-to-hot-offers',
+                        element: <AddToHotOffer></AddToHotOffer>,
+                    },
+                    {
+                        path: 'manage-hot-offers',
+                        element: <ManageHotOffer></ManageHotOffer>,
+                    },
+                    {
+                        path: 'add-to-partner',
+                        element: <AddToPartners></AddToPartners>,
+                    },
+                    {
+                        path: 'manage-partners',
+                        element: <ManagePartners></ManagePartners>,
+                    },
                 ]
             },
         ]
     },
-    // {
-    //     path: '/test',
-    //     element: <Test></Test>,
-    // },
+    {
+        path: '/test',
+        element: <Test></Test>,
+    },
     // {
     //     path: '/upload-image',
     //     element: <UploadImage></UploadImage>,

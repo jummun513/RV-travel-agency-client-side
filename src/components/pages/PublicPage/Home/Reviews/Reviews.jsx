@@ -33,7 +33,7 @@ const Reviews = () => {
                         keyboard={true}
                         speed={700}
                         autoplay={{
-                            delay: 2500000,
+                            delay: 2500,
                             disableOnInteraction: false,
                         }}
                         slidesPerView={1}
@@ -67,7 +67,7 @@ const Reviews = () => {
                         className="mySwiper"
                     >
                         {
-                            reviews.map((d, i) =>
+                            reviews.slice(0, 6).map((d, i) =>
                                 <SwiperSlide key={i}>
                                     <Review d={d}></Review>
                                 </SwiperSlide>

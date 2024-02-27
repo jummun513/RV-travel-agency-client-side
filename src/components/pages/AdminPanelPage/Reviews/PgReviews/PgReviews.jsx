@@ -6,13 +6,14 @@ import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
 import Swal from "sweetalert2";
 import axios from "axios";
+import userImg from "../../../../../assets/images/user.svg";
 
 const PgReviews = () => {
     const token = localStorage.getItem('access_token');
     const [searchData, setSearchData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [currentData, setCurrentData] = useState({});
-    const warningNotify = () => toast.warn("Not less than 6 reviews!", { theme: "light" });
+    const warningNotify = () => toast.warn("Not less than 6 reviews on Client Side!", { theme: "light" });
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const { data: pgReviews = [], isLoading, isError, refetch } = useQuery(['pgReviews'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/reviews/pg`, {
@@ -31,6 +32,7 @@ const PgReviews = () => {
     }
 
     const removeHotel = (id) => {
+        const persistData = () => toast.warn("This data is shown to client side.", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -56,8 +58,12 @@ const PgReviews = () => {
                             'success'
                         )
                     }
-                    if (response?.data?.message === 'can not delete') {
+                    else if (response?.data?.message === 'notDeletable') {
                         warningNotify();
+                    }
+
+                    else if (response?.data?.message === 'persistData') {
+                        persistData();
                     }
                     else {
                         errorNotify();
@@ -65,7 +71,29 @@ const PgReviews = () => {
                 })
             }
         })
-    }
+    };
+
+    const addToHome = async (id, data) => {
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/reviews/addToHome/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                refetch();
+                updateNotify();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            console.log(error);
+            errorNotify();
+        }
+    };
 
     const openModal = (d) => {
         setCurrentData(d);
@@ -83,7 +111,7 @@ const PgReviews = () => {
     return (
         <div className="px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-14">
             <h2 className="text-center text-xl xs:text-3xl font-bold text-gray-800 xxs:mb-10">Privilege Users Review</h2>
-            {(pgReviews || pgReviews.length < 1) ?
+            {(pgReviews || pgReviews < 1) ?
                 <div>
                     <div className="flex flex-col xxs:flex-row justify-between items-center">
                         <div className="w-2/5 me-5">
@@ -128,7 +156,7 @@ const PgReviews = () => {
                                                 <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                                     <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap sm:flex items-center">
                                                         <div className="w-16 h-16 rounded-md">
-                                                            <img loading='lazy' className="object-cover rounded-full" src={d?.userId?.avatar?.[0]?.thumbnailUrl} alt={`${d?.userId?.fullName} image`} />
+                                                            <img loading='lazy' className="object-cover rounded-full" src={d?.userId?.avatar.length > 0 ? d?.userId?.avatar?.[0]?.thumbnailUrl : userImg} alt={`${d?.userId?.fullName} image`} />
                                                         </div>
                                                         <p className="text-gray-700 font-semibold ml-3">{d?.userId?.fullName}</p>
                                                     </td>
@@ -137,6 +165,13 @@ const PgReviews = () => {
                                                     </td>
                                                     <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap text-end">
                                                         <button onClick={() => openModal(d)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Details</button>
+                                                        {
+                                                            d.showToHome ?
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Remove Home</button>
+                                                                :
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Add Home</button>
+
+                                                        }
                                                         <button onClick={() => removeHotel(d._id)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                                     </td>
                                                 </tr>

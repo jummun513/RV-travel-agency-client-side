@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { uploadImage } from "../../../../../functions/imageStore";
 import axios from "axios";
 
-const AddToAlbum = () => {
+const AddToPartners = () => {
     const [error, setError] = useState('');
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(false);
@@ -13,20 +13,6 @@ const AddToAlbum = () => {
     const notifyError = () => toast.error("There was a problem, try later!", { theme: "light" });
     const token = localStorage.getItem('access_token');
     const formRef = useRef();
-
-    // handle thumbnail image
-    const handleFileField = (e) => {
-        const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml', 'image/webp'];
-        if (e.target?.files[0]?.size > 1024 * 500) {
-            setError('large_file');
-        }
-        else if (!allowedType.includes(e.target?.files[0]?.type)) {
-            setError('file_type_invalid');
-        }
-        else {
-            setError('');
-        }
-    }
 
     // set input value according their name
     const handleInputChange = (field, e) => {
@@ -37,17 +23,71 @@ const AddToAlbum = () => {
         else {
             value = e.target.value;
         }
-        if (field.startsWith('photo')) {
+        if (field === 'photo') {
             setData((prevData) => ({
                 ...prevData,
                 [field]: [value],
             }))
         }
         else {
-            setData({
-                ...data,
+            setData((prevData) => ({
+                ...prevData,
                 [field]: value,
-            });
+            }))
+        }
+    };
+
+    const validateImage = (file) => {
+        // Check if file is not null
+        if (!file) {
+            setError('file_type_invalid');
+            return false;
+        }
+
+        // Check file type
+        if (!file.type.match(/(jpeg|jpg|png|svg|webp)$/)) {
+            setError('file_type_invalid');
+            return false;
+        }
+
+        // Check file size
+        if (file.size > 500 * 1024) {
+            setError('large_file');
+            return false;
+        }
+
+        // Asynchronous check for aspect ratio using FileReader
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const { width, height } = img;
+                const aspectRatio = width / height;
+                const expectedAspectRatio = 16 / 9;
+
+                // You can adjust this aspect ratio condition as per your requirement
+                if ((width > height) && (width !== height) && Math.abs(aspectRatio - expectedAspectRatio) < 0.1) {
+                    return false;
+                }
+                else {
+                    setError('invalid_ratio');
+                    return true;
+                }
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        // If none of the conditions failed, return true
+        setError('invalid_ratio');
+        return true;
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (validateImage(file)) {
+            setError('');
+            handleInputChange('photo', event);
         }
     };
 
@@ -59,9 +99,9 @@ const AddToAlbum = () => {
             try {
                 setLoading(true);
 
-                await uploadImage(data.photo, `Royal_Venture/Photo_Album`).then(d => uploadedData.photo = d);
+                await uploadImage(data.photo, `Royal_Venture/Partners`).then(d => uploadedData.photo = d);
 
-                const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/photo-albums/add-new`, uploadedData, {
+                const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/partners/add-new`, uploadedData, {
                     headers: {
                         authorization: `Bearer ${token}`,
                     }
@@ -72,7 +112,7 @@ const AddToAlbum = () => {
                 if (response.data === 'success') {
                     formRef.current.reset();
                     notify();
-                    navigate('/admin-panel/manage-photo-album');
+                    navigate('/admin-panel/manage-partners');
                 }
                 else {
                     notifyError();
@@ -87,31 +127,39 @@ const AddToAlbum = () => {
             setError('upload_invalid');
         }
     }
-
     return (
         <div className="mx-10 px-5 2xl:px-10 pt-14 pb-10 my-14 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-            <h2 className="text-center text-gray-800 font-bold text-4xl 3xl:text-5xl">Add To Album</h2>
+            <h2 className="text-center text-gray-800 font-bold text-4xl 3xl:text-5xl">Add To Partners</h2>
             <form ref={formRef} className="mt-14" onSubmit={handleSubmit} >
                 {/* add card image */}
                 <div className="form-control w-full mt-4">
-                    <label htmlFor='photo' className="label mb-1">
-                        <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 500 KB.</span>
+                    <label className="label mb-1">
+                        <span className="text-xs xs:text-sm text-gray-800">Image upload ( .jpg, .jpeg, .png). File size not more than 500 KB. Aspect Ratio 16:9.</span>
                     </label>
-                    <input type="file" onChange={(e) => { handleInputChange('photo', e); handleFileField(e) }} name='photo' id='photo' className="file-input-xs file-input-warning bg-white text-gray-950 xxs:file-input-sm xl:file-input-md file-input file-input-bordered w-full max-w-[200px] xxs:max-w-[250px] md:max-w-xs" required />
+                    <input type="file" onChange={(e) => handleFileChange(e)} className="file-input-xs file-input-warning bg-white text-gray-950 xxs:file-input-sm xl:file-input-md file-input file-input-bordered w-full max-w-[200px] xxs:max-w-[250px] md:max-w-xs" required />
                     {
                         (error.includes('large_file') && <label className="label">
                             <span className="label-text-alt text-red-600">Maximum file size 500 KB allowed.</span>
                         </label>) ||
                         (error.includes('file_type_invalid') && <label className="label">
                             <span className="label-text-alt text-red-600">Only .jpg, .png, .jpeg, .svg, .webP format allowed.</span>
+                        </label>) ||
+                        (error.includes('invalid_ratio') && <label className="label">
+                            <span className="label-text-alt text-red-600">Image aspect ratio have to 16:9.</span>
                         </label>)
                     }
                 </div>
 
-                {/* image holder name */}
+                {/* partners name */}
                 <div className="mt-10">
-                    <label htmlFor="holderName" className="block mb-2 text-sm font-medium text-gray-900">Image Holder Name <sup className="text-red-500">*</sup></label>
-                    <input onChange={(e) => handleInputChange('holderName', e)} type="text" id="holderName" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Mr. Xyz and his family" required />
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Company Name<sup className="text-red-500">*</sup></label>
+                    <input onChange={(e) => handleInputChange('companyName', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="US Bangla Airlines" required />
+                </div>
+
+                {/* target link */}
+                <div className="mt-10">
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Target Link<sup className="text-red-500">*</sup></label>
+                    <input onChange={(e) => handleInputChange('target', e)} type="text" className="shadow-sm bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:border-primary focus:outline-none block w-full p-2.5" placeholder="Facebook page or website link or other link." required />
                 </div>
 
                 <p className="text-end mt-10">
@@ -133,4 +181,4 @@ const AddToAlbum = () => {
     );
 };
 
-export default AddToAlbum;
+export default AddToPartners;

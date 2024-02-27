@@ -45,29 +45,29 @@ const PgPhotoGallery = () => {
             {
                 photoAlbum.length > 0 ?
                     <div className="pb-20 sm:pb-28 lg:pb-36 px-3 xxs:px-5 sm:px-8 4xl:px-12 mx-auto max-w-screen-4xl">
-                        <PhotoAlbum padding={(containerWidth) => {
-                            if (containerWidth < 400) return 0;
-                            if (containerWidth < 800) return 1;
-                            if (containerWidth < 1200) return 2;
-                            return 3;
-                        }}
+                        <PhotoAlbum
+                            spacing={(containerWidth) => {
+                                if (containerWidth < 400) return 10;
+                                return 25;
+                            }}
                             columns={(containerWidth) => {
                                 if (containerWidth < 400) return 1;
                                 if (containerWidth < 800) return 2;
                                 if (containerWidth < 1200) return 3;
                                 return 4;
                             }} photos={images} layout="masonry"
-                            renderPhoto={({ photo, wrapperStyle, renderDefaultPhoto }) => (
+                            renderPhoto={({ photo, wrapperStyle, renderDefaultPhoto }) =>
+                            (
                                 <a
                                     id="styled-font"
                                     href={photo.href}
                                     style={wrapperStyle}
                                     target="_blank"
                                     rel="noreferrer noopener"
-                                    className="text-gray-900 text-[10px] xxs:text-xs sm:text-sm lg:text-base mt-4 xs:mt-3 font-cursive font-semibold"
+                                    className="text-gray-900 border-b-[20px] xxs:border-b-[20px] sm:border-b-[30px] border-4 xxs:border-[8px] text-center sm:-mt-3"
                                 >
                                     {renderDefaultPhoto({ wrapped: true })}
-                                    {photo.caption}
+                                    <span className="text-[10px] xxs:text-xs sm:text-sm lg:text-base 2xl:text-xl font-cursive font-semibold mt-1 xl:mt-0">{photo.caption}</span>
                                 </a>
                             )} />
                     </div>

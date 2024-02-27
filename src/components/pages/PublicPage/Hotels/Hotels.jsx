@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import ReactPaginate from 'react-paginate';
 
 const Hotels = () => {
     const [seeMore, setSeeMore] = useState(false);
@@ -18,7 +19,8 @@ const Hotels = () => {
     const { data: hotels = [], isLoading } = useQuery(['hotels'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels`);
         return res.json();
-    })
+    });
+    const itemsPerPage = 6;
 
     useEffect(() => {
         if (searchQuery !== null && searchQuery !== '' && hotels.length > 0) {
@@ -230,27 +232,31 @@ const Hotels = () => {
                                 :
                                 <>
                                     {
-                                        searchResults?.length > 0 ?
-                                            <div>
-                                                <div className="form-control w-1/2 mt-8">
-                                                    <label className="label pt-0">
-                                                        <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
-                                                    </label>
-                                                    <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
-                                                        <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
-                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
-                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
-                                                        <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
-                                                    </select>
-                                                </div>
-                                                <div className='mt-10'>
-                                                    {
-                                                        searchResults?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                                                    }
-                                                </div>
-                                            </div>
+                                        (searchResults?.length > itemsPerPage) ?
+                                            <PaginatedForLarge itemsPerPage={itemsPerPage} items={searchResults} />
                                             :
-                                            <div className='flex justify-center mt-36 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                            (
+                                                (searchResults?.length > 0) ?
+                                                    <div>
+                                                        <div className="form-control w-1/2 mt-8">
+                                                            <label className="label pt-0">
+                                                                <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                                                            </label>
+                                                            <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
+                                                                <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
+                                                                <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
+                                                                <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
+                                                                <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
+                                                            </select>
+                                                        </div>
+                                                        <div className='mt-10'>
+                                                            {
+                                                                searchResults?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                                            }
+                                                        </div>
+                                                    </div> :
+                                                    <div className='flex justify-center mt-36 text-gray-500 text-sm md:text-base 2xl:text-lg 4xl:text-xl w-8/12 2xl:w-9/12 3xl:w-10/12 ps-10'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                            )
                                     }
                                 </>
                         }
@@ -504,14 +510,19 @@ const Hotels = () => {
                             :
                             <>
                                 {
-                                    searchResults?.length > 0 ?
-                                        <div>
-                                            {
-                                                searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
-                                            }
-                                        </div>
+                                    (searchResults?.length > itemsPerPage) ?
+                                        <PaginatedForSmall itemsPerPage={itemsPerPage} items={searchResults} />
                                         :
-                                        <div className='flex justify-center mt-12 xs:mt-16'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                        (
+                                            (searchResults?.length > 0) ?
+                                                <div>
+                                                    {
+                                                        searchResults.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                                                    }
+                                                </div>
+                                                :
+                                                <div className='flex justify-center mt-12 xs:mt-16'>{!(hotels.length > 0) ? 'No Data Available!' : 'Nothing match!'}</div>
+                                        )
                                 }
                             </>
                     }
@@ -522,3 +533,113 @@ const Hotels = () => {
 };
 
 export default Hotels;
+
+
+
+function PaginatedForLarge({ itemsPerPage, items }) {
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    // Get current post 
+    const indexOfLastCard = currentPage * itemsPerPage;
+    const indexOfFirstCard = indexOfLastCard - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstCard, indexOfLastCard);
+    const pageCount = Math.ceil((items.length) / itemsPerPage);
+
+    return (
+        <>
+            <LargeItem currentItems={currentItems} />
+            <ReactPaginate
+                pageCount={pageCount}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={1}
+                previousLabel={'BACK'}
+                nextLabel={'NEXT'}
+                breakLabel={'...'}
+                onPageChange={(event) => setCurrentPage(event.selected + 1)}
+                containerClassName={'flex space-x-3 items-center text-gray-950 mt-12 2xl:mt-14 3xl:mt-20'}
+                pageLinkClassName={'btn bg-[#fbfbfb] text-gray-950 border-primary hover:border-primary hover:bg-primary'}
+                previousLinkClassName={'btn bg-primary text-gray-950 border-none hover:bg-secondary'}
+                nextLinkClassName={'btn bg-primary text-gray-950 border-none hover:bg-secondary'}
+                activeLinkClassName={'active bg-primary'}
+            />
+        </>
+    );
+}
+function LargeItem({ currentItems }) {
+    return (
+        <div>
+            <div className="form-control w-1/2 mt-8">
+                <label className="label pt-0">
+                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                </label>
+                <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
+                    <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
+                </select>
+            </div>
+            <div className='mt-10'>
+                {
+                    currentItems?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                }
+            </div>
+        </div>
+    );
+}
+
+
+
+function PaginatedForSmall({ itemsPerPage, items }) {
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    // Get current post 
+    const indexOfLastCard = currentPage * itemsPerPage;
+    const indexOfFirstCard = indexOfLastCard - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstCard, indexOfLastCard);
+    const pageCount = Math.ceil((items.length) / itemsPerPage);
+
+    return (
+        <>
+            <SmallItem currentItems={currentItems} />
+            <ReactPaginate
+                pageCount={pageCount}
+                pageRangeDisplayed={1}
+                marginPagesDisplayed={1}
+                previousLabel={'BACK'}
+                nextLabel={'NEXT'}
+                breakLabel={'...'}
+                onPageChange={(event) => setCurrentPage(event.selected + 1)}
+                containerClassName={'flex justify-center space-x-1 xs:space-x-3 items-center text-gray-950 mt-14'}
+                pageLinkClassName={'btn btn-sm xs:btn-md bg-[#fbfbfb] text-gray-950 border-primary hover:border-primary hover:bg-primary'}
+                previousLinkClassName={'btn btn-sm xs:btn-md bg-[#fbfbfb] text-gray-950 border-primary hover:border-primary hover:bg-primary'}
+                nextLinkClassName={'btn btn-sm xs:btn-md bg-[#fbfbfb] text-gray-950 border-primary hover:border-primary hover:bg-primary'}
+                activeLinkClassName={'active bg-primary'}
+            />
+        </>
+    );
+}
+function SmallItem({ currentItems }) {
+    return (
+        <div>
+            <div className="form-control w-1/2 mt-8">
+                <label className="label pt-0">
+                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                </label>
+                <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
+                    <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: low to high</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Price: hight to low</option>
+                    <option className='text-gray-700 text-sm 2xl:text-lg'>Distance from center of city</option>
+                </select>
+            </div>
+            <div className='mt-10'>
+                {
+                    currentItems?.map((item, idx) => <Hotel key={idx} data={item}></Hotel>)
+                }
+            </div>
+        </div>
+    );
+}

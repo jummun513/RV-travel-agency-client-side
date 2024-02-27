@@ -2,20 +2,18 @@ import { useQuery } from "react-query";
 import Loading from "../../../../shared/Loading/Loading";
 import NotFound from "../../../../shared/NotFound/NotFound";
 import { toast } from "react-toastify";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Rating } from "@mui/material";
-import { AuthContext } from "../../../../../providers/AuthProvider";
 import userImg from "../../../../../assets/images/user.svg";
 
 const UserReviews = () => {
-    const { user } = useContext(AuthContext);
     const token = localStorage.getItem('access_token');
     const [searchData, setSearchData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [currentData, setCurrentData] = useState({});
-    const warningNotify = () => toast.warn("Not less than 6 reviews!", { theme: "light" });
+    const warningNotify = () => toast.warn("Not less than 6 reviews on Client Side!", { theme: "light" });
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const { data: userReviews = [], isLoading, isError, refetch } = useQuery(['userReviews'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/reviews/user`, {
@@ -34,6 +32,7 @@ const UserReviews = () => {
     }
 
     const removeHotel = (id) => {
+        const persistData = () => toast.warn("This data is shown to client side.", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -59,8 +58,12 @@ const UserReviews = () => {
                             'success'
                         )
                     }
-                    if (response?.data?.message === 'can not delete') {
+                    else if (response?.data?.message === 'notDeletable') {
                         warningNotify();
+                    }
+
+                    else if (response?.data?.message === 'persistData') {
+                        persistData();
                     }
                     else {
                         errorNotify();
@@ -68,7 +71,29 @@ const UserReviews = () => {
                 })
             }
         })
-    }
+    };
+
+    const addToHome = async (id, data) => {
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/reviews/addToHome/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                refetch();
+                updateNotify();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            console.log(error);
+            errorNotify();
+        }
+    };
 
     const openModal = (d) => {
         setCurrentData(d);
@@ -131,7 +156,7 @@ const UserReviews = () => {
                                                 <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                                     <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap sm:flex items-center">
                                                         <div className="w-16 h-16 rounded-md">
-                                                            <img loading='lazy' className="object-cover rounded-full" src={d?.userId?.avatar.length > 0 ? d?.userId?.avatar?.[0]?.thumbnailUrl : (user?.photoURL || userImg)} alt={`${d?.userId?.name} image`} />
+                                                            <img loading='lazy' className="object-cover rounded-full" src={d?.userId?.avatar.length > 0 ? d?.userId?.avatar?.[0]?.thumbnailUrl : userImg} alt={`${d?.userId?.name} image`} />
                                                         </div>
                                                         <p className="text-gray-700 font-semibold ml-3">{d?.userId?.name}</p>
                                                     </td>
@@ -140,6 +165,13 @@ const UserReviews = () => {
                                                     </td>
                                                     <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap text-end">
                                                         <button onClick={() => openModal(d)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Details</button>
+                                                        {
+                                                            d.showToHome ?
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Remove Home</button>
+                                                                :
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Add Home</button>
+
+                                                        }
                                                         <button onClick={() => removeHotel(d._id)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                                     </td>
                                                 </tr>
@@ -167,7 +199,7 @@ const UserReviews = () => {
                         <div className="flex xs:items-center justify-between">
                             <div className="xs:flex items-center">
                                 <div className="aspect-square rounded-full w-16 h-16 xs:w-20 xs:h-20">
-                                    <img loading="lazy" className="aspect-square rounded-full w-full" src={currentData?.userId?.avatar.length > 0 ? currentData?.userId?.avatar?.[0]?.thumbnailUrl : (user?.photoURL || userImg)} alt={currentData?.userId?.name + ' image'} />
+                                    <img loading="lazy" className="aspect-square rounded-full w-full" src={currentData?.userId?.avatar.length > 0 ? currentData?.userId?.avatar?.[0]?.thumbnailUrl : userImg} alt={currentData?.userId?.name + ' image'} />
                                 </div>
                                 <div className="mt-2 xs:mt-0 xs:ms-4">
                                     <h4 className="text-gray-800 font-semibold">{currentData?.userId?.name}</h4>
