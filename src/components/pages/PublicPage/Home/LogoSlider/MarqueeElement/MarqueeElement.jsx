@@ -1,26 +1,26 @@
+import { useQuery } from "react-query";
 import styled from "styled-components";
-
-const row1 = [
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/1.png?updatedAt=1698170313864",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/2.png?updatedAt=1698170314257",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/3.png?updatedAt=1698170314135",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/4.png?updatedAt=1698170314129",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/5.png?updatedAt=1698170314069",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/6.png?updatedAt=1698170314267",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/7.png?updatedAt=1698170314132",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/8.png?updatedAt=1698170314264",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/9.png?updatedAt=1698170314073",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/10.png?updatedAt=1698170314261",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/11.png?updatedAt=1698170317373",
-  "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/Partners%20Logo/12.png?updatedAt=1698170317726"
-];
+import Loading from "../../../../../shared/Loading/Loading";
+import NotFound from "../../../../../shared/NotFound/NotFound";
 
 const MarqueeElement = () => {
+  const { data: allPartners = [], isLoading, isError } = useQuery(['allPartners'], async () => {
+    const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/partners`);
+    return res.json();
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>
+  }
+
+  if (isError) {
+    return <NotFound></NotFound>
+  }
   return (
     <MarqueeGroup>
-      {row1.map((el, idx) => (
+      {allPartners.map((el, idx) => (
         <ImageGroup key={idx}>
-          <Image loading="lazy" src={el} />
+          <Image onClick={() => window.location.assign(el?.target)} loading="lazy" src={el?.photo?.[0]?.url} alt={el?.companyName + ' image'} />
         </ImageGroup>
       ))}
     </MarqueeGroup>

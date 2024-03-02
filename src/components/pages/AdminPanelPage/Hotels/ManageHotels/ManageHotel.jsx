@@ -4,24 +4,31 @@ import NotFound from '../../../../shared/NotFound/NotFound';
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ManageHotel = () => {
     const [searchData, setSearchData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const token = localStorage.getItem('access_token');
-    const { data: hotels = [], isLoading, isError, refetch } = useQuery(['hotels'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels`);
-        return res.json();
-    })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const navigate = useNavigate();
+    const { data: hotels = [], isLoading, isError, refetch } = useQuery(['hotels'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels/admin`, {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        });
+        return res.json();
+    });
+
+    useEffect(() => { }, [hotels]);
 
     const removeHotel = (id, hotelName) => {
+        const warningNotify = () => toast.warn("Not less than 9 hotels!", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
-            text: "This user information will be permanently deleted from our database.",
+            text: "This hotels will be permanently deleted from our database.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#15803D',
@@ -44,20 +51,71 @@ const ManageHotel = () => {
                             'success'
                         )
                     }
+                    else if (response?.data?.message === 'notDeleted') {
+                        warningNotify();
+                    }
                     else {
                         errorNotify();
                     }
                 })
             }
         })
-    }
+    };
+
+    const addToHome = async (id, data) => {
+        const warningNotify1 = () => toast.warn("Suspended Data Can not add to home!", { theme: "light" });
+        const warningNotify = () => toast.warn("Not less than 9 hotels!", { theme: "light" });
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/hotels/addToHome/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                updateNotify();
+                refetch();
+            }
+            else if (response?.data?.message === 'suspended') {
+                warningNotify1();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            errorNotify();
+        }
+    };
+
+    const isSuspend = async (id, data) => {
+        const warningNotify = () => toast.warn("This data is in home, can not be suspended.", { theme: "light" });
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/hotels/isSuspend/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                updateNotify();
+                refetch();
+            }
+            else if (response?.data?.message === 'notSuspended') {
+                warningNotify();
+            }
+        } catch (error) {
+            errorNotify();
+        }
+    };
 
     const handleSearchField = (event) => {
         const keyword = event.target.value.trim().toLowerCase();
         setSearchKeyword(keyword);
         const results = hotels.filter(d => (d.hotelName.toLowerCase().includes(keyword) || d.location.city.toLowerCase().includes(keyword)));
         setSearchData(results);
-    }
+    };
 
     if (isLoading) {
         return <Loading></Loading>
@@ -126,17 +184,17 @@ const ManageHotel = () => {
                                                 {/* <button onClick={() => alert('This section is under maintaining. Try later!')} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button> */}
                                                 {
                                                     d.addToHome ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Home</button>
                                                 }
                                                 {
                                                     d.isSuspend ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
+                                                        <button onClick={() => isSuspend(d._id, d.isSuspend)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
+                                                        <button disabled={d.addToHome} onClick={() => isSuspend(d._id, d.isSuspend)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
                                                 }
-                                                <button onClick={() => removeHotel(d._id, d.hotelName)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={d.addToHome} onClick={() => removeHotel(d._id, d.hotelName)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

@@ -5,20 +5,22 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './ExploreBD.css';
 import { Autoplay, EffectCoverflow, Pagination, Keyboard, Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 
 const data = [
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/chittagong.jpg?updatedAt=1698387878028", location: "Chittagong", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/dhaka.jpg?updatedAt=1698387878427", location: "Dhaka", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sunamganj.jpg?updatedAt=1698387878076", location: "Sunamganj", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/Bhola.jpg?updatedAt=1698387878418", location: "Sylhet", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sylhet.jpg?updatedAt=1698387878411", location: "Bhola", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/coxs-Bazar.jpg?updatedAt=1698387878023", location: "Cox's Bazar", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/bandarban.jpg?updatedAt=1698387877920", location: "Bandarban", hotel: 20 },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/narayanganj.jpg?updatedAt=1698387877765", location: "Narayanganj", hotel: 20 },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/chittagong.jpg?updatedAt=1698387878028", location: "Chittagong", hotel: 25, link: `/hotels-list?search=chittagong` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/dhaka.jpg?updatedAt=1698387878427", location: "Dhaka", hotel: 30, link: `/hotels-list?search=dhaka` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sunamganj.jpg?updatedAt=1698387878076", location: "Sunamganj", hotel: 3, link: `/hotels-list?search=sunamganj` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/Bhola.jpg?updatedAt=1698387878418", location: "Patuakhali", hotel: 5, link: `/hotels-list?search=patuakhali` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/sylhet.jpg?updatedAt=1698387878411", location: "Sylhet", hotel: 11, link: `/hotels-list?search=sylhet` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/coxs-Bazar.jpg?updatedAt=1698387878023", location: "Cox's Bazar", hotel: 35, link: `/hotels-list?search=cox's` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/bandarban.jpg?updatedAt=1698387877920", location: "Bandarban", hotel: 8, link: `/hotels-list?search=bandarban` },
+    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/explore%20bd/tr:w-600/narayanganj.jpg?updatedAt=1698387877765", location: "Narayanganj", hotel: 6, link: `/hotels-list?search=narayanganj` },
 ]
 
 const ExploreBD = () => {
+    const navigate = useNavigate();
     return (
         <div id="explorebd" className="bg-[#fbfbfb] pt-24 xxs:pt-36 md:pt-48 2xl:pt-60">
             <div className="px-2 xxs:px-[16px] sm:px-[32px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
@@ -82,7 +84,7 @@ const ExploreBD = () => {
                         {
                             data?.map((x, i) => {
                                 return (
-                                    <SwiperSlide key={i} className='rounded-3xl relative cursor-pointer'>
+                                    <SwiperSlide onClick={() => navigate(x.link)} key={i} className='rounded-3xl relative cursor-pointer'>
                                         <img loading='lazy' className='rounded-3xl aspect-[3/4]' src={x.img} />
                                         <div className='absolute bottom-5 left-3 text-start'>
                                             <h4 className='font-bold text-lg text-slate-50'>{x.location}</h4>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const AllworldCard = (data) => {
-    const { url, alt, hotel, flight, country, flag } = data.data;
+    const { url, alt, hotel, flight, country, flag, link } = data.data;
     const navigate = useNavigate();
 
     return (
@@ -19,9 +19,9 @@ const AllworldCard = (data) => {
                 <p>{flight}</p>
                 <p>{hotel}</p>
             </div>
-            <div className="px-3 flex justify-between mt-6">
-                <button onClick={() => navigate('/hotels-list')} className="btn btn-xs xxs:btn-sm xs:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Book Now</button>
-                <button onClick={() => navigate('/hotels-list')} className="btn btn-link btn-xs xxs:btn-sm xs:btn-md text-gray-950 no-underline">View all tour</button>
+            <div className="px-3 flex justify-end mt-6">
+                {/* <button onClick={() => navigate('/hotels-list')} className="btn btn-xs xxs:btn-sm xs:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Book Now</button> */}
+                <button onClick={() => navigate(link)} className="btn btn-link btn-xs xxs:btn-sm xs:btn-md text-secondary no-underline">View all tour</button>
             </div>
         </div>
     );

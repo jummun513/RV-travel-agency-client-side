@@ -16,11 +16,11 @@ const ManagePartners = () => {
         });
         return res.json();
     });
-
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
-    const warningNotify = () => toast.warn("Not less than 4 offers!", { theme: "light" });
+    const warningNotify = () => toast.warn("Not less than 10 partners in Client Side!", { theme: "light" });
 
-    const removePackage = (id, fileId) => {
+    const removePartner = (id, fileId) => {
+        const persistData = () => toast.warn("This data is shown to client side.", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -38,7 +38,7 @@ const ManagePartners = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data?.deletedCount == 1) {
+                    if (response?.data?.deletedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',
@@ -46,8 +46,12 @@ const ManagePartners = () => {
                             'success'
                         )
                     }
-                    else if (response?.data?.message === 'can not delete') {
+                    else if (response?.data?.message === 'notDeletable') {
                         warningNotify();
+                    }
+
+                    else if (response?.data?.message === 'persistData') {
+                        persistData();
                     }
                     else {
                         errorNotify();
@@ -55,7 +59,29 @@ const ManagePartners = () => {
                 })
             }
         })
-    }
+    };
+
+    const addToHome = async (id, data) => {
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/partners/addToHome/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                refetch();
+                updateNotify();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            console.log(error);
+            errorNotify();
+        }
+    };
 
     if (isLoading) {
         return <Loading></Loading>
@@ -118,17 +144,12 @@ const ManagePartners = () => {
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-end">
                                                 {
                                                     d.addToHome ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className=" 3xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add To Home</button>
+
                                                 }
-                                                {
-                                                    d.isSuspend ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
-                                                        :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
-                                                }
-                                                <button onClick={() => removePackage(d?._id, d?.photo?.[0]?.fileId)} className="ml-2 mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={partners.length < 11 || d.addToHome} onClick={() => removePartner(d?._id, d?.photo?.[0]?.fileId)} className="ml-2 mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

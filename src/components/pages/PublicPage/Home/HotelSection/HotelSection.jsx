@@ -1,18 +1,21 @@
+import { useQuery } from "react-query";
 import HotelCards from "./HotelCards/HotelCards";
-
-const data = [
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/radison-chittagong.jpg?updatedAt=1698387042645", title: "Radisson Blu Chattogram Bay View", loc: "Chittagong, Bangladesh" },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/dubai-emirates-palace-hotel.jpg?updatedAt=1698387043344", title: "Emirates Palace Mandarin Oriental", loc: "Abu Dhabi, UAE." },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Rancho-Valencia-Resort-Spa-usa.jpg?updatedAt=1698387043053", title: "Rancho Valencia Resort & Spa", loc: "California, USA" },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/The-Westin-Excelsior-rome.jpg?updatedAt=1698387043057", title: "The Westin Excelsior", loc: "Rome, Italia" },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Burj-Al-Arab-Hotel-dubai-uae.jpg?updatedAt=1698387043038", title: "Burj Al Arab Hotel", loc: "Dubai, UAE." },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/The-Plaza-usa.jpg?updatedAt=1698387043061", title: "The Plaza", loc: "New York City, USA." },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Atlantis-Paradise-Island-bahamas.jpg?updatedAt=1698387043340", title: "Atlantis Paradise Island", loc: "Nassau, Bahamas" },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Palms-Las-Vegas.jpg?updatedAt=1698387042961", title: "The Palms Hotel", loc: "Las Vegas, USA" },
-    { img: "https://ik.imagekit.io/kkfhvwmzt/01.%20RV%20Project/home%20hotels/Cuisin-Art-Golf-Resort-Spa-uk.jpg?updatedAt=1698387042783", title: "CuisinArt Golf Resort & Spa", loc: "Anguilla, UK" }
-]
+import Loading from "../../../../shared/Loading/Loading";
+import NotFound from "../../../../shared/NotFound/NotFound";
 
 const HotelSection = () => {
+    const { data: homeHotels = [], isLoading, isError } = useQuery(['homeHotels'], async () => {
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/hotels/showToHome`);
+        return res.json();
+    });
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    if (isError) {
+        return <NotFound></NotFound>
+    }
     return (
         <div id="hotelSection" className="bg-[#fbfbfb] pt-12 xxs:pt-18 md:pt-24 2xl:pt-32">
             <div className="bg-slate-100 py-12 xxs:py-18 md:py-24 2xl:py-32">
@@ -23,12 +26,12 @@ const HotelSection = () => {
                     </div>
                     <div className="hidden 2xl:grid grid-cols-3 gap-x-10 gap-y-10 mt-16">
                         {
-                            data.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                            homeHotels?.slice(0, 9)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
                         }
                     </div>
                     <div className="2xl:hidden grid lg:grid-cols-2 gap-x-10 gap-y-3 xxs:gap-y-5 sm:gap-y-10 mt-8 xxs:mt-12 sm:mt-16">
                         {
-                            data.slice(0, 6).map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                            homeHotels?.slice(0, 6)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
                         }
                     </div>
                 </div>

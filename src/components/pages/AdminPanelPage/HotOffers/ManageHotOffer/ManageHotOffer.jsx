@@ -20,6 +20,7 @@ const ManageHotOffer = () => {
     const warningNotify = () => toast.warn("Not less than 4 offers!", { theme: "light" });
 
     const removePackage = (id, fileId) => {
+        const persistData = () => toast.warn("This data is shown to client side.", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
             text: "This user information will be permanently deleted from our database.",
@@ -37,7 +38,7 @@ const ManageHotOffer = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data?.deletedCount == 1) {
+                    if (response?.data?.deletedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',
@@ -45,8 +46,12 @@ const ManageHotOffer = () => {
                             'success'
                         )
                     }
-                    else if (response?.data?.message === 'can not delete') {
+                    else if (response?.data?.message === 'notDeletable') {
                         warningNotify();
+                    }
+
+                    else if (response?.data?.message === 'persistData') {
+                        persistData();
                     }
                     else {
                         errorNotify();
@@ -55,6 +60,28 @@ const ManageHotOffer = () => {
             }
         })
     }
+
+    const addToHome = async (id, data) => {
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/hot-offers/addToHome/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                refetch();
+                updateNotify();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            console.log(error);
+            errorNotify();
+        }
+    };
 
     if (isLoading) {
         return <Loading></Loading>
@@ -141,11 +168,12 @@ const ManageHotOffer = () => {
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-end">
                                                 {
                                                     d.addToHome ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className=" 3xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Home</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add To Home</button>
+
                                                 }
-                                                <button disabled={hotOffers?.length < 5} onClick={() => removePackage(d?._id, d?.photo?.[0]?.fileId)} className="ml-2 mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={hotOffers?.length < 5 || d.addToHome} onClick={() => removePackage(d?._id, d?.photo?.[0]?.fileId)} className="ml-2 mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

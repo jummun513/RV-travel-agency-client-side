@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import backVideo from '../../../../../assets/videos/bannerVideo.mp4';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FaHotel, FaCcVisa, FaPlaneDeparture } from 'react-icons/fa';
-import { MdHolidayVillage } from 'react-icons/md';
+import { LuPackageOpen } from "react-icons/lu";
 import './Banner.css';
 import HotelSearch from '../../../../shared/HotelSearch/HotelSearch';
+import PackageSearch from '../../../../shared/PackageSearch/PackageSearch';
 
 const Banner = () => {
   return (
@@ -18,7 +19,7 @@ const Banner = () => {
           <Tabs className='bg-[#ffffffe0] rounded-lg'>
             <TabList id='#nestedNav' className='grid grid-cols-4 sm:grid-cols-2 xl:grid-cols-4 justify-center items-center border-b-2 border-gray-400 rounded-t-lg'>
               <Tab className='flex flex-col sm:flex-row justify-center items-center py-3 sm:py-4 text-gray-700 hover:bg-primary hover:text-gray-950 duration-150 ease-linear cursor-pointer rounded-tl-lg sm:rounded-se-none sm:rounded-ss-lg'><span><FaHotel className='xl:w-8 xl:h-8 md:h-5 md:w-5 w-3 h-3 me-2 sm:me-3 lg:me-5 xl:me-7'></FaHotel></span> <span className='font-semibold text-xs xxs:text-sm md:text-base'>Hotel</span></Tab>
-              <Tab className='flex flex-col sm:flex-row justify-center items-center py-3 sm:py-4 text-gray-700 hover:bg-primary hover:text-gray-950 duration-150 ease-linear cursor-pointer sm:rounded-se-lg xl:rounded-se-none'><span><MdHolidayVillage className='xl:w-8 xl:h-8 md:h-5 md:w-5 w-3 h-3 me-2 sm:me-3 lg:me-5 xl:me-7'></MdHolidayVillage></span> <span className='font-semibold text-xs xxs:text-sm md:text-base'>Holiday</span></Tab>
+              <Tab className='flex flex-col sm:flex-row justify-center items-center py-3 sm:py-4 text-gray-700 hover:bg-primary hover:text-gray-950 duration-150 ease-linear cursor-pointer sm:rounded-se-lg xl:rounded-se-none'><span><LuPackageOpen className='xl:w-8 xl:h-8 md:h-5 md:w-5 w-3 h-3 me-2 sm:me-3 lg:me-5 xl:me-7'></LuPackageOpen></span> <span className='font-semibold text-xs xxs:text-sm md:text-base'>Package</span></Tab>
               <Tab className='flex flex-col sm:flex-row justify-center items-center py-3 sm:py-4 text-gray-700 hover:bg-primary hover:text-gray-950 duration-150 ease-linear cursor-pointer'><span><FaPlaneDeparture className='xl:w-8 xl:h-8 md:h-5 md:w-5 w-3 h-3 me-2 sm:me-3 lg:me-5 xl:me-7'></FaPlaneDeparture></span> <span className='font-semibold text-xs xxs:text-sm md:text-base'>Flight</span></Tab>
               <Tab className='flex flex-col sm:flex-row justify-center items-center py-3 sm:py-4 text-gray-700 hover:bg-primary hover:text-gray-950 duration-150 ease-linear cursor-pointer rounded-tr-lg sm:rounded-none xl:rounded-se-lg'><span><FaCcVisa className='xl:w-8 xl:h-8 md:h-5 md:w-5 w-3 h-3 me-2 sm:me-3 lg:me-5 xl:me-7'></FaCcVisa></span> <span className='font-semibold text-xs xxs:text-sm md:text-base'>Visa</span></Tab>
             </TabList>
@@ -27,7 +28,7 @@ const Banner = () => {
               <HotelSearch></HotelSearch>
             </TabPanel>
             <TabPanel>
-              <div className='py-80 sm:py-60 xl:py-32 text-gray-900 font-bold lg:text-xl'>Coming soon...</div>
+              <PackageSearch></PackageSearch>
             </TabPanel>
             <TabPanel>
               <div className='py-80 sm:py-60 xl:py-32 text-gray-900 font-bold lg:text-xl'>Coming soon...</div>

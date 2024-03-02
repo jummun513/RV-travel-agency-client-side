@@ -4,7 +4,7 @@ import NotFound from '../../../../shared/NotFound/NotFound';
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ManagePackage = () => {
@@ -12,16 +12,23 @@ const ManagePackage = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const token = localStorage.getItem('access_token');
     const { data: packages = [], isLoading, isError, refetch } = useQuery(['packages'], async () => {
-        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/packages`);
+        const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/packages/admin`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        });
         return res.json();
     })
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const navigate = useNavigate();
 
+    useEffect(() => { }, [packages]);
+
     const removePackage = (id, folderName) => {
+        const warningNotify = () => toast.warn("Not less than 6 packages!", { theme: "light" });
         Swal.fire({
             title: 'Are you sure?',
-            text: "This user information will be permanently deleted from our database.",
+            text: "This package information will be permanently deleted from our database.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#15803D',
@@ -36,7 +43,7 @@ const ManagePackage = () => {
                         'Content-Type': 'application/json'
                     },
                 }).then(response => {
-                    if (response?.data?.modifiedCount === 1) {
+                    if (response?.data.deletedCount === 1 || response?.data.modifiedCount === 1) {
                         refetch();
                         Swal.fire(
                             'Deleted!',
@@ -44,13 +51,64 @@ const ManagePackage = () => {
                             'success'
                         )
                     }
+                    else if (response?.data?.message === 'notDeleted') {
+                        warningNotify();
+                    }
                     else {
                         errorNotify();
                     }
                 })
             }
         })
-    }
+    };
+
+    const addToHome = async (id, data) => {
+        const warningNotify1 = () => toast.warn("Suspended Data Can not add to home!", { theme: "light" });
+        const warningNotify = () => toast.warn("Not less than 6 packages!", { theme: "light" });
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/packages/addToCarousel/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                updateNotify();
+                refetch();
+            }
+            else if (response?.data?.message === 'suspended') {
+                warningNotify1();
+            }
+            else if (response?.data?.message === 'mustHome') {
+                warningNotify();
+            }
+        } catch (error) {
+            errorNotify();
+        }
+    };
+
+    const isSuspend = async (id, data) => {
+        const warningNotify = () => toast.warn("This data is in home, can not be suspended.", { theme: "light" });
+        const updateNotify = () => toast.success("Successfully! Updated.", { theme: "light" });
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/packages/isSuspend/${id}`, { data }, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response?.data?.modifiedCount === 1) {
+                updateNotify();
+                refetch();
+            }
+            else if (response?.data?.message === 'notSuspended') {
+                warningNotify();
+            }
+        } catch (error) {
+            errorNotify();
+        }
+    };
 
     const handleSearchField = (event) => {
         const keyword = event.target.value.trim().toLowerCase();
@@ -142,17 +200,17 @@ const ManagePackage = () => {
                                                 <button onClick={() => navigate(`edit-package/${d?._id}`)} className="btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Edit</button>
                                                 {
                                                     d.addToCarousel ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className=" 3xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Carousel</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToCarousel)} className=" ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove to Carousel</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Carousel</button>
+                                                        <button onClick={() => addToHome(d._id, d.addToCarousel)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add to Carousel</button>
                                                 }
                                                 {
                                                     d.isSuspend ?
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
+                                                        <button onClick={() => isSuspend(d._id, d.isSuspend)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Persist</button>
                                                         :
-                                                        <button onClick={() => alert('This section is under maintaining. Try later!')} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
+                                                        <button disabled={d.addToCarousel} onClick={() => isSuspend(d._id, d.isSuspend)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Suspend</button>
                                                 }
-                                                <button disabled={packages?.length < 7} onClick={() => removePackage(d?._id, d?.imageFolder)} className="mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                <button disabled={packages?.length < 7 || d.addToCarousel} onClick={() => removePackage(d?._id, d?.imageFolder)} className="mt-3 2xl:mt-0 xl:ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                             </td>
                                         </tr>
                                     )

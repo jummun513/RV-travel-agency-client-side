@@ -164,15 +164,15 @@ const UserReviews = () => {
                                                         General User
                                                     </td>
                                                     <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-900 whitespace-nowrap text-end">
-                                                        <button onClick={() => openModal(d)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Details</button>
+                                                        <button onClick={() => openModal(d)} className="ml-2 btn btn-sm xl:btn-md text-gray-950 bg-primary border-none hover:bg-secondary">Details</button>
                                                         {
                                                             d.showToHome ?
-                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Remove Home</button>
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Remove To Home</button>
                                                                 :
-                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-blue-600 border-none hover:bg-blue-500">Add Home</button>
+                                                                <button onClick={() => addToHome(d._id, d.showToHome)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-green-600 border-none hover:bg-green-500">Add To Home</button>
 
                                                         }
-                                                        <button onClick={() => removeHotel(d._id)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
+                                                        <button disabled={d.showToHome} onClick={() => removeHotel(d._id)} className="ml-2 btn btn-sm xl:btn-md text-gray-50 bg-red-600 border-none hover:bg-red-500">Delete</button>
                                                     </td>
                                                 </tr>
                                             )

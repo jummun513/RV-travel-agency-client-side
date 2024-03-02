@@ -571,7 +571,7 @@ function LargeItem({ currentItems }) {
         <div>
             <div className="form-control w-1/2 mt-8">
                 <label className="label pt-0">
-                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Sort By</span>
                 </label>
                 <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
                     <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
@@ -626,7 +626,7 @@ function SmallItem({ currentItems }) {
         <div>
             <div className="form-control w-1/2 mt-8">
                 <label className="label pt-0">
-                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Short By</span>
+                    <span className="label-text text-gray-950 font-extrabold text-lg 2xl:text-xl">Sort By</span>
                 </label>
                 <select className="select text-gray-950 xs:text-gray-600 xs:font-semibold select-md 2xl:select-lg select-bordered border-gray-700 bg-[#fbfbfb]">
                     <option defaultValue className='text-gray-700 text-sm 2xl:text-lg'>Recommended</option>
