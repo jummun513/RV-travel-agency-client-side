@@ -18,7 +18,7 @@ const MarqueeElement = () => {
   }
   return (
     <MarqueeGroup>
-      {allPartners.map((el, idx) => (
+      {allPartners?.map((el, idx) => (
         <ImageGroup key={idx}>
           <Image onClick={() => window.location.assign(el?.target)} loading="lazy" src={el?.photo?.[0]?.url} alt={el?.companyName + ' image'} />
         </ImageGroup>

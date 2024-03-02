@@ -73,18 +73,23 @@ const TopOffer = () => {
                         className="mySwiper"
                     >
                         {
-                            allHotOffers?.map((x, i) => {
-                                return (
-                                    <SwiperSlide key={i} className='offer-card rounded sm:rounded-xl cursor-pointer relative'>
-                                        <div className='card-image rounded sm:rounded-xl'><img loading='lazy' className='rounded sm:rounded-xl aspect-[16/9]' src={x.photo?.[0].url} alt='hot-offer image' /></div>
-                                        <div className='card-text p-3 bg-primary rounded sm:rounded-xl'>
-                                            <p className='hidden md:block text-xs xxs:text-sm lg:text-base text-slate-950'>{x.desc.slice(0, 200) + '...'}</p>
-                                            <p className='md:hidden text-xs xxs:text-sm text-slate-950'>{x.desc.slice(0, 150) + '...'}</p>
-                                            <button onClick={() => navigate(`/hot-offer/details/${x._id}`)} className='btn btn-xs lg:btn-sm text-slate-50 mt-2'>Details</button>
-                                        </div>
-                                    </SwiperSlide>
+                            allHotOffers?.length > 0 ?
+                                (
+                                    allHotOffers?.map((x, i) => {
+                                        return (
+                                            <SwiperSlide key={i} className='offer-card rounded sm:rounded-xl cursor-pointer relative'>
+                                                <div className='card-image rounded sm:rounded-xl'><img loading='lazy' className='rounded sm:rounded-xl aspect-[16/9]' src={x.photo?.[0].url} alt='hot-offer image' /></div>
+                                                <div className='card-text p-3 bg-primary rounded sm:rounded-xl'>
+                                                    <p className='hidden md:block text-xs xxs:text-sm lg:text-base text-slate-950'>{x.desc.slice(0, 200) + '...'}</p>
+                                                    <p className='md:hidden text-xs xxs:text-sm text-slate-950'>{x.desc.slice(0, 150) + '...'}</p>
+                                                    <button onClick={() => navigate(`/hot-offer/details/${x._id}`)} className='btn btn-xs lg:btn-sm text-slate-50 mt-2'>Details</button>
+                                                </div>
+                                            </SwiperSlide>
+                                        )
+                                    })
                                 )
-                            })
+                                :
+                                <div>No data found!</div>
                         }
                     </Swiper>
                 </div>

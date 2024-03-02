@@ -86,7 +86,7 @@ const DynamicDiv = (data) => {
                     <label htmlFor="title">Title <sup className='text-red-500'>*</sup></label>
                     <input name={`title-${index}`}
                         value={itineraryData[index]?.name}
-                        onChange={(e) => handleInputChange('title', index, e)} type="text" placeholder="Business Room (Class - Lounge Access)" className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" required />
+                        onChange={(e) => handleInputChange('title', index, e)} type="text" placeholder="Port Blair Arrival & Exploration" className="mt-1 input input-bordered input-info input-xs xxs:input-sm xl:input-md text-gray-950 bg-white w-full" required />
                 </div>
                 <div className="mb-3 sm:mb-0 w-full sm:mr-5 2xl:mr-10 text-gray-600 group z-0 mt-6">
                     <label htmlFor="details">Details <sup className='text-red-500'>*</sup></label>

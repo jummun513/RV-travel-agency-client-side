@@ -26,12 +26,20 @@ const HotelSection = () => {
                     </div>
                     <div className="hidden 2xl:grid grid-cols-3 gap-x-10 gap-y-10 mt-16">
                         {
-                            homeHotels?.slice(0, 9)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                            homeHotels.length > 0 ?
+                                (
+                                    homeHotels?.slice(0, 9)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                                ) :
+                                <div>No data found!</div>
                         }
                     </div>
                     <div className="2xl:hidden grid lg:grid-cols-2 gap-x-10 gap-y-3 xxs:gap-y-5 sm:gap-y-10 mt-8 xxs:mt-12 sm:mt-16">
                         {
-                            homeHotels?.slice(0, 6)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                            homeHotels.length > 0 ?
+                                (
+                                    homeHotels?.slice(0, 6)?.map((d, i) => <HotelCards key={i} data={d}></HotelCards>)
+                                ) :
+                                <div>No data found!</div>
                         }
                     </div>
                 </div>
