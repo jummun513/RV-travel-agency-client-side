@@ -18,6 +18,7 @@ import { MdReviews } from "react-icons/md";
 import { IoMdPhotos } from "react-icons/io";
 import { MdLocalOffer } from "react-icons/md";
 import { FaHandshake } from "react-icons/fa6";
+import { ImBlog } from "react-icons/im";
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -151,6 +152,17 @@ const AdminPanelPage = () => {
                                 </ul>
                             </details>
                         </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <ImBlog /> Blogs
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-to-blog' className='hover:bg-primary hover:text-gray-950'>Add To Blogs</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-blogs' className='hover:bg-primary hover:text-gray-950'>Manage Blogs</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
                         <li className='text-gray-50 mt-3'><NavLink to='general-users' className='hover:bg-primary hover:text-gray-950'><FaUsers></FaUsers>General Users</NavLink></li>
                         <li className='text-gray-50 mt-3'><NavLink to='manage-admin' className='hover:bg-primary hover:text-gray-950'><RiAdminLine></RiAdminLine>Admin Control</NavLink></li>
                     </ul>
@@ -261,6 +273,17 @@ const AdminPanelPage = () => {
                                 <ul className="p-2">
                                     <li className='text-gray-100 mb-1'><NavLink to='add-to-partner' className='hover:bg-primary hover:text-gray-950'>Add To Partners</NavLink></li>
                                     <li className='text-gray-100'><NavLink to='manage-partners' className='hover:bg-primary hover:text-gray-950'>Manage Partners</NavLink></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li className='mt-3'>
+                            <details>
+                                <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                    <ImBlog /> Blogs
+                                </summary>
+                                <ul className="p-2">
+                                    <li className='text-gray-100 mb-1'><NavLink to='add-to-blog' className='hover:bg-primary hover:text-gray-950'>Add To Blogs</NavLink></li>
+                                    <li className='text-gray-100'><NavLink to='manage-blogs' className='hover:bg-primary hover:text-gray-950'>Manage Blogs</NavLink></li>
                                 </ul>
                             </details>
                         </li>

@@ -11,7 +11,6 @@ const PgPhotoGallery = () => {
         return res.json();
     });
 
-    // console.log(photoAlbum);
     useEffect(() => {
         const newArray = photoAlbum.map((item, i) => ({
             key: i,

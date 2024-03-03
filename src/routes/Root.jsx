@@ -59,6 +59,10 @@ import ManagePartners from "../components/pages/AdminPanelPage/Partners/ManagePa
 import TopOfferDetails from "../components/pages/PublicPage/Home/TopOffer/TopOfferDetails/TopOfferDetails";
 import Packages from "../components/pages/PublicPage/Packages/Packages";
 import PgReviewsClient from "../components/pages/PublicPage/PgReviewsClient/PgReviewsClient";
+import AddBlogs from "../components/pages/AdminPanelPage/Blogs/AddBlogs/AddBlogs";
+import ManageBlogs from "../components/pages/AdminPanelPage/Blogs/ManageBlogs/ManageBlogs";
+import ClientSideBlogs from "../components/pages/PublicPage/ClientSideBlogs/ClientSideBlogs";
+import BlogDetails from "../components/pages/PublicPage/ClientSideBlogs/BlogDetails/BlogDetails";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -105,7 +109,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/blog&news',
-                element: <Developing></Developing>,
+                element: <ClientSideBlogs></ClientSideBlogs>,
+            },
+            {
+                path: '/blog&news/details/:blogId',
+                element: <BlogDetails></BlogDetails>,
             },
             {
                 path: '/about-us/chairman-message',
@@ -264,6 +272,14 @@ export const router = createBrowserRouter([
                     {
                         path: 'manage-partners',
                         element: <ManagePartners></ManagePartners>,
+                    },
+                    {
+                        path: 'add-to-blog',
+                        element: <AddBlogs></AddBlogs>,
+                    },
+                    {
+                        path: 'manage-blogs',
+                        element: <ManageBlogs></ManageBlogs>,
                     },
                 ]
             },

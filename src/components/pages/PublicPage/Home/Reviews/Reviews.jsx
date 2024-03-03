@@ -30,7 +30,7 @@ const Reviews = () => {
                 <div className="px-2 xxs:px-[16px] sm:px-[32px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl">
                     <div className="text-center mb-8 sm:mb-10 lg:mb-20">
                         <h2 className="text-gray-950 font-extrabold text-lg xxs:text-2xl xs:text-3xl md:text-5xl xl:text-5xl">Our Happy Clients</h2>
-                        <p className='text-end'><button onClick={() => navigate('/privileged-guest/pg-reviews')} className='mt-4 xs:mt-6 xl:mt-0 btn btn-xs xxs:btn-sm md:btn-md border-2 border-gray-50 bg-gray-50 hover:bg-transparent hover:border-gray-50 text-primary hover:text-gray-50'>All Reviews</button></p>
+                        <p className='xs:text-end'><button onClick={() => navigate('/privileged-guest/pg-reviews')} className='mt-4 xs:mt-6 xl:mt-0 btn btn-xs xxs:btn-sm md:btn-md border-2 border-gray-50 bg-gray-50 hover:bg-transparent hover:border-gray-50 text-gray-950 hover:text-gray-950'>All Reviews</button></p>
                     </div>
                     <Swiper
                         keyboard={true}
