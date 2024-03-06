@@ -63,6 +63,8 @@ import AddBlogs from "../components/pages/AdminPanelPage/Blogs/AddBlogs/AddBlogs
 import ManageBlogs from "../components/pages/AdminPanelPage/Blogs/ManageBlogs/ManageBlogs";
 import ClientSideBlogs from "../components/pages/PublicPage/ClientSideBlogs/ClientSideBlogs";
 import BlogDetails from "../components/pages/PublicPage/ClientSideBlogs/BlogDetails/BlogDetails";
+import BalanceTransaction from "../components/pages/ProtectedPage/UserDashboard/TransactionHistory/BalanceTransaction/BalanceTransaction";
+import PointTransaction from "../components/pages/ProtectedPage/UserDashboard/TransactionHistory/PointTransaction/PointTransaction";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -162,6 +164,14 @@ export const router = createBrowserRouter([
                     {
                         path: 'my-order-history/package-purchased',
                         element: <PackagePurchased></PackagePurchased>,
+                    },
+                    {
+                        path: 'my-transaction-history/balance-transaction',
+                        element: <BalanceTransaction></BalanceTransaction>,
+                    },
+                    {
+                        path: 'my-transaction-history/point-transaction',
+                        element: <PointTransaction></PointTransaction>,
                     },
                     {
                         path: 'write-review',

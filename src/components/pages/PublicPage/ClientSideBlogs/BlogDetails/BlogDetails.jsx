@@ -28,13 +28,15 @@ const BlogDetails = () => {
     }
 
     return (
-        <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-48 3xl:py-56">
+        <div className="bg-[#fbfbfb] py-20 xxs:py-32 xs:py-36 md:py-40 xl:py-44 3xl:py-52">
             <Helmet>
                 <title> {singleBlog?.heading} | Blog Details - Royal Venture Limited</title>
             </Helmet>
             <div className="rounded-md px-2 xxs:px-3 xs:px-5 md:px-7 lg:px-10 mx-auto max-w-screen-3xl">
-                <div className="mx-auto xl:max-w-screen-xl 3xl:max-w-screen-3xl">
-                    <div className="relative rounded-lg mx-auto xl:max-w-screen-lg 3xl:max-w-screen-2xl">
+                <div className="mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl 3xl:max-w-screen-3xl">
+                    <h2 className="text-xl xxs:text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl 3xl:text-6xl font-bold text-gray-950 max-w-4xl 2xl:max-w-6xl 3xl:max-w-7xl mb-4 xxs:mb-8 sm:mb-10">{singleBlog?.heading}</h2>
+                    <p className="text-gray-950 font-semibold text-sm sm:text-base xl:text-lg 2xl:text-xl mb-3 xxs:mb-5 sm:mb-7 lg:mb-10 text-end">Published At: <span className="text-primary">{convertDate(singleBlog?.createdAt)}</span></p>
+                    <div className="relative rounded-lg mx-auto xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl">
                         <img className="w-full rounded-lg" src={singleBlog?.thumbnail?.[0]?.url} alt='Hot Offer' />
                         <div className="absolute h-full w-full bg-black opacity-40 top-0 rounded-lg"></div>
                         <div className="absolute bottom-3 xxs:bottom-5 sm:bottom-10 pl-2 sm:flex flex-col items-center w-full">

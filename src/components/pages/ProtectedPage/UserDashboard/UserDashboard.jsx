@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { ImProfile } from 'react-icons/im';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { BiSolidEdit } from 'react-icons/bi';
 import './UserDashboard.css';
 import Loading from "../../../shared/Loading/Loading";
 import { useContext } from "react";
@@ -54,8 +53,18 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className="mt-3 md:mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <GrTransaction />Transaction Details
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-transaction-history/balance-transaction' className='hover:bg-primary hover:text-gray-950'>Balance Transaction</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-transaction-history/point-transaction' className='hover:bg-primary hover:text-gray-950'>Point Transaction</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
                                 <li className='text-gray-50 mt-3 md:mt-4'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
-                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><GrTransaction />Transaction Details</NavLink></li>
                             </ul>
                         }
 
@@ -102,8 +111,18 @@ const UserDashboard = () => {
                                         </ul>
                                     </details>
                                 </li>
+                                <li className="mt-4">
+                                    <details>
+                                        <summary className='text-gray-50 hover:bg-primary hover:text-gray-950'>
+                                            <GrTransaction />Transaction Details
+                                        </summary>
+                                        <ul className="p-2">
+                                            <li className='text-gray-100 mb-1'><NavLink to='my-transaction-history/balance-transaction' className='hover:bg-primary hover:text-gray-950'>Balance Transaction</NavLink></li>
+                                            <li className='text-gray-100'><NavLink to='my-transaction-history/point-transaction' className='hover:bg-primary hover:text-gray-950'>Point Transaction</NavLink></li>
+                                        </ul>
+                                    </details>
+                                </li>
                                 <li className='text-gray-50 mt-3'><NavLink to='write-review' className='hover:bg-primary hover:text-gray-950'><MdOutlineRateReview />Write Review</NavLink></li>
-                                <li className='text-gray-50 mt-3'><NavLink to='edit-profile' className='hover:bg-primary hover:text-gray-950'><BiSolidEdit></BiSolidEdit>Edit Profile</NavLink></li>
                             </ul>
                         }
                         {

@@ -96,7 +96,7 @@ const Profile = () => {
                 <title>My Profile - Royal Venture Limited</title>
             </Helmet>
             {
-                (PGuser !== null) &&
+                (PGuser !== null && Guser === null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-24">
                     <div className="mb-24 xl:mb-32">
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
@@ -203,13 +203,13 @@ const Profile = () => {
                 </div>
             }
             {
-                (user !== null) &&
+                (PGuser === null && Guser !== null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 py-7 xxs:pt-10 xxs:pb-24">
                     <div className="mb-16 xl:mb-16">
                         <h2 className="text-center text-xs xxs:text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Profile Details</h2>
 
                         <div className="w-28 xs:w-40 rounded-full mx-auto">
-                            <img className='rounded-full aspect-square' src={PGuser?.avatar ? PGuser?.avatar : userImage} alt='User Image' />
+                            <img className='rounded-full aspect-square' src={Guser?.avatar?.length > 0 ? Guser.avatar?.[0]?.thumbnailUrl : userImage} alt='User Image' />
                         </div>
                         <div className="mt-10 lg:mt-16">
                             <div className="relative overflow-x-auto sm:overflow-x-hidden shadow-md sm:rounded-lg lg:min-w-[720px]">
@@ -237,9 +237,9 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mb-10 xxs:mb-5 text-center">
+                    {/* <div className="mb-10 xxs:mb-5 text-center">
                         <button className='btn btn-wide btn-xs xxs:btn-sm 2xl:btn-md bg-primary border-none text-gray-950 hover:bg-secondary'>Apply For Privilege Guest</button>
-                    </div>
+                    </div> */}
                 </div>
             }
 

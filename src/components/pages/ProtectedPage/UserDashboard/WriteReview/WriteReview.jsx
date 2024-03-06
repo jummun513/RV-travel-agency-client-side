@@ -14,7 +14,7 @@ const WriteReview = () => {
     const errorNotify = () => toast.error("There was a problem. Try later!", { theme: "light" });
     const successNotify = () => toast.success("Successfully! submitted.", { theme: "light" });
     const { PGuser } = useContext(AuthContextPG);
-    const { Guser, user } = useContext(AuthContext);
+    const { Guser } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
         desc: '',
@@ -77,14 +77,14 @@ const WriteReview = () => {
                 <title>Write Review - Royal Venture Limited</title>
             </Helmet>
             {
-                (PGuser !== null) &&
+                (PGuser !== null && Guser === null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 pt-20 xxs:pt-16 xs:pt-10 xxs:pb-24">
                     <h2 className="text-center text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Write A Review</h2>
                     <div className="flex justify-center mt-10 lg:mt-16">
                         <div className="py-8 px-5 w-[30rem] rounded-lg shadow-lg">
                             <div className="flex items-center">
                                 <div className="mr-2 sm:mr-4 w-8 xxs:w-12 lg:w-14 2xl:w-16 rounded-full ring-2 ring-primary">
-                                    <img className="rounded-full" src={PGuser?.avatar.length > 0 ? PGuser?.avatar?.[0]?.thumbnailUrl : userImg} alt={PGuser?.fullName + ' image'} />
+                                    <img className="rounded-full" src={PGuser?.avatar?.length > 0 ? PGuser?.avatar?.[0]?.thumbnailUrl : userImg} alt={PGuser?.fullName + ' image'} />
                                 </div>
                                 <div>
                                     <p className="text-gray-800 font-semibold">{PGuser?.fullName}</p>
@@ -130,14 +130,14 @@ const WriteReview = () => {
                 </div>
             }
             {
-                (user !== null && Guser !== null) &&
+                (Guser !== null && PGuser === null) &&
                 <div className="px-3 xxs:px-5 sm:px-10 pt-20 xxs:pt-16 xs:pt-10 xxs:pb-24">
                     <h2 className="text-center text-base sm:text-xl md:text-3xl font-bold text-gray-800 mb-7 xxs:mb-10">Write A Review</h2>
                     <div className="flex justify-center mt-10 lg:mt-16">
                         <div className="py-8 px-5 w-[30rem] rounded-lg shadow-lg">
                             <div className="flex items-center">
                                 <div className="mr-2 sm:mr-4 w-8 xxs:w-12 lg:w-14 2xl:w-16 rounded-full ring-2 ring-primary">
-                                    <img className="" src={Guser?.avatar.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt={Guser?.name + ' image'} />
+                                    <img className="rounded-full" src={Guser?.avatar?.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt={Guser?.name + ' image'} />
                                 </div>
                                 <p className="text-gray-800 font-semibold">{Guser?.name}</p>
                             </div>

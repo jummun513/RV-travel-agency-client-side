@@ -164,7 +164,7 @@ const IndividualTransactions = ({ singlePGUser, refetch }) => {
                                     Transaction No
                                 </th>
                                 <th scope="col" className="px-3 md:px-6 lg:px-3 py-4">
-                                    Date
+                                    Date & Time
                                 </th>
                                 <th scope="col" className="px-3 md:px-6 lg:px-3 py-4">
                                     Amount
@@ -180,13 +180,13 @@ const IndividualTransactions = ({ singlePGUser, refetch }) => {
                                     return (
                                         <tr key={i} className="bg-white border-b hover:bg-gray-50">
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
-                                                {d.transactionType + (d._id.slice(-4))}
+                                                {d?.transactionType + (d?._id?.slice(-4))}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
-                                                {convertDate(d.paymentDate ? d.paymentDate : d.createdAt)} {formatTimeWithSeconds(d.paymentDate ? d.paymentDate : d.createdAt)}
+                                                {convertDate(d.paymentDate ? d.paymentDate : d.createdAt)}<br></br>{formatTimeWithSeconds(d.paymentDate ? d.paymentDate : d.createdAt)}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
-                                                {d.paymentAmount || d.invoiceAmount}
+                                                {d.paymentAmount ? d.paymentAmount : d.invoiceAmount}
                                             </td>
                                             <td className="px-3 sm:px-6 lg:px-3 py-2 xl:py-4 text-gray-800">
                                                 {d.payableAmount}

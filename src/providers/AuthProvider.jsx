@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
 import axios from "axios";
@@ -27,6 +27,7 @@ const AuthProvider = (data) => {
     const [sendEmailVerification, sending, errorEmailVerification] = useSendEmailVerification(auth);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const googleProvider = new GoogleAuthProvider();
 
     // create new user
     const createNewUser = (email, password) => {
@@ -38,6 +39,12 @@ const AuthProvider = (data) => {
     const signIn = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
+    }
+
+    // sign-in with google
+    const signInGoogle = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider);
     }
 
     // sign-out an existing user
@@ -92,6 +99,7 @@ const AuthProvider = (data) => {
         loading,
         createNewUser,
         signIn,
+        signInGoogle,
         logOut,
         setLoading,
         verificationEmailSend,

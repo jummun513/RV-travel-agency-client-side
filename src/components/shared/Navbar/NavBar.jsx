@@ -25,9 +25,8 @@ const NavBar = () => {
     const [navToggle, setNavToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
     const { PGuser } = useContext(AuthContextPG);
-    const { user } = useContext(AuthContext);
+    const { user, Guser } = useContext(AuthContext);
     const navbarRef = useRef();
-
 
     // off navbar to profile toggle, when click outside
     useEffect(() => {
@@ -46,7 +45,7 @@ const NavBar = () => {
     return (
         <div className='fixed z-20 w-full bg-[#fbfbfb] shadow-md'>
             <div ref={navbarRef} className='relative flex items-center justify-between h-[45px] xxs:h-[64px] lg:h-[74px] xl:h-[100px] 3xl:h-[106px] pe-[10px] sm:pe-[20px] mx-auto xxs:max-w-screen-xs xs:max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl 2xl:max-w-screen-3xl 3xl:max-w-screen-4xl'>
-                <Link to='/'>
+                <Link to='/home'>
                     <img loading='lazy' className='h-10 xxs:h-14 lg:h-16 xl:h-[4.5rem] 2xl:h-20 3xl:h-24 max-h-full w-auto' src={logo} alt="Company Logo" />
                 </Link>
 
@@ -55,14 +54,19 @@ const NavBar = () => {
                     <NavList></NavList>
                     <div className='xl:ms-2 2xl:ms-5'>
                         {
-                            (user !== null) || (PGuser !== null) ?
+                            ((PGuser !== null && Guser === null) &&
                                 <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
                                     <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
-                                        <img src={PGuser?.avatar?.length > 0 ? PGuser?.avatar[0].thumbnailUrl : userImg} alt='User Image' />
+                                        <img src={PGuser?.avatar?.length > 0 ? PGuser?.avatar?.[0]?.thumbnailUrl : userImg} alt='User Image' />
                                     </div>
-                                </div>
-                                :
-                                ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button></Link>)
+                                </div>) ||
+                            ((PGuser === null && Guser !== null) &&
+                                <div onClick={() => { setProfileToggle(!profileToggle); setNavToggle(false) }} className="avatar cursor-pointer pt-1">
+                                    <div className="xl:w-10 2xl:w-14 rounded-full ring-2 ring-primary">
+                                        <img src={Guser?.avatar?.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt='User Image' />
+                                    </div>
+                                </div>) ||
+                            ((PGuser === null && Guser === null) && ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn lg:btn-md 2xl:btn-lg bg-primary text-gray-800 font-semibold hover:bg-secondary border-none">Sign In</button></Link>))
                         }
                     </div>
                 </div>
@@ -70,14 +74,19 @@ const NavBar = () => {
                 {/* navbar for large device */}
                 <div className='flex items-center xl:hidden'>
                     {
-                        user || PGuser ?
+                        ((PGuser !== null && Guser === null) &&
                             <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
                                 <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
                                     <img src={PGuser?.avatar?.length > 0 ? PGuser?.avatar[0].thumbnailUrl : userImg} alt='User Image' />
                                 </div>
-                            </div>
-                            :
-                            ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button></Link>)
+                            </div>) ||
+                        ((PGuser === null && Guser !== null) &&
+                            <div onClick={() => { setProfileToggle(!profileToggle), setNavToggle(false) }} className="avatar cursor-pointer lg:pt-1 mr-2 sm:mr-4">
+                                <div className="w-8 xxs:w-10 lg:w-14 rounded-full ring-2 ring-primary">
+                                    <img src={Guser?.avatar?.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt='User Image' />
+                                </div>
+                            </div>) ||
+                        ((PGuser === null && Guser === null) && ((!location.pathname.includes('login') && !location.pathname.includes('registration')) && <Link to='/login'><button className="btn btn-xs xxs:btn-sm lg:btn-md bg-primary text-gray-950 font-semibold hover:bg-secondary border-none mr-2 sm:mr-4">Sign In</button></Link>))
                     }
                     <div onClick={() => { setNavToggle(!navToggle), setProfileToggle(false) }} className='cursor-pointer ring-2 ring-gray-400 hover:ring-primary btn btn-xs xxs:btn-sm lg:btn-md bg-transparent text-gray-700 border-none hover:bg-transparent'>
                         {

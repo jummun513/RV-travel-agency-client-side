@@ -22,7 +22,7 @@ import { ImBlog } from "react-icons/im";
 
 const AdminPanelPage = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const { user, logOut, loading, setLoading } = useContext(AuthContext);
+    const { user, Guser, logOut, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // toast from toastify
@@ -169,7 +169,7 @@ const AdminPanelPage = () => {
                 </div>
                 <div className='mx-3 mb-1 mt-5'>
                     <a onClick={() => handleSignOut()} className='bg-[#ffffff2a] flex items-center px-2 py-2 rounded-md cursor-pointer hover:bg-[#ffffff15] duration-150 ease-linear'>
-                        <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
+                        <img src={Guser?.avatar?.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt='User Image' loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' /> Sign Out
                     </a>
                 </div>
             </div>
@@ -293,7 +293,7 @@ const AdminPanelPage = () => {
                 </div>
                 <div className='mx-3 mb-1 mt-4'>
                     <a onClick={() => handleSignOut()} className='bg-[#ffffff2a] flex items-center px-2 py-2 rounded-md cursor-pointer hover:bg-[#ffffff15] duration-150 ease-linear'>
-                        <img loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' src={userImg} alt='User Image' /> Sign Out
+                        <img src={Guser?.avatar?.length > 0 ? Guser?.avatar?.[0]?.thumbnailUrl : userImg} alt='User Image' loading='lazy' className='w-8 xs:w-10 lg:w-12 border p-1 rounded-full me-1 sm:me-2 lg:me-3' /> Sign Out
                     </a>
                 </div>
                 <button onClick={() => setDrawerOpen(!drawerOpen)} className='absolute right-1 top-1 border-none btn btn-xs xs:btn-sm sm:btn-md bg-primary hover:bg-secondary'><AiOutlineClose className='text-gray-950 h-3 w-3 xs:h-4 xs:w-4 sm:h-6 sm:w-6'></AiOutlineClose></button>
