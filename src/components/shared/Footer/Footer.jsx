@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/Logos/full-logo-for-dark.png';
-import aamarPay from '../../../assets/images/aamarPay.png';
+import sslLogo from '../../../assets/images/ssl_logo.png';
 
 const navigation = [
     { name: 'Hotels' },
@@ -138,8 +138,8 @@ const Footer = () => {
                         {/* <p className="text-xs sm:text-sm text-gray-500 text-center">Developed By :<a href="https://www.facebook.com/Jummun.Jaber" className="hover:underline text-primary"> Jummun Islam</a></p> */}
                         <p className="text-xs sm:text-sm mb-1 xxs:mb-2 lg:mb-0 text-gray-500 text-center">&copy; {currentYear} <a href="/" className="hover:underline text-primary uppercase">Royal Venture <sup>LTD</sup></a>. All Rights Reserved.
                         </p>
-                        <div className='mb-2 xs:mb-3 md:mb-5 lg:mb-0 lg:mx-5 xl:mx-10 lg:w-[450px] xl:w-[550px] 2xl:w-[700px] 3xl:w-[800px] 4xl:w-[900px]'>
-                            <img className='w-full h-full' src={aamarPay} alt="" />
+                        <div className='mb-5 xs:mb-8 md:mb-5 lg:mb-0 lg:mx-5 xl:mx-0 lg:w-[450px] xl:w-[500px] 2xl:w-[750px] 3xl:w-[1000px] 4xl:w-[1200px]'>
+                            <img className='w-full h-full' src={sslLogo} alt="" />
                         </div>
                         <div className="flex mb-3 xxs:mb-5 lg:mb-0 space-x-4 md:space-x-6 md:justify-start justify-center">
                             <a href="https://www.facebook.com/RoyalVentureLimited?mibextid=LQQJ4d" className="btn btn-xs xs:btn-sm lg:btn-md bg-primary hover:bg-secondary border-none focus:animate-bounce rounded-sm lg:rounded-full text-gray-950">
