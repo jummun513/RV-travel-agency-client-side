@@ -65,6 +65,8 @@ import ClientSideBlogs from "../components/pages/PublicPage/ClientSideBlogs/Clie
 import BlogDetails from "../components/pages/PublicPage/ClientSideBlogs/BlogDetails/BlogDetails";
 import BalanceTransaction from "../components/pages/ProtectedPage/UserDashboard/TransactionHistory/BalanceTransaction/BalanceTransaction";
 import PointTransaction from "../components/pages/ProtectedPage/UserDashboard/TransactionHistory/PointTransaction/PointTransaction";
+import PackageBooking from "../components/pages/ProtectedPage/PackageBooking/PackageBooking";
+import PackageBookingReview from "../components/pages/ProtectedPage/PackageBooking/PackageBookingReview/PackageBookingReview";
 // import UploadImage from "../layout/Test/UploadImage";
 
 
@@ -186,6 +188,14 @@ export const router = createBrowserRouter([
             {
                 path: '/my-booked-hotels/booking-review/:orderId',
                 element: <PrivateGuserPguserRoutes><BookingReview></BookingReview></PrivateGuserPguserRoutes>,
+            },
+            {
+                path: '/booking-package/:packageId',
+                element: <PrivateGuserPguserRoutes><PackageBooking></PackageBooking></PrivateGuserPguserRoutes>,
+            },
+            {
+                path: '/my-booked-packages/package-booking-review/:orderPackageId',
+                element: <PrivateGuserPguserRoutes><PackageBookingReview></PackageBookingReview></PrivateGuserPguserRoutes>,
             },
             {
                 path: '/admin-panel',
@@ -333,11 +343,15 @@ export const router = createBrowserRouter([
     // },
     {
         path: '/payment-success/:id',
-        element: <PaymentSuccess></PaymentSuccess>,
+        element: <PaymentSuccess />,
     },
     {
-        path: '/payment-fail/:id',
-        element: <PaymentFail></PaymentFail>,
+        path: '/payment-failed/:id',
+        element: <PaymentFail />,
+    },
+    {
+        path: '/payment-cancel',
+        element: <PaymentFail />,
     },
     {
         path: '*',

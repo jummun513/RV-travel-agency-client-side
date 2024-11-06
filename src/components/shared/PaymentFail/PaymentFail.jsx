@@ -13,7 +13,7 @@ const PaymentFail = () => {
                         <p className="text-gray-700 my-2">Payment Unsuccessfull! Try later.</p>
                         <p className="text-gray-500"> Have a great day!</p>
                         <div className="py-10 text-center">
-                            <Link to='/dashboard/my-order-history/hotel-booked' className="px-12 bg-primary hover:bg-secondary text-gray-950 font-semibold py-3">
+                            <Link to='/dashboard/profile' className="px-12 bg-primary hover:bg-secondary text-gray-950 font-semibold py-3">
                                 GO BACK
                             </Link>
                         </div>

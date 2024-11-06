@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import NotFound from "../../../shared/NotFound/NotFound";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../shared/Loading/Loading";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -11,6 +11,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 const PackageDetails = () => {
     const { packageId } = useParams();
     const [gallery, setGallery] = useState([]);
+    const navigate = useNavigate();
     const { data: singlePackage = [], isLoading, isError } = useQuery(['singlePackage'], async () => {
         const res = await fetch(`${import.meta.env.VITE_clientSideLink}/api/packages/${packageId}`);
         return res.json();
@@ -61,7 +62,7 @@ const PackageDetails = () => {
     }
 
     const handleBooked = () => {
-        alert('This is under maintaining.');
+        navigate(`/booking-package/${packageId}`);
     }
 
     return (

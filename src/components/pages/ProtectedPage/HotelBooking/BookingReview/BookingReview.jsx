@@ -89,13 +89,14 @@ const BookingReview = () => {
 
         try {
             setLoading(true);
-            const response = await axios.patch(`${import.meta.env.VITE_clientSideLink}/api/orders/user/payment/${orderId?.orderId}`, { data: null }, {
+            const response = await axios.post(`${import.meta.env.VITE_clientSideLink}/api/orders/user/payment/${orderId?.orderId}`, { data: null }, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 }
             });
-            if (response?.data?.data !== '') {
-                window.location.replace(response?.data?.data);
+            if (response?.data?.success == true) {
+                setLoading(false);
+                window.location.replace(response?.data?.data?.url);
             }
             setLoading(false);
         } catch (error) {
@@ -235,7 +236,7 @@ const BookingReview = () => {
                         <h4 className="text-primary font-semibold text-sm xs:text-base sm:text-lg xl:text-2xl mb-3 sm:mb-5"><span className="text-gray-700 text-sm xxs:text-base sm:text-lg xl:text-2xl">Hotel Name: </span>{orderUser?.data?.hotelId?.hotelName}</h4>
                         {
                             orderUser?.data?.isPaid &&
-                            <p className="text-gray-700 font-semibold">Transaction Id: <span className="font-medium text-red-500">{orderUser?.data?.transactionId}</span></p>
+                            <p className="text-gray-700 font-semibold">Transaction Id: <span className="font-medium text-red-500">{orderUser?.data?.transactionId}</span> <span className="font-medium text-green-500">(Paid)</span></p>
                         }
                         <p className="text-gray-700 font-semibold">Booking No: <span className="font-normal">{orderUser?.data?.bookingNo}</span></p>
                         <p className="text-gray-700 font-semibold mt-1">Booked Name: <span className="font-normal">{orderUser?.data?.userId?.name}</span></p>

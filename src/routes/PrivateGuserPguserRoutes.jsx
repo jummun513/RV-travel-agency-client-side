@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import Loading from "../components/shared/Loading/Loading";
 import { AuthContextPG } from "../providers/AuthProviderPG";
 
@@ -8,13 +8,14 @@ const PrivateGuserPguserRoutes = (data) => {
     const { children } = data;
     const { loading, Guser, user } = useContext(AuthContext);
     const { PGuser, pgLoading } = useContext(AuthContextPG);
+    const location = useLocation();
 
     if (loading || pgLoading) {
         return <Loading></Loading>
     }
 
     if (user?.emailVerified === false) {
-        return <Navigate to='/email-confirmation'></Navigate>
+        return <Navigate to='/email-confirmation' state={{ from: location }} replace></Navigate>
     }
 
     else if ((Guser && user?.emailVerified === true) || PGuser) {
@@ -22,11 +23,11 @@ const PrivateGuserPguserRoutes = (data) => {
     }
 
     else if (!user) {
-        return <Navigate to='/login'></Navigate>
+        return <Navigate to='/login' state={{ from: location }} replace></Navigate>
     }
 
     else if (!PGuser) {
-        return <Navigate to='/privileged-guest/login'></Navigate>
+        return <Navigate to='/privileged-guest/login' state={{ from: location }} replace></Navigate>
     }
 };
 
